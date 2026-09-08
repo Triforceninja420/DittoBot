@@ -1,0 +1,27 @@
+# ====================================================================
+# Project: DittoBot / Voxel Box
+# Component: Hardware Bill of Materials (BOM) & Netlist Reference
+# Author: Craig Edward Ralls (2026)
+# License: CERN-OHL-S-v2.0
+# ====================================================================
+
+[BILL OF MATERIALS]
+Item  Qty  Designator   Part Number / Specs               Description / Footprint
+-----------------------------------------------------------------------------------------
+1     1    U1           Seeed Studio XIAO RP2040          Dual Cortex-M0+, 133MHz, Castellated
+2     1    U2           DRV8837CDSG                       H-Bridge Driver, 1.8-11V, 1.2A Peak, WSON-8
+3     1    MAG1         Dual EPM Core Assembly            NdFeB N52 + Alnico 5 (D8mm x 4mm total)
+4     1    L1           EPM Coil                          120 Turns, 0.15mm (AWG 34) Cu Wire
+5     4    J1-J4        Mill-Max 0906-0-15-20-76-14-11-0  Spring-Loaded Pogo Contacts, 4mm stroke
+6     1    U3           TPS63001DRCR                      Buck-Boost Converter, 3.3V, 1.2A, VSON-10
+7     2    C1, C2       0805 10uF 10V X7R                 Decoupling Capacitors
+
+[SCHEMATIC NETLIST]
+NET "VBUS"          U3:VOUT, U2:VM, C1:1, J1:1 (VBUS_FACE_PINS)
+NET "GND"           U1:GND, U2:GND, U3:GND, C1:2, C2:2, J2:1 (GND_FACE_PINS)
+NET "EPM_CTRL_A"    U1:GPIO0, U2:IN1
+NET "EPM_CTRL_B"    U1:GPIO1, U2:IN2
+NET "COIL_DRIVE_A"  U2:OUT1, L1:1
+NET "COIL_DRIVE_B"  U2:OUT2, L1:2
+NET "FACE_SDA"      U1:GPIO6, J3:1 (DATA_A_PINS)
+NET "FACE_SCL"      U1:GPIO7, J4:1 (DATA_B_PINS)
