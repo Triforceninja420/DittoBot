@@ -1,0 +1,55 @@
+#!/usr/bin/env python3
+"""
+Project: DittoBot / Voxel Box
+Component: Maxwell Stress Tensor EPM Latch vs. Gap Force Simulation
+Author: Craig Edward Ralls (2026)
+License: MIT
+"""
+
+import numpy as np
+
+# Physical Constants & Magnetic Material Parameters
+MU_0 = 4.0 * np.pi * 1e-7  # Vacuum permeability (H/m)
+BR_NDFEB = 1.40            # Remanence NdFeB N52 (Tesla)
+BR_ALNICO = 1.25           # Remanence Alnico 5 (Tesla)
+CORE_RADIUS_M = 0.004      # 8.0 mm diameter cylinder (m)
+CORE_AREA_M2 = np.pi * (CORE_RADIUS_M ** 2)
+
+def calculate_magnetic_force(air_gap_mm: float, latched: bool) -> float:
+    """
+    Computes holding or residual force across an interface gap.
+    Applies empirical reluctance decay to magnetic flux density.
+    """
+    air_gap_m = air_gap_mm * 1e-3
+    reluctance_decay = np.exp(-air_gap_m / 0.001)
+
+    if latched:
+        # Additive flux path through exterior target
+        b_effective = ((BR_NDFEB + BR_ALNICO) / 2.0) * reluctance_decay
+    else:
+        # Subtractive / shunted flux path
+        b_effective = (abs(BR_NDFEB - BR_ALNICO) / 2.0) * reluctance_decay
+
+    # Maxwell Stress Tensor: F = (B^2 * Area) / (2 * mu_0)
+    force_newtons = (b_effective ** 2 * CORE_AREA_M2) / (2.0 * MU_0)
+    return round(force_newtons, 3)
+
+def run_verification_sweep():
+    test_gaps_mm = [0.05, 0.10, 0.20, 0.50]
+    print("=" * 64)
+    print("DittoBot / Voxel Box: Latch Force Validation Sweep")
+    print(f"Core Diameter: {CORE_RADIUS_M * 2000:.1f} mm | Static Hold Power: 0.00 W")
+    print("=" * 64)
+    print(f"{'Gap (mm)':<10} | {'Latched (N)':<14} | {'Released (N)':<14} | {'Decoupling Ratio'}")
+    print("-" * 64)
+
+    for gap in test_gaps_mm:
+        f_latched = calculate_magnetic_force(gap, latched=True)
+        f_released = calculate_magnetic_force(gap, latched=False)
+        ratio = round(f_latched / f_released, 1) if f_released > 0 else float("inf")
+        print(f"{gap:<10.2f} | {f_latched:<14.2f} | {f_released:<14.2f} | {ratio}:1")
+
+    print("=" * 64)
+
+if __name__ == "__main__":
+    run_verification_sweep()
