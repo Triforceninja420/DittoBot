@@ -1,0 +1,58 @@
+// ====================================================================
+// Project: DittoBot / Voxel Box
+// Component: Modular Unit Cell Parametric Geometry
+// Author: Craig Edward Ralls (2026)
+// License: CERN-OHL-S-v2.0
+// Baseline: Aligns with MIT CBA CSG voxel standards
+// ====================================================================
+
+$fn = 60;
+
+// Primary Unit Cell Envelope (mm)
+voxel_size      = 25.0;
+wall_thickness  = 1.6;
+
+// Electro-Permanent Magnet (EPM) Core Cavity
+epm_pocket_dia   = 8.2;
+epm_pocket_depth = 4.0;
+
+// 4-Pad Dynamic Face Interconnect
+pin_pad_dia     = 2.5;
+pin_pitch_radius = 6.0;
+pin_pad_depth   = 1.2;
+
+module face_ports() {
+    // Centered EPM Core Recess
+    translate([0, 0, (voxel_size / 2) - epm_pocket_depth])
+        cylinder(r = epm_pocket_dia / 2, h = epm_pocket_depth + 0.1);
+    
+    // Quadrature Pogo Pin / Contact Pad Cutouts
+    for (angle = [0, 90, 180, 270]) {
+        rotate([0, 0, angle])
+            translate([pin_pitch_radius, 0, (voxel_size / 2) - pin_pad_depth])
+                cylinder(r = pin_pad_dia / 2, h = pin_pad_depth + 0.1);
+    }
+}
+
+difference() {
+    // Exterior Solid Shell
+    cube([voxel_size, voxel_size, voxel_size], center = true);
+    
+    // Hollow Electronics & Routing Cavity
+    cube([voxel_size - (wall_thickness * 2), 
+          voxel_size - (wall_thickness * 2), 
+          voxel_size - (wall_thickness * 2)], center = true);
+    
+    // Project Ports Across All 6 Coordinate Faces (+Z, -Z, +X, -X, +Y, -Y)
+    for (rotation = [
+        [0,   0,   0],
+        [180, 0,   0],
+        [0,   90,  0],
+        [0,  -90,  0],
+        [90,  0,   0],
+        [-90, 0,   0]
+    ]) {
+        rotate(rotation)
+            face_ports();
+    }
+}
