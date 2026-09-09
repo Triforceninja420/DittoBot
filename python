@@ -2,54 +2,76 @@
 """
 Project: DittoBot / Voxel Box
 Component: Maxwell Stress Tensor EPM Latch vs. Gap Force Simulation
+Variant: 25 mm cubic cell — NOT Phase 0 20 mm face
 Author: Craig Edward Ralls (2026)
 License: MIT
+
+This prints PAPER force from assumed B, not a measured latch.
+First-pass drive (120 t x 1.2 A = 144 AT) is below Alnico 5 Hc on a \~4 mm path.
+Do not treat 28.8 N as hardware.
 """
 
 import numpy as np
 
-# Physical Constants & Magnetic Material Parameters
-MU_0 = 4.0 * np.pi * 1e-7  # Vacuum permeability (H/m)
-BR_NDFEB = 1.40            # Remanence NdFeB N52 (Tesla)
-BR_ALNICO = 1.25           # Remanence Alnico 5 (Tesla)
-CORE_RADIUS_M = 0.004      # 8.0 mm diameter cylinder (m)
+MU_0 = 4.0 * np.pi * 1e-7
+BR_NDFEB = 1.40
+BR_ALNICO = 1.25
+HC_ALNICO_KA_M = 50.0
+CORE_RADIUS_M = 0.004  # 8.0 mm diameter cylinder (m)
 CORE_AREA_M2 = np.pi * (CORE_RADIUS_M ** 2)
+PATH_LEN_M = 0.004     # first-pass stack height used as crude path length
+
+# First-pass published pulse (superseded as a build target)
+FIRST_PASS_TURNS = 120
+FIRST_PASS_AMPS = 1.2
+
+
+def ampere_turns(turns: float, amps: float) -> float:
+    return turns * amps
+
+
+def mean_h_ka_per_m(ni: float, path_m: float = PATH_LEN_M) -> float:
+    return (ni / path_m) / 1000.0
+
 
 def calculate_magnetic_force(air_gap_mm: float, latched: bool) -> float:
-    """
-    Computes holding or residual force across an interface gap.
-    Applies empirical reluctance decay to magnetic flux density.
-    """
+    """Paper Maxwell stress from assumed remanence * gap decay. Not a test."""
     air_gap_m = air_gap_mm * 1e-3
     reluctance_decay = np.exp(-air_gap_m / 0.001)
 
     if latched:
-        # Additive flux path through exterior target
         b_effective = ((BR_NDFEB + BR_ALNICO) / 2.0) * reluctance_decay
     else:
-        # Subtractive / shunted flux path
         b_effective = (abs(BR_NDFEB - BR_ALNICO) / 2.0) * reluctance_decay
 
-    # Maxwell Stress Tensor: F = (B^2 * Area) / (2 * mu_0)
     force_newtons = (b_effective ** 2 * CORE_AREA_M2) / (2.0 * MU_0)
     return round(force_newtons, 3)
 
+
 def run_verification_sweep():
-    test_gaps_mm = [0.05, 0.10, 0.20, 0.50]
+    ni = ampere_turns(FIRST_PASS_TURNS, FIRST_PASS_AMPS)
+    h = mean_h_ka_per_m(ni)
     print("=" * 64)
-    print("DittoBot / Voxel Box: Latch Force Validation Sweep")
-    print(f"Core Diameter: {CORE_RADIUS_M * 2000:.1f} mm | Static Hold Power: 0.00 W")
+    print("DittoBot / Voxel Box: PAPER latch-force sweep (25 mm cell)")
+    print("Not a measured force. Not Phase 0.")
+    print(f"Core diameter: {CORE_RADIUS_M * 2000:.1f} mm | Static hold power: 0.00 W")
+    print(f"First-pass pulse: {FIRST_PASS_TURNS} t x {FIRST_PASS_AMPS} A = {ni:.0f} AT")
+    print(f"Crude H on {PATH_LEN_M*1e3:.1f} mm path: {h:.1f} kA/m  (Alnico 5 Hc \~ {HC_ALNICO_KA_M:.0f} kA/m)")
+    if h < HC_ALNICO_KA_M:
+        print("WARNING: first-pass H is below Hc. Assumed B_on is not available.")
     print("=" * 64)
-    print(f"{'Gap (mm)':<10} | {'Latched (N)':<14} | {'Released (N)':<14} | {'Decoupling Ratio'}")
+    print(f"{'Gap (mm)':<10} | {'Paper ON (N)':<14} | {'Paper OFF (N)':<14} | {'Ratio'}")
     print("-" * 64)
 
-    for gap in test_gaps_mm:
+    for gap in (0.05, 0.10, 0.20, 0.50):
         f_latched = calculate_magnetic_force(gap, latched=True)
         f_released = calculate_magnetic_force(gap, latched=False)
         ratio = round(f_latched / f_released, 1) if f_released > 0 else float("inf")
         print(f"{gap:<10.2f} | {f_latched:<14.2f} | {f_released:<14.2f} | {ratio}:1")
 
     print("=" * 64)
+    print("Measure ON N / OFF N on a fixture before claiming a latch.")
+
 
 if __name__ == "__main__":
     run_verification_sweep()
