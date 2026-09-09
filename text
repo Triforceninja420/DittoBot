@@ -1,27 +1,42 @@
 # ====================================================================
 # Project: DittoBot / Voxel Box
 # Component: Hardware Bill of Materials (BOM) & Netlist Reference
+# Variant: 25 mm cubic cell (NOT Phase 0 20 mm face)
 # Author: Craig Edward Ralls (2026)
-# License: CERN-OHL-S-v2.0
+# License: CERN-OHL-S-v2.0 / MIT as in LICENSE
+# Revised: 2026-09-09 — inherited coil / DRV8837C marked first-pass
 # ====================================================================
 
-[BILL OF MATERIALS]
-Item  Qty  Designator   Part Number / Specs               Description / Footprint
------------------------------------------------------------------------------------------
-1     1    U1           Seeed Studio XIAO RP2040          Dual Cortex-M0+, 133MHz, Castellated
-2     1    U2           DRV8837CDSG                       H-Bridge Driver, 1.8-11V, 1.2A Peak, WSON-8
-3     1    MAG1         Dual EPM Core Assembly            NdFeB N52 + Alnico 5 (D8mm x 4mm total)
-4     1    L1           EPM Coil                          120 Turns, 0.15mm (AWG 34) Cu Wire
-5     4    J1-J4        Mill-Max 0906-0-15-20-76-14-11-0  Spring-Loaded Pogo Contacts, 4mm stroke
-6     1    U3           TPS63001DRCR                      Buck-Boost Converter, 3.3V, 1.2A, VSON-10
-7     2    C1, C2       0805 10uF 10V X7R                 Decoupling Capacitors
+[BILL OF MATERIALS — 25 mm revision target]
+Item  Qty  Designator   Part Number / Specs                 Description / Footprint
+----------------------------------------------------------------------------------------------
+1     1    U1           Seeed Studio XIAO RP2040            Dual Cortex-M0+, 133 MHz, castellated
+2     1    U2           DRV8871DDAR or equiv.               H-bridge, 6.5-45 V, 3.6 A peak, ILIM resistor
+2alt  1    U2           DRV8212                             Alternate \~4 A peak, same job
+3     1    MAG1         Dual EPM core                       NdFeB N52 + Alnico 5 — OD must leave coil annulus (see COIL_REVISION.md)
+4     1    L1           EPM coil                            Redesign to measured window. First-pass 120 t AWG 34 is NOT the build target.
+5     4    J1-J4        Mill-Max 0906-0-15-20-76-14-11-0    Spring contacts, 4 mm stroke
+6     1    U3           3.3 V buck/LDO for XIAO             Keep logic at 3.3 V. Do not put 12 V on U1 VCC.
+7     1    U4           12 V coil rail source               Local boost, docked 12 V, or pack. Feeds U2 VM only.
+8     2    C1, C2       10 uF+ on 3.3 V                     Logic decoupling
+9     1    C3           >=100 uF on VM near U2              Pulse reservoir at the driver
+10    1    R_ILIM       per DRV8871 datasheet               Set to the current the coil can actually reach
 
-[SCHEMATIC NETLIST]
-NET "VBUS"          U3:VOUT, U2:VM, C1:1, J1:1 (VBUS_FACE_PINS)
-NET "GND"           U1:GND, U2:GND, U3:GND, C1:2, C2:2, J2:1 (GND_FACE_PINS)
+[SUPERSEDED FIRST PASS — do not order as the latch]
+U2    DRV8837CDSG     1.8-11 V, 1.2 A class peak          Retired as 25 mm build target
+L1    120 t, 0.15 mm  144 AT @ 1.2 A                      Below Alnico 5 Hc on a 4 mm path
+VBUS  3.3-5.0 V       as originally written               Cannot feed DRV8871 (VM min 6.5 V)
+
+[SCHEMATIC NETLIST — revision]
+NET "V3V3"          U3:VOUT, U1:3V3, C1:1
+NET "GND"           U1:GND, U2:GND, U3:GND, U4:GND, C1:2, C2:2, C3:2, J2 (GND pads)
+NET "VCOIL_12V"     U4:VOUT, U2:VM, C3:1
 NET "EPM_CTRL_A"    U1:GPIO0, U2:IN1
 NET "EPM_CTRL_B"    U1:GPIO1, U2:IN2
 NET "COIL_DRIVE_A"  U2:OUT1, L1:1
 NET "COIL_DRIVE_B"  U2:OUT2, L1:2
-NET "FACE_SDA"      U1:GPIO6, J3:1 (DATA_A_PINS)
-NET "FACE_SCL"      U1:GPIO7, J4:1 (DATA_B_PINS)
+NET "FACE_SDA"      U1:GPIO6, J3 (DATA_A)
+NET "FACE_SCL"      U1:GPIO7, J4 (DATA_B)
+NET "VBUS_FACE"     J1 (neighbor power) — isolate from U1 3V3; may be 12 V on this revision
+
+Hold current after pulse = 0. Pulse only. Measure R, L, peak I, ON N, OFF N.
