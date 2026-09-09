@@ -6,26 +6,28 @@ It is **not** the locked Phase 0 Single-Face Demonstrator (20 mm hybrid face, 4�
 
 ---
 
-## Status — 2026-09-09
+## Status — 2026-09-09  option A locked
 
-The original coil / driver line in this repo was a first-pass parts list, not a measured latch.
+The original coil / driver line was a first-pass parts list, not a measured latch.
+Geometry pick for this cell is **A**: shrink the magnet, keep the published pocket.
 
-| Item | First pass (superseded as a build target) | 25 mm revision target |
+| Item | First pass (do not build) | Option A (build target) |
 | :--- | :--- | :--- |
 | Envelope | 25 mm cube | unchanged |
-| EPM pocket | Ø8.2 × 4.0 mm, centered, 6 faces | geometry frozen until winding window is chosen |
-| Coil | 120 turns AWG 34, 0.15 mm | redesign to the real annulus; do not blindly double turns |
-| Driver | DRV8837C, 1.8 A pk / 11 V abs | **DRV8871** (3.6 A pk, 6.5–45 V) or DRV8212 |
-| Pulse | 25 ms @ ±1.2 A | short pulse, current-limited; width set after R/L measure |
-| Face / coil rail | written as 3.3–5.0 V | **12 V coil rail**; 3.3 V stays on the XIAO only |
-| Ampere-turns | 120 × 1.2 = **144 AT** | first-pass 144 AT is below Alnico 5 *H_c* |
-| Paper hold | 28.8 N at 1.2 T / 0.1 mm | **theoretical only — not a measured force** |
+| Pocket | Ø8.2 × 4.0 mm, 6 faces | **unchanged** (`openscad` not edited) |
+| Magnet stack | D8 mm × 4 mm | **Ø6.0 mm × 4.0 mm** (1.1 mm annulus) |
+| Coil | 120 t AWG 34 | **160–180 t AWG 36** |
+| Driver | DRV8837C, 1.8 A / 11 V | **DRV8871**, ILIM \~3.0 A (or DRV8212) |
+| Coil rail | 3.3–5.0 V | **12 V**; 3.3 V stays on the XIAO |
+| Pulse | 25 ms @ ±1.2 A | short pulse; width set after peak-I measure |
+| Ampere-turns | 144 AT ≈ 36 kA/m | 170 t × 3.0 A = 510 AT ≈ 128 kA/m (if current peaks) |
+| Paper hold | 28.8 N at 8 mm / 1.2 T | **retired on this cell** (Ø6 area is \~56% of Ø8) |
 
-Why the first-pass coil is marked broken: Alnico 5 coercivity is ~50 kA/m. Over a ~4 mm path, 144 AT gives *H* ≈ 36 kA/m. That does not reliably reverse the Alnico. A spec with a known-weak coil reads as a known-weak project.
+First-pass 144 AT is below Alnico 5 *H_c* (\~50 kA/m). A D8 stack in an Ø8.2 pocket also leaves 0.1 mm radial — no winding window.
 
-See `COIL_REVISION.md` for the winding-window problem, the driver swap, and what still has to be measured.
+Do **not** publish 180 t AWG 33 in this annulus. AWG 33 packs \~100 t here. Use AWG 36 for 160–180 t. Details in `COIL_REVISION.md`.
 
-Firmware pin dance (IN1/IN2, pulse, then both LOW) is unchanged. Only the silicon and the rail change.
+Nothing on this cell is a measured latch until turns, R, peak I, ON N, and OFF N are published.
 
 ---
 
@@ -33,44 +35,42 @@ Firmware pin dance (IN1/IN2, pulse, then both LOW) is unchanged. Only the silico
 
 Cubic unit cell for FDM/SLA or later molding.
 
-### Geometric Dimensions (unchanged this commit)
+### Geometric Dimensions
 * **External Envelope:** 25.0 mm × 25.0 mm × 25.0 mm
 * **Internal Electronics Cavity:** 21.8 mm × 21.8 mm × 21.8 mm
 * **Nominal Wall Thickness:** 1.6 mm
-* **Latching Core Bore:** Ø 8.2 mm × 4.0 mm depth, centered on all 6 faces
+* **Latching Core Bore:** Ø 8.2 mm × 4.0 mm depth, centered on all 6 faces — **unchanged**
+* **Magnet stack (option A):** Ø 6.0 mm × 4.0 mm, coil in the 1.1 mm annulus
 * **Interconnect Port Clearance:** 4-pin radial pitch at r = 6.0 mm, bore Ø 2.5 mm × 1.2 mm counterbore
 
 ### Mating
 * Centering pocket for shear keying when neighbors engage.
 * Exterior chamfers 0.5 mm × 45° on all 12 edges for neighbor-roll.
 
-OpenSCAD source is the file `openscad` (no extension). Pocket geometry is frozen until the coil vs magnet stack is picked — see `COIL_REVISION.md`.
+OpenSCAD source is the file `openscad` (no extension). Pocket stays Ø8.2 × 4.0. Options B (bigger pocket) and C (coil behind the face) are not this lock.
 
 ---
 
 ## 2. Magnetic Latching (EPM)
 
-Pair a high-coercivity NdFeB with a low-coercivity Alnico 5, pulse the Alnico, hold with zero steady current.
+Pair NdFeB N52 with Alnico 5 (*H_c* ≈ 50 kA/m). Pulse the Alnico. Hold current after the pulse is zero.
 
-### First-pass core line (still the published magnet stack; coil is what changes)
-* **Permanent element:** NdFeB N52 (*B_r* ≈ 1.4 T)
-* **Switchable element:** Alnico 5 (*B_r* ≈ 1.25 T, *H_c* ≈ 50 kA/m)
-* **First-pass coil (do not build as the latch):** 120 turns, 0.15 mm (AWG 34)
-* **First-pass drive (do not build as the latch):** 25 ms @ ±1.2 A through DRV8837C
+### Option A core
+* **Permanent element:** NdFeB N52
+* **Switchable element:** Alnico 5
+* **Stack OD × height:** Ø6.0 mm × 4.0 mm
+* **Coil:** 160–180 turns AWG 36, counted on the bobbin
+* **Drive:** DRV8871, 12 V, ILIM \~3.0 A
 
-### Paper force (Maxwell stress — not a test report)
+### First pass (retired)
+* 120 t AWG 34, 25 ms @ 1.2 A, DRV8837C, D8 mm stack — do not build
 
-    F = B² A / (2 μ₀)
-
-* Pole area for an 8 mm diameter face: π (0.004 m)² ≈ 5.03×10⁻⁵ m²
-* If *B_on* were 1.20 T at 0.1 mm gap: *F* ≈ 28.8 N
-* If *B_off* were 0.14 T: *F_residual* ≈ 0.37 N
-
-Those tesla values are assumed, not measured. They are invalid if the Alnico never switches. `python` prints the same paper sweep and now says so on stdout.
+### Force
+Maxwell stress *F = B²A / (2μ₀)* is paper. Ø6 mm area ≈ 2.83×10⁻⁵ m². Do not quote 28.8 N (that assumed an 8 mm face at 1.2 T). `python` still prints the old 8 mm sweep as a warning, not a spec. Fixture ON/OFF only.
 
 ---
 
-## 3. Electrical (25 mm revision target)
+## 3. Electrical
 
     +-----------------------+
     |      XIAO RP2040      |
@@ -87,34 +87,33 @@ Those tesla values are assumed, not measured. They are invalid if the Alnico nev
     | OUT1 ----[ COIL ]---- OUT2 |
     +-----------------------+
 
-DRV8837C is retired as the 25 mm build target. Its 11 V ceiling and 1.8 A peak cannot feed a 12 V / multi-amp switch pulse. DRV8871 minimum VM is 6.5 V — the old 5 V face bus cannot run it. Split the rails.
+DRV8837C is retired on this cell. DRV8871 VM min is 6.5 V — the old 5 V bus cannot run it. Split the rails.
 
-### Face interconnect (unchanged pin names)
+### Face interconnect
 
 | Pad | Signal | Notes |
 | :---: | :--- | :--- |
-| 1 | `VBUS` | Neighbor power. Treat as **up to 12 V** on this revision. Do not feed 12 V into the XIAO 3V3 pin. |
+| 1 | `VBUS` | Neighbor power. Up to 12 V on this revision. Not the XIAO 3V3 pin. |
 | 2 | `GND` | Common ground |
 | 3 | `DATA_A` | SDA / UART TX |
 | 4 | `DATA_B` | SCL / UART RX |
 
-BOM / netlist: file `text`.
-Firmware pulse routine: file `cpp`.
+BOM / netlist: `text`.  
+Pulse routine: `cpp`.  
+Wind and window: `COIL_REVISION.md`.
 
 ---
 
 ## 4. State transition
 
-Hold current after the pulse is zero. That part of the first pass is still correct.
-
     * Latch: IN1 HIGH, IN2 LOW for the measured pulse width, then both LOW.
     * Release: IN1 LOW, IN2 HIGH for the same width, then both LOW.
-    * Quiescent: driver inputs low, coil current 0, hold is remanence only.
+    * Quiescent: coil current 0. Hold is remanence only.
 
-Start at 25 ms. Stretch only if the measured current has not peaked (L/R too slow). Do not run the coil continuous.
+Start at 25 ms. Stretch only if measured current has not peaked. Do not run the coil continuous.
 
 ---
 
 ## What this repo is not
 
-Phase 0 Independent Fab Package (20 mm aluminum face, 4× Ø5 EPM, cap-dump / IRLZ44N, ≥3 N ON, 40 N shear, 1.25 A × 10 min) lives in the project artifacts, not in these six files. Two stacks. Two number sets.
+Phase 0 Independent Fab Package (20 mm aluminum face, 4× Ø5 EPM, cap-dump / IRLZ44N, ≥3 N ON, 40 N shear, 1.25 A × 10 min) is a different stack. Two number sets. Do not mix them.
