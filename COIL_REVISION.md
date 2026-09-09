@@ -13,71 +13,82 @@ Published first pass:
 * 120 turns, AWG 34 (0.15 mm)
 * DRV8837C, 25 ms, ±1.2 A
 * Face bus written 3.3–5.0 V
+* Magnet stack written D8 mm in a Ø8.2 mm pocket
 * Claimed 28.8 N hold at 1.2 T / 0.1 mm
 
 Ampere-turns: 120 × 1.2 = **144 AT**.
 
-If the Alnico path length is ~4 mm:
+If the Alnico path length is \~4 mm:
 
     H ≈ NI / ℓ = 144 / 0.004 = 36 000 A/m = 36 kA/m
 
 Alnico 5 *H_c* ≈ 50 kA/m. 36 kA/m is below coercivity. The Alnico does not reliably flip. Maxwell-stress 28.8 N assumes a 1.2 T gap field that this pulse cannot produce.
 
-The coil was an inherited first pass. It is not the locked design of this project.
+Radial clearance with a literal D8 mm stack in an Ø8.2 mm pocket: 0.1 mm per side. That is not a 120-turn window. The coil was an inherited first pass. It is not the locked design of this project.
+
+## Geometry lock — option A
+
+Picked 2026-09-09. OpenSCAD pocket is unchanged.
+
+* Pocket: **Ø8.2 mm × 4.0 mm** (file `openscad`, do not edit for this lock)
+* Magnet stack: **Ø6.0 mm × 4.0 mm** total (NdFeB N52 + Alnico 5, split height as wound)
+* Annulus: (8.2 − 6.0) / 2 = **1.1 mm per side**
+* Options B (bigger pocket) and C (coil behind face) stay on the shelf
+
+Ø6 mm pole area is \~56% of an 8 mm face. Paper hold scales down with area. Do not keep quoting 28.8 N on this stack.
+
+## First wind to publish (not yet measured)
+
+Do **not** write “180 t AWG 33” into this hole. AWG 33 (\~0.20 mm insulated) packs about 5 layers × \~20 turns in 4 mm ≈ **100 t**.
+
+| Wire | Insulated ≈ | Layers in 1.1 mm | Turns / layer in 4 mm | Realistic turns |
+| :--- | :--- | :--- | :--- | :--- |
+| AWG 33 | \~0.20 mm | \~5 | \~20 | \~100 t |
+| AWG 36 | \~0.15 mm | \~7 | \~26 | \~160–180 t |
+
+**Build target for the first 25 mm coil:**
+
+* Wire: **AWG 36** (0.13 mm bare, enamel)
+* Turns: **160–180 t** (count them; publish the count you actually wound)
+* Driver: **DRV8871**, VM = **12 V**, ILIM set near **3.0 A** (3.6 A is the peak rating, not the setpoint)
+* Alternate driver: DRV8212
+* Pulse: start 25 ms; stretch only until measured current has peaked
+* Logic: 3.3 V XIAO, unchanged. Do not put 12 V on U1 VCC
+
+Worked examples after a successful wind (path ℓ ≈ 4 mm):
+
+* 170 t × 3.0 A = 510 AT → H ≈ 128 kA/m
+* 180 t × 3.0 A = 540 AT → H ≈ 135 kA/m
+* 100 t AWG 33 × 3.6 A = 360 AT → H ≈ 90 kA/m (backup if 36 is unavailable)
+
+All of those clear Alnico 5 *H_c* (\~50 kA/m) **if** the pulse actually reaches that current. L/R and window fill decide that, not the whiteboard.
 
 ## Driver swap
 
-| | First pass | Revision target |
+| | First pass | A-lock |
 | :--- | :--- | :--- |
-| IC | DRV8837C (1.8 A pk, 11 V abs) | **DRV8871** (3.6 A pk, 6.5–45 V, resistor current limit) |
-| Alternate | — | DRV8212 (~4 A), same job |
-| Coil rail | 5 V (cannot feed DRV8871) | **12 V** |
-| Logic rail | 3.3 V XIAO | 3.3 V XIAO, unchanged |
-| Pulse duty | short EPM pulse | still short; peak rating is for the pulse, not DC |
+| IC | DRV8837C (1.8 A pk, 11 V abs) | **DRV8871** (3.6 A pk, 6.5–45 V) |
+| Coil rail | 5 V | **12 V** |
+| Logic rail | 3.3 V | 3.3 V |
+| Magnet OD | 8 mm (no annulus) | **6 mm** |
+| Coil | 120 t AWG 34 | **160–180 t AWG 36** |
 
-IN1 / IN2 polarity in `cpp` stays the same. Set the DRV8871 current-limit resistor for the current you can actually reach in the coil, not for 3.6 A by default.
-
-A 12 V rail on VM does not mean the XIAO or a 5 V-rated neighbor pad should see 12 V. Local regulators stay.
-
-## Do not blindly double the turns
-
-Whiteboard shortcut from the public thread: double turns, keep 12 V, land on 288 AT.
-
-288 AT over 4 mm is only ~72 kA/m — about 1.4× *H_c*. Still marginal for a short pulse with leakage.
-
-If you also raise current (e.g. 160 t × 3.2 A ≈ 512 AT → ~128 kA/m, or 160 t × 3.6 A ≈ 576 AT → ~144 kA/m), the switch field becomes real **only if** the winding window and L/R let that current exist at the end of the pulse.
-
-### Winding window (the actual blocker)
-
-Published at the same time:
-
-* Pocket: Ø8.2 mm × 4.0 mm deep
-* Magnet stack: D8 mm × 4 mm (NdFeB + Alnico)
-
-Radial clearance if both numbers are literal: 0.1 mm per side. That is not a 120-turn winding window. The first-pass coil count and the first-pass pocket/core diameters are not consistent with each other.
-
-Pick one before cutting more plastic:
-
-* **A.** Smaller magnet stack (Ø5–6 mm class) inside the Ø8.2 mm pocket so the coil lives in the annulus.
-* **B.** Keep an ~8 mm magnet stack and deepen / widen the pocket (OpenSCAD change).
-* **C.** Put the coil behind the face, magnet stack flush in the 4 mm pocket.
-
-OpenSCAD (`openscad`) is not changed in this drop. Geometry stays until A, B, or C is chosen.
-
-Doubling to 240 turns of 0.15 mm inside the current 4 mm height is not a drop-in. Finer wire raises R. A taller winding needs a deeper pocket. Measure DC resistance and inductance on the coil you actually wind.
+IN1 / IN2 polarity in `cpp` stays the same.
 
 ## What to measure before claiming a latch
 
-1. DC resistance of the wound coil.
-2. Approximate inductance (or time-to-peak current on a 12 V step).
-3. Peak current during the real pulse (scope / current probe / sense resistor).
-4. ON force and OFF force on a fixture, same air gap, same mating plate.
-5. Coil and driver temperature after N pulses at the planned cadence.
+1. Turns actually on the bobbin.
+2. DC resistance.
+3. Time-to-peak current on a 12 V step (or L).
+4. Peak current during the real pulse.
+5. ON force and OFF force on a fixture, same gap, same mating plate.
+6. Coil + driver temperature after N pulses at the planned cadence.
 
-Paper tesla and 28.8 N do not move the baseline. Publish the five numbers above.
+Paper tesla does not move the baseline. 28.8 N is retired on this cell.
 
 ## What this file does not do
 
 * Does not unfreeze Phase 0.
 * Does not change Phase 0 winding SOP (34/32 AWG, 160–200 t, 220 µF / 30–36 V cap-dump, IRLZ44N).
 * Does not change Phase 0 success criteria (≥3 N ON, <0.3 N OFF, ≥40 N shear, 1.25 A × 10 min, 2 000 cycles).
+* Does not change `openscad` pocket dimensions.
