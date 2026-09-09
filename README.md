@@ -27,7 +27,7 @@ First-pass 144 AT is below Alnico 5 *H_c* (\~50 kA/m). A D8 stack in an Ø8.2 po
 
 Do **not** publish 180 t AWG 33 in this annulus. AWG 33 packs \~100 t here. Use AWG 36 for 160–180 t. Details in `COIL_REVISION.md`.
 
-Nothing on this cell is a measured latch until turns, R, peak I, ON N, and OFF N are published.
+Nothing on this cell is a measured latch until turns, R, peak I, ON N, and OFF N are published. Fill MEASUREMENT_CARD.md.
 
 ---
 
