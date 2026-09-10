@@ -7,6 +7,7 @@ It is **not** the locked Phase 0 Single-Face Demonstrator (20 mm hybrid face, 4�
 ---
 
 ## Status — 2026-09-09  option A locked
+-Based on DESIGN.md
 
 The original coil / driver line was a first-pass parts list, not a measured latch.
 Geometry pick for this cell is **A**: shrink the magnet, keep the published pocket.
@@ -119,3 +120,4 @@ Start at 25 ms. Stretch only if measured current has not peaked. Do not run the 
 Phase 0 Independent Fab Package (20 mm aluminum face, 4× Ø5 EPM, cap-dump / IRLZ44N, ≥3 N ON, 40 N shear, 1.25 A × 10 min) is a different stack. Two number sets. Do not mix them.
 
 Includes the phase 0 stack in PHASE0.md
+Full design plan in DESIGN.md
