@@ -1,14 +1,15 @@
 #!/usr/bin/env python3
 """
 Project: DittoBot / Voxel Box
-Component: Maxwell Stress Tensor EPM Latch vs. Gap Force Simulation
+Component: Maxwell Stress Tensor paper sweep (WARNING ONLY)
 Variant: 25 mm cubic cell — NOT Phase 0 20 mm face
 Author: Craig Edward Ralls (2026)
 License: MIT
 
 This prints PAPER force from assumed B, not a measured latch.
-First-pass drive (120 t x 1.2 A = 144 AT) is below Alnico 5 Hc on a \~4 mm path.
-Do not treat 28.8 N as hardware.
+25 mm cell lock 2026-09-10: Nd disc holds, coil releases.
+Measure I_release. Do not use this sweep as spec.
+28.8 N is retired. First-pass 120 t x 1.2 A is retired.
 """
 
 import numpy as np
@@ -17,9 +18,9 @@ MU_0 = 4.0 * np.pi * 1e-7
 BR_NDFEB = 1.40
 BR_ALNICO = 1.25
 HC_ALNICO_KA_M = 50.0
-CORE_RADIUS_M = 0.004  # 8.0 mm diameter cylinder (m)
+CORE_RADIUS_M = 0.004  # old 8.0 mm paper cylinder (m) — not the Ø6 disc
 CORE_AREA_M2 = np.pi * (CORE_RADIUS_M ** 2)
-PATH_LEN_M = 0.004     # first-pass stack height used as crude path length
+PATH_LEN_M = 0.004
 
 # First-pass published pulse (superseded as a build target)
 FIRST_PASS_TURNS = 120
@@ -54,7 +55,9 @@ def run_verification_sweep():
     print("=" * 64)
     print("DittoBot / Voxel Box: PAPER latch-force sweep (25 mm cell)")
     print("Not a measured force. Not Phase 0.")
-    print(f"Core diameter: {CORE_RADIUS_M * 2000:.1f} mm | Static hold power: 0.00 W")
+    print("25 mm cell lock 2026-09-10: Nd disc holds, coil releases.")
+    print("Measure I_release. Do not use this sweep as spec.")
+    print(f"Old paper core diameter: {CORE_RADIUS_M * 2000:.1f} mm | Static hold power: 0.00 W")
     print(f"First-pass pulse: {FIRST_PASS_TURNS} t x {FIRST_PASS_AMPS} A = {ni:.0f} AT")
     print(f"Crude H on {PATH_LEN_M*1e3:.1f} mm path: {h:.1f} kA/m  (Alnico 5 Hc \~ {HC_ALNICO_KA_M:.0f} kA/m)")
     if h < HC_ALNICO_KA_M:
@@ -70,7 +73,7 @@ def run_verification_sweep():
         print(f"{gap:<10.2f} | {f_latched:<14.2f} | {f_released:<14.2f} | {ratio}:1")
 
     print("=" * 64)
-    print("Measure ON N / OFF N on a fixture before claiming a latch.")
+    print("Measure ON N (coil off) / OFF N (after pulse) / I_release on a fixture.")
 
 
 if __name__ == "__main__":
