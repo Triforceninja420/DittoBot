@@ -6,31 +6,30 @@ It is **not** the locked Phase 0 Single-Face Demonstrator (20 mm hybrid face, 4�
 
 ---
 
-## Status — 2026-09-09  option A locked
+## Status — 2026-09-10  disc + release coil
 
 Architecture / version ladder: [DESIGN.md](DESIGN.md) (Aug 3 2026 paper baseline).  
 This page is the 25 mm cell only.
 
-The original coil / driver line was a first-pass parts list, not a measured latch.
-Geometry pick for this cell is **A**: shrink the magnet, keep the published pocket.
+Clean swap, not a redesign. Cell 25 mm, pocket Ø8.2 × 4.0, DRV8871 stay.
+The coil is no longer the holding actor.
 
-| Item | First pass (do not build) | Option A (build target) |
+| Item | First pass (do not build) | This lock (build target) |
 | :--- | :--- | :--- |
 | Envelope | 25 mm cube | unchanged |
 | Pocket | Ø8.2 × 4.0 mm, 6 faces | **unchanged** (`openscad` not edited) |
-| Magnet stack | D8 mm × 4 mm | **Ø6.0 mm × 4.0 mm** (1.1 mm annulus) |
-| Coil | 120 t AWG 34 | **160–180 t AWG 36** |
+| Hold | D8 / then Ø6 Nd+Alnico flip | **NdFeB disc Ø6.0 × 2.0–3.0 mm** |
+| Coil | 120 t AWG 34 (hold/switch) | **wound around the disc, release only** |
 | Driver | DRV8837C, 1.8 A / 11 V | **DRV8871**, ILIM \~3.0 A (or DRV8212) |
 | Coil rail | 3.3–5.0 V | **12 V**; 3.3 V stays on the XIAO |
-| Pulse | 25 ms @ ±1.2 A | short pulse; width set after peak-I measure |
-| Ampere-turns | 144 AT ≈ 36 kA/m | 170 t × 3.0 A = 510 AT ≈ 128 kA/m (if current peaks) |
-| Paper hold | 28.8 N at 8 mm / 1.2 T | **retired on this cell** (Ø6 area is \~56% of Ø8) |
+| Pulse | 25 ms @ ±1.2 A | short pulse sized to **overpower the disc** |
+| Paper hold | 28.8 N | **retired on this cell** |
 
-First-pass 144 AT is below Alnico 5 *H_c* (\~50 kA/m). A D8 stack in an Ø8.2 pocket also leaves 0.1 mm radial — no winding window.
+The measurement card still needs **I_release**. Holding force is the disc. Do not size the coil from hold.
 
-Do **not** publish 180 t AWG 33 in this annulus. AWG 33 packs \~100 t here. Use AWG 36 for 160–180 t. Details in `COIL_REVISION.md`.
+Do **not** publish 180 t AWG 33 as if it packs in this annulus. Count the turns you actually wind. Details in `COIL_REVISION.md`.
 
-Nothing on this cell is a measured latch until turns, R, peak I, ON N, and OFF N are published. Fill MEASUREMENT_CARD.md.
+Nothing on this cell is a measured latch until disc, turns, R, peak I, I_release, ON N, and OFF N are published. Fill MEASUREMENT_CARD.md.
 
 ---
 
@@ -43,7 +42,7 @@ Cubic unit cell for FDM/SLA or later molding.
 * **Internal Electronics Cavity:** 21.8 mm × 21.8 mm × 21.8 mm
 * **Nominal Wall Thickness:** 1.6 mm
 * **Latching Core Bore:** Ø 8.2 mm × 4.0 mm depth, centered on all 6 faces — **unchanged**
-* **Magnet stack (option A):** Ø 6.0 mm × 4.0 mm, coil in the 1.1 mm annulus
+* **Hold disc (2026-09-10):** Ø 6.0 mm × 2.0–3.0 mm NdFeB, coil in the remaining annulus
 * **Interconnect Port Clearance:** 4-pin radial pitch at r = 6.0 mm, bore Ø 2.5 mm × 1.2 mm counterbore
 
 ### Mating
@@ -54,22 +53,23 @@ OpenSCAD source is the file `openscad` (no extension). Pocket stays Ø8.2 × 4.0
 
 ---
 
-## 2. Magnetic Latching (EPM)
+## 2. Magnetic Latching (25 mm cell)
 
-Pair NdFeB N52 with Alnico 5 (*H_c* ≈ 50 kA/m). Pulse the Alnico. Hold current after the pulse is zero.
+Permanent disc holds. Coil around the disc bucks the field for release. Hold current after the pulse is zero.
 
-### Option A core
-* **Permanent element:** NdFeB N52
-* **Switchable element:** Alnico 5
-* **Stack OD × height:** Ø6.0 mm × 4.0 mm
-* **Coil:** 160–180 turns AWG 36, counted on the bobbin
+### Core
+* **Permanent element:** NdFeB N42/N52 disc, Ø6.0 × 2.0–3.0 mm first build
+* **Switchable element:** none on this cell (no Alnico flip here)
+* **Coil:** counted turns around the disc, DCR 2–6 Ω target
 * **Drive:** DRV8871, 12 V, ILIM \~3.0 A
+* If 3 A cannot release, shrink the disc before changing the cell or the driver
 
 ### First pass (retired)
 * 120 t AWG 34, 25 ms @ 1.2 A, DRV8837C, D8 mm stack — do not build
+* 2026-09-09 Ø6 Nd+Alnico flip + 160–180 t AWG 36 — superseded on this cell only
 
 ### Force
-Maxwell stress *F = B²A / (2μ₀)* is paper. Ø6 mm area ≈ 2.83×10⁻⁵ m². Do not quote 28.8 N (that assumed an 8 mm face at 1.2 T). `python` still prints the old 8 mm sweep as a warning, not a spec. Fixture ON/OFF only.
+Maxwell stress *F = B²A / (2μ₀)* is paper. Do not quote 28.8 N. `python` still prints an old 8 mm sweep as a warning, not a spec. Fixture ON (coil off) / OFF (after pulse) only. The card number is I_release.
 
 ---
 
@@ -109,11 +109,11 @@ Wind and window: `COIL_REVISION.md`.
 
 ## 4. State transition
 
-    * Latch: IN1 HIGH, IN2 LOW for the measured pulse width, then both LOW.
-    * Release: IN1 LOW, IN2 HIGH for the same width, then both LOW.
-    * Quiescent: coil current 0. Hold is remanence only.
+    * Release: the IN1/IN2 polarity that bucks the disc, for the measured pulse width, then both LOW.
+    * Opposite polarity kept in firmware so you can find which way drops the plate.
+    * Quiescent: coil current 0. Hold is the disc only.
 
-Start at 25 ms. Stretch only if measured current has not peaked. Do not run the coil continuous.
+Start in the 50–200 ms band. Stretch only if measured current has not peaked. Do not run the coil continuous.
 
 ---
 
