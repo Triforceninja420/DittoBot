@@ -4,17 +4,17 @@
 # Variant: 25 mm cubic cell (NOT Phase 0 20 mm face)
 # Author: Craig Edward Ralls (2026)
 # License: CERN-OHL-S-v2.0 / MIT as in LICENSE
-# Revised: 2026-09-09 — option A lock: Ø6 mm stack, AWG 36 160-180 t, DRV8871 + 12 V
+# Revised: 2026-09-10 — disc hold + coil release, DRV8871 + 12 V
 # ====================================================================
 
-[BILL OF MATERIALS — 25 mm option A]
+[BILL OF MATERIALS — 25 mm disc + release coil]
 Item  Qty  Designator   Part Number / Specs                 Description / Footprint
 ----------------------------------------------------------------------------------------------
 1     1    U1           Seeed Studio XIAO RP2040            Dual Cortex-M0+, 133 MHz, castellated
 2     1    U2           DRV8871DDAR or equiv.               H-bridge, 6.5-45 V, 3.6 A peak; set ILIM \~3.0 A
 2alt  1    U2           DRV8212                             Alternate \~4 A peak, same job
-3     1    MAG1         Dual EPM core Ø6.0 x 4.0 mm         NdFeB N52 + Alnico 5. Not D8 mm. See COIL_REVISION.md
-4     1    L1           EPM coil AWG 36, 160-180 t          Wound in the 1.1 mm annulus of the Ø8.2 x 4.0 pocket
+3     1    MAG1         NdFeB disc Ø6.0 x 2.0-3.0 mm        Hold only. N42/N52 axial. Not D8. Not Alnico on this cell.
+4     1    L1           Release coil around MAG1            Counted turns, DCR 2-6 Ω. Sized for I_release peak, not hold.
 5     4    J1-J4        Mill-Max 0906-0-15-20-76-14-11-0    Spring contacts, 4 mm stroke
 6     1    U3           3.3 V buck/LDO for XIAO             Keep logic at 3.3 V. Do not put 12 V on U1 VCC.
 7     1    U4           12 V coil rail source               Local boost, docked 12 V, or pack. Feeds U2 VM only.
@@ -23,18 +23,19 @@ Item  Qty  Designator   Part Number / Specs                 Description / Footpr
 10    1    R_ILIM       per DRV8871 datasheet               \~3.0 A setpoint, not the 3.6 A peak rating
 
 [POCKET — unchanged OpenSCAD]
-      1    face bore    Ø8.2 mm x 4.0 mm deep               File openscad. Do not enlarge for option A.
+      1    face bore    Ø8.2 mm x 4.0 mm deep               File openscad. Do not enlarge for this lock.
 
-[SUPERSEDED FIRST PASS — do not order as the latch]
+[SUPERSEDED — do not order as the latch]
 U2    DRV8837CDSG     1.8-11 V, 1.2 A class peak          Retired as 25 mm build target
-L1    120 t AWG 34    144 AT @ 1.2 A                      Below Alnico 5 Hc; also does not fit a D8 stack
+L1    120 t AWG 34    144 AT @ 1.2 A                      First-pass coil-as-actor. Dead on this cell.
 MAG1  D8 x 4 mm       in Ø8.2 pocket                      0.1 mm radial — no winding window
+MAG1  Ø6 Nd+Alnico    2026-09-09 flip stack               Superseded on this cell. Phase 0 still uses Alnico.
 VBUS  3.3-5.0 V       as originally written               Cannot feed DRV8871 (VM min 6.5 V)
 
 [DO NOT PUBLISH]
-      180 t AWG 33 in this annulus                        Packs \~100 t, not 180. Use AWG 36 for 160-180 t.
+      180 t AWG 33 in this annulus                        Packs \~100 t, not 180. Count the turns you wind.
 
-[SCHEMATIC NETLIST — option A]
+[SCHEMATIC NETLIST — disc + release]
 NET "V3V3"          U3:VOUT, U1:3V3, C1:1
 NET "GND"           U1:GND, U2:GND, U3:GND, U4:GND, C1:2, C2:2, C3:2, J2 (GND pads)
 NET "VCOIL_12V"     U4:VOUT, U2:VM, C3:1
@@ -46,5 +47,5 @@ NET "FACE_SDA"      U1:GPIO6, J3 (DATA_A)
 NET "FACE_SCL"      U1:GPIO7, J4 (DATA_B)
 NET "VBUS_FACE"     J1 (neighbor power) — isolate from U1 3V3; may be 12 V on this revision
 
-Hold current after pulse = 0. Pulse only.
-Measure turns, R, peak I, ON N, OFF N. Paper 28.8 N is retired on this cell.
+Hold current after pulse = 0. Disc holds. Coil releases.
+Measure disc, turns, R, peak I, I_release, ON N, OFF N. Paper 28.8 N is retired on this cell.
