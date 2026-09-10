@@ -55,7 +55,7 @@ V2.0 (Phase 5) — Dense Programmable Matter (Post-2040)
 3. Phase 0 Single-Face Demonstrator (First Hardware Target)
 
 Contents of one 20 mm face:
-• 4× small EPMs (~4–5 mm class)
+• • 4× EPMs: AlNiCo 5 Ø5.0×8.0 + NdFeB N42 Ø5.0×8.0, 1018 poles 1.00×8.00×11.0 mm, finished height 8.0 mm, 180±10 t 34 AWG
 • Central mechanical pin lock (1.8 mm hardened pin, ~3+ mm engagement)
 • Short-stroke actuator for the pin
 • 6× redundant gold-plated spring power contacts (wipe action)
@@ -80,8 +80,7 @@ Key Requirements
 Notes
 
 Electro-permanent magnets
-• 4× EPMs: AlNiCo 5 Ø5.0×8.0 + NdFeB N42 Ø5.0×8.0, 1018 poles 1.00×8.00×11.0 mm, finished height 8.0 mm, 180±10 t 34 AWG
-Electro-permanent magnets | 4× EPM as locked in PHASE0.md (N42 + AlNiCo 5 Ø5×8, 1018 poles) | Critical path. N35 substitute only if N42 stock is gone.
+• 4× EPM as locked in PHASE0.md (N42 + AlNiCo 5 Ø5×8, 1018 poles) | Critical path. N35 substitute only if N42 stock is gone.
 
 Mechanical lock pin
 1.8 mm hardened steel (or equivalent), 3+ mm engagement
