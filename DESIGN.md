@@ -80,8 +80,8 @@ Key Requirements
 Notes
 
 Electro-permanent magnets
-4× small EPMs, switchable, ~4–5 mm class
-Critical path item
+• 4× EPMs: AlNiCo 5 Ø5.0×8.0 + NdFeB N42 Ø5.0×8.0, 1018 poles 1.00×8.00×11.0 mm, finished height 8.0 mm, 180±10 t 34 AWG
+Electro-permanent magnets | 4× EPM as locked in PHASE0.md (N42 + AlNiCo 5 Ø5×8, 1018 poles) | Critical path. N35 substitute only if N42 stock is gone.
 
 Mechanical lock pin
 1.8 mm hardened steel (or equivalent), 3+ mm engagement
