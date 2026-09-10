@@ -11,7 +11,9 @@ Public parent: `DittoBot_Phase0_Face_Public_Spec.docx`
 CAD / SOP / BOM / sims: `Phase0_Independent_Fab_Package/` (v0.2, 2026-09-08)  
 Aluminum plate package: `DittoBot_Phase0_Aluminum_FacePlate_Package_v0.1.txt`
 
-Status: **frozen** until measured ON / OFF / current / temperature / cycle data are published.Parts lock (2026-09-09): Nd grade, finished EPM height, pole pieces, coil of record, shear test path. Protocol T1–T5 unchanged.
+Status: **frozen** until measured ON / OFF / current / temperature / cycle data are published.
+
+Parts lock (2026-09-09): Nd grade, finished EPM height, pole pieces, coil of record, shear test path. Protocol T1–T5 unchanged.
 
 ---
 
