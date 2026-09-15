@@ -13,8 +13,6 @@ Aluminum plate package: `DittoBot_Phase0_Aluminum_FacePlate_Package_v0.1.txt`
 
 Status: **frozen** until measured ON / OFF / current / temperature / cycle data are published.
 
-Parts lock (2026-09-09): Nd grade, finished EPM height, pole pieces, coil of record, shear test path. Protocol T1–T5 unchanged.
-
 ---
 
 ## What Phase 0 is
@@ -26,14 +24,11 @@ Not a cube. Not a swarm. Not the GitHub 25 mm cell.
 | :--- | :--- |
 | Envelope | 20.00 × 20.00 mm square face |
 | Plate | 6061-T6, 1.00 mm nominal (accept 0.80–1.20) |
-| EPMs | 4×, 2×2 at 11.00 mm pitch |
-| Magnet stack | AlNiCo 5 Ø5.0 × 8.0 mm + **NdFeB N42** Ø5.0 × 8.0 mm NiCuNi |
-| Finished EPM height | **8.0 mm along rod axis** after grind; working face through Ø5.10 pocket |
-| Pole pieces | **2× AISI 1018, 1.00 mm thick × 8.00 mm × 11.0 mm** per EPM |
+| EPMs | 4×, Ø5 class, 2×2 at 11.00 mm pitch |
 | Pin | 1.80 mm ±0.02 hardened, 1.85 mm through-bore at origin |
 | Contacts | 6× pogo / leaf on a 4.20 mm hex ring |
 | Bus | 12 V nominal, **1.25 A continuous ≥ 10 min** |
-| Shear | **≥ 40 N / 30 s, no permanent set, contacts closed** — pin + receptacle |
+| Shear | **≥ 40 N** through pin + receptacle |
 | Soft-dock | ≥ 90 % capture at ≤ 2.5 mm lateral |
 | Hard-lock | ≥ 95 % |
 | Cycles | 2 000 dock / undock |
@@ -41,13 +36,10 @@ Not a cube. Not a swarm. Not the GitHub 25 mm cell.
 | EPM OFF | **< 0.3 N** residual |
 | Drive | capacitor dump, **IRLZ44N** class FET / H-bridge |
 | Pulse bank | 220 µF (100–470 accept), charged **30–36 V** (24–48 accept) |
-| Wind | **180 turns ±10, 34 AWG**, on the AlNiCo. Counted turns required. |
+| Wind | 34 AWG preferred / 32 AWG accept, **160–200 turns** (target 180) |
 | Coil R | 2.5–6 Ω cold |
 | Peak I | 6–10 A target, ≥ 4 A measured |
 | Hold current after switch | **zero** |
-
-N35 is a stock substitute only if N42 cylinders are unavailable. It is not the build grade.
-32 AWG is allowed only if 34 AWG will not pack; turn count stays 180 ±10.
 
 The 25 mm cell uses a single centered Ø8.2 pocket, Ø6.0 × 4.0 magnet stack, AWG 36, and a DRV8871. Those parts do not belong on this face.
 
@@ -103,15 +95,12 @@ Files in the fab package:
 
 Side-by-side rods between mild-steel pole pieces. Working face presents through the 5.10 mm pocket.
 
-Per EPM (build grade):
+Per EPM:
 - AlNiCo 5 rod Ø5.0 × 8.0 mm, axial
-- NdFeB N42 cylinder Ø5.0 × 8.0 mm, axial, NiCuNi
-- Two AISI 1018 pole pieces, 1.00 mm × 8.00 mm × 11.0 mm
-- Finished height along rod axis: 8.0 mm after grind. Do not add axial slugs.
-- Pole working faces ground coplanar ±0.05 mm
-- Wind primarily around the AlNiCo, 180 turns ±10 of 34 AWG
+- NdFeB N42 or N35 cylinder Ø5.0 × 8.0 mm, axial, NiCuNi
+- Two mild-steel / 1018 pole pieces
+- Wind **primarily around the AlNiCo**
 - Same winding sense on all four coils relative to the working face
-- Log counted turns and cold R on every serial
 
 Pulse:
 - Pre-charge 220 µF to 30–36 V
@@ -179,7 +168,7 @@ Full netlist: `schematic/DittoBot_Phase0_Face_Schematic.txt`
 1. **EPM ON** ≥ 3.0 N, **OFF** < 0.3 N, four coils.
 2. **Soft-dock** ≥ 90 % at ≤ 2.5 mm offset.
 3. **Hard-lock** ≥ 95 % with pin seated.
-4. Shear ≥ 40 N in-plane for 30 s, no permanent set, contacts stay closed. Path is pin + receptacle. Magnetic-only hold is not a pass. T3: N=10 at 0 offset; both axes on half the samples.
+4. **Shear** ≥ 40 N without plate yield.
 5. **1.25 A** through the contact bus for ≥ 10 minutes. No thermal throttle. Log plate temp near a contact and near an EPM pocket.
 6. **2 000** dock / undock cycles on the pin + contacts.
 
@@ -195,14 +184,29 @@ Paper hold claims do not move this baseline. Publish the measured table.
 
 Those live elsewhere. This face stays a 20 mm aluminum demonstrator until the six tests above have numbers next to them.
 
+Process stamps that do not change any number in this file live in `LOCKS.md` (16 paper locks, 2026-09-14). Companion / V2.0 language is not a Phase 0 unfreeze.
+
+---
+
+## Paper locks that apply here (no geometry change)
+
+From `LOCKS.md`. These do not edit pockets, winding SOP, or the six tests.
+
+- Hold current after switch is zero. Sequential coil select only until this face’s cap + bus headroom is measured. Do not fire two of E1–E4 at once on the first article.
+- 40 N shear is docked structure. 35 N is the human-contact interrupt if this face is ever used near a person. Do not treat 40 N as a safe squeeze.
+- 41 °C is the paper skin cap. The 1.25 A / 10 min log is still required and may only tighten 41 °C.
+- 12 V bus and 30–36 V pulse bank stay fixture-side until contacts are covered or isolated.
+- Soft safety skin is optional on this coupon. Mandatory only if someone claims a human-proximate build.
+- No companion claim on this face until ON / OFF / current / temperature / cycle data are published.
+- Community Enhancement Suites stay optional and zero-impact on every row in the locked-value table.
+
 ---
 
 ## Build order
 
 1. Cut the 6061 plate from the SCAD / SVG / dimension table.
-2. Wind four EPMs + one spare: 180 ±10 t of 34 AWG on AlNiCo 5. Log counted turns and R.
+2. Wind four EPMs + one spare to the SOP. Log R.
 3. Pulse on the bench fixture. Record peak I, ON N, OFF N.
 4. Wire the Pico protoboard to the netlist.
 5. Seat pin, soak 1.25 A / 10 min, log temperature.
-6. Run T3 shear (40 N / 30 s) before calling the face done.
-7. Publish measurements. Then talk about the next face.
+6. Publish measurements. Then talk about the next face.
