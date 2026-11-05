@@ -1,0 +1,46 @@
+DittoBot / Voxel Box Bot — Phase 0 Ten-Minute Force Fixture
+Independent Fab Package addition  |  2026-11-05
+Design owned by Craig. Started Nov/Dec 2025. Programmable matter.
+
+Lack of a personal shop does not kill it.
+Any makerspace, university lab, or hobbyist with wire, a scale, and ten minutes
+can generate the force numbers. Once those exist the lattice leaves paper
+and credit follows the data.
+
+------------------------------------------------------------------------------
+FIXTURE (build or print this first)
+------------------------------------------------------------------------------
+1. Clamp body
+   - Holds the finished EPM so the working pole faces are parallel and fully exposed.
+   - OpenSCAD: CAD/DittoBot_Phase0_Force_Fixture.scad (print the clamp_body).
+   - Or cut from any non-magnetic plastic/wood/aluminum: 3 mm walls, 4 mm base,
+     opening 8.9 mm wide × 9.4 mm deep, 4 mm pull-hook hole in the base.
+
+2. Mild-steel target
+   - ≥ 3 mm thick, ground or milled flat, ≥ 20 × 20 mm.
+   - Optional alignment jig in the same SCAD (print, then seat real steel).
+
+3. Pull method
+   - Digital force gauge 20–100 N on a slide, or a luggage scale + string through the hook hole.
+   - Pull axially (straight off the pole face). Do not peel.
+
+4. Zero-gap seating
+   - Pulse ON, then press the steel flat against the pole faces.
+   - Optional non-magnetic shims (0.10 / 0.25 / 0.50 mm) for gap curves.
+
+------------------------------------------------------------------------------
+TEN-MINUTE SEQUENCE
+------------------------------------------------------------------------------
+1. Wind one EPM to the exact geometry in winding/DittoBot_Phase0_Exact_Coil_Geometry.txt.
+2. Measure cold R. Log turns and AWG.
+3. Charge 220 µF to 30–36 V. Pulse ON. Scope peak I (target ≥ 4 A).
+4. Seat steel at zero gap. Pull to breakaway. Record peak N. Repeat 3×. Average.
+5. Pulse opposite polarity (OFF). Pull residual on the same plate, same gap.
+6. Photograph coil + fixture + scale reading.
+7. Publish the numbers (name/handle + photo + turns + R + V + peak I + ON N + OFF N).
+
+PASS (locked, unchanged)
+  ON  ≥ 3.0 N at zero gap
+  OFF < 0.3 N residual
+
+Credit travels with the measurement. Paper without numbers does not move the baseline.
