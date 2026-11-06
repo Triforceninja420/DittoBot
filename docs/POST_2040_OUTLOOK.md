@@ -6,6 +6,8 @@ This is a **post-2040 speculative outlook**. It does **not** change locked Phase
 
 A mature lattice can change its occupied volume by orders of magnitude through coordinated reconfiguration. Individual cell envelopes stay the nominal size (20 mm Phase 0 face or 25 mm option A). Volume change comes from packing density, nesting, zoning, and node-count changes — not from shrinking or growing the cells themselves.
 
+Matching optional suites that support these modes (energy, sync, sensing, recovery, soft skin, etc.) are listed by phase in [docs/COMMUNITY_ENHANCEMENT_SUITES.md](COMMUNITY_ENHANCEMENT_SUITES.md). All remain zero-impact on locked criteria.
+
 ---
 
 ## 1. Inward Compaction / Shrink Mode (Car → Basketball)
@@ -72,7 +74,7 @@ Coordinated undock along a planned cut plane → subgroups re-form independent m
 
 - Phase 0 (20 mm hybrid face) and 25 mm option A geometry stay frozen.
 - No change to EPM windings, drivers, force targets, or measurement cards.
-- Community Enhancement Suites remain optional and zero-impact on locked criteria.
+- Community Enhancement Suites remain optional and zero-impact on locked criteria. See [docs/COMMUNITY_ENHANCEMENT_SUITES.md](COMMUNITY_ENHANCEMENT_SUITES.md).
 - Energy budget, thermal limits, and safe-reserve rules apply to every sequence. No mode may drop below safe reserve.
 - Soft safety skin, 35 N human-contact interrupt, and companion gates stay in force for any human-proximate use.
 - Two stacks stay unmixed. No V2.0 claim.
@@ -98,4 +100,4 @@ These scale-change modes are additive future capability for a mature programmabl
 
 ---
 
-*Updated 2026-11-06. Outlook only. Five modes: inward shrink, outward expansion, hierarchical nesting, variable-density zones, split/merge swarm scaling.*
+*Updated 2026-11-06. Outlook only. Five modes: inward shrink, outward expansion, hierarchical nesting, variable-density zones, split/merge swarm scaling. Matching optional suites mapped in COMMUNITY_ENHANCEMENT_SUITES.md.*
