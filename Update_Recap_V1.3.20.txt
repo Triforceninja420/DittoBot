@@ -9,12 +9,12 @@ university lab, or hobbyist with wire, a scale, and ten minutes can generate
 the locked Phase 0 force numbers.
 
 New files (Independent Fab Package addition, zero impact on locked criteria):
-- winding/DittoBot_Phase0_Exact_Coil_Geometry.txt
+- Phase_0_exact_coil_geometry.txt
   Pole pieces 2.00 × 9.00 × 11.00 mm, rods side-by-side, winding window,
   lead routing, measurement list.
-- CAD/DittoBot_Phase0_Force_Fixture.scad
+- Phase0_Force_Fixture.scad
   Printable clamp + steel-target alignment jig.
-- winding/DittoBot_Phase0_Ten_Minute_Force_Fixture.txt
+- phase0_10_minute_Force_Fixture.txt
   Sequence: wind, pulse, pull, photograph, publish.
 
 Locked Phase 0 remains frozen:
