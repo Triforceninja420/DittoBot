@@ -5,7 +5,8 @@
 # Author: Craig Edward Ralls (2026)
 # License: CERN-OHL-S-v2.0 / MIT as in LICENSE
 # Revised: 2026-09-10 — disc hold + coil release, DRV8871 + 12 V
-# ====================================================================
+# Revised: 2026-11-06 — parallel-strand coil (T4 thermal fix) + carbide shear shim (T5 wear fix)
+# ===================================================================
 
 [BILL OF MATERIALS — 25 mm disc + release coil]
 Item  Qty  Designator   Part Number / Specs                 Description / Footprint
@@ -14,13 +15,14 @@ Item  Qty  Designator   Part Number / Specs                 Description / Footpr
 2     1    U2           DRV8871DDAR or equiv.               H-bridge, 6.5-45 V, 3.6 A peak; set ILIM \~3.0 A
 2alt  1    U2           DRV8212                             Alternate \~4 A peak, same job
 3     1    MAG1         NdFeB disc Ø6.0 x 2.0-3.0 mm        Hold only. N42/N52 axial. Not D8. Not Alnico on this cell.
-4     1    L1           Release coil around MAG1            Counted turns, DCR 2-6 Ω. Sized for I_release peak, not hold.
+4     1    L1           Release coil around MAG1            160-180 t AWG 36. For T4 continuous soak: 2-4 strands in parallel (or 1x AWG 30). Single strand is pulse-only. Counted turns, DCR 2-6 Ω (parallel lower). Sized for I_release peak, not hold.
 5     4    J1-J4        Mill-Max 0906-0-15-20-76-14-11-0    Spring contacts, 4 mm stroke
 6     1    U3           3.3 V buck/LDO for XIAO             Keep logic at 3.3 V. Do not put 12 V on U1 VCC.
 7     1    U4           12 V coil rail source               Local boost, docked 12 V, or pack. Feeds U2 VM only.
 8     2    C1, C2       10 uF+ on 3.3 V                     Logic decoupling
 9     1    C3           >=100 uF on VM near U2              Pulse reservoir at the driver
 10    1    R_ILIM       per DRV8871 datasheet               \~3.0 A setpoint, not the 3.6 A peak rating
+11    1    SHIM1        Carbide (preferred) or 440C hardened steel, Ø6.0 x 0.50 mm, clip-in  Replaceable shear shim for latch face. Wear item: swap at 100 µm wear or if clearance opens past 0.15 mm. Starts 50 µm proud of flush.
 
 [POCKET — unchanged OpenSCAD]
       1    face bore    Ø8.2 mm x 4.0 mm deep               File cad/voxel_cell.scad. Do not enlarge for this lock.
@@ -31,6 +33,7 @@ L1    120 t AWG 34    144 AT @ 1.2 A                      First-pass coil-as-act
 MAG1  D8 x 4 mm       in Ø8.2 pocket                      0.1 mm radial — no winding window
 MAG1  Ø6 Nd+Alnico    2026-09-09 flip stack               Superseded on this cell. Phase 0 still uses Alnico.
 VBUS  3.3-5.0 V       as originally written               Cannot feed DRV8871 (VM min 6.5 V)
+L1    single-strand AWG 36 at 1.25 A x 10 min            Sim hit 444 °C vs 85 °C limit. Parallel strands required for T4.
 
 [DO NOT PUBLISH]
       180 t AWG 33 in this annulus                        Packs \~100 t, not 180. Count the turns you wind.
@@ -49,3 +52,5 @@ NET "VBUS_FACE"     J1 (neighbor power) — isolate from U1 3V3; may be 12 V on 
 
 Hold current after pulse = 0. Disc holds. Coil releases.
 Measure disc, turns, R, peak I, I_release, ON N, OFF N. Paper 28.8 N is retired on this cell.
+T4 pass: coil + driver under 85 °C after 1.25 A x 10 min (parallel-strand wind only).
+T5 pass: shim wear ≤ 100 µm over 2 000 cycles; swap if clearance opens past 0.15 mm.

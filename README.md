@@ -8,21 +8,24 @@ It is **not** the locked Phase 0 Single-Face Demonstrator (20 mm hybrid face, 4�
 
 ---
 
-## Status — 2026-09-09 (Option A locked)
+## Status — 2026-09-09 (Option A locked), revised 2026-11-06
 
 The original coil / driver line was a first-pass parts list, not a measured latch. Geometry pick for this cell is **A**: shrink the magnet, keep the published pocket.
 
+**2026-11-06 thermal + wear revision:** Phase 0 sim battery failed T4 (single-strand coil hit 444 °C) and T5 (latch wear 1 mm vs 100 µm budget). Fixes: wind 2–4× AWG 36 in parallel (or 1× AWG 30) for any continuous-duty use, and seat a replaceable carbide shear shim on the latch face. Details in [docs/COIL_REVISION.md](docs/COIL_REVISION.md) Rev 2026-11-06 and [docs/BUILD.md](docs/BUILD.md).
+
 | Item | First pass (do not build) | Option A (build target) |
-| :--- | :--- | :--- |
+| :--- | :---- | :---- |
 | Envelope | 25 mm cube | unchanged |
 | Pocket | Ø8.2 × 4.0 mm, 6 faces | **unchanged** (`cad/voxel_cell.scad`) |
 | Magnet stack | D8 mm × 4 mm | **Ø6.0 mm × 4.0 mm** (1.1 mm annulus) |
-| Coil | 120 t AWG 34 | **160–180 t AWG 36** |
+| Coil | 120 t AWG 34 | **160–180 t AWG 36**, parallel strands for T4 |
 | Driver | DRV8837C, 1.8 A / 11 V | **DRV8871**, ILIM ~3.0 A (or DRV8212) |
 | Coil rail | 3.3–5.0 V | **12 V**; 3.3 V stays on the XIAO |
 | Pulse | 25 ms @ ±1.2 A | short pulse; width set after peak-I measure |
 | Ampere-turns | 144 AT ≈ 36 kA/m | 170 t × 3.0 A = 510 AT ≈ 128 kA/m (if current peaks) |
 | Paper hold | 28.8 N at 8 mm / 1.2 T | **retired on this cell** (Ø6 area is ~56% of Ø8) |
+| Latch face | bare | **carbide or 440C shear shim**, Ø6.0 × 0.50 mm, clip-in wear item |
 
 First-pass 144 AT is below Alnico 5 *H_c* (~50 kA/m). A D8 stack in an Ø8.2 pocket also leaves 0.1 mm radial — no winding window.
 
@@ -30,7 +33,7 @@ Do **not** publish 180 t AWG 33 in this annulus. AWG 33 packs ~100 t here. Use A
 
 Nothing on this cell is a measured latch until turns, R, peak I, ON N, and OFF N are published. Fill [docs/MEASUREMENT_CARD.md](docs/MEASUREMENT_CARD.md).
 
-Hold current after the pulse is zero. Disc holds; coil releases. Do not shrink the Ø6 disc until measured release current exists. Do not quote 35 N or 40 N as this cell’s hold. 35 N is a later human-contact interrupt. 40 N is Phase 0 docked shear. Both live in [docs/LOCKS.md](docs/LOCKS.md) / [docs/PHASE0.md](docs/PHASE0.md).
+Hold current after the pulse is zero. Disc holds; coil releases. Do not shrink the Ø6 disc until measured release current exists. Do not quote 35 N or 40 N as this cell's hold. 35 N is a later human-contact interrupt. 40 N is Phase 0 docked shear. Both live in [docs/LOCKS.md](docs/LOCKS.md) / [docs/PHASE0.md](docs/PHASE0.md).
 
 ---
 
@@ -47,7 +50,7 @@ assets/       Renders
 
 ## Key Documents
 
-- [docs/COIL_REVISION.md](docs/COIL_REVISION.md) — Why the first pass failed and Option A lock
+- [docs/COIL_REVISION.md](docs/COIL_REVISION.md) — Why the first pass failed, Option A lock, parallel-strand thermal fix, carbide shim
 - [docs/BUILD.md](docs/BUILD.md) — Build handoff for the 25 mm cell
 - [docs/PHASE0.md](docs/PHASE0.md) — Frozen 20 mm hybrid face (separate stack)
 - [docs/LOCKS.md](docs/LOCKS.md) — Process locks (2026-09-14)
@@ -84,8 +87,9 @@ Pair NdFeB N52 with Alnico 5 (*H_c* ≈ 50 kA/m). Pulse the Alnico. Hold current
 * **Permanent element:** NdFeB N52
 * **Switchable element:** Alnico 5
 * **Stack OD × height:** Ø6.0 mm × 4.0 mm
-* **Coil:** 160–180 turns AWG 36, counted on the bobbin
+* **Coil:** 160–180 turns AWG 36, counted on the bobbin; **2–4 parallel strands for continuous duty** (T4), single strand pulse-only
 * **Drive:** DRV8871, 12 V, ILIM ~3.0 A
+* **Latch face:** carbide or 440C shear shim, Ø6.0 × 0.50 mm, clip-in, wear item (swap at 100 µm)
 
 ### First pass (retired)
 * 120 t AWG 34, 25 ms @ 1.2 A, DRV8837C, D8 mm stack — do not build
@@ -119,7 +123,7 @@ DRV8837C is retired on this cell. DRV8871 VM min is 6.5 V — the old 5 V bus ca
 ### Face interconnect
 
 | Pad | Signal | Notes |
-| :---: | :--- | :--- |
+| :----: | :----: | :---- |
 | 1 | `VBUS` | Neighbor power. Up to 12 V on this revision. Not the XIAO 3V3 pin. |
 | 2 | `GND` | Common ground |
 | 3 | `DATA_A` | SDA / UART TX |
@@ -137,7 +141,7 @@ Wind and window: [docs/COIL_REVISION.md](docs/COIL_REVISION.md).
 * Release: IN1 LOW, IN2 HIGH for the same width, then both LOW.
 * Quiescent: coil current 0. Hold is remanence only.
 
-Start at 25 ms. Stretch only if measured current has not peaked. Do not run the coil continuous.
+Start at 25 ms. Stretch only if measured current has not peaked. Do not run the coil continuous unless it is a parallel-strand wind rated for T4.
 
 ---
 
