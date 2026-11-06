@@ -1,44 +1,90 @@
-# DittoBot Post-2040 Outlook — Inward Compaction / Shrinking Mode
+# DittoBot Post-2040 Outlook — Scale Change Modes
 
 Design owned by Craig. Started Nov/Dec 2025. Programmable matter.
 
-This is a **post-2040 speculative outlook**. It does **not** change locked Phase 0 criteria, 25 mm option A geometry, process locks in `LOCKS.md`, or any current build target. Two stacks stay unmixed. No V2.0 claim. No measured numbers here.
+This is a **post-2040 speculative outlook**. It does **not** change locked Phase 0 criteria, 25 mm option A geometry, process locks in `LOCKS.md`, or any current build target. Two stacks stay unmixed. No V2.0 claim. No measured numbers here. Credit follows data when it arrives.
+
+A mature lattice can change its occupied volume by orders of magnitude through coordinated reconfiguration. Individual cell envelopes stay the nominal size (20 mm Phase 0 face or 25 mm option A). Volume change comes from packing density, nesting, zoning, and node-count changes — not from shrinking or growing the cells themselves.
 
 ---
 
-## Compaction Mode: Shrink Inward (Car → Basketball)
+## 1. Inward Compaction / Shrink Mode (Car → Basketball)
 
-A mature lattice assembly that occupies car-scale volume (or any large structure) can reconfigure into a dense, roughly basketball-sized compact form by **shrinking inwards on itself**.
+A car-scale (or larger) assembly collapses interstitial volume by moving modules inward and locking into a high-density packing whose outer envelope is roughly basketball-sized.
 
-### Intent
-- Preserve the functional modules (energy, structure, compute, mobility faces).
-- Collapse interstitial volume through coordinated motion of the voxels.
-- End state is a high-density packing whose outer envelope is far smaller than the deployed form.
-- Example target: vehicle-scale lattice → ~basketball-sized dense assembly for storage, transport, or rapid redeployment.
+**Intent**  
+Preserve every functional module (energy, structure, compute, mobility faces). End state is a dense, transportable or storable form that can later redeploy.
 
-### Mechanism (outlook only)
-Modules use existing hybrid docking faces (EPM + pin) plus future enhancements to:
-1. Release selected faces.
-2. Translate or fold neighboring cells inward along lattice axes or free-form paths.
-3. Nest or interlock into tighter packing (e.g., reduced void fraction, hierarchical sub-cell packing, or internal densification).
-4. Re-lock in the compact configuration with full bus and mesh continuity where required.
+**Mechanism (outlook)**  
+Release selected faces → translate or fold neighbors inward along lattice axes or free-form paths → nest/interlock into reduced void fraction → re-lock with bus and mesh continuity. Collective inward motion, not uniform cell scaling.
 
-The motion is collective and inward-directed rather than simple uniform scaling of individual fixed-size cubes. Individual cell envelopes remain the current nominal size; volume reduction comes from reconfiguration density, not from shrinking the 20 mm or 25 mm cell itself.
+---
 
-### Constraints respected
-- Current Phase 0 (20 mm hybrid face) and 25 mm option A geometry stay frozen.
+## 2. Outward Expansion / Deployment Mode (Basketball → Car and Beyond)
+
+Exact inverse of inward compaction. A dense packing opens outward into vehicle-scale or larger structures in a coordinated sequence.
+
+**Intent**  
+Rapid deploy from storage or transport. One compact unit becomes a full structure without external scaffolding.
+
+**Mechanism (outlook)**  
+Release selected faces → modules translate or unfold outward along planned axes or free-form paths → expand void fraction while maintaining connectivity → re-lock into the target geometry. Same hybrid faces (EPM + pin) run in reverse. Energy and safe-reserve rules stay binding throughout the sequence.
+
+---
+
+## 3. Hierarchical Nesting
+
+Future modules can accept or become sub-voxels. A single outer cell envelope holds a denser sub-lattice, giving multi-level volume change.
+
+**Intent**  
+Deeper shrink and finer expand without changing the outer 20 mm or 25 mm nominal. Enables extreme density packing and high-resolution surface detail from the same base cell.
+
+**Mechanism (outlook)**  
+Outer cells dock and form a stable envelope. Internal volume is filled by smaller sub-modules (or the same modules reconfigured into tighter hierarchical packing). Power, data, and mechanical continuity propagate through both levels. Sub-lattice can later eject or re-expand independently.
+
+---
+
+## 4. Variable-Density Zones
+
+One continuous assembly maintains different packing densities in different regions at the same time.
+
+**Intent**  
+Keep a dense structural or energy core while growing a sparse outer shell for reach, surface area, or soft interaction. Or the reverse: sparse core with dense load-bearing shell.
+
+**Mechanism (outlook)**  
+Local groups of modules decide packing density based on role. Dense zones stay locked for strength and power distribution. Sparse zones expand for volume or compliance. Boundaries remain continuously docked so the lattice stays one mechanical and electrical body. Soft safety skin and 35 N human-contact interrupt remain active on any human-proximate surface.
+
+---
+
+## 5. Split / Merge Swarm Scaling
+
+Change total volume by changing node count, not just packing density.
+
+**Intent**  
+One dense form splits into several smaller independent lattices. Multiple compact units merge into one larger structure. Scales from basketball-sized units to multi-vehicle or habitat-scale assemblies (and back) without permanent loss of modules.
+
+**Mechanism (outlook)**  
+Coordinated undock along a planned cut plane → subgroups re-form independent meshes and power domains → each subgroup can compact, expand, or travel separately. Merge is the reverse: approach, soft-dock, verify, hard-lock, then unified mesh and bus. Safe-reserve and brownout rules apply to every subgroup throughout.
+
+---
+
+## Shared Constraints (all modes)
+
+- Phase 0 (20 mm hybrid face) and 25 mm option A geometry stay frozen.
 - No change to EPM windings, drivers, force targets, or measurement cards.
 - Community Enhancement Suites remain optional and zero-impact on locked criteria.
-- Energy budget, thermal limits, and safe-reserve rules from earlier specs continue to apply; compaction sequences must not drop below safe reserve.
-- Soft safety skin, human-contact interrupts (35 N), and other companion gates stay in force for any human-proximate use.
+- Energy budget, thermal limits, and safe-reserve rules apply to every sequence. No mode may drop below safe reserve.
+- Soft safety skin, 35 N human-contact interrupt, and companion gates stay in force for any human-proximate use.
+- Two stacks stay unmixed. No V2.0 claim.
 
-### What is required later (not now)
+## What is required later (not now)
+
 - Higher-bandwidth local sensing and planning for coordinated multi-node motion.
-- Possibly secondary micro-actuation or compliant elements (kept optional).
-- Proven dense-packing topologies that still allow power, data, and mechanical continuity.
-- Measured reliability of repeated expand/compact cycles.
+- Proven dense-packing and hierarchical topologies that preserve power, data, and mechanical continuity.
+- Measured reliability of repeated expand / compact / split / merge cycles.
+- Optional secondary micro-actuation or compliant elements (kept optional).
 
-Until those exist, this remains an outlook. Credit follows measured data when it arrives.
+Until those exist, these remain outlooks.
 
 ---
 
@@ -48,8 +94,8 @@ All near-term work stays on the locked baselines:
 - 25 mm cell: fill `MEASUREMENT_CARD.md` (turns, R, peak I, ON/OFF).
 - Phase 0: aluminum face plate, four EPMs to SOP, force and soak data.
 
-The compaction mode is additive future capability for a mature programmable-matter lattice. It does not reopen any lock.
+These scale-change modes are additive future capability for a mature programmable-matter lattice. They do not reopen any lock.
 
 ---
 
-*Added 2026-11-06. Outlook only.*
+*Updated 2026-11-06. Outlook only. Five modes: inward shrink, outward expansion, hierarchical nesting, variable-density zones, split/merge swarm scaling.*
