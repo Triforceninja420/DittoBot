@@ -1,5 +1,6 @@
 # 25 mm cell — coil / driver revision
 2026-09-09
+Updated 2026-11-06: parallel-strand thermal fix added after Phase 0 sim battery.
 
 Project i started Nov/Dec 2025. Design owned by Craig. Programmable matter.
 
@@ -75,14 +76,43 @@ All of those clear Alnico 5 *H_c* (~50 kA/m) **if** the pulse actually reaches t
 
 IN1 / IN2 polarity in `firmware/pulse_driver.cpp` stays the same.
 
+## Thermal fix — parallel strands (added 2026-11-06)
+
+Phase 0 sim battery (2026-11-06) ran the full T1–T5 suite. T4 failed: single AWG 36 strand at 1.25 A × 10 min reached **444 °C** against an 85 °C insulation limit. Cause: 0.34 Ω single strand dissipates I²R continuously with no parallel copper path and no airflow.
+
+**Fix: parallel-strand winding.** Same 160–180 turn count, but wound as 2–4 strands of AWG 36 in parallel (or one AWG 30 equivalent). Effects:
+
+* Resistance drops from ~0.34 Ω to ~0.09–0.17 Ω
+* Current splits across strands → each strand runs at 0.3–0.6 A instead of 1.25 A
+* I²R per strand drops by 4–16×
+* Copper surface area for heat rejection increases
+* If one strand opens, the rest carry the load — no single point of failure
+
+Rerun target: coil + driver under **85 °C** after 1.25 A × 10 min with ambient 25 °C, no forced airflow. That is the pass line for T4.
+
+This is how motor and solenoid coils are built for continuous duty. Single-strand fine wire is for pulse-only applications.
+
+## Shear shim — replaceable carbide face (added 2026-11-06)
+
+T5 also failed in sim: 0.5 µm wear per cycle × 2 000 cycles = 1 000 µm against a 100 µm clearance budget.
+
+**Fix: hardened steel or carbide shear shim clipped into the latch face**, treated like a brake pad:
+
+* Designed to wear; cheap to swap when worn
+* Initial clearance spec'd with wear margin baked in
+* Full 2 000 cycles before first service interval
+* Shim material: **carbide** preferred, hardened 440C steel acceptable
+* Clip-in retention so it can be replaced without disassembling the cell
+
 ## What to measure before claiming a latch
 
 1. Turns actually on the bobbin.
-2. DC resistance.
+2. DC resistance (per strand and total parallel).
 3. Time-to-peak current on a 12 V step (or L).
 4. Peak current during the real pulse.
 5. ON force and OFF force on a fixture, same gap, same mating plate.
 6. Coil + driver temperature after N pulses at the planned cadence.
+7. Shim wear depth after 2 000 cycles.
 
 Paper tesla does not move the baseline. 28.8 N is retired on this cell.
 
