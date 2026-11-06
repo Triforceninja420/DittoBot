@@ -1,20 +1,21 @@
 # DittoBot / Voxel Box
-Programmable matter voxel lattice. Design owned by Craig. Started Nov/Dec 2025.
+
+Programmable matter voxel lattice. Design owned by Craig. Started November/December 2025.
 
 **This repository is the 25 mm cubic cell variant.**
-It is **not** the locked Phase 0 Single-Face Demonstrator (20 mm hybrid face, 4× Ø5 EPM, 1.8 mm pin, 6 contacts, 12 V / 1.25 A / ≥40 N shear). Do not mix those numbers into this repo, and do not paste these numbers into Phase 0 docs.
+
+It is **not** the locked Phase 0 Single-Face Demonstrator (20 mm hybrid face, 4× Ø5 EPM, 1.8 mm pin, 6 contacts, 12 V / 1.25 A / ≥40 N shear). Do not mix the two stacks. See [docs/PHASE0.md](docs/PHASE0.md).
 
 ---
 
-## Status — 2026-09-09  option A locked
+## Status — 2026-09-09 (Option A locked)
 
-The original coil / driver line was a first-pass parts list, not a measured latch.
-Geometry pick for this cell is **A**: shrink the magnet, keep the published pocket.
+The original coil / driver line was a first-pass parts list, not a measured latch. Geometry pick for this cell is **A**: shrink the magnet, keep the published pocket.
 
 | Item | First pass (do not build) | Option A (build target) |
 | :--- | :--- | :--- |
 | Envelope | 25 mm cube | unchanged |
-| Pocket | Ø8.2 × 4.0 mm, 6 faces | **unchanged** (`openscad` not edited) |
+| Pocket | Ø8.2 × 4.0 mm, 6 faces | **unchanged** (`cad/voxel_cell.scad`) |
 | Magnet stack | D8 mm × 4 mm | **Ø6.0 mm × 4.0 mm** (1.1 mm annulus) |
 | Coil | 120 t AWG 34 | **160–180 t AWG 36** |
 | Driver | DRV8837C, 1.8 A / 11 V | **DRV8871**, ILIM ~3.0 A (or DRV8212) |
@@ -25,14 +26,33 @@ Geometry pick for this cell is **A**: shrink the magnet, keep the published pock
 
 First-pass 144 AT is below Alnico 5 *H_c* (~50 kA/m). A D8 stack in an Ø8.2 pocket also leaves 0.1 mm radial — no winding window.
 
-Do **not** publish 180 t AWG 33 in this annulus. AWG 33 packs ~100 t here. Use AWG 36 for 160–180 t. Details in `COIL_REVISION.md`.
+Do **not** publish 180 t AWG 33 in this annulus. AWG 33 packs ~100 t here. Use AWG 36 for 160–180 t. Details in [docs/COIL_REVISION.md](docs/COIL_REVISION.md).
 
-Nothing on this cell is a measured latch until turns, R, peak I, ON N, and OFF N are published.
-Nothing on this cell is a companion robot. See `LOCKS.md` (16 paper locks, 2026-09-14).
+Nothing on this cell is a measured latch until turns, R, peak I, ON N, and OFF N are published. Fill [docs/MEASUREMENT_CARD.md](docs/MEASUREMENT_CARD.md).
 
-Hold current after the pulse is zero. Do not shrink the Ø6 disc until measured release current exists. Do not quote 35 N or 40 N as this cell’s hold. 35 N is a later human-contact interrupt. 40 N is Phase 0 docked shear. Both live in `LOCKS.md` / `PHASE0.md`, not in this force box.
+Hold current after the pulse is zero. Disc holds; coil releases. Do not shrink the Ø6 disc until measured release current exists. Do not quote 35 N or 40 N as this cell’s hold. 35 N is a later human-contact interrupt. 40 N is Phase 0 docked shear. Both live in [docs/LOCKS.md](docs/LOCKS.md) / [docs/PHASE0.md](docs/PHASE0.md).
 
 ---
+
+## Repository Structure
+
+```
+cad/          OpenSCAD geometry (25 mm cell + Phase 0 fixture)
+firmware/     Pulse driver for XIAO RP2040
+tools/        Analysis scripts (paper force sweep)
+bom/          Bill of materials and netlist
+docs/         Specifications, locks, phase notes, build handoff
+assets/       Renders
+```
+
+## Key Documents
+
+- [docs/COIL_REVISION.md](docs/COIL_REVISION.md) — Why the first pass failed and Option A lock
+- [docs/BUILD.md](docs/BUILD.md) — Build handoff for the 25 mm cell
+- [docs/PHASE0.md](docs/PHASE0.md) — Frozen 20 mm hybrid face (separate stack)
+- [docs/LOCKS.md](docs/LOCKS.md) — Process locks (2026-09-14)
+- [docs/MEASUREMENT_CARD.md](docs/MEASUREMENT_CARD.md) — Blank card for measured data
+- [docs/MIN_PARTS.md](docs/MIN_PARTS.md) — Minimum kit for one counted coil
 
 ## 1. Mechanical Architecture
 
@@ -50,7 +70,7 @@ Cubic unit cell for FDM/SLA or later molding.
 * Centering pocket for shear keying when neighbors engage.
 * Exterior chamfers 0.5 mm × 45° on all 12 edges for neighbor-roll.
 
-OpenSCAD source is the file `openscad` (no extension). Pocket stays Ø8.2 × 4.0. Options B (bigger pocket) and C (coil behind the face) are not this lock.
+OpenSCAD source: [cad/voxel_cell.scad](cad/voxel_cell.scad). Pocket stays Ø8.2 × 4.0. Options B (bigger pocket) and C (coil behind the face) are not this lock.
 
 ---
 
@@ -69,26 +89,28 @@ Pair NdFeB N52 with Alnico 5 (*H_c* ≈ 50 kA/m). Pulse the Alnico. Hold current
 * 120 t AWG 34, 25 ms @ 1.2 A, DRV8837C, D8 mm stack — do not build
 
 ### Force
-Maxwell stress *F = B²A / (2μ₀)* is paper. Ø6 mm area ≈ 2.83×10⁻⁵ m². Do not quote 28.8 N (that assumed an 8 mm face at 1.2 T). `python` still prints the old 8 mm sweep as a warning, not a spec. Fixture ON/OFF only.
+Maxwell stress *F = B²A / (2μ₀)* is paper. Ø6 mm area ≈ 2.83×10⁻⁵ m². Do not quote 28.8 N (that assumed an 8 mm face at 1.2 T). [tools/force_sweep.py](tools/force_sweep.py) still prints the old 8 mm sweep as a warning, not a spec. Fixture ON/OFF only.
 
 ---
 
 ## 3. Electrical
 
-    +-----------------------+
-    |      XIAO RP2040      |
-    |  3.3 V local rail     |
-    | GPIO0 (IN1)           |
-    | GPIO1 (IN2)           |
-    | GPIO6 (SDA)  GPIO7    |
-    +-----------+-----------+
-                |
-                v
-    +-----------------------+
-    |   DRV8871 H-bridge    |
-    |   VM = 12 V coil rail |
-    | OUT1 ----[ COIL ]---- OUT2 |
-    +-----------------------+
+```
++-----------------------+
+|      XIAO RP2040      |
+|  3.3 V local rail     |
+| GPIO0 (IN1)           |
+| GPIO1 (IN2)           |
+| GPIO6 (SDA)  GPIO7    |
++-----------+-----------+
+            |
+            v
++-----------------------+
+|   DRV8871 H-bridge    |
+|   VM = 12 V coil rail |
+| OUT1 ----[ COIL ]---- OUT2 |
++-----------------------+
+```
 
 DRV8837C is retired on this cell. DRV8871 VM min is 6.5 V — the old 5 V bus cannot run it. Split the rails.
 
@@ -101,17 +123,17 @@ DRV8837C is retired on this cell. DRV8871 VM min is 6.5 V — the old 5 V bus ca
 | 3 | `DATA_A` | SDA / UART TX |
 | 4 | `DATA_B` | SCL / UART RX |
 
-BOM / netlist: `text`.  
-Pulse routine: `cpp`.  
-Wind and window: `COIL_REVISION.md`.
+BOM / netlist: [bom/bom_netlist.txt](bom/bom_netlist.txt).  
+Pulse routine: [firmware/pulse_driver.cpp](firmware/pulse_driver.cpp).  
+Wind and window: [docs/COIL_REVISION.md](docs/COIL_REVISION.md).
 
 ---
 
 ## 4. State transition
 
-    * Latch: IN1 HIGH, IN2 LOW for the measured pulse width, then both LOW.
-    * Release: IN1 LOW, IN2 HIGH for the same width, then both LOW.
-    * Quiescent: coil current 0. Hold is remanence only.
+* Latch: IN1 HIGH, IN2 LOW for the measured pulse width, then both LOW.
+* Release: IN1 LOW, IN2 HIGH for the same width, then both LOW.
+* Quiescent: coil current 0. Hold is remanence only.
 
 Start at 25 ms. Stretch only if measured current has not peaked. Do not run the coil continuous.
 
@@ -119,6 +141,8 @@ Start at 25 ms. Stretch only if measured current has not peaked. Do not run the 
 
 ## What this repo is not
 
-Phase 0 Independent Fab Package (20 mm aluminum face, 4× Ø5 EPM, cap-dump / IRLZ44N, ≥3 N ON, 40 N shear, 1.25 A × 10 min) is a different stack. Two number sets. Do not mix them.
+Phase 0 Independent Fab Package (20 mm aluminum face, 4× Ø5 EPM, cap-dump / IRLZ44N, ≥3 N ON, 40 N shear, 1.25 A × 10 min) is a different stack. Two number sets. Do not mix them. See [docs/PHASE0.md](docs/PHASE0.md).
 
-V2.0, a companion swarm, ISO certification, and Community Enhancement Suites are not this coupon. `LOCKS.md` is process only. `MEASUREMENT_CARD.md` stays blank until measured.
+V2.0, a companion swarm, ISO certification, and Community Enhancement Suites are not this coupon. [docs/LOCKS.md](docs/LOCKS.md) is process only. [docs/MEASUREMENT_CARD.md](docs/MEASUREMENT_CARD.md) stays blank until measured.
+
+License: MIT
