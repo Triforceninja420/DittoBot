@@ -12,7 +12,7 @@ It is **not** the locked Phase 0 Single-Face Demonstrator (20 mm hybrid face, 4�
 
 The original coil / driver line was a first-pass parts list, not a measured latch. Geometry pick for this cell is **A**: shrink the magnet, keep the published pocket.
 
-**2026-11-06 thermal + wear revision:** Phase 0 sim battery failed T4 (single-strand coil hit 444 °C) and T5 (latch wear 1 mm vs 100 µm budget). Fixes: wind 2–4× AWG 36 in parallel (or 1× AWG 30) for any continuous-duty use, and seat a replaceable carbide shear shim on the latch face. Details in [docs/COIL_REVISION.md](docs/COIL_REVISION.md) Rev 2026-11-06 and [docs/BUILD.md](docs/BUILD.md).
+**2026-11-06 thermal + wear revision:** Private analysis flagged T4 thermal and T5 latch wear. Fixes: wind 2–4× AWG 36 in parallel (or 1× AWG 30) for any continuous-duty use, and seat a replaceable carbide shear shim on the latch face. Details in [docs/COIL_REVISION.md](docs/COIL_REVISION.md) Rev 2026-11-06, [docs/PHASE0.md](docs/PHASE0.md), and [docs/SIM_NOTES.md](docs/SIM_NOTES.md).
 
 | Item | First pass (do not build) | Option A (build target) |
 | :--- | :---- | :---- |
@@ -42,9 +42,9 @@ Hold current after the pulse is zero. Disc holds; coil releases. Do not shrink t
 ```
 cad/          OpenSCAD geometry (25 mm cell + Phase 0 fixture)
 firmware/     Pulse driver for XIAO RP2040
-tools/        Analysis scripts (paper force sweep)
+tools/        Analysis scripts (paper force sweep + phase0_estimate.py)
 bom/          Bill of materials and netlist
-docs/         Specifications, locks, phase notes, build handoff
+docs/         Specifications, locks, phase notes, build handoff, SIM_NOTES.md
 assets/       Renders
 ```
 
@@ -56,8 +56,10 @@ assets/       Renders
 - [docs/LOCKS.md](docs/LOCKS.md) — Process locks (2026-09-14)
 - [docs/MEASUREMENT_CARD.md](docs/MEASUREMENT_CARD.md) — Blank card for measured data
 - [docs/MIN_PARTS.md](docs/MIN_PARTS.md) — Minimum kit for one counted coil
+- [docs/SIM_NOTES.md](docs/SIM_NOTES.md) — Private analysis context vs locked measured gates; public path is measure on the fixture
 - [docs/POST_2040_OUTLOOK.md](docs/POST_2040_OUTLOOK.md) — Speculative post-2040 scale-change modes (inward shrink, outward expansion, hierarchical nesting, variable-density zones, split/merge). Does not change locked criteria.
 - [docs/COMMUNITY_ENHANCEMENT_SUITES.md](docs/COMMUNITY_ENHANCEMENT_SUITES.md) — Matching optional suites grouped by phase. Zero-impact on locked baselines.
+- [tools/phase0_estimate.py](tools/phase0_estimate.py) — Simple public paper estimate (Maxwell force + basic thermal). Not a full docking/shear sim.
 
 ## 1. Mechanical Architecture
 
@@ -95,7 +97,7 @@ Pair NdFeB N52 with Alnico 5 (*H_c* ≈ 50 kA/m). Pulse the Alnico. Hold current
 * 120 t AWG 34, 25 ms @ 1.2 A, DRV8837C, D8 mm stack — do not build
 
 ### Force
-Maxwell stress *F = B²A / (2μ₀)* is paper. Ø6 mm area ≈ 2.83×10⁻⁵ m². Do not quote 28.8 N (that assumed an 8 mm face at 1.2 T). [tools/force_sweep.py](tools/force_sweep.py) still prints the old 8 mm sweep as a warning, not a spec. Fixture ON/OFF only.
+Maxwell stress *F = B²A / (2μ₀)* is paper. Ø6 mm area ≈ 2.83×10⁻⁵ m². Do not quote 28.8 N (that assumed an 8 mm face at 1.2 T). [tools/force_sweep.py](tools/force_sweep.py) still prints the old 8 mm sweep as a warning, not a spec. Fixture ON/OFF only. See also [tools/phase0_estimate.py](tools/phase0_estimate.py).
 
 ---
 
