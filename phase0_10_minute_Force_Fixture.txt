@@ -12,7 +12,7 @@ FIXTURE (build or print this first)
 ------------------------------------------------------------------------------
 1. Clamp body
    - Holds the finished EPM so the working pole faces are parallel and fully exposed.
-   - OpenSCAD: CAD/DittoBot_Phase0_Force_Fixture.scad (print the clamp_body).
+   - OpenSCAD: Phase0_Force_Fixture.scad (print the clamp_body).
    - Or cut from any non-magnetic plastic/wood/aluminum: 3 mm walls, 4 mm base,
      opening 8.9 mm wide × 9.4 mm deep, 4 mm pull-hook hole in the base.
 
@@ -31,7 +31,7 @@ FIXTURE (build or print this first)
 ------------------------------------------------------------------------------
 TEN-MINUTE SEQUENCE
 ------------------------------------------------------------------------------
-1. Wind one EPM to the exact geometry in winding/DittoBot_Phase0_Exact_Coil_Geometry.txt.
+1. Wind one EPM to the exact geometry in Phase_0_exact_coil_geometry.txt.
 2. Measure cold R. Log turns and AWG.
 3. Charge 220 µF to 30–36 V. Pulse ON. Scope peak I (target ≥ 4 A).
 4. Seat steel at zero gap. Pull to breakaway. Record peak N. Repeat 3×. Average.
