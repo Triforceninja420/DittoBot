@@ -53,6 +53,7 @@ assets/       Renders
 - [docs/LOCKS.md](docs/LOCKS.md) — Process locks (2026-09-14)
 - [docs/MEASUREMENT_CARD.md](docs/MEASUREMENT_CARD.md) — Blank card for measured data
 - [docs/MIN_PARTS.md](docs/MIN_PARTS.md) — Minimum kit for one counted coil
+- [docs/POST_2040_OUTLOOK.md](docs/POST_2040_OUTLOOK.md) — Speculative post-2040 inward compaction / shrinking mode (car-scale lattice → basketball-sized dense form). Does not change locked criteria.
 
 ## 1. Mechanical Architecture
 
