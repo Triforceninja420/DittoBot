@@ -176,6 +176,28 @@ Paper hold claims do not move this baseline. Publish the measured table.
 
 ---
 
+## Revision 2026-11-06 — replaceable carbide shear shim + latch wear budget
+
+Phase 0 simulation flagged latch-face wear as the cycle-life risk: 0.5 µm per cycle × 2 000 = 1 000 µm against a 100 µm clearance budget. Fix is a wear item, not a redesign.
+
+**Replaceable shear shim:**
+
+* Ø6.0 mm carbide (preferred) or 440C hardened steel, 0.50 mm thick
+* Press-fit or clipped into the latch pocket on the mating face
+* Starts 50 µm proud of flush; wears down over 2 000 cycles to ~flush
+* 100 µm total wear budget is consumed by the shim, never by the latch body
+* Swap procedure: power down, extract shim, seat new one, re-log clearance. No re-wind, no re-glue, no plate replacement.
+* After swap, clearance must be ≤ 0.10 mm before the next cycle run
+* If clearance opens past 0.15 mm mid-run, stop, swap, resume from cycle 0 of that block
+
+Shear capacity is unchanged: 4× Ø1.2 mm steel pins at 400 MPa shear = ~1 810 N simulated vs 40 N spec. The shim manages face wear only; pin + receptacle carry structure.
+
+**Thermal note (cross-ref `docs/COIL_REVISION.md` Rev 2026-11-06):**
+
+The 1.25 A × 10 min bus soak still requires plate-temp logging near contacts and EPM pockets. 41 °C skin cap stands. If plate near an EPM pocket exceeds 41 °C, that is a winding or FET problem on the 25 mm cell side — do not loosen this face's criterion to mask it.
+
+---
+
 ## What is not in this file
 
 - 25 mm cube envelope, Ø8.2 pocket, Ø6.0 magnet, AWG 36, DRV8871, 28.8 N
@@ -192,13 +214,14 @@ Process stamps that do not change any number in this file live in `docs/LOCKS.md
 
 From `docs/LOCKS.md`. These do not edit pockets, winding SOP, or the six tests.
 
-- Hold current after switch is zero. Sequential coil select only until this face’s cap + bus headroom is measured. Do not fire two of E1–E4 at once on the first article.
+- Hold current after switch is zero. Sequential coil select only until this face's cap + bus headroom is measured. Do not fire two of E1–E4 at once on the first article.
 - 40 N shear is docked structure. 35 N is the human-contact interrupt if this face is ever used near a person. Do not treat 40 N as a safe squeeze.
 - 41 °C is the paper skin cap. The 1.25 A / 10 min log is still required and may only tighten 41 °C.
 - 12 V bus and 30–36 V pulse bank stay fixture-side until contacts are covered or isolated.
 - Soft safety skin is optional on this coupon. Mandatory only if someone claims a human-proximate build.
 - No companion claim on this face until ON / OFF / current / temperature / cycle data are published.
 - Community Enhancement Suites stay optional and zero-impact on every row in the locked-value table.
+- Replaceable carbide shim is a wear item only. It does not change pin, pocket, EPM, or contact geometry.
 
 ---
 
@@ -209,4 +232,5 @@ From `docs/LOCKS.md`. These do not edit pockets, winding SOP, or the six tests.
 3. Pulse on the bench fixture. Record peak I, ON N, OFF N.
 4. Wire the Pico protoboard to the netlist.
 5. Seat pin, soak 1.25 A / 10 min, log temperature.
-6. Publish measurements. Then talk about the next face.
+6. Seat carbide shim, verify ≤ 0.10 mm clearance.
+7. Publish measurements. Then talk about the next face.
