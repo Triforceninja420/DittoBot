@@ -1,6 +1,7 @@
 # 25 mm cell — coil / driver revision
 2026-09-09
 Updated 2026-11-06: parallel-strand thermal fix added after Phase 0 sim battery.
+Updated 2026-11-19: SmCo 2:17 residual-hold path + stacked hardening levers from DESIGN.md §6.
 
 Project i started Nov/Dec 2025. Design owned by Craig. Programmable matter.
 
@@ -104,6 +105,17 @@ T5 also failed in sim: 0.5 µm wear per cycle × 2 000 cycles = 1 000 µm agains
 * Shim material: **carbide** preferred, hardened 440C steel acceptable
 * Clip-in retention so it can be replaced without disassembling the cell
 
+## SmCo 2:17 residual-hold path (added 2026-11-19)
+
+Sim (2026-11-18) put ~5.7 N residual on a clean 0.1 mm gap and flagged dust/tilt as the collapse mode. `DESIGN.md` §6 stacks three hardening levers. This file covers the magnet half:
+
+* **Baseline stack:** NdFeB N52 + Alnico 5, Ø6.0 × 4.0. Br ~1.45 T. ON force is the priority; residual is whatever survives.
+* **Hardening stack:** SmCo 2:17 + Alnico 5, Ø6.0 × 4.0. Br ~1.05 T, H_c ~720 kA/m, 350 °C rating. ON force drops ~28%. The point is not a bigger room-temp residual — it is residual that does not walk away when the cell sits at 80 °C or corrodes in storage. NdFeB's practical ceiling is ~80–150 °C depending on grade; SmCo does not care until ~300.
+
+Wind and pulse are identical either way: 160–180 t AWG 36 parallel, DRV8871 @ 12 V, ILIM 3.0 A. The only bench difference is the OFF-residual re-pull after an 80 °C soak (step 8 in `MEASUREMENT_CARD.md`).
+
+Open: does the existing reverse-polarity OFF pulse (0.292 T release threshold) clear SmCo, or does the higher-coercivity half need a wider pulse? Do not assume — scope it.
+
 ## What to measure before claiming a latch
 
 1. Turns actually on the bobbin.
@@ -113,6 +125,7 @@ T5 also failed in sim: 0.5 µm wear per cycle × 2 000 cycles = 1 000 µm agains
 5. ON force and OFF force on a fixture, same gap, same mating plate.
 6. Coil + driver temperature after N pulses at the planned cadence.
 7. Shim wear depth after 2 000 cycles.
+8. If SmCo path: OFF residual after 80 °C soak.
 
 Paper tesla does not move the baseline. 28.8 N is retired on this cell.
 
@@ -122,5 +135,6 @@ Paper tesla does not move the baseline. 28.8 N is retired on this cell.
 * Does not change Phase 0 winding SOP (34/32 AWG, 160–200 t, 220 µF / 30–36 V cap-dump, IRLZ44N).
 * Does not change Phase 0 success criteria (≥3 N ON, <0.3 N OFF, ≥40 N shear, 1.25 A × 10 min, 2 000 cycles).
 * Does not change `cad/voxel_cell.scad` pocket dimensions.
-* Does not mint V2.0 or a companion. Process stamps are in `docs/LOCKS.md`.
+* Does not mint V2.0 or a companion. Process stamps are in `LOCKS.md`.
 * Does not shrink the Ø6 disc until measured release current exists.
+* Does not treat SmCo as a room-temperature residual upgrade — it is thermal and corrosion insurance.
