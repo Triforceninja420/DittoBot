@@ -66,6 +66,16 @@ Later version inheritance. The lattice forms a wearable full-body shell; special
 - Requirements: inherits baseline potting, pulse-only magnets, SmCo, and pin hard-lock. Thrusters are a separate power path. Thermal budget becomes real under sustained thrust. Dock compatibility with earlier cells preserved where possible.
 - Status: paper. Flight is not in the current cell; it is an inheritance target for v5+ once propulsion faces exist.
 
+### National-security / agency interest requirements
+What organizations that have already been pointed at the design (or similar ones) typically want before they move past paper:
+
+- Traceable supply chain on magnets (SmCo), any rad-tolerant electronics, and critical mechanical parts. Lot traceability and material certs.
+- Basic tamper / residue resistance: potting and coatings already help; later versions can add tamper-evident features or residue-limiting face treatments if the use case is sensitive.
+- Confirmation the design is fully open: complete fab notes, no hidden process steps, measurement card ready for independent verification.
+- Measured data on the public fixture (ON/OFF force, cycles, thermal) before any adoption discussion. Inheritance roadmaps alone are not sufficient.
+
+These do not change the current baseline geometry. They are additional gates and documentation practices for any version aimed at that audience.
+
 ## Inheritance rule
 Any later version (v5+) must:
 1. Keep the 25 mm envelope and Ø8.2 mm pocket unless a new lock is written
