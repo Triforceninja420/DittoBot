@@ -1,0 +1,67 @@
+DittoBot / Voxel Box Bot — Phase 0 Exact Coil Geometry
+Independent Fab Package addition  |  2026-11-05
+Design owned by Craig. Started Nov/Dec 2025. Programmable matter.
+
+LOCKED PARENT NUMBERS (unchanged)
+  Magnets     AlNiCo 5 Ø5.0 × 8.0 mm axial  +  NdFeB N42/N35 Ø5.0 × 8.0 mm axial
+  Wire        34 AWG (0.16 mm) preferred / 32 AWG (0.20 mm) accept
+  Turns       160–200 (target 180 first articles)
+  Outer Ø     < 8.5 mm
+  Cold R      2.5–6 Ω
+  ON force    ≥ 3.0 N at zero gap on mild steel
+  OFF residual < 0.3 N
+  Pulse       220 µF @ 30–36 V, peak I ≥ 4 A measured (6–10 A target)
+
+------------------------------------------------------------------------------
+EXACT GEOMETRY (first-article H-core / side-by-side rods)
+------------------------------------------------------------------------------
+All dimensions in millimeters. Tolerances are for hand or makerspace fab.
+
+POLE PIECES (2 per EPM)
+  Material          mild steel / 1018 / Q235
+  Thickness         2.00 ± 0.10
+  Height            9.00 ± 0.20   (matches 8.0 mm rods + 0.5 mm proud each end)
+  Width             11.00 ± 0.20
+  Working face      sanded flat 400–600 grit, edges lightly broken
+  Back face         flat enough to clamp
+
+ROD PLACEMENT (between the two poles)
+  Rods side-by-side, long axes parallel, centers 5.5 mm apart.
+  AlNiCo rod        centered in the width, axial magnetization.
+  NdFeB rod         next to AlNiCo, same axial direction for first articles.
+  Ends              flush with working pole face or 0.10–0.20 shy.
+  Bond              thin epoxy film only. No thick fillets on the working face.
+  Finished working face diameter presented to steel ≤ 5.0 mm.
+
+WINDING WINDOW
+  Primary wind around the AlNiCo rod only (first articles).
+  Optional: wind around both rods together (still acceptable).
+  Mandrel barrier   one layer thin Kapton or enamel tape on the AlNiCo.
+  Layer height      keep total build so finished coil OD < 8.5 mm.
+  Typical 34 AWG × 180 turns, 4 layers:
+    Layer 1 ~45–50 turns
+    Layer 2 ~45–50 turns
+    Layer 3 ~45–50 turns
+    Layer 4 remainder
+  Lead exit         40–60 mm flying leads (28–30 AWG) strain-relieved under first 8 turns.
+  Same winding sense on all four face EPMs relative to the working face.
+
+LEAD ROUTING
+  Leads leave the non-working end or the side, never across the working face.
+  Optional Ø1.20 mm plate exits are already in the face-plate CAD.
+
+------------------------------------------------------------------------------
+WHAT TO MEASURE AND PUBLISH (this is the lattice leaving paper)
+------------------------------------------------------------------------------
+  Builder name / handle
+  Photo of finished coil + poles
+  Turns counted on the bobbin (not the target)
+  Wire AWG + enamel type
+  Cold R (Ω, coil only)
+  Cap µF / charge V / peak I (scoped)
+  ON force (N) at zero gap on ≥ 3 mm mild steel
+  OFF residual (N), same plate, same gap
+  Optional: force at 0.10 / 0.25 / 0.50 mm gap
+
+Paper claims without these numbers do not move the locked baseline.
+Credit travels with the measurement.
