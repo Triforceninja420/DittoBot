@@ -22,6 +22,8 @@ Summary of what changed:
 
 Paper estimates only. Credit follows measured data.
 
+Extreme-environment inheritance (deep ocean, cryo, high-rad, corrosive, high-g, bio, etc.) for later versions: [docs/EXTREME_ENVIRONMENTS.md](docs/EXTREME_ENVIRONMENTS.md)
+
 ---
 
 ## Status — 2026-09-09 (Option A locked), revised 2026-11-06, baseline update 2026-11-19
@@ -61,13 +63,14 @@ cad/          OpenSCAD geometry (25 mm cell + Phase 0 fixture)
 firmware/     Pulse driver for XIAO RP2040
 tools/        Analysis scripts (paper force sweep + phase0_estimate.py)
 bom/          Bill of materials and netlist
-docs/         Specifications, locks, phase notes, build handoff, SIM_NOTES.md, BASELINE_UPGRADES.md
+docs/         Specifications, locks, phase notes, build handoff, SIM_NOTES.md, BASELINE_UPGRADES.md, EXTREME_ENVIRONMENTS.md
 assets/       Renders
 ```
 
 ## Key Documents
 
 - [docs/BASELINE_UPGRADES.md](docs/BASELINE_UPGRADES.md) — 2026-11-19 underwater + space standard (SmCo Ø7.5, pin hard-lock, potting, pulse-only)
+- [docs/EXTREME_ENVIRONMENTS.md](docs/EXTREME_ENVIRONMENTS.md) — Inheritance path for deep ocean, cryo, high-rad, corrosive, high-g, bio, and more (later versions)
 - [docs/COIL_REVISION.md](docs/COIL_REVISION.md) — Why the first pass failed, Option A lock, parallel-strand thermal fix, carbide shim
 - [docs/BUILD.md](docs/BUILD.md) — Build handoff for the 25 mm cell
 - [docs/PHASE0.md](docs/PHASE0.md) — Frozen 20 mm hybrid face (separate stack)
