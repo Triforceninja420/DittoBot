@@ -6,6 +6,7 @@ All current design sources live here.
 - [BASELINE_UPGRADES.md](BASELINE_UPGRADES.md) — 2026-11-19 upgrades now standard
 - [DESIGN.md](DESIGN.md) — Architecture, version ladder, lock philosophy
 - [BUILD.md](BUILD.md) — Build handoff
+- [CONTROL_APP.md](CONTROL_APP.md) — Mobile + PC control system outline
 - [PAPER_STATUS.md](PAPER_STATUS.md) — What is fixed without measurements
 - [COIL_REVISION.md](COIL_REVISION.md) — Coil and thermal history
 - [LOCKS.md](LOCKS.md) — Process locks
