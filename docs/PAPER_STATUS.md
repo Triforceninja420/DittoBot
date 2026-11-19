@@ -5,13 +5,14 @@ Design owner: Craig. 2026-11-19.
 All items below are resolved at the documentation and geometry-note level. No filled measurement card is required.
 
 ## Resolved
-- Baseline is unified: SmCo 2:17 Ø7.5 mm × 3.0 mm, axial pin hard-lock, full cavity potting, PTFE lip + coatings, pulse-only + thermal governor, 36–48 V pulse bank.
+- Baseline is unified: SmCo 2:17 Ø7.5 mm × 3.0 mm, axial pin hard-lock, full cavity potting, PTFE lip + coatings, pulse-only + thermal governor stub, 36 V nominal pulse bank (stay under DRV8871 45 V abs max).
 - Pocket remains locked at Ø8.2 × 4.0 mm. CAD updated with pin receptacle notes and clearance.
+- BOM, firmware comments, COIL_REVISION.md, LOCKS.md, force_sweep.py, and PHASE0 cross-references are synchronized to this baseline.
 - Mars / space path inherits the full baseline. No separate geometry.
 - Open thermal, cold-weld, dust, and vacuum paths closed on paper by potting + coatings + pulse-only.
 - Agency interest gates (traceability, open notes, tamper baseline) documented.
 - Extreme-environment and exoskeleton/flight inheritance paths written and cross-linked.
-- Root legacy files removed. All live sources are in docs/ with a clear index.
+- Root legacy files removed. All live sources are in docs/ with a clear index. See CHANGELOG.md.
 
 ## Still requires hardware
 - Actual ON/OFF force, release current, cycle life, plate temperature under pulse train.
