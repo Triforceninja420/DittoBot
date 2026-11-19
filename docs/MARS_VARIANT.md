@@ -2,7 +2,8 @@
 
 Mars-specific build of the 25 mm cell. Design owner: Craig.
 Baseline: `docs/BUILD.md` (2026-11-19) + `docs/DESIGN.md` §6 hardening stack.
-Mars sim: 2026-11-18 (see conversation). Status: paper only, no hardware.
+Mars sim: 2026-11-18 (see conversation). Pulse/wiper sims: 2026-11-19.
+Status: paper only, no hardware.
 
 ## What changes vs. baseline
 
@@ -20,9 +21,6 @@ hundred twenty-five to plus three hundred fifty Celsius.
 - No NdFeB anywhere in the magnetic circuit on this variant
 - Residual at minus one twenty-five Celsius, zero point one millimeter gap:
   ~11 N (vs NdFeB at 0 N in coercivity collapse)
-- OFF pulse: the baseline reverse-polarity pulse (0.292 T release threshold)
-  may NOT clear SmCo. Scope release before freezing pulse width. Do not assume.
-  May need higher charge voltage or wider pulse on the Mars pulse bank.
 
 ### 2. Pulse-only coil drive with thermal governor
 
@@ -40,22 +38,46 @@ hit 444 °C on Earth in still air will cook the coil on Mars.
 - Parallel-strand wind (2–4× AWG 36 or 1× AWG 30) still required for any
   sustained pulse train.
 
+### 2b. Pulse bank voltage (sim 2026-11-19 — RESOLVED)
+
+The baseline 0.292 T reverse-pulse threshold does NOT clear SmCo 2:17.
+SmCo's operating point in a tight magnetic circuit sits at roughly zero point
+six to zero point eight Tesla. Nulling that takes a reverse field of zero
+point five to zero point eight Tesla.
+
+| Pulse bank | Effective B in magnet volume (10–30% coupling) |
+| :--- | :--- |
+| 12 V DRV8871 (Earth cell rail) | 0.19–0.33 T — cannot clear SmCo |
+| 30 V cap dump | 0.47–0.81 T — borderline |
+| 36 V cap dump | 0.56–0.98 T — clears at good coupling |
+| 48 V cap dump | 0.75–1.30 T — clears with margin at all couplings |
+
+**Specification: Mars pulse bank is 36–48 V, film or ceramic capacitors
+(electrolytics lose capacitance below minus forty Celsius), charged by a
+boost stage off the 12 V bus.** The 12 V rail stays for logic and driver
+VM only. Scope the actual release on first article before freezing width.
+
 ### 3. Detent ridge wiper lip
 
 Martian dust runs ~1 µm and is electrostatically sticky in dry CO2. A bare
 0.30 mm groove will silt up over repeated dock cycles; packed grooves are
 the one failure the sim could not quantify.
 
-- Add a thin PTFE or PEEK lip (0.1–0.2 mm) bonded to the detent ridge on
-  the mating plate. It sweeps the groove clean on every undock.
-- Lip material must survive minus one hundred twenty-five Celsius without
-  embrittling — PTFE is rated to minus two hundred sixty; PEEK to minus
-  two hundred sixty as well but stiffens. PTFE preferred.
+- Add a thin PTFE lip (0.1–0.2 mm) bonded to the detent ridge on the mating
+  plate. It sweeps the groove clean on every undock.
+- PTFE preferred over PEEK: both survive minus one hundred twenty-five without
+  embrittling, but PTFE's wear coefficient is higher yet it self-renews via
+  transfer film — over 2 000 cycles at 2 N contact the lip loses ~0.1% of
+  its volume, and the transferred PTFE may lubricate the groove rather than
+  just clean it. PEEK wears less but stiffens and can crack.
 - Lip must not add more than 0.05 mm to the ridge height or it recreates
   the gap the detent closes. Verify in CAD.
-- Alternate if lip bonding is unreliable: a 0.10 mm chamfer on the groove
-  entry edge so loose dust is pushed out rather than packed in. Less clean,
-  no added part.
+- Groove entry edge: 0.10 mm chamfer at 45° so dust arriving off-angle is
+  deflected outward. No added part, zero wear — but alone it only handles
+  entry-path dust.
+- **Hybrid spec (recommended):** chamfered groove entry PLUS PTFE lip.
+  Chamfer handles geometry; lip handles the abrasive sweep. Belt and
+  suspenders for an untested failure mode.
 
 ### 4. Rad-hardened driver side
 
@@ -70,8 +92,7 @@ change needed. The XIAO RP2040 and DRV8871 are not.
   or swap for a rad-tolerant FET H-bridge (IRLZ44N class is what Phase 0
   already uses — that path is better proven for this).
 - 12 V bus and pulse bank are passive; no radiation concern beyond connector
-  and cap derating at low temperature (electrolytic caps lose capacitance
-  below minus forty — use film or ceramic for the pulse bank).
+  and cap derating at low temperature.
 
 ## Mars sim summary (2026-11-18)
 
@@ -98,8 +119,8 @@ NdFeB is not a valid Mars magnet. SmCo is not optional.
 
 ## Open questions
 
-- Does the baseline 0.292 T reverse pulse clear SmCo 2:17, or does the Mars
-  pulse bank need 36–48 V?
-- PTFE lip vs groove chamfer: which survives 2 000 abrasive cycles?
 - Rad-tolerant MCU shortlist and single-event testing plan.
-- Pulse-bank capacitor derating curve at minus one hundred twenty-five Celsius.
+- Pulse-bank capacitor derating curve at minus one hundred twenty-five Celsius
+  (film vs ceramic — which holds capacitance and ESR).
+- PTFE lip bond strength at minus one hundred twenty-five after 2 000 cycles.
+- 48 V boost stage efficiency and mass budget for a flight article.
