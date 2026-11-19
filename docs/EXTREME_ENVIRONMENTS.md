@@ -57,12 +57,21 @@ The 25 mm cell is already sealed, pulse-only, SmCo, mechanically pinned, and coa
 - Replaceable face tiles the lattice can swap
 - Harder coatings as standard on later versions
 
+### Exoskeleton / Flight (Iron Man suit mode)
+Later version inheritance. The lattice forms a wearable full-body shell; specialized faces add flight.
+
+- Structure: cells dock into torso, limbs, and helmet volume around a human payload. Variable density — denser at joints and load paths, lighter panels elsewhere. Mechanical pin + detent carry the suit’s own weight and acceleration loads. Soft inner clearance or compliant layer protects the wearer.
+- Propulsion: dedicated thruster, ducted-fan, or high-thrust module cells dock into back, palms, and boot soles. Shared power bus + denser energy-cell zone (torso or backpack). Stabilization runs on the existing mesh (IMU in a few cells, others follow).
+- Reconfiguration: suit can collapse back into a dense transport brick using the same inward-compaction path already outlined in POST_2040_OUTLOOK.md.
+- Requirements: inherits baseline potting, pulse-only magnets, SmCo, and pin hard-lock. Thrusters are a separate power path. Thermal budget becomes real under sustained thrust. Dock compatibility with earlier cells preserved where possible.
+- Status: paper. Flight is not in the current cell; it is an inheritance target for v5+ once propulsion faces exist.
+
 ## Inheritance rule
 Any later version (v5+) must:
 1. Keep the 25 mm envelope and Ø8.2 mm pocket unless a new lock is written
 2. Inherit potting, pulse-only, SmCo, pin hard-lock, and coatings as the floor
 3. Add environment-specific layers on top without breaking dock compatibility with earlier cells where possible
 
-The goal is one lattice family that can be configured or upgraded to hold in ocean, space, cryo, heat, radiation, corrosion, shock, and bio environments for the long run. Paper until measured.
+The goal is one lattice family that can be configured or upgraded to hold in ocean, space, cryo, heat, radiation, corrosion, shock, bio, and wearable flight environments for the long run. Paper until measured.
 
 See BASELINE_UPGRADES.md and MARS_VARIANT.md for the current floor this builds on.
