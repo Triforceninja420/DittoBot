@@ -1,140 +1,58 @@
 # 25 mm cell — coil / driver revision
 2026-09-09
-Updated 2026-11-06: parallel-strand thermal fix added after Phase 0 sim battery.
-Updated 2026-11-19: SmCo 2:17 residual-hold path + stacked hardening levers from DESIGN.md §6.
+Updated 2026-11-06: parallel-strand thermal fix.
+Updated 2026-11-19: Current baseline is SmCo 2:17 Ø7.5 mm residual hold (coil release only). Earlier Ø6 mm stacks superseded.
 
-Project i started Nov/Dec 2025. Design owned by Craig. Programmable matter.
+Project started Nov/Dec 2025. Design owned by Craig. Programmable matter.
 
 This file applies **only** to the public 25 mm cubic cell in this repository.
 It does not change the locked Phase 0 20 mm hybrid face.
 
-## What was wrong
+## What was wrong (historical)
 
-Published first pass:
+First pass used 120 turns AWG 34, DRV8837C, and claimed numbers that the pulse could not support. Those are retired. See earlier commits for the full analysis.
 
-* 120 turns, AWG 34 (0.15 mm)
-* DRV8837C, 25 ms, ±1.2 A
-* Face bus written 3.3–5.0 V
-* Magnet stack written D8 mm in a Ø8.2 mm pocket
-* Claimed 28.8 N hold at 1.2 T / 0.1 mm
+## Current geometry lock (2026-11-19 baseline)
 
-Ampere-turns: 120 × 1.2 = **144 AT**.
+Pocket remains locked:
 
-If the Alnico path length is ~4 mm:
+* Pocket: **Ø8.2 mm × 4.0 mm** (`cad/voxel_cell.scad` — do not enlarge)
+* Magnet: **SmCo 2:17 Ø7.5 mm × 3.0 mm** residual hold
+* Annulus: (8.2 − 7.5) / 2 = **0.35 mm per side** — tight winding window
+* Axial pin receptacle added in CAD (engages after magnetic soft-dock)
 
-    H ≈ NI / ℓ = 144 / 0.004 = 36 000 A/m = 36 kA/m
+Earlier Ø6 mm NdFeB + Alnico stacks are superseded for this cell.
 
-Alnico 5 *H_c* ≈ 50 kA/m. 36 kA/m is below coercivity. The Alnico does not reliably flip. Maxwell-stress 28.8 N assumes a 1.2 T gap field that this pulse cannot produce.
+## Coil and drive (current baseline)
 
-Radial clearance with a literal D8 mm stack in an Ø8.2 mm pocket: 0.1 mm per side. That is not a 120-turn window. The coil was an inherited first pass. It is not the locked design of this project.
+* Wire: **2–4× AWG 36 in parallel** (or single thicker equivalent). Pulse-only default.
+* Turns: wind what fits the reduced annulus; count and publish the actual number.
+* Driver: **DRV8871**, VM from pulse bank **36 V nominal** (stay ≤ 42 V; absolute max 45 V). ILIM ~3.0 A.
+* Pulse bank: polypropylene film capacitors, 100 V rating preferred, potted.
+* Logic: 3.3 V XIAO RP2040. Never put coil voltage on the MCU.
+* Hold current after pulse = 0. Residual of the SmCo provides zero-power hold.
+* Firmware thermal governor required (see `firmware/pulse_driver.cpp` stub).
 
-## Geometry lock — option A
+Parallel strands remain preferred for any pulse train so that a single fine wire does not overheat.
 
-Picked 2026-09-09. OpenSCAD pocket is unchanged.
+## Thermal and wear notes (retained)
 
-* Pocket: **Ø8.2 mm × 4.0 mm** (file `cad/voxel_cell.scad`, do not edit for this lock)
-* Magnet stack: **Ø6.0 mm × 4.0 mm** total (NdFeB N52 + Alnico 5, split height as wound)
-* Annulus: (8.2 − 6.0) / 2 = **1.1 mm per side**
-* Options B (bigger pocket) and C (coil behind face) stay on the shelf
-
-Ø6 mm pole area is ~56% of an 8 mm face. Paper hold scales down with area. Do not keep quoting 28.8 N on this stack.
-
-## First wind to publish (not yet measured)
-
-Do **not** write “180 t AWG 33” into this hole. AWG 33 (~0.20 mm insulated) packs about 5 layers × ~20 turns in 4 mm ≈ **100 t**.
-
-| Wire | Insulated ≈ | Layers in 1.1 mm | Turns / layer in 4 mm | Realistic turns |
-| :--- | :--- | :--- | :--- | :--- |
-| AWG 33 | ~0.20 mm | ~5 | ~20 | ~100 t |
-| AWG 36 | ~0.15 mm | ~7 | ~26 | ~160–180 t |
-
-**Build target for the first 25 mm coil:**
-
-* Wire: **AWG 36** (0.13 mm bare, enamel)
-* Turns: **160–180 t** (count them; publish the count you actually wound)
-* Driver: **DRV8871**, VM = **12 V**, ILIM set near **3.0 A** (3.6 A is the peak rating, not the setpoint)
-* Alternate driver: DRV8212
-* Pulse: start 25 ms; stretch only until measured current has peaked
-* Logic: 3.3 V XIAO, unchanged. Do not put 12 V on U1 VCC
-
-Worked examples after a successful wind (path ℓ ≈ 4 mm):
-
-* 170 t × 3.0 A = 510 AT → H ≈ 128 kA/m
-* 180 t × 3.0 A = 540 AT → H ≈ 135 kA/m
-* 100 t AWG 33 × 3.6 A = 360 AT → H ≈ 90 kA/m (backup if 36 is unavailable)
-
-All of those clear Alnico 5 *H_c* (~50 kA/m) **if** the pulse actually reaches that current. L/R and window fill decide that, not the whiteboard.
-
-## Driver swap
-
-| | First pass | A-lock |
-| :--- | :--- | :--- |
-| IC | DRV8837C (1.8 A pk, 11 V abs) | **DRV8871** (3.6 A pk, 6.5–45 V) |
-| Coil rail | 5 V | **12 V** |
-| Logic rail | 3.3 V | 3.3 V |
-| Magnet OD | 8 mm (no annulus) | **6 mm** |
-| Coil | 120 t AWG 34 | **160–180 t AWG 36** |
-
-IN1 / IN2 polarity in `firmware/pulse_driver.cpp` stays the same.
-
-## Thermal fix — parallel strands (added 2026-11-06)
-
-Phase 0 sim battery (2026-11-06) ran the full T1–T5 suite. T4 failed: single AWG 36 strand at 1.25 A × 10 min reached **444 °C** against an 85 °C insulation limit. Cause: 0.34 Ω single strand dissipates I²R continuously with no parallel copper path and no airflow.
-
-**Fix: parallel-strand winding.** Same 160–180 turn count, but wound as 2–4 strands of AWG 36 in parallel (or one AWG 30 equivalent). Effects:
-
-* Resistance drops from ~0.34 Ω to ~0.09–0.17 Ω
-* Current splits across strands → each strand runs at 0.3–0.6 A instead of 1.25 A
-* I²R per strand drops by 4–16×
-* Copper surface area for heat rejection increases
-* If one strand opens, the rest carry the load — no single point of failure
-
-Rerun target: coil + driver under **85 °C** after 1.25 A × 10 min with ambient 25 °C, no forced airflow. That is the pass line for T4.
-
-This is how motor and solenoid coils are built for continuous duty. Single-strand fine wire is for pulse-only applications.
-
-## Shear shim — replaceable carbide face (added 2026-11-06)
-
-T5 also failed in sim: 0.5 µm wear per cycle × 2 000 cycles = 1 000 µm against a 100 µm clearance budget.
-
-**Fix: hardened steel or carbide shear shim clipped into the latch face**, treated like a brake pad:
-
-* Designed to wear; cheap to swap when worn
-* Initial clearance spec'd with wear margin baked in
-* Full 2 000 cycles before first service interval
-* Shim material: **carbide** preferred, hardened 440C steel acceptable
-* Clip-in retention so it can be replaced without disassembling the cell
-
-## SmCo 2:17 residual-hold path (added 2026-11-19)
-
-Sim (2026-11-18) put ~5.7 N residual on a clean 0.1 mm gap and flagged dust/tilt as the collapse mode. `DESIGN.md` §6 stacks three hardening levers. This file covers the magnet half:
-
-* **Baseline stack:** NdFeB N52 + Alnico 5, Ø6.0 × 4.0. Br ~1.45 T. ON force is the priority; residual is whatever survives.
-* **Hardening stack:** SmCo 2:17 + Alnico 5, Ø6.0 × 4.0. Br ~1.05 T, H_c ~720 kA/m, 350 °C rating. ON force drops ~28%. The point is not a bigger room-temp residual — it is residual that does not walk away when the cell sits at 80 °C or corrodes in storage. NdFeB's practical ceiling is ~80–150 °C depending on grade; SmCo does not care until ~300.
-
-Wind and pulse are identical either way: 160–180 t AWG 36 parallel, DRV8871 @ 12 V, ILIM 3.0 A. The only bench difference is the OFF-residual re-pull after an 80 °C soak (step 8 in `MEASUREMENT_CARD.md`).
-
-Open: does the existing reverse-polarity OFF pulse (0.292 T release threshold) clear SmCo, or does the higher-coercivity half need a wider pulse? Do not assume — scope it.
+Single-strand continuous duty was flagged hot in earlier analysis. Pulse-only + parallel strands + thermal governor address it. Replaceable carbide shear shim remains a wear item on the latch face.
 
 ## What to measure before claiming a latch
 
-1. Turns actually on the bobbin.
-2. DC resistance (per strand and total parallel).
-3. Time-to-peak current on a 12 V step (or L).
-4. Peak current during the real pulse.
-5. ON force and OFF force on a fixture, same gap, same mating plate.
-6. Coil + driver temperature after N pulses at the planned cadence.
-7. Shim wear depth after 2 000 cycles.
-8. If SmCo path: OFF residual after 80 °C soak.
+1. Turns actually wound.
+2. Cold R (total parallel).
+3. Peak current and pulse width on the real bank.
+4. ON force (coil off) and OFF force (after release pulse) at the intended gap.
+5. Pin engagement confirmation.
+6. Plate / coil temperature after a representative pulse train.
+7. Potting and coating integrity.
 
-Paper tesla does not move the baseline. 28.8 N is retired on this cell.
+Paper estimates do not move the baseline. Fill `docs/MEASUREMENT_CARD.md`.
 
 ## What this file does not do
 
 * Does not unfreeze Phase 0.
-* Does not change Phase 0 winding SOP (34/32 AWG, 160–200 t, 220 µF / 30–36 V cap-dump, IRLZ44N).
-* Does not change Phase 0 success criteria (≥3 N ON, <0.3 N OFF, ≥40 N shear, 1.25 A × 10 min, 2 000 cycles).
-* Does not change `cad/voxel_cell.scad` pocket dimensions.
-* Does not mint V2.0 or a companion. Process stamps are in `LOCKS.md`.
-* Does not shrink the Ø6 disc until measured release current exists.
-* Does not treat SmCo as a room-temperature residual upgrade — it is thermal and corrosion insurance.
+* Does not change the locked Ø8.2 × 4.0 mm pocket.
+* Does not mint V2.0 or a companion.

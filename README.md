@@ -3,7 +3,7 @@
 Programmable matter voxel lattice. 25 mm cubic cell.  
 Design owned by Craig. Started November/December 2025.
 
-**Current baseline (2026-11-19):** SmCo Ø7.5 mm, mechanical pin hard-lock, cavity potting, pulse-only drive, face coatings. Pocket and envelope unchanged. Paper only — credit follows measured data.
+**Current baseline (2026-11-19):** SmCo Ø7.5 mm residual hold, mechanical pin hard-lock, cavity potting, pulse-only drive with thermal governor, face coatings. Pocket and envelope unchanged. Paper only — credit follows measured data.
 
 This is **not** the locked Phase 0 20 mm hybrid face. Do not mix stacks. See [docs/PHASE0.md](docs/PHASE0.md).
 
@@ -28,13 +28,11 @@ Full index: [docs/README.md](docs/README.md)
 
 ```
 cad/                  OpenSCAD (voxel_cell.scad + Phase 0 fixture)
-firmware/             Pulse driver (XIAO RP2040)
+firmware/             Pulse driver with thermal governor stub (XIAO RP2040)
 tools/                Paper estimates (force_sweep.py, phase0_estimate.py)
-bom/                  Netlist
+bom/                  Netlist (synced to 2026-11-19 baseline)
 docs/                 All current specifications and notes
-assets/               Renders (Voxel_Render.jpg at root for now)
+Voxel_Render.jpg      Example render (assets/ folder not yet used)
 ```
-
-Root-level `.md` files (DESIGN.md, MEASUREMENT_CARD.md, MIN_PARTS.md, etc.) are legacy backups from earlier dates. Use the versions inside `docs/`.
 
 License: MIT

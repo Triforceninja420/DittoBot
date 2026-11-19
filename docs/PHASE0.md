@@ -3,7 +3,7 @@
 Design owned by Craig. Started Nov/Dec 2025. Programmable matter.
 
 **This file is the locked 20 mm hybrid face.**
-It is **not** the 25 mm cubic cell in this repository (`README.md`, `docs/COIL_REVISION.md`, `cad/voxel_cell.scad`).
+It is **not** the 25 mm cubic cell in this repository (`README.md`, `docs/BASELINE_UPGRADES.md`, `cad/voxel_cell.scad`).
 Do not paste 25 mm coil, driver, magnet, or hold numbers into this document.
 Do not paste these Phase 0 numbers into the 25 mm files.
 
@@ -41,7 +41,7 @@ Not a cube. Not a swarm. Not the GitHub 25 mm cell.
 | Peak I | 6–10 A target, ≥ 4 A measured |
 | Hold current after switch | **zero** |
 
-The 25 mm cell uses a single centered Ø8.2 pocket, Ø6.0 × 4.0 magnet stack, AWG 36, and a DRV8871. Those parts do not belong on this face.
+The 25 mm cell uses a single centered Ø8.2 pocket, SmCo 2:17 Ø7.5 mm residual hold, parallel AWG 36, DRV8871 pulse from a 36 V bank, axial pin, and cavity potting. Those parts do not belong on this face.
 
 ---
 
@@ -192,21 +192,21 @@ Phase 0 simulation flagged latch-face wear as the cycle-life risk: 0.5 µm per c
 
 Shear capacity is unchanged: 4× Ø1.2 mm steel pins at 400 MPa shear = ~1 810 N simulated vs 40 N spec. The shim manages face wear only; pin + receptacle carry structure.
 
-**Thermal note (cross-ref `docs/COIL_REVISION.md` Rev 2026-11-06):**
+**Thermal note:**
 
-The 1.25 A × 10 min bus soak still requires plate-temp logging near contacts and EPM pockets. 41 °C skin cap stands. If plate near an EPM pocket exceeds 41 °C, that is a winding or FET problem on the 25 mm cell side — do not loosen this face's criterion to mask it.
+The 1.25 A × 10 min bus soak still requires plate-temp logging near contacts and EPM pockets. 41 °C skin cap stands.
 
 ---
 
 ## What is not in this file
 
-- 25 mm cube envelope, Ø8.2 pocket, Ø6.0 magnet, AWG 36, DRV8871, 28.8 N
+- 25 mm cube envelope, Ø8.2 pocket, SmCo Ø7.5 residual, DRV8871, axial pin, potting
 - Community Enhancement Suites (optional skins, sensors, credit hooks — zero impact on these criteria)
 - Native STEP/IGES, KiCad PCB, FEMM project (honest gaps in v0.2)
 
 Those live elsewhere. This face stays a 20 mm aluminum demonstrator until the six tests above have numbers next to them.
 
-Process stamps that do not change any number in this file live in `docs/LOCKS.md` (16 paper locks, 2026-09-14). Companion / V2.0 language is not a Phase 0 unfreeze.
+Process stamps that do not change any number in this file live in `docs/LOCKS.md`. Companion / V2.0 language is not a Phase 0 unfreeze.
 
 ---
 
