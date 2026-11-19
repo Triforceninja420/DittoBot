@@ -139,6 +139,44 @@ Exact vendor part numbers are not frozen yet. The table defines required perform
 
 ───
 
+6. Residual-Hold Hardening (stacked, 2026-11-19)
+
+Sim (2026-11-18) found the 25 mm cell's zero-hold path rests on ~5.7 N residual
+against a clean keeper at ~0.1 mm gap. Dust, tilt, or a worn shim collapses it.
+Three levers stack without touching locked option-A geometry (Ø8.2 pocket, Ø6 disc):
+
+1. SmCo 2:17 upgrade path — swap the NdFeB half of the Ø6 × 4 stack for
+   samarium-cobalt (Br ~1.05 T, H_c ~720 kA/m, 350 °C max operating temp).
+   NdFeB N52 stays the ON-state workhorse (Br ~1.45 T). SmCo's job is
+   environmental stability: residual flux holds across temperature swings and
+   corrosion that would degrade NdFeB above ~80–150 °C. Same Ø6 × 4 envelope,
+   so the pocket and coil annulus are untouched. ON force scales down ~28%
+   with the lower Br — that is the trade for a hold that survives Mars-class
+   thermal cycling. Not a room-temp residual upgrade; a thermal-stability one.
+
+2. Compliant pole tips — 0.2–0.4 mm silicone or spring-steel washer bonded
+   to the latch face. Absorbs dust particles and face tilt up to ~2° before
+   the magnetic gap opens. Must be non-magnetic and thin enough that ON
+   Maxwell stress is not diluted below the 3 N Phase-0-class gate when adapted.
+   This is the biggest lever for the dust/gap failure mode the sim flagged.
+
+3. Passive mechanical detent — shallow annular groove (0.3 mm deep) in the
+   carbide/440C shim paired with a matching ridge on the mating plate.
+   Magnetism does capture and positioning; the detent does the final
+   mechanical lock. Shear load path moves from magnetic friction to geometry,
+   which is what the 40 N shear gate was always really about.
+
+Any one lever roughly doubles dust/tilt tolerance. Stacking two makes the
+5.7 N residual a floor, not a cliff. None of this changes option-A
+dimensions, coil winding, driver, or success tests — it hardens the
+interface around them.
+
+Open question for the bench: does the SmCo half need its own OFF-pulse
+current, or does the existing reverse-polarity pulse (0.292 T release
+threshold from sim) still clear it? Measure before freezing.
+
+───
+
 This is the complete backup package. You can copy everything above straight to your phone.
 
 (Design is from August 3rd, 2026. Info may have been updated since)
