@@ -9,15 +9,18 @@ Status: **blank until measured.** No latch claim until the table is filled. **No
 
 Process stamps that do not change option A geometry: `LOCKS.md` (16 paper locks, 2026-09-14).
 
-Geometry under test (option A, 2026-09-09; thermal revision 2026-11-06):
+Geometry under test (option A, 2026-09-09; thermal revision 2026-11-06; residual-hold hardening 2026-11-19):
 - Pocket: Ø8.2 mm × 4.0 mm (file `openscad`, unchanged)
-- Magnet stack: Ø6.0 mm × 4.0 mm (NdFeB N52 + Alnico 5)
+- Magnet stack: Ø6.0 mm × 4.0 mm (NdFeB N52 + Alnico 5) — **baseline**
+- Magnet stack alternative: Ø6.0 mm × 4.0 mm (SmCo 2:17 + Alnico 5) — residual-hold hardening path, see `DESIGN.md` §6. Same envelope, ~28% lower ON force, thermal stability to 350 °C. Not a room-temp residual upgrade.
 - Coil target: **2–4× AWG 36 in parallel** (or 1× AWG 30 equivalent), 160–180 turns counted on the bobbin. Single-strand AWG 36 is retired — sim hit 444 °C at 1.25 A × 10 min.
 - Driver: DRV8871, VM = 12 V, ILIM ~3.0 A
 - Logic: 3.3 V XIAO RP2040. Do not put 12 V on U1 VCC.
 - Latch face: replaceable carbide or 440C shim, 0.50 mm thick, clip-in. Wear item — swap at 100 µm or 2 000 cycles.
+- Compliant pole tip (hardening lever 2): 0.2–0.4 mm non-magnetic silicone or spring-steel washer bonded to latch face. Absorbs dust and ≤2° tilt. Must not dilute ON force below 3 N gate.
+- Passive mechanical detent (hardening lever 3): 0.3 mm annular groove in shim + matching ridge on mating plate. Magnetism captures; detent locks.
 
-See `COIL_REVISION.md` Rev 2026-11-06 for the wind window, parallel-strand math, and why the first-pass 120 t / DRV8837C / 28.8 N line is dead.
+See `COIL_REVISION.md` Rev 2026-11-06 for the wind window, parallel-strand math, and why the first-pass 120 t / DRV8837C / 28.8 N line is dead. See `DESIGN.md` §6 for the three stacked residual-hold levers.
 
 ---
 
@@ -68,6 +71,7 @@ Shim wear depth:
 5. Pulse OFF. Same plate, same gap. Log residual.
 6. Repeat N pulses at the planned cadence. Log coil and DRV8871 case temperature. **T4 pass: coil + driver under 85 °C after 1.25 A × 10 min, 25 °C ambient, no forced airflow.**
 7. After 2 000 cycles (or if clearance opens past 0.15 mm), measure shim wear depth. Swap shim if worn past budget.
+8. If testing the SmCo path: repeat steps 4–5 with the SmCo stack at the same gap, then run a thermal soak (80 °C, 1 hour) and re-pull OFF residual. That is the number SmCo is for.
 
 If peak current never reaches ~3 A, ampere-turns never clear Alnico 5 *H_c* (~50 kA/m) and force will not decide geometry. Fix the pulse first.
 
@@ -94,5 +98,6 @@ Minimum parts (bench, not a breadboard farm): Ø6.0 × 4.0 magnet stack, AWG 36 
 - Does not restore 28.8 N on the 25 mm cell
 - Does not mint V2.0 or a companion robot
 - Does not shrink the Ø6 disc or the Ø8.2 pocket
+- Does not change `cad/voxel_cell.scad` pocket dimensions (pole tips and detent are interface additions, not pocket edits)
 
 Human-contact interrupt on a later proximate build is 35 N. That number is not a 25 mm hold claim. Do not write it in the ON-force box.
