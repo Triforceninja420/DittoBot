@@ -2,7 +2,8 @@
 
 Mars-specific build of the 25 mm cell. Design owner: Craig.
 Baseline: `docs/BUILD.md` (2026-11-19) + `docs/DESIGN.md` §6 hardening stack.
-Mars sim: 2026-11-18 (see conversation). Pulse/wiper sims: 2026-11-19.
+Mars sim: 2026-11-18. Pulse/wiper sims: 2026-11-19.
+Open-question sims: 2026-11-19 (MCU, caps, lip bond, boost).
 Status: paper only, no hardware.
 
 ## What changes vs. baseline
@@ -52,10 +53,30 @@ point five to zero point eight Tesla.
 | 36 V cap dump | 0.56–0.98 T — clears at good coupling |
 | 48 V cap dump | 0.75–1.30 T — clears with margin at all couplings |
 
-**Specification: Mars pulse bank is 36–48 V, film or ceramic capacitors
-(electrolytics lose capacitance below minus forty Celsius), charged by a
-boost stage off the 12 V bus.** The 12 V rail stays for logic and driver
-VM only. Scope the actual release on first article before freezing width.
+**Specification: Mars pulse bank is 36–48 V, polypropylene film capacitors
+(see §2c), charged by a 12→48 V boost stage off the 12 V bus** (see §4b).
+The 12 V rail stays for logic and driver VM only. Scope the actual release
+on first article before freezing width.
+
+### 2c. Pulse-bank capacitors (sim 2026-11-19 — RESOLVED)
+
+Energy target: 50 mJ at 48 V → 43 µF minimum. At minus one twenty-five:
+
+| Dielectric | Capacitance retained | Spec action |
+| :--- | :--- | :--- |
+| X7R ceramic | ~25% | REJECT — ESR rises 5–10×, pulse current
+  starves, cap body self-heats |
+| C0G/NP0 ceramic | ~97% | Viable but volume explodes at 48 V rating |
+| PET film | ~90% | Marginal |
+| **PP film** | **~95%** | **SPEC** — best balance: stable C,
+  2–3× ESR (acceptable for a 1 ms pulse), self-healing,
+  rated -55 to +105 °C continuous |
+
+**Specification: 440 µF PP film bank (2× oversize for derating + ESR
+margin), 63 V or 100 V rating, potted.** Navy SD-18 derates film caps to
+55% of rated voltage below 0 °C — at -125 °C a 63 V cap sees an effective
+~35 V ceiling, which still clears 48 V charge with margin if you use the
+100 V rating instead. Use 100 V PP parts.
 
 ### 3. Detent ridge wiper lip
 
@@ -79,20 +100,48 @@ the one failure the sim could not quantify.
   Chamfer handles geometry; lip handles the abrasive sweep. Belt and
   suspenders for an untested failure mode.
 
+### 3b. PTFE lip attachment (sim 2026-11-19 — RESOLVED)
+
+Untreated PTFE will not bond — surface energy ~18 mN/m. Sodium-naphthalene
+etching raises it to 60–70 mN/m and gives epoxy lap-shear of 10–20 MPa, but
+the etched layer is only 10–50 nm deep and fails by stripping at cryo due to
+CTE mismatch (PTFE ~100+ ppm/K vs epoxy ~50–70). Cryo-rated epoxies
+(MasterBond EP21TCHT-LO class, serviceable to 4 K) help but don't eliminate
+the mismatch risk over 2 000 thermal cycles.
+
+**Specification: mechanically captured PTFE lip — molded or swaged into the
+ridge as one piece, zero adhesive.** If bonding is unavoidable, sodium-etch
+the PTFE, use a cryo-rated low-outgassing epoxy, and roughen before etching.
+Bond within 4 hours of etch; the activated surface re-contaminates.
+
 ### 4. Rad-hardened driver side
 
 Magnets and 440C/carbide are ceramics and metals — radiation-hard, no
 change needed. The XIAO RP2040 and DRV8871 are not.
 
-- Replace XIAO RP2040 with a rad-tolerant MCU (e.g., a rad-hard ARM
-  Cortex-M0 class part or a shielded commercial part behind 2–4 mm Al).
-  Single-event latchup and total ionizing dose will brown out or kill a
-  commercial RP2040 over a multi-year Mars exposure.
+- **MCU: MSP430FR5969-SP** (TI space-grade FRAM part). FRAM cells are
+  inherently SEU-immune, SEL-immune to 72 MeV·cm²/mg at 125 °C, TID lot-
+  tested to 50 krad, -55 to +105 °C, 64 KB unified memory, ~100 µA/MHz,
+  0.02 µA shutdown. Nonmagnetic. ~$30–50 vs $2 000+ for true rad-hard
+  LEON3 parts that draw 1 W+ — overkill for a cell.
+- Mars GCR delivers ~0.25 rad/day. 50 krad unshielded = ~550 days. Behind
+  3 mm Al the TID budget extends 5–10× → 5–15 year life. **Spec: 3 mm Al
+  shield around the MCU, or mount it on the shadowed side of the cell.**
 - DRV8871: commercial H-bridge, not rad-rated. Shield behind the same Al
   or swap for a rad-tolerant FET H-bridge (IRLZ44N class is what Phase 0
   already uses — that path is better proven for this).
 - 12 V bus and pulse bank are passive; no radiation concern beyond connector
-  and cap derating at low temperature.
+  and cap derating at low temperature (covered in §2c).
+
+### 4b. 48 V boost stage (sim 2026-11-19 — RESOLVED)
+
+Boosting 12→48 V at 1 W out: 1.11 W in, 111 mW loss (90% efficient).
+Mass: ~8 g (shielded inductor 2 g, FETs + driver 1 g, caps 2 g, PCB 3 g).
+A dedicated 48 V cell pack for even 1 Wh would mass 20 g+ — the boost is
+lighter whenever a 12 V bus already exists, which it does.
+
+**Specification: 12→48 V boost, ~8 g, 90% efficiency, thermal-folded into
+the pulse-only governor so it only runs when a release is queued.**
 
 ## Mars sim summary (2026-11-18)
 
@@ -109,6 +158,33 @@ Worst case: polar winter minus one twenty-five Celsius, dusty, 0.15 mm gap.
 
 NdFeB is not a valid Mars magnet. SmCo is not optional.
 
+## Mass budget (Mars cell, all hardening included)
+
+| Part | Mass |
+| :--- | :--- |
+| SmCo magnet Ø6×2 | 1.5 g |
+| Coil (parallel AWG 36) | 2.0 g |
+| Carbide shim + detent groove | 1.0 g |
+| Pole tip (silicone) | 0.2 g |
+| PTFE lip + chamfer | 0.1 g |
+| H-bridge (DRV8871 or IRLZ44N) | 0.5 g |
+| MSP430FR5969-SP + 3 mm Al | 4.0 g |
+| 48 V boost stage | 8.0 g |
+| Pulse bank (440 µF PP, 100 V) | 3.0 g |
+| TMP117 | 0.1 g |
+| PCB + connectors | 5.0 g |
+| Al housing (25 mm cube) | 15.0 g |
+| **Total** | **40.4 g** |
+
+Earth-baseline equivalent: ~25 g. Mars hardening adds ~15 g.
+
+## Power budget
+
+Idle: ~1 mW (MCU + sensor). Pulse event: 50 mJ + ~5 mJ boost overhead
+= 55 mJ. At one pulse per minute that's 0.9 mW average; at one per hour,
+15 µW. The cell is power-neutral at any realistic dock rate. The 1.25 A
+soak is the only hot path and it is forbidden by spec §2.
+
 ## What is NOT in this file
 
 - Phase 0 20 mm face numbers (separate file, do not mix)
@@ -119,8 +195,10 @@ NdFeB is not a valid Mars magnet. SmCo is not optional.
 
 ## Open questions
 
-- Rad-tolerant MCU shortlist and single-event testing plan.
-- Pulse-bank capacitor derating curve at minus one hundred twenty-five Celsius
-  (film vs ceramic — which holds capacitance and ESR).
-- PTFE lip bond strength at minus one hundred twenty-five after 2 000 cycles.
-- 48 V boost stage efficiency and mass budget for a flight article.
+- PTFE lip bond strength after 2 000 cryo cycles with mechanical capture
+  (verify in environmental chamber before flight).
+- 100 V PP cap ESR at -125 °C under 1 ms pulse load (datasheet curves
+  stop at -55 °C — extrapolate or test).
+- Boost stage cold-start at -125 °C (inductor saturation, FET Rds(on)
+  rise — may need a heater or oversized FETs).
+- MSP430FR5969-SP availability and lead time for quantity.
