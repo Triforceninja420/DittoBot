@@ -4,7 +4,7 @@ Design owned by Craig. Started Nov/Dec 2025. Programmable matter.
 
 This is a **post-2040 speculative outlook**. It does **not** change locked Phase 0 criteria, 25 mm option A geometry, process locks in `LOCKS.md`, or any current build target. Two stacks stay unmixed. No V2.0 claim. No measured numbers here. Credit follows data when it arrives.
 
-A mature lattice can change its occupied volume by orders of magnitude through coordinated reconfiguration. Individual cell envelopes stay the nominal size (20 mm Phase 0 face or 25 mm option A). Volume change comes from packing density, nesting, zoning, and node-count changes — not from shrinking or growing the cells themselves.
+A mature lattice can change its occupied volume by orders of magnitude through coordinated reconfiguration. Individual cell envelopes stay the nominal size (30 mm Phase 0 dual-cam face or 25 mm option A). Volume change comes from packing density, nesting, zoning, and node-count changes — not from shrinking or growing the cells themselves.
 
 Matching optional suites that support these modes (energy, sync, sensing, recovery, soft skin, etc.) are listed by phase in [docs/COMMUNITY_ENHANCEMENT_SUITES.md](COMMUNITY_ENHANCEMENT_SUITES.md). All remain zero-impact on locked criteria.
 
@@ -39,7 +39,7 @@ Release selected faces → modules translate or unfold outward along planned axe
 Future modules can accept or become sub-voxels. A single outer cell envelope holds a denser sub-lattice, giving multi-level volume change.
 
 **Intent**  
-Deeper shrink and finer expand without changing the outer 20 mm or 25 mm nominal. Enables extreme density packing and high-resolution surface detail from the same base cell.
+Deeper shrink and finer expand without changing the outer 30 mm or 25 mm nominal. Enables extreme density packing and high-resolution surface detail from the same base cell.
 
 **Mechanism (outlook)**  
 Outer cells dock and form a stable envelope. Internal volume is filled by smaller sub-modules (or the same modules reconfigured into tighter hierarchical packing). Power, data, and mechanical continuity propagate through both levels. Sub-lattice can later eject or re-expand independently.
@@ -72,7 +72,7 @@ Coordinated undock along a planned cut plane → subgroups re-form independent m
 
 ## Shared Constraints (all modes)
 
-- Phase 0 (20 mm hybrid face) and 25 mm option A geometry stay frozen.
+- Phase 0 (30 mm dual-cam face) and 25 mm option A geometry stay frozen.
 - No change to EPM windings, drivers, force targets, or measurement cards.
 - Community Enhancement Suites remain optional and zero-impact on locked criteria. See [docs/COMMUNITY_ENHANCEMENT_SUITES.md](COMMUNITY_ENHANCEMENT_SUITES.md).
 - Energy budget, thermal limits, and safe-reserve rules apply to every sequence. No mode may drop below safe reserve.
@@ -94,10 +94,10 @@ Until those exist, these remain outlooks.
 
 All near-term work stays on the locked baselines:
 - 25 mm cell: fill `MEASUREMENT_CARD.md` (turns, R, peak I, ON/OFF).
-- Phase 0: aluminum face plate, four EPMs to SOP, force and soak data.
+- Phase 0: 30 mm dual-cam plate, NdFeB Ø6×6, 40-turn coil, dual cams, pins + retraction actuator, force and soak data.
 
 These scale-change modes are additive future capability for a mature programmable-matter lattice. They do not reopen any lock.
 
 ---
 
-*Updated 2026-11-06. Outlook only. Five modes: inward shrink, outward expansion, hierarchical nesting, variable-density zones, split/merge swarm scaling. Matching optional suites mapped in COMMUNITY_ENHANCEMENT_SUITES.md.*
+*Updated 2026-11-21. Outlook only. Five modes: inward shrink, outward expansion, hierarchical nesting, variable-density zones, split/merge swarm scaling. Matching optional suites mapped in COMMUNITY_ENHANCEMENT_SUITES.md. Stale 20 mm references swept.*

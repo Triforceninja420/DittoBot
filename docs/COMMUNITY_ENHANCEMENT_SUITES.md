@@ -93,7 +93,7 @@ Directly support the five scale-change modes in `POST_2040_OUTLOOK.md`. Still op
 
 ## Explicit non-goals
 
-- No suite changes Phase 0 ON ≥ 3 N, OFF < 0.3 N, 40 N shear, 1.25 A soak, or cycle targets.
+- No suite changes Phase 0 snap 34.6 N, release net +65.7 N, 40 N shear, 1.25 A soak, or cycle targets.
 - No suite changes 25 mm option A pocket, magnet stack, AWG 36, DRV8871, or retired 28.8 N.
 - No suite is required for a measured latch or a filled `MEASUREMENT_CARD.md`.
 - Soft safety skin remains mandatory only on human-proximate builds; optional on bench coupons.
@@ -102,4 +102,4 @@ Near-term work is unchanged: wind, pulse, pull, and publish numbers on the locke
 
 ---
 
-*Added 2026-11-06. Optional only. Zero impact on locked criteria.*
+*Added 2026-11-06. Updated 2026-11-21: stale ON/OFF 3.0/0.3 N references replaced with current Phase 0 numbers. Optional only. Zero impact on locked criteria.*
