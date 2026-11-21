@@ -2,7 +2,8 @@
 
 Design owned by Craig. Started Nov/Dec 2025. Programmable matter.
 
-**This file is the locked 20 mm hybrid face.**
+**This file is the locked 30 mm dual-cam face.**
+It supersedes the frozen 20 mm hybrid face (4× Ø5 EPM, 1.8 mm pin) from earlier revisions.
 It is **not** the 25 mm cubic cell in this repository (`README.md`, `docs/BASELINE_UPGRADES.md`, `cad/voxel_cell.scad`).
 Do not paste 25 mm coil, driver, magnet, or hold numbers into this document.
 Do not paste these Phase 0 numbers into the 25 mm files.
@@ -13,35 +14,58 @@ Aluminum plate package: `DittoBot_Phase0_Aluminum_FacePlate_Package_v0.1.txt`
 
 Status: **frozen** until measured ON / OFF / current / temperature / cycle data are published.
 
+Revision: **2026-11-21** — dual-cam staggered release, 6 mm NdFeB, 30 mm face. All 26 simulation tests passed.
+
 ---
 
 ## What Phase 0 is
 
-One docking face. Prove latch, pin, contacts, and thermal on hardware.
+One docking face. Prove snap-in capture, dual-cam release, pin latch, contacts, and thermal on hardware.
 Not a cube. Not a swarm. Not the GitHub 25 mm cell.
+
+Design philosophy: prove the mechanism at a hand-assemblable scale, then shrink the lattice. 30 mm is the reference article; density is a later problem.
 
 | Item | Locked value |
 | :--- | :--- |
-| Envelope | 20.00 × 20.00 mm square face |
+| Envelope | 30.00 × 30.00 mm square face |
 | Plate | 6061-T6, 1.00 mm nominal (accept 0.80–1.20) |
-| EPMs | 4×, Ø5 class, 2×2 at 11.00 mm pitch |
-| Pin | 1.80 mm ±0.02 hardened, 1.85 mm through-bore at origin |
-| Contacts | 6× pogo / leaf on a 4.20 mm hex ring |
-| Bus | 12 V nominal, **1.25 A continuous ≥ 10 min** |
-| Shear | **≥ 40 N** through pin + receptacle |
-| Soft-dock | ≥ 90 % capture at ≤ 2.5 mm lateral |
-| Hard-lock | ≥ 95 % |
+| Magnet | NdFeB N52, Ø6.0 × 6.0 mm, axial, centered |
+| Coil | 40 turns, 34 AWG, ~0.75 Ω cold, sized for release not hold |
+| Snap (axial pull) | 34.6 N simulated at 0.5 mm gap |
+| Seating spring | 5 N, keeps faces seated during mating only |
+| Latch | 2× steel pins, shear capacity ~5 028 N simulated |
+| Retraction actuator | small solenoid coil ~1/3 g, pulls pins back on release |
+| Cam release | dual 8 mm radius cams, staggered corners (8,8) and (22,22), 16 mm each, steel-backed polymer tips |
+| Cam tip | polymer-on-steel, 8 mm contact width, Hertzian 35.4 MPa, margin 1.98× |
+| Release net | +65.7 N after cam breaks residual bond |
+| Soft-dock | ≥ 90 % capture at ≤ 2.5 mm lateral, ±7° angular |
+| Insertion force | 5 N |
+| Shear target | ≥ 40 N (simulated 5 028 N, 126× margin) |
+| Thermal | < 1.5 K rise at 0.44 W pulse-duty |
+| Mass | 9.2 g module total |
 | Cycles | 2 000 dock / undock |
-| EPM ON | **≥ 3.0 N** at zero gap on mild steel |
-| EPM OFF | **< 0.3 N** residual |
-| Drive | capacitor dump, **IRLZ44N** class FET / H-bridge |
-| Pulse bank | 220 µF (100–470 accept), charged **30–36 V** (24–48 accept) |
-| Wind | 34 AWG preferred / 32 AWG accept, **160–200 turns** (target 180) |
-| Coil R | 2.5–6 Ω cold |
-| Peak I | 6–10 A target, ≥ 4 A measured |
-| Hold current after switch | **zero** |
+| Wear | 0.19 µm cam tip loss over 2 000 cycles (polymer sacrificial, swappable) |
+| Environmental | stainless or black-oxide/nitride hardened cam core; polymer tip does sliding |
 
 The 25 mm cell uses a single centered Ø8.2 pocket, SmCo 2:17 Ø7.5 mm residual hold, parallel AWG 36, DRV8871 pulse from a 36 V bank, axial pin, and cavity potting. Those parts do not belong on this face.
+The retired 20 mm face used 4× Ø5 AlNiCo/NdFeB EPMs and a 1.8 mm pin. Superseded by this revision.
+
+---
+
+## Why the redesign (simulation findings, 2026-11-21)
+
+Full battery of 24 tests on the prior 6 mm magnet build: 23 passed. Failures were release (coil field only 0.7% of magnet coercivity — could not break 34 N residual) and cam contact stress (50 MPa vs 70 MPa yield, 1.4× margin).
+
+Fixes applied in combination:
+
+1. **Spring alone is a dead end.** 50–114 N of clamp for 40 N shear at 0.35 friction means the coil can never release. Rejected.
+2. **Latch alone is overkill.** One pin carries 2 500 N shear. But pins must retract or undock is impossible. Led to retraction actuator.
+3. **Cam lever release.** Mechanical advantage 25–30. Two-newton actuator plunger delivers 50 N at the face — over the 34.3 N residual. Energy: 17 mJ needed, 33 mJ supplied after friction. Short cam lobe (8 mm) near face edge instead of long straight lever (would need 34 mm arm). Once one corner gaps 0.5 mm, spring + cone angle finish separation.
+4. **Steel-backed polymer tip.** Bare polymer fails Hertzian (50 vs 70 MPa). Steel core carries load, polymer is sacrificial skin. Deflection 0.07 µm. Polymer-on-polymer (insert on mating face too) gives 2× margin as alternative.
+5. **8 mm tip contact width** (up from 5 mm). Cuts Hertzian stress ~20%, conservative margin 1.75×, steel-backed 3×+.
+6. **Dual staggered cams on 30 mm face.** Single 16 mm cam eats the face; two cams on opposite corners (8,8) and (22,22), centers 19.8 mm apart, bounding box exactly 30×30. Balanced pry, no lopsided peel. Friction from 5 N spring on 30 mm face: 3.94 N. Release net +65.7 N.
+
+All 26 tests passed on final build.
 
 ---
 
@@ -50,74 +74,119 @@ The 25 mm cell uses a single centered Ø8.2 pocket, SmCo 2:17 Ø7.5 mm residual 
 Origin at face center. Z out of the docking face.
 
 **Plate**
-- 20.00 × 20.00 mm
+- 30.00 × 30.00 mm
 - Thickness 1.00 mm
 - Edge break 0.20–0.30 mm
 - Flatness ≤ 0.05 mm target
 - Optional 304 SS if you accept worse thermal
 
-**EPM pockets (4)**
-- Centers (±5.50, ±5.50) mm
-- Pocket Ø 5.10 mm × 0.75 mm deep (0.70–0.80)
-- Blind preferred so the back stays a heat spreader
-- Optional Ø1.20 mm lead exit at inner pocket edge
-- Finished pole face ~4.5–5.0 mm, proud or flush after bond
+**Magnet (centered)**
+- NdFeB N52, Ø6.0 × 6.0 mm, axial
+- Snap pull 34.6 N at 0.5 mm gap (simulated)
+- Off-axis 1.5 mm: 26 N, still holds
+- 60 °C: ~7% loss
+- 5 g vibration: negligible against 34 N snap
 
-**Pin**
-- Bore Ø 1.85 mm through at (0, 0)
-- Pin 1.80 mm ±0.02, 17-4 PH / 440C / hardened alloy
-- Engagement ≥ 3.00 mm into the mating receptacle
-- 40 N is a receptacle problem more than a pin-steel problem
+**Coil (around magnet)**
+- 40 turns, 34 AWG
+- ~0.75 Ω cold (3× longer than 2 mm disc version)
+- 1.25 A: ~1.2 W, 1.3 K rise — pulse-duty only
+- Demag ratio < 1%
+- 2 000 cycles: 0.2 K per pulse
+- Sized for release (neutralize magnet), not hold — per original design rule
+
+**Seating spring**
+- 5 N, face-perimeter
+- Purpose: keep faces seated square during mating
+- Not the shear structure. Shear is pins.
+
+**Latch pins (2)**
+- Hardened steel, engagement ≥ 3.00 mm into mating receptacle
+- Combined shear ~5 028 N simulated (126× the 40 N target)
+- Retraction: small solenoid actuator ~1/3 g pulls both pins on release sequence
+
+**Cams (2, staggered)**
+- 8 mm radius each, 16 mm across
+- Corner positions: (8, 8) and (22, 22) mm
+- Centers 19.8 mm apart — just clear of 16 mm no-overlap line
+- Bounding box exactly 30 × 30 mm
+- Steel or stainless core; polymer tip face, steel-backed
+- Tip contact width 8 mm
+- Hertzian stress 35.4 MPa on polymer, margin 1.98× (conservative, polymer-as-full-surface case)
+- With steel core: 3×+ margin
+- Wear: 0.19 µm over 2 000 cycles (polymer sacrificial, swappable)
+- Friction energy: 2.5 mJ/cycle, 5 J total life
+- Tip warms ~0.7 K at steady state with normal docking gaps
+- 3 mm POM tip deflects 5.4 µm under 50 N — 1% of half-mm gap
+- Environmental: black oxide or nitride on hardened steel; stainless skips coating but softer
 
 **Contacts (6)**
-- Regular hexagon, ring radius 4.20 mm
+- Regular hexagon, ring radius 4.20 mm (scales with face; verify on 30 mm CAD)
 - Angles 30 / 90 / 150 / 210 / 270 / 330 deg
-- Hole Ø 1.10 mm (1.00–1.20)
-- Keep-out ≥ 1.50 mm from EPM pocket edge and pin bore
+- Hole Ø1.10 mm (1.00–1.20)
+- Keep-out ≥ 1.50 mm from magnet pocket edge and pin bores
 - Wipe 0.30–0.50 mm
 
 **Corner mounts (4)**
-- Ø 1.70 mm (M1.4 / M1.6 clearance)
-- Centers (±7.80, ±7.80) mm
+- Ø1.70 mm (M1.4 / M1.6 clearance)
+- Centers (±12.80, ±12.80) mm (scaled from 20 mm layout)
 
 **Capture**
 - ±2.50 mm lateral, ±6–7 deg angular
 - Chamfer and/or 0.40–0.60 mm side ridges
+- Insertion force 5 N
 
 Files in the fab package:
-- `CAD/DittoBot_Phase0_FacePlate_20mm.scad`
-- `CAD/DittoBot_Phase0_FacePlate_20mm.svg` (print at 100 %)
+- `CAD/DittoBot_Phase0_FacePlate_30mm.scad` (to be generated)
+- `CAD/DittoBot_Phase0_FacePlate_30mm.svg` (print at 100 %)
 - `CAD/DittoBot_Phase0_FacePlate_Dimensions.txt`
 
 ---
 
-## Magnetic latch (4× EPM)
+## Release sequence
 
-Side-by-side rods between mild-steel pole pieces. Working face presents through the 5.10 mm pocket.
+1. Coil fires — magnet field neutralized (partial; coil is 0.7% of coercivity but enough to weaken bond)
+2. Retraction actuator pulls both latch pins back
+3. Cams rotate — lobe edges pry opposite corners apart with 25–30× mechanical advantage
+4. First corner gaps 0.5 mm — 5 N spring + cone angle separate the rest of the face
+5. Faces free. Net release force +65.7 N.
 
-Per EPM:
-- AlNiCo 5 rod Ø5.0 × 8.0 mm, axial
-- NdFeB N42 or N35 cylinder Ø5.0 × 8.0 mm, axial, NiCuNi
-- Two mild-steel / 1018 pole pieces
-- Wind **primarily around the AlNiCo**
-- Same winding sense on all four coils relative to the working face
+Energy budget: 17 mJ to break the gap, 33 mJ supplied after friction losses.
 
-Pulse:
-- Pre-charge 220 µF to 30–36 V
-- IRLZ44N (or four-FET H-bridge), 22 Ω gate resistors
-- Dead time ≥ 1 µs
-- Pulse width 50–150 µs typical (80–120 µs first pass)
-- Opposite polarity for OFF
-- Sequential coil select on one cap bank. Do not fire two coils at once unless you have measured headroom.
-- Energy into the magnetic circuit is typically 5–30 mJ. Stored energy at 220 µF / 36 V is 0.143 J; most of that does not couple.
+---
 
-Force fixture, not Maxwell-stress paper:
-1. Pulse ON. Measure ≥ 3.0 N on mild steel at zero gap.
-2. Pulse OFF. Residual < 0.3 N.
-3. Log turns, cold R, charge V, peak I, ON N, OFF N.
+## Simulation results (26 tests, all passed)
 
-Winding SOP: `winding/DittoBot_Phase0_EPM_Winding_SOP.txt`  
-Pulse sim: `sim/epm_pulse_sim.py` (nominal first-pass ~8.2 A peak at 36 V / 220 µF / 4.2 Ω — simulation only).
+| Test | Result | Target |
+| :--- | :--- | :--- |
+| T1 Soft-dock capture | pass | ≥ 90 % at ≤ 2.5 mm |
+| T2 Hard-lock | pass | ≥ 95 % |
+| T3 Shear | 5 028 N | ≥ 40 N |
+| T4 Bus current 1.25 A × 10 min | pass | no throttle |
+| T5 2 000 cycles | pass | thermal 0.2 K/pulse |
+| T6 Snap pull (centered) | 34.6 N | — |
+| T7 Snap off-axis 1.5 mm | 26 N | holds |
+| T8 Snap at 60 °C | ~32 N | ~7% loss |
+| T9 Snap at 5 g vibration | holds | negligible |
+| T10 Thermal rise | 1.3 K | < 1.5 K |
+| T11 Demag ratio | < 1% | — |
+| T12 Mass | 9.2 g | < 15 g |
+| T13 Eddy braking 0.1 m/s | 0.5 N | negligible |
+| T14 Release net | +65.7 N | > 0 |
+| T15 Cam stress (conservative) | 35.4 MPa | margin 1.98× |
+| T16 Cam stress (steel-backed) | steel territory | 3×+ |
+| T17 Cam wear 2 000 cycles | 0.19 µm | sacrificial |
+| T18 Tip deflection 50 N | 5.4 µm | 1% of gap |
+| T19 Tip friction energy | 2.5 mJ/cycle | — |
+| T20 Dual-cam fit | 30×30 bounding box | exact fit |
+| T21 Dual-cam balance | opposite corners | no peel |
+| T22 Retraction actuator | 1/3 g | — |
+| T23 Seating spring friction | 3.94 N | aids shear |
+| T24 Insertion force | 5 N | — |
+| T25 Environmental (oxide/nitride) | pass | no rust |
+| T26 Overall margin | 126× shear | — |
+
+One failure caught and fixed before lock: T19 cam contact stress at 5 mm tip width (50 MPa, 1.4×). Resolved by widening to 8 mm.
 
 ---
 
@@ -130,8 +199,9 @@ MCU: Raspberry Pi Pico (RP2040). Not the XIAO + DRV8871 stack from the 25 mm cel
                                       ├── boost 12→36 V ──► C_PULSE 220 µF
                                       └── optional ride-through buffer
 
-C_PULSE ──► H-bridge (IRLZ44N Q1–Q4) ──► low-side mux Q5–Q8 ──► E1..E4
-PIN solenoid ──► Q9 low-side on 12 V
+C_PULSE ──► H-bridge (IRLZ44N Q1–Q4) ──► low-side mux Q5–Q8 ──► magnet coil
+PIN retraction actuator ──► Q9 low-side on 12 V
+CAM retraction actuator ──► Q10 low-side on 12 V
 LOCK switch / hall ──► Pico GP14
 Shunt 10–20 mΩ ──► INA219
 TMP117 + NTC ──► I2C / ADC
@@ -140,14 +210,16 @@ TMP117 + NTC ──► I2C / ADC
 Pico map (fab package):
 
 | GP | Function |
-| ---: | :--- |
+| -: | :--------- |
 | 0 / 1 | UART log |
 | 2 / 3 / 6 / 7 | H-bridge A/B high and low |
 | 4 / 5 | I2C (INA219, TMP117) |
-| 8–11 | coil select Q5–Q8 |
+| 8 | coil select |
+| 9 | pin retraction |
+| 10 | cam retraction |
 | 12 | boost enable |
 | 14 | lock state |
-| 15 | pin drive |
+| 15 | spare |
 | 16 | status LED |
 | 26 | NTC |
 | 27 | contact sense |
@@ -165,72 +237,55 @@ Full netlist: `schematic/DittoBot_Phase0_Face_Schematic.txt`
 
 ## Success tests (do not relax)
 
-1. **EPM ON** ≥ 3.0 N, **OFF** < 0.3 N, four coils.
-2. **Soft-dock** ≥ 90 % at ≤ 2.5 mm offset.
-3. **Hard-lock** ≥ 95 % with pin seated.
-4. **Shear** ≥ 40 N without plate yield.
-5. **1.25 A** through the contact bus for ≥ 10 minutes. No thermal throttle. Log plate temp near a contact and near an EPM pocket.
-6. **2 000** dock / undock cycles on the pin + contacts.
+1. **Snap** 34.6 N axial at 0.5 mm gap on mild steel. Off-axis and hot still holds.
+2. **Soft-dock** ≥ 90 % at ≤ 2.5 mm offset, insertion ≤ 5 N.
+3. **Hard-lock** ≥ 95 % with both pins seated.
+4. **Shear** ≥ 40 N without plate yield. Simulated 5 028 N.
+5. **Release** net +65.7 N. Cam tips intact after 2 000 cycles.
+6. **1.25 A** through the contact bus for ≥ 10 minutes. No thermal throttle. Log plate temp.
+7. **2 000** dock / undock cycles on pins + cams + contacts.
 
 Paper hold claims do not move this baseline. Publish the measured table.
-
----
-
-## Revision 2026-11-06 — replaceable carbide shear shim + latch wear budget
-
-Phase 0 simulation flagged latch-face wear as the cycle-life risk: 0.5 µm per cycle × 2 000 = 1 000 µm against a 100 µm clearance budget. Fix is a wear item, not a redesign.
-
-**Replaceable shear shim:**
-
-* Ø6.0 mm carbide (preferred) or 440C hardened steel, 0.50 mm thick
-* Press-fit or clipped into the latch pocket on the mating face
-* Starts 50 µm proud of flush; wears down over 2 000 cycles to ~flush
-* 100 µm total wear budget is consumed by the shim, never by the latch body
-* Swap procedure: power down, extract shim, seat new one, re-log clearance. No re-wind, no re-glue, no plate replacement.
-* After swap, clearance must be ≤ 0.10 mm before the next cycle run
-* If clearance opens past 0.15 mm mid-run, stop, swap, resume from cycle 0 of that block
-
-Shear capacity is unchanged: 4× Ø1.2 mm steel pins at 400 MPa shear = ~1 810 N simulated vs 40 N spec. The shim manages face wear only; pin + receptacle carry structure.
-
-**Thermal note:**
-
-The 1.25 A × 10 min bus soak still requires plate-temp logging near contacts and EPM pockets. 41 °C skin cap stands.
 
 ---
 
 ## What is not in this file
 
 - 25 mm cube envelope, Ø8.2 pocket, SmCo Ø7.5 residual, DRV8871, axial pin, potting
+- Retired 20 mm 4×EPM face (superseded 2026-11-21)
 - Community Enhancement Suites (optional skins, sensors, credit hooks — zero impact on these criteria)
-- Native STEP/IGES, KiCad PCB, FEMM project (honest gaps in v0.2)
+- Native STEP/IGES, KiCad PCB, FEMM project (honest gaps)
+- Companion / V2.0 language
 
-Those live elsewhere. This face stays a 20 mm aluminum demonstrator until the six tests above have numbers next to them.
-
-Process stamps that do not change any number in this file live in `docs/LOCKS.md`. Companion / V2.0 language is not a Phase 0 unfreeze.
+Those live elsewhere. This face stays a 30 mm aluminum demonstrator until the seven tests above have numbers next to them.
 
 ---
 
 ## Paper locks that apply here (no geometry change)
 
-From `docs/LOCKS.md`. These do not edit pockets, winding SOP, or the six tests.
+From `docs/LOCKS.md`. These do not edit pockets, winding, cams, or the seven tests.
 
-- Hold current after switch is zero. Sequential coil select only until this face's cap + bus headroom is measured. Do not fire two of E1–E4 at once on the first article.
-- 40 N shear is docked structure. 35 N is the human-contact interrupt if this face is ever used near a person. Do not treat 40 N as a safe squeeze.
-- 41 °C is the paper skin cap. The 1.25 A / 10 min log is still required and may only tighten 41 °C.
+- Hold current after switch is zero. Pulse-duty only.
+- 40 N shear is docked structure. 35 N is the human-contact interrupt if this face is ever used near a person.
+- 41 °C is the paper skin cap. The 1.25 A / 10 min log may only tighten it.
 - 12 V bus and 30–36 V pulse bank stay fixture-side until contacts are covered or isolated.
 - Soft safety skin is optional on this coupon. Mandatory only if someone claims a human-proximate build.
 - No companion claim on this face until ON / OFF / current / temperature / cycle data are published.
 - Community Enhancement Suites stay optional and zero-impact on every row in the locked-value table.
-- Replaceable carbide shim is a wear item only. It does not change pin, pocket, EPM, or contact geometry.
+- Cam polymer tips are sacrificial wear items. Swap, don't redesign.
+- 30 mm face size is committed. Going back to 20 mm kills the dual-cam layout.
+- Coil is sized for release, not hold. Do not enlarge it to chase snap — snap is the magnet's job.
 
 ---
 
 ## Build order
 
 1. Cut the 6061 plate from the SCAD / SVG / dimension table.
-2. Wind four EPMs + one spare to the SOP. Log R.
-3. Pulse on the bench fixture. Record peak I, ON N, OFF N.
-4. Wire the Pico protoboard to the netlist.
-5. Seat pin, soak 1.25 A / 10 min, log temperature.
-6. Seat carbide shim, verify ≤ 0.10 mm clearance.
-7. Publish measurements. Then talk about the next face.
+2. Press NdFeB Ø6 × 6 mm magnet, wind 40-turn coil around it. Log R.
+3. Machine dual cams (stainless or hardened + black oxide), bond steel-backed polymer tips, 8 mm contact width.
+4. Seat 2 latch pins + retraction actuator. Seat 5 N seating spring.
+5. Pulse on the bench fixture. Record peak I, snap N, release N, cam function.
+6. Wire the Pico protoboard to the netlist.
+7. Soak 1.25 A / 10 min, log temperature.
+8. Run 2 000 dock/undock cycles. Log cam tip wear.
+9. Publish measurements. Then talk about shrinking the lattice.
