@@ -2,11 +2,12 @@
 2026-09-09
 Updated 2026-11-06: parallel-strand thermal fix.
 Updated 2026-11-19: Current baseline is SmCo 2:17 Ø7.5 mm residual hold (coil release only). Earlier Ø6 mm stacks superseded.
+Updated 2026-11-21: Stale 20 mm hybrid-face cross-reference removed. Phase 0 is the 30 mm dual-cam face — see docs/PHASE0.md.
 
 Project started Nov/Dec 2025. Design owned by Craig. Programmable matter.
 
 This file applies **only** to the public 25 mm cubic cell in this repository.
-It does not change the locked Phase 0 20 mm hybrid face.
+It does not change the locked Phase 0 30 mm dual-cam face.
 
 ## What was wrong (historical)
 
@@ -53,6 +54,6 @@ Paper estimates do not move the baseline. Fill `docs/MEASUREMENT_CARD.md`.
 
 ## What this file does not do
 
-* Does not unfreeze Phase 0.
+* Does not unfreeze Phase 0 (30 mm dual-cam, rev 2026-11-21).
 * Does not change the locked Ø8.2 × 4.0 mm pocket.
 * Does not mint V2.0 or a companion.

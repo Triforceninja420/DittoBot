@@ -4,7 +4,7 @@
 // Target: Seeed Studio XIAO RP2040 (Dual ARM Cortex-M0+)
 // Driver IC: TI DRV8871 (VM 6.5–45 V abs max; prefer ≤42 V from pulse bank)
 // Variant: 25 mm cubic cell — SmCo 2:17 Ø7.5 mm residual hold, coil is RELEASE only
-//           NOT Phase 0 20 mm face
+//           NOT Phase 0 30 mm dual-cam face (rev 2026-11-21)
 // Author: Craig Edward Ralls (2026)
 // License: MIT
 // Baseline: 2026-11-19 (pulse-only + thermal governor stub)
@@ -21,7 +21,7 @@ const uint8_t PIN_EPM_IN2 = 1; // GPIO 1 -> H-Bridge IN2
 const uint32_t SWITCH_PULSE_MS = 100;
 
 // Thermal governor stub — replace with real plate-temperature sensor (NTC / TMP117 / etc.).
-// Returns true if a pulse is allowed. Refuse continuous or high-cadence duty when hot.
+// Returns true if a pulse is allowed. Refuse continuous or high-cadence duty when hot
 bool thermal_ok() {
     // TODO: read actual temperature and return false if above threshold (e.g. 60–70 °C plate).
     // Placeholder always allows for first articles.
