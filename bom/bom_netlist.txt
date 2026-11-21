@@ -1,13 +1,14 @@
 # ====================================================================
 # Project: DittoBot / Voxel Box
 # Component: Hardware Bill of Materials (BOM) & Netlist Reference
-# Variant: 25 mm cubic cell (NOT Phase 0 20 mm face)
+# Variant: 25 mm cubic cell (NOT Phase 0 30 mm dual-cam face)
 # Author: Craig Edward Ralls (2026)
 # License: CERN-OHL-S-v2.0 / MIT as in LICENSE
 # Revised: 2026-09-10 — disc hold + coil release, DRV8871 + 12 V
 # Revised: 2026-11-06 — parallel-strand coil (T4 thermal fix) + carbide shear shim (T5 wear fix)
 # Revised: 2026-11-19 — SmCo 2:17 Ø7.5 mm residual hold, axial pin, potting, pulse-only, 36 V pulse bank
-# ===================================================================
+# Revised: 2026-11-21 — stale "Phase 0 still uses Alnico hybrid" line removed; Phase 0 is 30 mm dual-cam
+# ====================================================================
 
 [BILL OF MATERIALS — 25 mm SmCo residual + release coil]
 Item  Qty  Designator   Part Number / Specs                 Description / Footprint
@@ -32,7 +33,7 @@ Item  Qty  Designator   Part Number / Specs                 Description / Footpr
 
 [SUPERSEDED — do not order as the latch]
 MAG1  NdFeB Ø6 or D8 stacks                 Superseded 2026-11-19. Use SmCo Ø7.5 mm.
-MAG1  Ø6 Nd+Alnico flip stack               Superseded. Phase 0 still uses Alnico hybrid.
+MAG1  Ø6 Nd+Alnico flip stack               Superseded. Phase 0 no longer uses Alnico hybrid (rev 2026-11-21: 30 mm dual-cam NdFeB).
 L1    120 t AWG 34 / single-strand continuous Retired. Parallel or pulse-only.
 U2    DRV8837C                              Retired as 25 mm build target.
 VBUS  3.3–5.0 V as coil rail                Cannot feed DRV8871.

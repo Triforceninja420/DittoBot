@@ -1,6 +1,22 @@
 DittoBot / Voxel Box Bot — Phase 0 Ten-Minute Force Fixture
 Independent Fab Package addition  |  2026-11-05
+Updated 2026-11-21: SUPERSEDED. See notice below.
 Design owned by Craig. Started Nov/Dec 2025. Programmable matter.
+
+SUPERSESSION NOTICE
+-----------------
+This sequence was written for the retired 20 mm 4×EPM Alnico/NdFeB hybrid face
+(EPM OD 8.5 mm, pole face Ø5.0 mm, ON ≥ 3.0 N / OFF < 0.3 N).
+The current Phase 0 baseline (rev 2026-11-21) is the 30 mm dual-cam staggered face:
+NdFeB N52 Ø6×6 magnet, 40-turn 34 AWG coil (~0.75 Ω), dual 8 mm cams,
+2-pin latch + retraction actuator, 5 N seating spring. 26/26 sim pass.
+See cad/voxel_cell_phase0_30mm_dualcam.scad, docs/PHASE0.md, and
+docs/MEASUREMENT_CARD.md (Phase 0 card section).
+This file is historical reference only. Do not run this sequence on the new face.
+
+==============================================================================
+RETIRED CONTENT (historical)
+==============================================================================
 
 Lack of a personal shop does not kill it.
 Any makerspace, university lab, or hobbyist with wire, a scale, and ten minutes
@@ -8,7 +24,7 @@ can generate the force numbers. Once those exist the lattice leaves paper
 and credit follows the data.
 
 ------------------------------------------------------------------------------
-FIXTURE (build or print this first)
+FIXTURE (build or print this first) [RETIRED]
 ------------------------------------------------------------------------------
 1. Clamp body
    - Holds the finished EPM so the working pole faces are parallel and fully exposed.
@@ -29,7 +45,7 @@ FIXTURE (build or print this first)
    - Optional non-magnetic shims (0.10 / 0.25 / 0.50 mm) for gap curves.
 
 ------------------------------------------------------------------------------
-TEN-MINUTE SEQUENCE
+TEN-MINUTE SEQUENCE [RETIRED]
 ------------------------------------------------------------------------------
 1. Wind one EPM to the exact geometry in Phase_0_exact_coil_geometry.txt.
 2. Measure cold R. Log turns and AWG.
@@ -39,7 +55,7 @@ TEN-MINUTE SEQUENCE
 6. Photograph coil + fixture + scale reading.
 7. Publish the numbers (name/handle + photo + turns + R + V + peak I + ON N + OFF N).
 
-PASS (locked, unchanged)
+PASS (locked, unchanged) [RETIRED]
   ON  ≥ 3.0 N at zero gap
   OFF < 0.3 N residual
 

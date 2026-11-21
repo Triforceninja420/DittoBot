@@ -1,9 +1,22 @@
 // DittoBot / Voxel Box Bot
 // Phase 0 Exact Force Fixture — OpenSCAD
 // Independent Fab Package addition  |  2026-11-05
+// Updated 2026-11-21: SUPERSEDED by the 30 mm dual-cam face.
 // Design owned by Craig. Started Nov/Dec 2025. Programmable matter.
 //
-// Purpose: clamp one finished EPM with pole faces parallel and exposed
+// SUPERSESSION NOTICE
+// -----------------
+// This fixture was built for the retired 20 mm 4×EPM Alnico/NdFeB hybrid face
+// (pole face Ø5.0 mm, EPM OD 8.5 mm). The current Phase 0 baseline is the
+// 30 mm dual-cam staggered face: NdFeB N52 Ø6×6 mm magnet, 40-turn 34 AWG
+// coil, dual 8 mm cams, 2-pin latch + retraction actuator, 5 N seating spring.
+// See cad/voxel_cell_phase0_30mm_dualcam.scad and docs/PHASE0.md.
+//
+// This file is retained as historical reference only. Do not build from it.
+// The 20×20×3 mm steel coupon recess below matches the old 20 mm face and
+// is not valid for the 30 mm dual-cam article.
+//
+// Purpose (historical): clamp one finished EPM with pole faces parallel and exposed
 // so any makerspace can pull ≥ 3.0 N ON / < 0.3 N OFF in ten minutes.
 // Print in PLA/PETG or machine from plastic/aluminum. Non-magnetic preferred.
 //
@@ -12,10 +25,10 @@
 
 $fn = 64;
 
-// ---- EPM envelope (finished coil) ----
-epm_od          =  8.5;     // max allowed coil OD
-epm_length      =  9.0;     // pole height
-pole_face_d     =  5.0;
+// ---- EPM envelope (finished coil) [RETIRED GEOMETRY] ----
+epm_od          =  8.5;     // max allowed coil OD (retired)
+epm_length      =  9.0;     // pole height (retired)
+pole_face_d     =  5.0;     // retired pole face diameter
 
 // ---- Clamp body ----
 clamp_wall      =  3.0;
@@ -38,6 +51,7 @@ module clamp_body() {
 
 // ---- Mild-steel target (reference only — cut real steel separately) ----
 // This module is for a 3D-printed alignment jig; the actual target is steel.
+// NOTE: 20×20×3 mm coupon recess matches the RETIRED 20 mm face.
 module steel_target_jig() {
     difference() {
         cube([30, 30, 4], center=true);
