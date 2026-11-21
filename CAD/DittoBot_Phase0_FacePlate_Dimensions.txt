@@ -1,0 +1,70 @@
+DittoBot Phase 0 Face — Dimension Table (rev 2026-11-21)
+30 mm dual-cam staggered face. All dimensions mm unless noted.
+Origin: face center, Z out of docking face. Export STL from SCAD for fab.
+
+PLATE
+  Envelope:             30.00 x 30.00
+  Thickness:            1.00 (accept 0.80-1.20)
+  Material:             6061-T6 aluminum
+  Edge break:           0.25 (range 0.20-0.30)
+  Flatness target:      <= 0.05
+  Optional:             304 SS (worse thermal)
+
+MAGNET + COIL (centered, axial)
+  Magnet:               NdFeB N52, Ø6.0 x 6.0
+  Pocket:               Ø6.10 x 0.75 BLIND (back intact, heat spreader)
+  Pocket tolerance:     +0.10 on diameter
+  Coil:                 40 turns, 34 AWG (Ø0.16 wire)
+  Coil wind OD:         ~6.96
+  Coil wind height:     ~6.32
+  Cold R:               ~0.75 ohm
+  Snap (sim):           34.6 N at 0.5 mm gap
+
+CAMS (2, staggered)
+  Radius:               8 each (Ø16 across)
+  Position 1:           (8, 8) corner
+  Position 2:           (22, 22) corner
+  Center spacing:       19.8 (just clear of 16 mm no-overlap)
+  Bounding box:         exactly 30 x 30
+  Core:                 steel/stainless, 2.0 thick
+  Tip:                  polymer, steel-backed, 1.5 thick, 8 contact width
+  Hertzian (conservative): 35.4 MPa, margin 1.98x
+  Wear (sim):           0.19 um over 2000 cycles
+
+LATCH PINS (2)
+  Pin OD:               1.80
+  Bore OD:              1.85
+  Engagement:           >= 3.00 into mating receptacle
+  Positions:            (2, 1) and (-2, -1)
+  Combined shear (sim): ~5028 N
+
+RETRACTION ACTUATORS (2)
+  Coil OD x H:          4.0 x 6.0
+  Mass:                 ~1/3 g each
+  Positions:            (3, 0) and (-3, 0)
+
+SEATING SPRING
+  Force:                5 N
+  Ring radius:          14.5
+  Segments:             8 x Ø0.8 x 2.0
+
+CONTACTS (6)
+  Ring radius:          4.20
+  Hole OD:              1.10 (accept 1.00-1.20)
+  Angles:               30 / 90 / 150 / 210 / 270 / 330
+  Keep-out:             >= 1.50 from magnet pocket edge and pin bores
+  Wipe:                 0.30-0.50
+
+CORNER MOUNTS (4)
+  OD:                   1.70 (M1.4/M1.6 clearance)
+  Centers:              (+/-12.80, +/-12.80)
+
+CAPTURE
+  Lateral:              +/- 2.50
+  Angular:              +/- 6-7 deg
+  Chamfer:              0.50
+  Side ridges:          0.50 high x 0.60 wide
+  Insertion force:      5 N
+
+MASS: 9.2 g module total. Thermal < 1.5 K at 0.44 W pulse-duty.
+Cycles: 2000 dock/undock. Environmental: black oxide or nitride on cam cores.
