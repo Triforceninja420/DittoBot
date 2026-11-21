@@ -20,7 +20,7 @@ Status: **blank until measured.** No latch claim until the table is filled.
 ## Card (fill what you actually measured)
 
 | Field | Value | Unit / notes |
-| :--- | :--- | :--- |
+| :--- | :---- | :-------- |
 | Builder | | |
 | Date | | |
 | Turns on bobbin | | |
@@ -60,11 +60,12 @@ Status: **blank until measured.** Simulation (26 tests) passed; hardware numbers
 - Bus: 12 V nominal, 1.25 A continuous ≥ 10 min
 - Driver: IRLZ44N class H-bridge, 220 µF / 30–36 V pulse bank
 - MCU: Raspberry Pi Pico RP2040
+- Cycles: **2 000 locked spec**; 3 000 is a stretch goal (epoxy swap or mechanical tip backup required — see PHASE0.md cycle-life note)
 
 ## Card (fill what you actually measured)
 
 | Field | Value | Unit / notes |
-| :--- | :--- | :--- |
+| :--- | :---- | :-------- |
 | Builder | | |
 | Date | | |
 | Magnet grade / size | | NdFeB N52 Ø6 × 6 |
@@ -85,7 +86,7 @@ Status: **blank until measured.** Simulation (26 tests) passed; hardware numbers
 | Plate temp near contact | | °C |
 | Plate temp near magnet | | °C |
 | Pin engagement | | mm or confirmed |
-| Cycles completed | | / 2 000 |
+| Cycles completed | | / 2 000 (3 000 stretch) |
 | Notes | | cam material, tip swap, oxide |
 
 One row per test. Credit follows the measurement. Simulation numbers in parentheses are not credit — they are the bar to beat.
