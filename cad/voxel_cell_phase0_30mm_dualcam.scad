@@ -13,6 +13,7 @@
 //
 // Units: mm. Origin at face center, Z out of docking face.
 // Render: F6. Export STL for fab. Do not mix with 25 mm cell numbers.
+// Magnet pocket: BLIND 0.75 mm deep (not through) — heat spreader back intact.
 
 $fn = 64;
 
@@ -24,6 +25,8 @@ edge_break = 0.25;
 
 magnet_d = 6.0;
 magnet_h = 6.0;
+pocket_d = magnet_d + 0.10; // 6.10 mm
+pocket_depth = 0.75; // blind, per spec (0.70–0.80 accept)
 coil_turns = 40;
 coil_wire_d = 0.16; // 34 AWG approx
 coil_wind_od = magnet_d + 2 * 3 * coil_wire_d; // rough 3-layer wind
@@ -63,8 +66,6 @@ module plate() {
             cube([plate_x - 2*edge_break, plate_y - 2*edge_break, plate_t - edge_break], center=true);
             cylinder(r=edge_break, h=edge_break, center=true);
         }
-        // magnet pocket (through for axial access, or blind 0.75 deep — shown through for clarity)
-        // translate([0,0,-plate_t/2]) cylinder(d=magnet_d+0.10, h=plate_t+0.1);
     }
 }
 
@@ -80,6 +81,16 @@ module coil() {
         cylinder(d=coil_wind_od, h=coil_wind_h, center=true);
         cylinder(d=magnet_d+0.2, h=coil_wind_h+0.2, center=true);
     }
+}
+
+// ---------- Blind magnet pocket (0.75 mm deep, back stays heat spreader) ----------
+module magnet_pocket() {
+    // cut from docking face (top, +Z) down 0.75 mm; does NOT break through
+    translate([0, 0, plate_t/2 - pocket_depth/2])
+    cylinder(d=pocket_d, h=pocket_depth, center=true);
+    // optional Ø1.20 mm lead exit at inner pocket edge (spec: optional)
+    // translate([pocket_d/2, 0, plate_t/2 - pocket_depth])
+    // cylinder(d=1.20, h=0.5, center=true);
 }
 
 // ---------- Dual staggered cams ----------
@@ -167,6 +178,8 @@ difference() {
         translate([3, 0, plate_t/2 + retraction_coil_h/2]) retraction_actuator();
         translate([-3, 0, plate_t/2 + retraction_coil_h/2]) retraction_actuator();
     }
+    // BLIND magnet pocket — 0.75 mm deep from docking face, back intact as heat spreader
+    magnet_pocket();
     // pin bores (2)
     translate([2, 1, 0]) pin_bore_hole();
     translate([-2, -1, 0]) pin_bore_hole();
@@ -177,8 +190,6 @@ difference() {
     mount_hole(mount_pos, -mount_pos);
     mount_hole(-mount_pos, mount_pos);
     mount_hole(-mount_pos, -mount_pos);
-    // magnet pocket (blind 0.75 deep preferred — through shown for render clarity)
-    // translate([0,0,-plate_t/2+0.375]) cylinder(d=magnet_d+0.10, h=0.75);
 }
 
 // dimension callouts (commented — enable in OpenSCAD for 2D export)
