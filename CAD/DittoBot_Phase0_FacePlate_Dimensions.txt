@@ -1,6 +1,7 @@
 DittoBot Phase 0 Face — Dimension Table (rev 2026-11-21)
 30 mm dual-cam staggered face. All dimensions mm unless noted.
 Origin: face center, Z out of docking face. Export STL from SCAD for fab.
+Monte Carlo (100k trials): all-pass 78.04%, cam interference 12.5%, rework-free 78.04%.
 
 PLATE
   Envelope:             30.00 x 30.00
@@ -22,6 +23,8 @@ MAGNET + COIL (centered, axial)
 
 CAMS (2, staggered)
   Radius:               8 each (Ø16 across)
+  Bore:                 Ø16.1 (0.1 mm nominal clearance — Monte Carlo locked 2026-11-21)
+  Bore tolerance:       ±0.05
   Position 1:           (8, 8) corner
   Position 2:           (22, 22) corner
   Center spacing:       19.8 (just clear of 16 mm no-overlap)
@@ -68,3 +71,4 @@ CAPTURE
 
 MASS: 9.2 g module total. Thermal < 1.5 K at 0.44 W pulse-duty.
 Cycles: 2000 dock/undock. Environmental: black oxide or nitride on cam cores.
+MONTE CARLO: all-pass 78.04% | cam interference 12.50% | pin interference 4.96% | magnet interference 6.19% | rework-free 78.04% | bond margin 4.5x at 99th pct

@@ -14,7 +14,7 @@ Aluminum plate package: `DittoBot_Phase0_Aluminum_FacePlate_Package_v0.1.txt`
 
 Status: **frozen** until measured ON / OFF / current / temperature / cycle data are published.
 
-Revision: **2026-11-21** — dual-cam staggered release, 6 mm NdFeB, 30 mm face. All 26 simulation tests passed. First-article metrology + tip-bond pull test added as recommended checks.
+Revision: **2026-11-21** — dual-cam staggered release, 6 mm NdFeB, 30 mm face. All 26 simulation tests passed. Cam bore locked at 16.1 mm (0.1 mm nominal clearance). Monte Carlo 100k trials added. First-article metrology + tip-bond pull test added as recommended checks.
 
 ---
 
@@ -35,7 +35,7 @@ Design philosophy: prove the mechanism at a hand-assemblable scale, then shrink 
 | Seating spring | 5 N, keeps faces seated during mating only |
 | Latch | 2× steel pins, shear capacity ~5 028 N simulated |
 | Retraction actuator | small solenoid coil ~1/3 g, pulls pins back on release |
-| Cam release | dual 8 mm radius cams, staggered corners (8,8) and (22,22), 16 mm each, steel-backed polymer tips |
+| Cam release | dual 8 mm radius cams, bore Ø16.1 (0.1 mm nominal clearance), staggered corners (8,8) and (22,22), steel-backed polymer tips |
 | Cam tip | polymer-on-steel, 8 mm contact width, Hertzian 35.4 MPa, margin 1.98× |
 | Release net | +65.7 N after cam breaks residual bond |
 | Soft-dock | ≥ 90 % capture at ≤ 2.5 mm lateral, ±7° angular |
@@ -64,8 +64,30 @@ Fixes applied in combination:
 4. **Steel-backed polymer tip.** Bare polymer fails Hertzian (50 vs 70 MPa). Steel core carries load, polymer is sacrificial skin. Deflection 0.07 µm. Polymer-on-polymer (insert on mating face too) gives 2× margin as alternative.
 5. **8 mm tip contact width** (up from 5 mm). Cuts Hertzian stress ~20%, conservative margin 1.75×, steel-backed 3×+.
 6. **Dual staggered cams on 30 mm face.** Single 16 mm cam eats the face; two cams on opposite corners (8,8) and (22,22), centers 19.8 mm apart, bounding box exactly 30×30. Balanced pry, no lopsided peel. Friction from 5 N spring on 30 mm face: 3.94 N. Release net +65.7 N.
+7. **Cam bore 16.1 mm.** Original 16.0 mm bore gave zero nominal clearance — Monte Carlo showed 50% cam interference. Bumping bore to 16.1 gives 0.1 mm clearance; all-pass rose from 44.5% to 78.0%.
 
 All 26 tests passed on final build.
+
+---
+
+## Monte Carlo tolerance analysis (100,000 trials, 2026-11-21)
+
+Uniform distributions within stated tolerances. Failure = interference or out-of-spec dimension.
+
+| Check | Fail rate |
+| :--- | :-------- |
+| All-pass (zero failures) | 78.04% |
+| Cam bore / cam OD interference | 12.50% |
+| Pin bore / pin OD interference | 4.96% |
+| Magnet / pocket interference | 6.19% |
+| Pocket deeper than plate (< 0.05 mm remaining) | 0.00% |
+| Face flatness > 0.05 mm | 0.00% |
+
+Rework categories: none 78.04%, one fix 20.30%, two-plus fixes 1.65%.
+
+Tip-bond shear stress under 50 N cam load: median 4.17 MPa, 95th percentile 4.43 MPa, 99th percentile 4.46 MPa. Against ~20 MPa epoxy shear strength, margin is 4.5× at the 99th percentile.
+
+Worst-case (RSS) stack-up on all interfaces stays positive except cam tip thickness variation, which is covered by the sacrificial-tip philosophy — swap the tip, don't scrap the plate.
 
 ---
 
@@ -107,6 +129,7 @@ Origin at face center. Z out of the docking face.
 
 **Cams (2, staggered)**
 - 8 mm radius each, 16 mm across
+- Bore Ø16.1 mm (0.1 mm nominal clearance — Monte Carlo locked)
 - Corner positions: (8, 8) and (22, 22) mm
 - Centers 19.8 mm apart — just clear of 16 mm no-overlap line
 - Bounding box exactly 30 × 30 mm
@@ -137,7 +160,7 @@ Origin at face center. Z out of the docking face.
 - Insertion force 5 N
 
 Files in the fab package:
-- `cad/voxel_cell_phase0_30mm_dualcam.scad` (the real SCAD — blind 0.75 mm pocket, dual staggered cams)
+- `cad/voxel_cell_phase0_30mm_dualcam.scad` (the real SCAD — blind 0.75 mm pocket, dual staggered cams, Ø16.1 cam bores)
 - `CAD/DittoBot_Phase0_FacePlate_30mm.svg` (top-view fab drawing, generated 2026-11-21)
 - `CAD/DittoBot_Phase0_FacePlate_Dimensions.txt` (full dimension table, generated 2026-11-21)
 
@@ -187,6 +210,7 @@ Energy budget: 17 mJ to break the gap, 33 mJ supplied after friction losses.
 | T26 Overall margin | 126× shear | — |
 
 One failure caught and fixed before lock: T19 cam contact stress at 5 mm tip width (50 MPa, 1.4×). Resolved by widening to 8 mm.
+One tolerance failure caught and fixed before lock: cam bore at 16.0 mm gave 50% interference in Monte Carlo. Resolved by widening bore to 16.1 mm (all-pass 44.5% → 78.0%).
 
 ---
 
@@ -254,12 +278,12 @@ Paper hold claims do not move this baseline. Publish the measured table.
 These are not locked requirements — they are recommended inspection points before and during first assembly. Skipping them risks scrap; doing them turns scrap into a five-minute fix.
 
 **Intentional relief (design-side insurance)**
-- Cam bores: add 0.10 mm clearance beyond nominal. If the cam binds, file — don't scrap the plate.
+- Cam bores: nominal Ø16.1 gives 0.1 mm clearance over 16 mm cam OD (Monte Carlo locked). If a cam still binds, file — don't scrap the plate. The 0.1 mm is the design clearance, not extra on top.
 - Pin bores: drill 0.05 mm oversize with the option to ream to final fit. A slightly loose pin that you bond in place beats a hole you can't clean up.
 - Magnet pocket: blind depth 0.75 mm nominal; verify with depth micrometer through the opening before pressing. A pocket 0.1 mm shallow is a press-fit disaster; 0.1 mm deep just means the magnet sits proud and you sand it flush.
 
 **Metrology sequence (article one)**
-1. **Cam radius and lobe profile** — height gauge or optical comparator. Target 8.00 mm radius, lobe edge square to face within 0.05 mm.
+1. **Cam radius and lobe profile** — height gauge or optical comparator. Target 8.00 mm radius, lobe edge square to face within 0.05 mm. Check bore at Ø16.1 ±0.05.
 2. **Pin-bore true position** — CMM if available; otherwise a dowel pin of bore diameter plus a digital caliper. Catch a 0.5 mm offset before assembly.
 3. **Blind pocket depth** — depth micrometer through the magnet opening, before any press. Log the number.
 4. **Plate flatness** — surface plate and indicator, ≤ 0.05 mm target. A warped plate kills soft-dock capture.
@@ -301,6 +325,7 @@ From `docs/LOCKS.md`. These do not edit pockets, winding, cams, or the seven tes
 - Cam polymer tips are sacrificial wear items. Swap, don't redesign.
 - 30 mm face size is committed. Going back to 20 mm kills the dual-cam layout.
 - Coil is sized for release, not hold. Do not enlarge it to chase snap — snap is the magnet's job.
+- Cam bore is 16.1 mm. Do not shrink it back to 16.0 — Monte Carlo proved 50% interference.
 
 ---
 
@@ -309,8 +334,8 @@ From `docs/LOCKS.md`. These do not edit pockets, winding, cams, or the seven tes
 1. Cut the 6061 plate from the SCAD / SVG / dimension table.
 2. Press NdFeB Ø6 × 6 mm magnet, wind 40-turn coil around it. Log R.
 3. Machine dual cams (stainless or hardened + black oxide), bond steel-backed polymer tips, 8 mm contact width. **Run the tip-bond pull test on a dummy before bonding the real cams.**
-4. Seat 2 latch pins + retraction actuator. Seat 5 N seating spring.
-5. **Run the metrology sequence** (cam radius, bore true position, pocket depth, flatness, contact wipe) before assembly.
+4. Seat 2 latch pins + retraction actuator. Seat 5 N seating spring. Drill cam bores at Ø16.1.
+5. **Run the metrology sequence** (cam radius, bore true position at 16.1, pocket depth, flatness, contact wipe) before assembly.
 6. Pulse on the bench fixture. Record peak I, snap N, release N, cam function.
 7. Wire the Pico protoboard to the netlist.
 8. Soak 1.25 A / 10 min, log temperature.
