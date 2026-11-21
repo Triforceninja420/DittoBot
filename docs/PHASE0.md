@@ -14,7 +14,7 @@ Aluminum plate package: `DittoBot_Phase0_Aluminum_FacePlate_Package_v0.1.txt`
 
 Status: **frozen** until measured ON / OFF / current / temperature / cycle data are published.
 
-Revision: **2026-11-21** — dual-cam staggered release, 6 mm NdFeB, 30 mm face. All 26 simulation tests passed.
+Revision: **2026-11-21** — dual-cam staggered release, 6 mm NdFeB, 30 mm face. All 26 simulation tests passed. First-article metrology + tip-bond pull test added as recommended checks.
 
 ---
 
@@ -138,8 +138,8 @@ Origin at face center. Z out of the docking face.
 
 Files in the fab package:
 - `cad/voxel_cell_phase0_30mm_dualcam.scad` (the real SCAD — blind 0.75 mm pocket, dual staggered cams)
-- `CAD/DittoBot_Phase0_FacePlate_30mm.svg` (not yet generated — print at 100 %)
-- `CAD/DittoBot_Phase0_FacePlate_Dimensions.txt` (not yet generated)
+- `CAD/DittoBot_Phase0_FacePlate_30mm.svg` (top-view fab drawing, generated 2026-11-21)
+- `CAD/DittoBot_Phase0_FacePlate_Dimensions.txt` (full dimension table, generated 2026-11-21)
 
 ---
 
@@ -158,7 +158,7 @@ Energy budget: 17 mJ to break the gap, 33 mJ supplied after friction losses.
 ## Simulation results (26 tests, all passed)
 
 | Test | Result | Target |
-| :--- | :--- | :--- |
+| :--- | :---- | :----- |
 | T1 Soft-dock capture | pass | ≥ 90 % at ≤ 2.5 mm |
 | T2 Hard-lock | pass | ≥ 95 % |
 | T3 Shear | 5 028 N | ≥ 40 N |
@@ -249,6 +249,32 @@ Paper hold claims do not move this baseline. Publish the measured table.
 
 ---
 
+## Recommended first-article checks (added 2026-11-21)
+
+These are not locked requirements — they are recommended inspection points before and during first assembly. Skipping them risks scrap; doing them turns scrap into a five-minute fix.
+
+**Intentional relief (design-side insurance)**
+- Cam bores: add 0.10 mm clearance beyond nominal. If the cam binds, file — don't scrap the plate.
+- Pin bores: drill 0.05 mm oversize with the option to ream to final fit. A slightly loose pin that you bond in place beats a hole you can't clean up.
+- Magnet pocket: blind depth 0.75 mm nominal; verify with depth micrometer through the opening before pressing. A pocket 0.1 mm shallow is a press-fit disaster; 0.1 mm deep just means the magnet sits proud and you sand it flush.
+
+**Metrology sequence (article one)**
+1. **Cam radius and lobe profile** — height gauge or optical comparator. Target 8.00 mm radius, lobe edge square to face within 0.05 mm.
+2. **Pin-bore true position** — CMM if available; otherwise a dowel pin of bore diameter plus a digital caliper. Catch a 0.5 mm offset before assembly.
+3. **Blind pocket depth** — depth micrometer through the magnet opening, before any press. Log the number.
+4. **Plate flatness** — surface plate and indicator, ≤ 0.05 mm target. A warped plate kills soft-dock capture.
+5. **Contact wipe** — 0.30–0.50 mm of travel on each pogo pair. Too little and you get intermittent; too much and you bend pins.
+
+**Tip-bond pull test (before full stack-up)**
+- Bond a dummy polymer tip to a steel coupon using the same epoxy and cure schedule as the real cams.
+- Pull it at 50 N (the design cam load) on a simple fixture — a vise, a spring scale, or a luggage scale with a lever.
+- If it holds 50 N without the polymer tearing or the bond shearing, the real cams are good. If it fails, you learn on a coupon instead of a finished module.
+- Log: epoxy type, cure time and temp, pull force, failure mode.
+
+**Why this matters:** simulation assumes perfect geometry. Real parts have burrs, epoxy creeps, polymer swells in humidity, and fab houses drill off-center. The relief and the pull test close the cheapest failure modes before they cost you a plate.
+
+---
+
 ## What is not in this file
 
 - 25 mm cube envelope, Ø8.2 pocket, SmCo Ø7.5 residual, DRV8871, axial pin, potting
@@ -282,10 +308,11 @@ From `docs/LOCKS.md`. These do not edit pockets, winding, cams, or the seven tes
 
 1. Cut the 6061 plate from the SCAD / SVG / dimension table.
 2. Press NdFeB Ø6 × 6 mm magnet, wind 40-turn coil around it. Log R.
-3. Machine dual cams (stainless or hardened + black oxide), bond steel-backed polymer tips, 8 mm contact width.
+3. Machine dual cams (stainless or hardened + black oxide), bond steel-backed polymer tips, 8 mm contact width. **Run the tip-bond pull test on a dummy before bonding the real cams.**
 4. Seat 2 latch pins + retraction actuator. Seat 5 N seating spring.
-5. Pulse on the bench fixture. Record peak I, snap N, release N, cam function.
-6. Wire the Pico protoboard to the netlist.
-7. Soak 1.25 A / 10 min, log temperature.
-8. Run 2 000 dock/undock cycles. Log cam tip wear.
-9. Publish measurements. Then talk about shrinking the lattice.
+5. **Run the metrology sequence** (cam radius, bore true position, pocket depth, flatness, contact wipe) before assembly.
+6. Pulse on the bench fixture. Record peak I, snap N, release N, cam function.
+7. Wire the Pico protoboard to the netlist.
+8. Soak 1.25 A / 10 min, log temperature.
+9. Run 2 000 dock/undock cycles. Log cam tip wear.
+10. Publish measurements. Then talk about shrinking the lattice.
