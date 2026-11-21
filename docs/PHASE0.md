@@ -137,9 +137,9 @@ Origin at face center. Z out of the docking face.
 - Insertion force 5 N
 
 Files in the fab package:
-- `CAD/DittoBot_Phase0_FacePlate_30mm.scad` (to be generated)
-- `CAD/DittoBot_Phase0_FacePlate_30mm.svg` (print at 100 %)
-- `CAD/DittoBot_Phase0_FacePlate_Dimensions.txt`
+- `cad/voxel_cell_phase0_30mm_dualcam.scad` (the real SCAD — blind 0.75 mm pocket, dual staggered cams)
+- `CAD/DittoBot_Phase0_FacePlate_30mm.svg` (not yet generated — print at 100 %)
+- `CAD/DittoBot_Phase0_FacePlate_Dimensions.txt` (not yet generated)
 
 ---
 
@@ -231,7 +231,7 @@ Contact assignment (redundant pairs):
 - Pogo 5 = 12 V sense
 - Pogo 6 = spare / AGND sense
 
-Full netlist: `schematic/DittoBot_Phase0_Face_Schematic.txt`
+Full netlist: `schematic/DittoBot_Phase0_Face_Schematic.txt` (not yet generated — netlist text lives in this doc's electrical section above)
 
 ---
 
