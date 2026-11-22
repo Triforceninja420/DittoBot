@@ -21,6 +21,6 @@ All current design sources live here.
 - [COMMUNITY_ENHANCEMENT_SUITES.md](COMMUNITY_ENHANCEMENT_SUITES.md) — Optional zero-impact suites
 
 ## Separate stack
-- [PHASE0.md](PHASE0.md) — Locked 20 mm hybrid face (do not mix with 25 mm)
+- [PHASE0.md](PHASE0.md) — Locked 30 mm dual-cam face (do not mix with 25 mm)
 
 Paper until measured. Credit follows data.
