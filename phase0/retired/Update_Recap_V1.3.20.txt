@@ -1,0 +1,39 @@
+DittoBot / Voxel Box Bot Update – November 5, 2026
+Updated 2026-11-21: SUPERSEDED. See notice below.
+Design owned by Craig. Started Nov/Dec 2025. Programmable matter.
+
+SUPERSESSION NOTICE
+-----------------
+This recap covers the retired 20 mm 4×EPM Alnico/NdFeB hybrid Phase 0 face
+(ON ≥ 3.0 N, OFF < 0.3 N, 160–200 turns, 220 µF cap-dump).
+The current Phase 0 baseline (rev 2026-11-21) is the 30 mm dual-cam staggered face:
+NdFeB N52 Ø6×6, 40-turn 34 AWG coil, dual 8 mm cams with steel-backed polymer
+tips, 2-pin latch + retraction actuator, 5 N seating spring. Simulated 26/26.
+Snap 34.6 N, release net +65.7 N, shear 5 028 N, mass 9.2 g.
+See cad/voxel_cell_phase0_30mm_dualcam.scad and docs/PHASE0.md.
+This file is historical reference only.
+
+==============================================================================
+RETIRED CONTENT (historical)
+==============================================================================
+
+Lack of a personal shop does not kill it.
+
+Published exact coil geometry and force-fixture design so any makerspace,
+university lab, or hobbyist with wire, a scale, and ten minutes can generate
+the locked Phase 0 force numbers.
+
+New files (Independent Fab Package addition, zero impact on locked criteria):
+- Phase_0_exact_coil_geometry.txt
+  Pole pieces 2.00 × 9.00 × 11.00 mm, rods side-by-side, winding window,
+  lead routing, measurement list.
+- Phase0_Force_Fixture.scad
+  Printable clamp + steel-target alignment jig.
+- phase0_10_minute_Force_Fixture.txt
+  Sequence: wind, pulse, pull, photograph, publish.
+
+Locked Phase 0 remains frozen:
+  ON ≥ 3.0 N at zero gap, OFF < 0.3 N, 160–200 turns, 2.5–6 Ω,
+  220 µF / 30–36 V cap-dump, IRLZ44N class, zero hold current after switch.
+
+Once measured numbers exist the lattice leaves paper. Credit follows the data.
