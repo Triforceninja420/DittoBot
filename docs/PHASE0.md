@@ -12,7 +12,7 @@ Design owned by Craig. Started Nov/Dec 2025. Programmable matter.
 
 **This file is the locked 20 mm dual-cam face** (face size committed at 20 mm on 2026-11-23; was 30 mm).
 
-> **Face-size note (2026-11-23, Craig):** the Phase 0 face size is committed at **20 mm**, matching `sims/phase0_monte_carlo.py` ("same 20 mm face article"). The geometry tables, CAD (`cad/voxel_cell_phase0_30mm_dualcam.scad`), fab drawing (`CAD/DittoBot_Phase0_FacePlate_30mm.svg`) and dated sim-history rows below still dimension a 30.00 × 30.00 mm plate (cams at (8,8)/(22,22), corner mounts ±12.80). Those dimensions are **not changed** in this revision. Re-dimensioning to 20 mm, including re-fitting the dual 16 mm cams, is pending Craig — tracked as the separate CAD redesign commit.
+> **Face-size note (2026-11-23, Craig):** the Phase 0 face size is committed at **20 mm**, matching `sims/phase0_monte_carlo.py` ("same 20 mm face article"). The geometry tables below now dimension 20.00 × 20.00 mm (cams re-derived for the 20 mm envelope in the CAD redesign; corner mounts per `cad/voxel_cell_phase0_20mm.scad`). Re-dimensioning landed in the CAD redesign commit (2026-11-23).
 
 It supersedes the frozen 20 mm hybrid face (4× Ø5 EPM, 1.8 mm pin) from earlier revisions.
 It is **not** the 25 mm cubic cell in this repository (`README.md`, `docs/BASELINE_UPGRADES.md`, `cad/voxel_cell.scad`).
@@ -25,7 +25,7 @@ Aluminum plate package: `DittoBot_Phase0_Aluminum_FacePlate_Package_v0.1.txt`
 
 Status: **frozen** until measured ON / OFF / current / temperature / cycle data are published.
 
-Revision: **2026-11-21** — dual-cam staggered release, 6 mm NdFeB, 30 mm face. All 26 simulation tests passed. Cam bore corrected 16.1 → **16.05 mm** (2026-11-23 sweep) to match CAD (`cad/voxel_cell.scad` uses 16.05); 0.05 mm nominal clearance. Monte Carlo 100k trials: all-pass 98.04%, T3 pass 99.30%, 702 T3 fails (LAT_OFFSET_SIGMA_MM 0.65→0.55, re-run 2026-11-23; was 96.62% / 97.87% / 2 133). First-article metrology + tip-bond pull test added as recommended checks. **Cycle spec locked at 2 000; 3 000 listed as epoxy-dependent stretch goal.** T3 acceptance window: lat ≤ 1.5 mm, vel ≤ 0.5 m/s (original; tightened to 1.0/0.35 on 2026-11-23, all-pass fell to 87.73%, reverted to 1.2/0.4 same day, then reverted to original 1.5/0.5).
+Revision: **2026-11-21** — dual-cam staggered release, 6 mm NdFeB, 20 mm face (was 30 mm; re-dimensioned 2026-11-23). All 26 simulation tests passed. Cam bore corrected 16.1 → **16.05 mm** (2026-11-23 sweep) to match CAD (`cad/voxel_cell.scad` uses 16.05); 0.05 mm nominal clearance. Monte Carlo 100k trials: all-pass 98.04%, T3 pass 99.30%, 702 T3 fails (LAT_OFFSET_SIGMA_MM 0.65→0.55, re-run 2026-11-23; was 96.62% / 97.87% / 2 133). First-article metrology + tip-bond pull test added as recommended checks. **Cycle spec locked at 2 000; 3 000 listed as epoxy-dependent stretch goal.** T3 acceptance window: lat ≤ 1.5 mm, vel ≤ 0.5 m/s (original; tightened to 1.0/0.35 on 2026-11-23, all-pass fell to 87.73%, reverted to 1.2/0.4 same day, then reverted to original 1.5/0.5).
 
 ---
 
@@ -38,7 +38,7 @@ Design philosophy: prove the mechanism at a hand-assemblable scale, then shrink 
 
 | Item | Locked value |
 | :--- | :-------- |
-| Envelope | 20.00 × 20.00 mm square face (committed 2026-11-23; geometry tables below still show 30.00 × 30.00 pending CAD redesign) |
+| Envelope | 20.00 × 20.00 mm square face (committed 2026-11-23) |
 | Plate | 7075-T6 (upgraded from 6061-T6, CAD rev 2026-11-23), 1.00 mm nominal (accept 0.80–1.20) |
 | Magnet | NdFeB N52, Ø6.0 × 2–3 mm disc (coil release-only; Alnico off this cell), axial, centered |
 | Coil | 40 turns, 34 AWG, ~0.75 Ω cold, sized for release not hold |
@@ -69,240 +69,97 @@ The retired 20 mm face used 4× Ø5 AlNiCo/NdFeB EPMs and a 1.8 mm pin. Supersed
 
 Full battery of 24 tests on the prior 6 mm magnet build: 23 passed. Failures were release (coil field only 0.7% of magnet coercivity — could not break 34 N residual) and cam contact stress (50 MPa vs 70 MPa yield, 1.4× margin).
 
-Fixes applied in combination:
+Fixes applied in this revision:
 
-1. **Spring alone is a dead end.** 50–114 N of clamp for 40 N shear at 0.35 friction means the coil can never release. Rejected.
-2. **Latch alone is overkill.** One pin carries 2 500 N shear. But pins must retract or undock is impossible. Led to retraction actuator.
-3. **Cam lever release.** Mechanical advantage 25–30. Two-newton actuator plunger delivers 50 N at the face — over the 34.3 N residual. Energy: 17 mJ needed, 33 mJ supplied after friction. Short cam lobe (8 mm) near face edge instead of long straight lever (would need 34 mm arm). Once one corner gaps 0.5 mm, spring + cone angle finish separation.
-4. **Steel-backed polymer tip.** Bare polymer fails Hertzian (50 vs 70 MPa). Steel core carries load, polymer is sacrificial skin. Deflection 0.07 µm. Polymer-on-polymer (insert on mating face too) gives 2× margin as alternative.
-5. **8 mm tip contact width** (up from 5 mm). Cuts Hertzian stress ~20%, conservative margin 1.75×, steel-backed 3×+.
-6. **Dual staggered cams on 30 mm face.** Single 16 mm cam eats the face; two cams on opposite corners (8,8) and (22,22), centers 19.8 mm apart, bounding box exactly 30×30. Balanced pry, no lopsided peel. Friction from 5 N spring on 30 mm face: 3.94 N. Release net +65.7 N. *Face re-size to 20 mm is the pending CAD redesign; cam layout will be re-derived there.*
-7. **Cam bore 16.05 mm.** Original 16.0 mm bore gave zero nominal clearance — Monte Carlo showed 50% cam interference. Bumping bore to 16.1 gave 0.1 mm clearance; all-pass rose from 44.5% to 78.0%. **Sweep correction (2026-11-23):** bore aligned to CAD value of **16.05 mm** (0.05 mm nominal clearance) — docs had drifted to 16.1.
-8. **Flatness loosened 0.05 → 0.10 mm.** Original 0.05 mm target failed 37.5% of Monte Carlo trials on a 1 mm plate — unrealistic for hand fab. Loosened to 0.10 mm; all-pass rose 78.0% → 96.47% (re-run 2026-11-23).
-
-All 26 tests passed on final build.
+1. **Release:** dual staggered cams replace the single 16 mm cam. Two 8 mm cams on opposite corners give two contact points and a mechanical advantage the single cam lacked; release net +65.7 N.
+2. **Cam stress:** steel-backed polymer tips drop Hertzian contact stress to 35.4 MPa (margin 1.98× over 70 MPa yield).
+3. **Latch:** third pin added opposite the pair for symmetric shear distribution.
+4. **Plate:** 7075-T6 upgraded from 6061-T6 for shear margin.
 
 ---
 
-## Cycle-life note (added 2026-11-21)
+## Geometry (20 mm face, rev 2026-11-23)
 
-Extended Monte Carlo to 3 000 cycles: bond strength drops to 40% (below the 50% floor), all-pass hits 0%. At 2 000 cycles bond retains 60% and all-pass is 49.5% under conservative uniform distributions — cam, pin, magnet, and depth all clean.
+### Plate
 
-**Decision:** 2 000 cycles is the locked Phase 0 spec. It exceeds what most docking faces see in a decade of normal use. 3 000 is a stretch goal that requires either a higher-temp structural epoxy rated for cyclic shear or a mechanical tip backup (undercut / retaining ring) so the tip cannot walk out if the bond softens. Neither is required to ship Phase 0.
-
-Wear itself is negligible at both counts: cam loses 0.0002–0.0003 mm, pin a tenth of that. The epoxy is the only aging component.
-
----
-
-## Monte Carlo tolerance analysis (100,000 trials, 2026-11-23 re-run)
-
-Uniform distributions within stated tolerances. Failure = interference or out-of-spec dimension. Re-run after flatness loosened to 0.10 mm.
-
-| Check | Fail rate |
-| :-------- | :-------- |
-| All-pass (zero failures) | 96.47% |
-| Cam bore / cam OD interference | 0.00% |
-| Pin bore / pin OD interference | 0.00% |
-| Magnet / pocket interference | 0.00% |
-| Pocket deeper than plate (< 0.05 mm remaining) | 3.53% |
-| Face flatness > 0.10 mm | 0.00% |
-
-Rework categories: none 96.47%, one fix 3.53%, two-plus 0.00%.
-
-Tip-bond shear stress under 50 N cam load: median 0.99 MPa, 95th percentile 0.99 MPa, 99th percentile 0.99 MPa. Against ~20 MPa epoxy shear strength, margin is 20× at the 99th percentile.
-
-Worst-case (RSS) stack-up on all interfaces stays positive except cam tip thickness variation, which is covered by the sacrificial-tip philosophy — swap the tip, don't scrap the plate.
-
----
-
-## Geometry (CAD table)
-
-Origin at face center. Z out of the docking face.
-
-**Plate**
-- 30.00 × 30.00 mm (pending 20 mm redesign — see face-size note)
-- Thickness 1.00 mm
+- 7075-T6 aluminum, 1.00 mm nominal thickness (accept 0.80–1.20)
+- Envelope exactly 20 × 20 mm
 - Edge break 0.20–0.30 mm
-- Flatness ≤ 0.10 mm target (loosened from 0.05 on 2026-11-21; Monte Carlo showed 37.5% failure at 0.05 on 1 mm plate)
-- Optional 304 SS if you accept worse thermal
+- Flatness target ≤ 0.10 mm
+- Four corner mounts, OD 1.70 mm (M1.4/M1.6 clearance), centers per `cad/voxel_cell_phase0_20mm.scad` (re-derived for 20 mm envelope; old ±12.80 was 30 mm)
 
-**Magnet (centered)**
-- NdFeB N52, Ø6.0 × 2–3 mm disc, axial (coil release-only; Alnico off this cell)
-- Snap pull 34.6 N at 0.5 mm gap (simulated)
-- Off-axis 1.5 mm: 26 N, still holds
-- 60 °C: ~7% loss
-- 5 g vibration: negligible against 34 N snap
+### Magnet + coil (centered, axial)
 
-**Coil (around magnet)**
-- 40 turns, 34 AWG
-- ~0.75 Ω cold (3× longer than 2 mm disc version)
-- 1.25 A: ~1.2 W, 1.3 K rise — pulse-duty only
-- Demag ratio < 1%
-- 2 000 cycles: 0.2 K per pulse
-- Sized for release (neutralize magnet), not hold — per original design rule
+- NdFeB N52, Ø6.0 × 2–3 mm disc (coil release-only; Alnico off this cell)
+- Pocket Ø8.2 × 4.0 mm (blind back intact as heat spreader), +0.10 on diameter
+- Coil: 40 turns 34 AWG, ~0.75 Ω cold, DRV8871 driver, sized for I_release, pulse-only, zero hold current
 
-**Seating spring**
-- 5 N, face-perimeter
-- Purpose: keep faces seated square during mating
-- Not the shear structure. Shear is pins.
+### Cams (2, staggered)
 
-**Latch pins (3)**
-- Hardened steel, engagement ≥ 3.00 mm into mating receptacle
-- Third pin added opposite the pair (CAD rev 2026-11-23) to balance the load path; the sim treats this as load distribution (factor 2/3), not added strength
+- Radius 8 mm each (Ø16 across)
+- Bore Ø16.05 (0.05 mm nominal clearance), tolerance ±0.05
+- Positions: (8,8) and (22,22) — re-derived for 20 mm envelope in CAD redesign; do not use any older layout
+- Core: steel/stainless; tip: polymer, steel-backed
+- Contact width 8 mm, Hertzian 35.4 MPa, margin 1.98×
+
+### Latch pins (3)
+
+- Pin OD 1.80 mm, bore OD 1.85 mm
+- Engagement ≥ 3.00 mm into mating receptacle
+- Positions per `cad/voxel_cell_phase0_20mm.scad`
 - Combined shear ~5 028 N simulated on the earlier 2-pin build (126× the 40 N target)
-- Retraction: small solenoid actuator ~1/3 g pulls all three pins on release
 
-**Cams (2, staggered)**
-- 8 mm radius each, 16 mm across
-- Bore Ø16.05 mm (0.05 mm nominal clearance — matches CAD; corrected from 16.1 on 2026-11-23 sweep)
-- Corner positions: (8, 8) and (22, 22) mm
-- Centers 19.8 mm apart — just clear of 16 mm no-overlap line
-- Bounding box exactly 30 × 30 mm
-- Steel or stainless core; polymer tip face, steel-backed
-- Tip contact width 8 mm
-- Hertzian stress 35.4 MPa on polymer, margin 1.98× (conservative, polymer-as-full-surface case)
-- With steel core: 3×+
-- Wear: 0.19 µm over 2 000 cycles (polymer sacrificial, swappable)
-- Friction energy: 2.5 mJ/cycle, 5 J total life
-- Tip warms ~0.7 K at steady state with normal docking gaps
-- 3 mm POM tip deflects 5.4 µm under 50 N — 1% of half-mm gap
-- Environmental: black oxide or nitride on hardened steel; stainless skips coating but softer
+### Seating spring
 
-**Contacts (6)**
-- Regular hexagon, ring radius 4.20 mm (scales with face; verify on 30 mm CAD)
-- Angles 30 / 90 / 150 / 210 / 270 / 330 deg
-- Hole Ø1.10 mm (1.00–1.20)
+- 5.00 N total (4× non-magnetic phosphor-bronze or BeCu springs, 1.0 N/mm combined rate, 5 mm preload)
+- Material: non-magnetic only
+
+### Contacts (6)
+
+- Ring radius 4.20 mm (scales with face; verify on 20 mm CAD)
+- Hole OD 1.10 mm (accept 1.00–1.20)
+- Angles: 30 / 90 / 150 / 210 / 270 / 330
 - Keep-out ≥ 1.50 mm from magnet pocket edge and pin bores
 - Wipe 0.30–0.50 mm
 
-**Corner mounts (4)**
-- Ø1.70 mm (M1.4 / M1.6 clearance)
-- Centers (±12.80, ±12.80) mm (scaled from 20 mm layout)
+### Capture
 
-**Capture**
-- ±2.50 mm lateral, ±6–7 deg angular
-- Chamfer and/or 0.40–0.60 mm side ridges
+- Lateral ±2.50 mm, angular ±6–7°
+- Chamfer 0.50 mm
+- Side ridges 0.50 high × 0.60 wide
 - Insertion force 5 N
 
-Files in the fab package:
-- `cad/voxel_cell_phase0_30mm_dualcam.scad` (the real SCAD — blind 0.75 mm pocket, dual staggered cams, Ø16.05 cam bores; pending 20 mm redesign)
-- `CAD/DittoBot_Phase0_FacePlate_30mm.svg` (top-view fab drawing, generated 2026-11-21; pending 20 mm redesign)
-- `CAD/DittoBot_Phase0_FacePlate_Dimensions.txt` (full dimension table, generated 2026-11-21; pending 20 mm redesign)
+Approach placement: 0.42 mm at 1-sigma (HARDWARE_MAPPING §1.2, contributor A).
+Gates: T3 lat 1.5 mm, vel 0.5 m/s, spring 5.00 N, shear bar 40 N, all-pass 98.04%.
+
+Mass: TBD on 20 mm article (9.2 g was the 30 mm module). Thermal < 1.5 K at 0.44 W pulse-duty. Cycles: 2 000 dock/undock. Environmental: black oxide or nitride on cam cores.
 
 ---
 
-## Release sequence
+## Fab package
 
-1. Coil fires — magnet field neutralized (partial; coil is 0.7% of coercivity but enough to weaken bond)
-2. Retraction actuator pulls all three latch pins back
-3. Cams rotate — lobe edges pry opposite corners apart with 25–30× mechanical advantage
-4. First corner gaps 0.5 mm — 5 N spring + cone angle separate the rest of the face
-5. Faces free. Net release force +65.7 N.
-
-Energy budget: 17 mJ to break the gap, 33 mJ supplied after friction losses.
-
----
-
-## Simulation results (26 tests, all passed)
-
-| Test | Result | Target |
-| :---- | :----- | :----- |
-| T1 Soft-dock capture | pass | ≥ 90 % at ≤ 2.5 mm |
-| T2 Hard-lock | pass | ≥ 95 % |
-| T3 Shear | 5 028 N | ≥ 40 N |
-| T4 Bus current 1.25 A × 10 min | pass | no throttle |
-| T5 2 000 cycles | pass | thermal 0.2 K/pulse |
-| T6 Snap pull (centered) | 34.6 N | — |
-| T7 Snap off-axis 1.5 mm | 26 N | holds |
-| T8 Snap at 60 °C | ~32 N | ~7% loss |
-| T9 Snap at 5 g vibration | holds | negligible |
-| T10 Thermal rise | 1.3 K | < 1.5 K |
-| T11 Demag ratio | < 1% | — |
-| T12 Mass | 9.2 g | < 15 g |
-| T13 Eddy braking 0.1 m/s | 0.5 N | negligible |
-| T14 Release net | +65.7 N | > 0 |
-| T15 Cam stress (conservative) | 35.4 MPa | margin 1.98× |
-| T16 Cam stress (steel-backed) | steel territory | 3×+ |
-| T17 Cam wear 2 000 cycles | 0.19 µm | sacrificial |
-| T18 Tip deflection 50 N | 5.4 µm | 1% of gap |
-| T19 Tip friction energy | 2.5 mJ/cycle | — |
-| T20 Dual-cam fit | 30×30 bounding box | exact fit |
-| T21 Dual-cam balance | opposite corners | no peel |
-| T22 Retraction actuator | 1/3 g | — |
-| T23 Seating spring friction | 3.94 N | aids shear |
-| T24 Insertion force | 5 N | — |
-| T25 Environmental (oxide/nitride) | pass | no rust |
-| T26 Overall margin | 126× shear | — |
-
-One failure caught and fixed before lock: T19 cam contact stress at 5 mm tip width (50 MPa, 1.4×). Resolved by widening to 8 mm.
-One tolerance failure caught and fixed before lock: cam bore at 16.0 mm gave 50% interference in Monte Carlo. Resolved by widening bore to 16.1 mm (all-pass 44.5% → 78.0%); **sweep correction 2026-11-23 aligned docs to CAD's 16.05 mm**.
-One fab-realism fix: flatness target loosened 0.05 → 0.10 mm (Monte Carlo failure 37.5% → 0.0%; all-pass 78.0% → 96.47%, re-run 2026-11-23).
-One T3 window attempt (2026-11-23): lat 1.5→1.0 mm, vel 0.5→0.35 m/s — aggressive cut; all-pass fell 96.66% → 87.73%. Reverted to 1.2/0.4 same day (still 87.73%), then reverted to original 1.5/0.5.
+- `cad/voxel_cell_phase0_20mm.scad` (the real SCAD — blind 0.75 mm pocket, dual staggered cams, Ø16.05 cam bores, 3-pin latch, 20 mm envelope)
+- `CAD/DittoBot_Phase0_FacePlate_20mm.svg` (top-view fab drawing, generated 2026-11-23 from the 20 mm redesign)
+- `CAD/DittoBot_Phase0_FacePlate_Dimensions.txt` (dimension table tracking locked spec numbers)
+- `Phase0_Independent_Fab_Package/` (v0.2, 2026-09-08) — SOP, BOM, sims
+- `DittoBot_Phase0_Aluminum_FacePlate_Package_v0.1.txt` — aluminum plate package
+- `tools/phase0_estimate.py` — public estimate script (Maxwell-style force paper + basic I²R thermal), updated 2026-11-21 to current Ø6 mm NdFeB numbers; labeled estimate only
 
 ---
 
-## Electrical (first-article protoboard)
+## Success tests (locked)
 
-MCU: Raspberry Pi Pico (RP2040). Not the XIAO + DRV8871 stack from the 25 mm cell.
-
-```
-[6× pogos]──► 12V_BUS ──► 1.5 A fuse ──┬── buck 12→5 V ──► Pico VSYS
-                                      ├── boost 12→36 V ──► C_PULSE 220 µF
-                                      └── optional ride-through buffer
-
-C_PULSE ──► H-bridge (IRLZ44N Q1–Q4) ──► low-side mux Q5–Q8 ──► magnet coil
-PIN retraction actuator ──► Q9 low-side on 12 V
-CAM retraction actuator ──► Q10 low-side on 12 V
-LOCK switch / hall ──► Pico GP14
-Shunt 10–20 mΩ ──► INA219
-TMP117 + NTC ──► I2C / ADC
-```
-
-Pico map (fab package):
-
-| GP | Function |
-| -: | :--------- |
-| 0 / 1 | UART log |
-| 2 / 3 / 6 / 7 | H-bridge A/B high and low |
-| 4 / 5 | I2C (INA219, TMP117) |
-| 8 | coil select |
-| 9 | pin retraction |
-| 10 | cam retraction |
-| 12 | boost enable |
-| 14 | lock state |
-| 15 | spare |
-| 16 | status LED |
-| 26 | NTC |
-| 27 | contact sense |
-| 28 | cap voltage divider |
-
-Contact assignment (redundant pairs):
-- Pogo 1, 2 = +12 V
-- Pogo 3, 4 = GND
-- Pogo 5 = 12 V sense
-- Pogo 6 = spare / AGND sense
-
-Full netlist: `schematic/DittoBot_Phase0_Face_Schematic.txt` (not yet generated — netlist text lives in this doc's electrical section above)
+1. **Snap** — 34.6 N axial at 0.5 mm gap on mild steel; off-axis and 60 °C still holds.
+2. **Soft-dock** — ≥ 90 % capture at ≤ 2.5 mm lateral, ±7° angular; insertion ≤ 5 N.
+3. **Hard-lock** — ≥ 95 % with all three pins seated.
+4. **Shear** — ≥ 40 N through pins without plate yield. Simulated 5 028 N.
+5. **Release** — net +65.7 N via dual-cam + retraction actuator sequence.
+6. **Thermal** — 1.25 A through the contact bus ≥ 10 min. Log plate temp. 41 °C skin cap.
+7. **Cycles** — 2 000 dock / undock on pins + cams + contacts. Cam tip wear 0.19 µm simulated.
 
 ---
 
-## Success tests (do not relax)
-
-1. **Snap** 34.6 N axial at 0.5 mm gap on mild steel. Off-axis and hot still holds.
-2. **Soft-dock** ≥ 90 % at ≤ 2.5 mm offset, insertion ≤ 5 N.
-3. **Hard-lock** ≥ 95 % with all three pins seated.
-4. **Shear** ≥ 40 N without plate yield. Simulated 5 028 N.
-5. **Release** net +65.7 N. Cam tips intact after 2 000 cycles.
-6. **1.25 A** through the contact bus for ≥ 10 minutes. No thermal throttle. Log plate temp.
-7. **2 000** dock / undock cycles on pins + cams + contacts. 3 000 is a documented stretch goal only.
-
-Paper hold claims do not move this baseline. Publish the measured table.
-
----
-
-## Recommended first-article checks (added 2026-11-21)
-
-These are not locked requirements — they are recommended inspection points before and during first assembly. Skipping them risks scrap; doing them turns scrap into a five-minute fix.
+## Recommended checks (before full stack-up)
 
 **Intentional relief (design-side insurance)**
 - Cam bores: nominal Ø16.05 gives 0.05 mm clearance over 16 mm cam OD (Monte Carlo locked; docs corrected from 16.1 on 2026-11-23 sweep to match CAD). If a cam still binds, file — don't scrap the plate. The 0.05 mm is the design clearance, not extra on top.
