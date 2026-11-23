@@ -22,7 +22,7 @@ Aluminum plate package: `DittoBot_Phase0_Aluminum_FacePlate_Package_v0.1.txt`
 
 Status: **frozen** until measured ON / OFF / current / temperature / cycle data are published.
 
-Revision: **2026-11-21** — dual-cam staggered release, 6 mm NdFeB, 30 mm face. All 26 simulation tests passed. Cam bore locked at 16.1 mm (0.1 mm nominal clearance). Monte Carlo 100k trials: all-pass 96.47% after flatness loosened 0.05→0.10 mm (re-run 2026-11-23). First-article metrology + tip-bond pull test added as recommended checks. **Cycle spec locked at 2 000; 3 000 listed as epoxy-dependent stretch goal.**
+Revision: **2026-11-21** — dual-cam staggered release, 6 mm NdFeB, 30 mm face. All 26 simulation tests passed. Cam bore locked at 16.1 mm (0.1 mm nominal clearance). Monte Carlo 100k trials: all-pass 96.47% after flatness loosened 0.05→0.10 mm (re-run 2026-11-23). First-article metrology + tip-bond pull test added as recommended checks. **Cycle spec locked at 2 000; 3 000 listed as epoxy-dependent stretch goal.** T3 acceptance window tightened 2026-11-23: lat 1.5→1.0 mm, vel 0.5→0.35 m/s.
 
 ---
 
@@ -49,6 +49,7 @@ Design philosophy: prove the mechanism at a hand-assemblable scale, then shrink 
 | Soft-dock | ≥ 90 % capture at ≤ 2.5 mm lateral, ±7° angular |
 | Insertion force | 5 N |
 | Shear target | ≥ 40 N (simulated 5 028 N, 126× margin) |
+| T3 acceptance window | lat ≤ 1.0 mm, vel ≤ 0.35 m/s (tightened 2026-11-23 from 1.5 / 0.5) |
 | Thermal | < 1.5 K rise at 0.44 W pulse-duty |
 | Mass | 9.2 g module total |
 | Cycles | **2 000 dock / undock (locked spec)** |
@@ -74,7 +75,7 @@ Fixes applied in combination:
 5. **8 mm tip contact width** (up from 5 mm). Cuts Hertzian stress ~20%, conservative margin 1.75×, steel-backed 3×+.
 6. **Dual staggered cams on 30 mm face.** Single 16 mm cam eats the face; two cams on opposite corners (8,8) and (22,22), centers 19.8 mm apart, bounding box exactly 30×30. Balanced pry, no lopsided peel. Friction from 5 N spring on 30 mm face: 3.94 N. Release net +65.7 N.
 7. **Cam bore 16.1 mm.** Original 16.0 mm bore gave zero nominal clearance — Monte Carlo showed 50% cam interference. Bumping bore to 16.1 gives 0.1 mm clearance; all-pass rose from 44.5% to 78.0%.
-8. **Flatness loosened 0.05 → 0.10 mm.** Original 0.05 mm target failed 37.5% of Monte Carlo trials on a 1 mm plate — unrealistic for hand fab. Loosened to 0.10 mm; all-pass rose 78.0% → 96.47% (re-run 2026-11-23). Soft-dock capture still holds at the looser flatness.
+8. **Flatness loosened 0.05 → 0.10 mm.** Original 0.05 mm target failed 37.5% of Monte Carlo trials on a 1 mm plate — unrealistic for hand fab. Loosened to 0.10 mm; all-pass rose 78.0% → 96.47% (re-run 2026-11-23).
 
 All 26 tests passed on final build.
 
@@ -156,7 +157,7 @@ Origin at face center. Z out of the docking face.
 - Steel or stainless core; polymer tip face, steel-backed
 - Tip contact width 8 mm
 - Hertzian stress 35.4 MPa on polymer, margin 1.98× (conservative, polymer-as-full-surface case)
-- With steel core: 3×+ margin
+- With steel core: 3×+
 - Wear: 0.19 µm over 2 000 cycles (polymer sacrificial, swappable)
 - Friction energy: 2.5 mJ/cycle, 5 J total life
 - Tip warms ~0.7 K at steady state with normal docking gaps
@@ -232,6 +233,7 @@ Energy budget: 17 mJ to break the gap, 33 mJ supplied after friction losses.
 One failure caught and fixed before lock: T19 cam contact stress at 5 mm tip width (50 MPa, 1.4×). Resolved by widening to 8 mm.
 One tolerance failure caught and fixed before lock: cam bore at 16.0 mm gave 50% interference in Monte Carlo. Resolved by widening bore to 16.1 mm (all-pass 44.5% → 78.0%).
 One fab-realism fix: flatness target loosened 0.05 → 0.10 mm (Monte Carlo failure 37.5% → 0.0%; all-pass 78.0% → 96.47%, re-run 2026-11-23).
+One T3 window tightening (2026-11-23): lat 1.5→1.0 mm, vel 0.5→0.35 m/s — aggressive cut to stress-test the ridge/chamfer offset relief.
 
 ---
 
@@ -316,7 +318,7 @@ These are not locked requirements — they are recommended inspection points bef
 - If it holds 50 N without the polymer tearing or the bond shearing, the real cams are good. If it fails, you learn on a coupon instead of a finished module.
 - Log: epoxy type, cure time and temp, pull force, failure mode.
 
-**Why this matters:** simulation assumes perfect geometry. Real parts have burrs, epoxy creeps, polymer swells in humidity, and fab houses drill off-center. The relief and the pull test close the cheapest failure modes before they cost you a plate.
+**Why it matters:** simulation assumes perfect geometry. Real parts have burrs, epoxy creeps, polymer swells in humidity, and fab houses drill off-center. The relief and the pull test close the cheapest failure modes before they cost you a plate.
 
 ---
 
@@ -349,8 +351,5 @@ From `docs/LOCKS.md`. These do not edit pockets, winding, cams, or the seven tes
 - Coil is sized for release, not hold. Do not enlarge it to chase snap — snap is the magnet's job.
 - Cam bore is 16.1 mm. Do not shrink it back to 16.0 — Monte Carlo proved 50% interference.
 - Face flatness target is 0.10 mm. Do not tighten back to 0.05 — Monte Carlo proved 37.5% failure on 1 mm plate.
-- Cycle spec is 2 000. Do not lock 3 000 without an epoxy swap or mechanical tip backup — Monte Carlo proved bond drops below 50% at 3 000.
-
----
-
-[+781 bytes at .content[1].resource.text]
+- Cycle spec is 2 000. Do not lock 3 000 without an epoxy swap or mechanical tip backup — Monte Carlo proved 3 000 breaks the epoxy bond below the 50% floor.
+- T3 acceptance window: lat ≤ 1.0 mm, vel ≤ 0.35 m/s. Do not loosen back to 1.5 / 0.5 without a new forensic re-run and documented justification.
