@@ -20,7 +20,7 @@ Status: **blank until measured.** No latch claim until the table is filled.
 ## Card (fill what you actually measured)
 
 | Field | Value | Unit / notes |
-| :--- | :---- | :-------- |
+| :---- | :---- | :-------- |
 | Builder | | |
 | Date | | |
 | Turns on bobbin | | |
@@ -44,9 +44,9 @@ See BUILD.md and BASELINE_UPGRADES.md for the full current build.
 
 ---
 
-# Phase 0 face — measurement card (rev 2026-11-23, 20 mm redesign)
+# Phase 0 face — measurement card (rev 2026-11-23b, 20 mm redesign)
 
-Design owned by Craig. 20 mm dual-cam face. NdFeB N52 Ø6.0 × 2–3 mm Nd disc (coil release-only, Alnico off). 3-pin latch (7075-T6 plate) + retraction actuator. 4× non-magnetic phosphor-bronze/BeCu springs, 1.0 N/mm combined, 5 mm preload (5.00 N seated). DRV8871 driver. Approach placement 0.42 mm at 1-sigma.
+Design owned by Craig. 20 mm sliding-pin face, Option A release. NdFeB N52 Ø6.0 × 2–3 mm Nd disc (coil release-only, Alnico off). 3-pin latch (7075-T6 plate) + Option A Ø2.0 mm sliding release pin. 4× non-magnetic phosphor-bronze/BeCu springs, 1.0 N/mm combined, 5 mm preload (5.00 N seated). DRV8871 driver. Approach placement 0.42 mm at 1-sigma. Cams deferred — see GATE5_SUPERSEDED.
 
 Status: **blank until measured.** Simulation (98.04% all-pass) passed; hardware numbers go here.
 
@@ -54,10 +54,10 @@ Status: **blank until measured.** Simulation (98.04% all-pass) passed; hardware 
 - Face: 20.00 × 20.00 mm, 7075-T6 1.00 mm
 - Magnet: NdFeB N52 Ø6.0 × 2–3 mm disc in Ø8.2 × 4.0 pocket (coil around disc, release-only)
 - Coil: DRV8871 driver, sized for I_release, pulse-only, zero hold current
-- Cams: dual staggered, Ø16.05 bore (0.05 mm clearance), steel-backed polymer tips — positions per cad/voxel_cell_phase0_20mm.scad
+- Release: Option A sliding pin Ø2.0 mm, magnet-pull retention ≥ 1.8 N — positions per cad/voxel_cell_phase0_20mm.scad
 - Latch: 3× hardened steel pins Ø1.80 in Ø1.85 bores, 7075-T6 plate
 - Seating spring: 5.00 N total (4 springs)
-- Contacts: 6× pogo/leaf on hex ring r = 4.20 mm at 30/90/150/210/270/330°
+- Contacts: 6× pogo/leaf on hex ring r = 6.25 mm at 50/110/170/230/290/350°
 - Bus: 12 V nominal, 1.25 A continuous ≥ 10 min
 - Driver: DRV8871, pulse bank
 - MCU: XIAO RP2040
@@ -67,7 +67,7 @@ Status: **blank until measured.** Simulation (98.04% all-pass) passed; hardware 
 ## Card (fill what you actually measured)
 
 | Field | Value | Unit / notes |
-| :--- | :---- | :-------- |
+| :---- | :---- | :-------- |
 | Builder | | |
 | Date | | |
 | Magnet grade / size | | NdFeB N52 Ø6.0 × 2–3 mm (record thickness) |
@@ -79,8 +79,8 @@ Status: **blank until measured.** Simulation (98.04% all-pass) passed; hardware 
 | Snap force (centered, 0.5 mm) | | N (sim: 34.6) |
 | Snap off-axis 1.5 mm | | N (sim: 26) |
 | Snap at 60 °C | | N (sim: ~32) |
-| Release net | | N (sim: +65.7) |
-| Cam tip wear after N cycles | | µm |
+| Release / retention | | N (sim: ≥ 1.8, magnet-pull + sliding pin) |
+| Sliding-pin wear after N cycles | | µm |
 | Shear | | N (sim: 5 028, earlier 2-pin build) |
 | Soft-dock capture rate | | % at ≤ 2.5 mm |
 | Insertion force | | N (sim: 5) |
@@ -89,6 +89,6 @@ Status: **blank until measured.** Simulation (98.04% all-pass) passed; hardware 
 | Plate temp near magnet | | °C |
 | Pin engagement (3/3) | | mm or confirmed |
 | Cycles completed | | / 2 000 |
-| Notes | | cam material, tip swap, oxide |
+| Notes | | sliding-pin material, oxide, tip swap |
 
 One row per test. Credit follows the measurement. Simulation numbers in parentheses are not credit — they are the bar to beat.
