@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: DittoBot Documentation
+    url: https://github.com/Triforceninja420/DittoBot/tree/main/docs
+    about: Check the docs folder for design specs, Phase 0 protocols, and Mars variant details before opening an issue.
