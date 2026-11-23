@@ -16,7 +16,7 @@ Phase 0 success criteria remain the measured ones in [PHASE0.md](PHASE0.md) (rev
 - 1.25 A continuous ≥ 10 min (log temperature, 41 °C skin cap)
 - 2 000 dock/undock cycles (cam tip wear 0.19 µm simulated)
 
-Anyone can verify these on the public fixture package and `cad/voxel_cell_phase0_30mm_dualcam.scad` (pending 20 mm redesign — see PHASE0.md face-size note).
+Anyone can verify these on the public fixture package and `cad/voxel_cell_phase0_20mm.scad`.
 
 ## Private analysis that drove 2026-11-06 fixes
 

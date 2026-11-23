@@ -19,11 +19,11 @@ Every value below is **proposed** unless it is quoted from an existing locked so
 | :--- | :--- |
 | `sims/phase0_monte_carlo.py` (DB-P0-FACE-TP-001 Rev A, commit 74ded02) | **Gates T1–T5 and every constant, unchanged.** <br>• T1: ≤ 2.5 mm / ≤ 7° (σ 0.65 mm / 1.6°) <br>• T2: ≥ 95 % (p 0.994) <br>• T3: ≥ 40 N with lat ≤ 1.5 mm, vel ≤ 0.5 m/s (σ_lat 0.55 mm, σ_vel 0.10 m/s, spring 5.00 ± 0.25 N, shear 72.8 ± 4.0 N, 7075-T6, 3 pins) <br>• T4: 1.25 A × 10 min <br>• T5: 2 000 cycles <br>Results: all-pass 98.04 %, T3 99.30 %, 702 T3 fails / 100k |
 | `docs/HARDWARE_MAPPING.md` | Tolerance stack (lat RSS 0.514 ≤ 0.55 mm), approach profile (creep 0.05 m/s over last 3 mm, abort at 0.25 m/s), spring spec, 40 N shear requirement (SF 1.82 mean), I_release note, lab fixtures |
-| `cad/voxel_cell_phase0_30mm_dualcam.scad` (rev 2026-11-23) | Face geometry: 6 contacts on hex ring r = 4.20 mm at 30/90/150/210/270/330°, 3 pins Ø1.80 in Ø1.85 bores, ridge 1.0 × 1.0, chamfer 1.0 |
+| `cad/voxel_cell_phase0_20mm.scad` (rev 2026-11-23, 20 mm redesign) | Face geometry: 6 contacts on hex ring r = 4.20 mm at 30/90/150/210/270/330°, 3 pins Ø1.80 in Ø1.85 bores, ridge 1.0 × 1.0, chamfer 1.0 |
 | `docs/PHASE0.md` electrical section | Contact assignment (pogo 1, 2 = +12 V; 3, 4 = GND; 5 = 12 V sense; 6 = spare / AGND sense); 1.5 A bus fuse; INA219 shunt; TMP117 + NTC |
 | `docs/LOCKS.md` | Hold current after switch = 0; 40 N structural vs 35 N human-contact interrupt; 41 °C skin cap; 12 V bus and pulse bank stay fixture-side until contacts are covered or isolated; one coil at a time |
 
-**Face size note.** Craig's brief calls this the "20 mm face". The repo's face CAD and locks describe the 30 mm dual-cam face (see `docs/HARDWARE_MAPPING.md` §0.1). Phase 1 uses **whatever face DB-P0-FACE-TP-001 is run on, unchanged**. This file does not re-dimension it.
+**Face size note.** Craig's brief calls this the "20 mm face". The 20 mm CAD redesign landed 2026-11-23 (`cad/voxel_cell_phase0_20mm.scad`); face size is consistent 20 mm throughout. Phase 1 uses **whatever face DB-P0-FACE-TP-001 is run on, unchanged**. This file does not re-dimension it.
 
 ---
 
@@ -156,7 +156,7 @@ Types: `HELLO`, `HELLO_ACK`, `ID`, `ID_ACK`, `HB` (heartbeat), `STATUS`, `PWR_RE
 ### 5.4 Error handling
 
 | Condition | Handling (proposed) |
-| :--- | :--- |
+| :---- | :---- |
 | CRC fail / framing error | Discard; `NAK` with SEQ; sender retransmits up to 3 times |
 | No reply within 50 ms | Retransmit; after 3 tries count as a missed heartbeat |
 | 3 missed heartbeats | F-LINK: power off (§4.5), lock held, try re-handshake from S7 |
@@ -211,7 +211,7 @@ Types: `HELLO`, `HELLO_ACK`, `ID`, `ID_ACK`, `HB` (heartbeat), `STATUS`, `PWR_RE
 
 ## 7. Open items (TBD before test start)
 
-- Face size naming reconciliation (20 mm brief vs 30 mm repo face): Craig's call.
+- Face size naming reconciliation: **resolved** — 20 mm throughout (CAD redesign landed 2026-11-23).
 - Hall threshold for S3; module masses; B input capacitance.
 - Load switch / eFuse, TVS, ideal-diode parts: choose and record in the BOM. No part numbers are proposed here.
 - Pogo stagger implementation for mate-first GND.
