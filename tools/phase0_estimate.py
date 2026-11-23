@@ -9,6 +9,7 @@ Design owned by Craig. 2026-11-06.
 Updated 2026-11-21: stale Ø5 mm Alnico/NdFeB hybrid example replaced with
 current 20 mm dual-cam Phase 0 numbers (NdFeB N52 Ø6×2–3 disc, DRV8871).
 Updated 2026-11-23: 30 mm → 20 mm sync.
+Updated 2026-11-23b: mass 7.4 g → 9.2 g (module mass per PROTOTYPE_PLAN rev b).
 """
 
 import math
@@ -19,7 +20,7 @@ def maxwell_force_n(b_t: float, area_m2: float) -> float:
     """Paper Maxwell stress force. Assumes uniform B."""
     return (b_t ** 2 * area_m2) / (2.0 * MU_0)
 
-def thermal_rise_c(i_a: float, r_ohm: float, minutes: float, mass_g: float = 7.4, cp: float = 0.9) -> float:
+def thermal_rise_c(i_a: float, r_ohm: float, minutes: float, mass_g: float = 9.2, cp: float = 0.9) -> float:
     """Very rough adiabatic rise estimate. Ignores conduction to plate."""
     power_w = i_a ** 2 * r_ohm
     energy_j = power_w * minutes * 60.0
@@ -42,9 +43,9 @@ def main():
     print("(Phase 0 locked snap gate is 34.6 N simulated; 40 N shear is pin structure.)")
 
     print()
-    # Thermal example: 1.25 A, 0.75 Ω coil, 10 min, ~7.4 g module
+    # Thermal example: 1.25 A, 0.75 Ω coil, 10 min, ~9.2 g module
     rise = thermal_rise_c(1.25, 0.75, 10.0)
-    print(f"Crude adiabatic rise estimate (1.25 A, 0.75 Ω, 10 min, ~7.4 g): {rise:.0f} °C")
+    print(f"Crude adiabatic rise estimate (1.25 A, 0.75 Ω, 10 min, ~9.2 g): {rise:.0f} °C")
     print("(Pulse-duty is the default; this continuous-duty case is the stress test.)")
     print(" Measure plate temp on the real article.")
 
