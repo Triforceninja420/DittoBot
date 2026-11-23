@@ -1,8 +1,9 @@
 # phase0/ — retired 20 mm fab package
 
 Everything in this folder describes the **superseded 20 mm 4×EPM Alnico/NdFeB
-hybrid face**. The locked Phase 0 baseline is now the **20 mm dual-cam
-face** (rev 2026-11-23, CAD redesign landed): see `cad/voxel_cell_phase0_20mm.scad`
+hybrid face**. The locked Phase 0 baseline is now the **20 mm sliding-pin face**
+(Option A release, rev 2026-11-23b; the dual-cam era is retired — see
+`docs/GATE5_SUPERSEDED.md`): see `cad/voxel_cell_phase0_20mm.scad`
 and `docs/PHASE0.md`.
 
 Do not wind coils or build fixtures from anything here. These files are kept

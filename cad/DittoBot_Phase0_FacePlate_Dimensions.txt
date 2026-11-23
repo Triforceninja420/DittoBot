@@ -1,10 +1,12 @@
-DittoBot Phase 0 Face — Dimension Table (rev 2026-11-23, 20 mm redesign)
+DittoBot Phase 0 Face — Dimension Table (rev 2026-11-23b, 20 mm redesign)
 20 mm face. All dimensions mm unless noted.
 Origin: face center, Z out of docking face. Export STL from SCAD for fab.
 Monte Carlo (100k trials): all-pass 98.04%, T3 99.30%, 702 T3 fails (LAT_OFFSET_SIGMA 0.55).
 Full geometry follows cad/voxel_cell_phase0_20mm.scad — this table tracks the
-locked spec numbers; cam positions and corner-mount centers were re-derived
-for the 20 mm envelope in the CAD redesign and are authoritative in the SCAD.
+locked spec numbers; corner-mount centers were re-derived for the 20 mm
+envelope in the CAD redesign and are authoritative in the SCAD.
+Cams deferred to Option A / 25 mm cell (rev 2026-11-23b); Phase 0 release
+is the Option A sliding-pin architecture per docs/OPTION_A.md.
 
 PLATE
   Envelope:             20.00 x 20.00
@@ -20,20 +22,16 @@ MAGNET + COIL (centered, axial)
   Coil:                 DRV8871 driver, sized for I_release, pulse-only, zero hold current
   Cold R:               ~0.74 ohm (estimate, 2x AWG 36 parallel)
 
-CAMS (2, staggered) — re-derived for 20 mm envelope in CAD redesign
-  Radius:               8 each (Ø16 across)
-  Bore:                 Ø16.05 (0.05 mm nominal clearance)
-  Bore tolerance:       ±0.05
-  Positions:            per cad/voxel_cell_phase0_20mm.scad (re-derived; do not
-                        use the old 30 mm (8,8)/(22,22) layout)
-  Core:                 steel/stainless
-  Tip:                  polymer, steel-backed
+RELEASE (Option A sliding pin — cams deferred)
+  Retention:            >= 1.8 N magnet-pull + sliding pin
+  Pin:                  Ø2.0 mm sliding release pin, single axial
+  No cam bores on Phase 0 face
 
 LATCH PINS (3)
   Pin OD:               1.80
   Bore OD:              1.85
-  Engagement:           >= 3.00 into mating receptacle
-  Positions:            per cad/voxel_cell_phase0_20mm.scad
+  Engagement:           >= 3.00 into mating receptacle; receptacle depth >= 2.5
+  Positions:            per cad/voxel_cell_phase0_20mm.scad (r 7.45 at 73/155/328 deg)
   Combined shear:       pins carry 100% of the 40 N bar; 5 028 N was the
                         earlier 2-pin simulation
 
@@ -43,9 +41,9 @@ SEATING SPRING
   Material:             non-magnetic only
 
 CONTACTS (6)
-  Ring radius:          4.20
+  Ring radius:          6.25
   Hole OD:              1.10 (accept 1.00-1.20)
-  Angles:               30 / 90 / 150 / 210 / 270 / 330
+  Angles:               50 / 110 / 170 / 230 / 290 / 350
   Keep-out:             >= 1.50 from magnet pocket edge and pin bores
   Wipe:                 0.30-0.50
 
@@ -65,6 +63,5 @@ APPROACH PLACEMENT:   0.42 mm at 1-sigma (HARDWARE_MAPPING §1.2, contributor A)
 GATES:                T3 lat 1.5 mm, vel 0.5 m/s, spring 5.00 N, shear bar 40 N,
                       all-pass 98.04%
 
-MASS: TBD on 20 mm article (9.2 g was the 30 mm module). Thermal < 1.5 K at
-0.44 W pulse-duty. Cycles: 2000 dock/undock. Environmental: black oxide or
-nitride on cam cores.
+MASS: 9.2 g module (phase0_estimate.py default). Thermal < 1.5 K at
+0.44 W pulse-duty. Cycles: 2000 dock/undock.

@@ -1,6 +1,6 @@
 # Mars Path — Speculative Extensions of the DittoBot Baseline
 
-Design owned by Craig. Started from the main DittoBot 25 mm cell (2026-11-19 baseline). Paper/simulation only — credit follows measured data when hardware arrives. Two stacks stay unmixed (Phase 0 20 mm dual-cam is separate). This folder does not reopen locked geometry.
+Design owned by Craig. Started from the main DittoBot 25 mm cell (2026-11-19 baseline). Paper/simulation only — credit follows measured data when hardware arrives. Two stacks stay unmixed (Phase 0 20 mm sliding-pin face is separate). This folder does not reopen locked geometry.
 
 How the programmable-matter lattice scales to Mars surface ops and long-term greening. Main design remains the Earth/lab 25 mm cell; everything here inherits that baseline.
 

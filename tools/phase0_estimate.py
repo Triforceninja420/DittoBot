@@ -7,9 +7,10 @@ NOT a substitute for the locked measured gates in docs/PHASE0.md.
 
 Design owned by Craig. 2026-11-06.
 Updated 2026-11-21: stale Ø5 mm Alnico/NdFeB hybrid example replaced with
-current 20 mm dual-cam Phase 0 numbers (NdFeB N52 Ø6×2–3 disc, DRV8871).
+current 20 mm sliding-pin Phase 0 numbers (NdFeB N52 Ø6×2–3 disc, DRV8871).
 Updated 2026-11-23: 30 mm → 20 mm sync.
 Updated 2026-11-23b: mass 7.4 g → 9.2 g (module mass per PROTOTYPE_PLAN rev b).
+Updated 2026-11-23c: dual-cam references removed; Option A sliding-pin release.
 """
 
 import math

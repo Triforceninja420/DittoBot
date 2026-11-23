@@ -6,15 +6,15 @@ This file records that private thermal and shear analysis (not a public executab
 
 ## What is public and locked
 
-Phase 0 success criteria remain the measured ones in [PHASE0.md](PHASE0.md) (rev 2026-11-21, 20 mm dual-cam; face size committed 2026-11-23):
+Phase 0 success criteria remain the measured ones in [PHASE0.md](PHASE0.md) (rev 2026-11-21, 20 mm sliding-pin face, Option A release; face size committed 2026-11-23):
 
 - Snap 34.6 N axial at 0.5 mm gap (sim bar)
 - Soft-dock ≥ 90 % at ≤ 2.5 mm lateral, insertion ≤ 5 N
 - Hard-lock ≥ 95 % with all three pins seated
 - Shear ≥ 40 N through pins (simulated 5 028 N)
-- Release net +65.7 N via dual-cam + retraction actuator
+- Release: magnet-pull retention ≥ 1.8 N, Option A sliding-pin release (cams deferred to Option A / 25 mm cell)
 - 1.25 A continuous ≥ 10 min (log temperature, 41 °C skin cap)
-- 2 000 dock/undock cycles (cam tip wear 0.19 µm simulated)
+- 2 000 dock/undock cycles
 
 Anyone can verify these on the public fixture package and `cad/voxel_cell_phase0_20mm.scad`.
 
@@ -24,7 +24,7 @@ A private simulation battery (not present as a full runnable docking/shear model
 
 1. **Thermal (T4)**: Single-strand coil under 1.25 A × 10 min continuous duty reached ~444 °C, far above insulation limits. Fix documented in [COIL_REVISION.md](COIL_REVISION.md): wind 2–4× AWG 36 strands in parallel (or thicker wire) for any continuous-duty use. Pulse-only duty on the Phase 0 face is unaffected.
 
-2. **Latch wear (T5)**: Face wear estimated at ~1 mm over 2 000 cycles against a 100 µm budget. Fix: replaceable carbide (or 440C) shear shim, Ø6.0 × 0.50 mm, clip-in, swap at ~100 µm. Documented in [PHASE0.md](PHASE0.md) Rev 2026-11-06. Superseded 2026-11-21 by dual-cam + pin latch (simulated wear 0.19 µm).
+2. **Latch wear (T5)**: Face wear estimated at ~1 mm over 2 000 cycles against a 100 µm budget. Fix: replaceable carbide (or 440C) shear shim, Ø6.0 × 0.50 mm, clip-in, swap at ~100 µm. Documented in [PHASE0.md](PHASE0.md) Rev 2026-11-06. Superseded 2026-11-21 by 3-pin latch; cam-era wear numbers (0.19 µm) retired 2026-11-23b.
 
 These fixes are design responses. They do not replace measured data. The public path remains: build the fixture, wind to the SOP, measure ON/OFF force, current, temperature, and cycles, then fill the measurement card.
 

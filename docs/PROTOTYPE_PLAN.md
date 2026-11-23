@@ -26,11 +26,11 @@ One 25 mm cubic cell per `cad/voxel_cell.scad` and `bom/bom_netlist.txt`:
 | M1 | Magnet axial field at pocket face | Gaussmeter at 0.5 mm gap on mild steel | ≥ snap target |
 | M2 | Coil DC resistance | 4-wire at room temp | ~0.74 Ω (2× AWG 36 parallel est.) |
 | M3 | ON force (snap) | Force gauge, axial, 0.5 mm gap | 34.6 N sim bar |
-| M4 | OFF force (release) | Same fixture, pulse at I_release | net +65.7 N sim bar |
+| M4 | OFF force (release) | Same fixture, pulse at I_release | retention ≥ 1.8 N sim bar (magnet-pull + sliding pin) |
 | M5 | Peak pulse current | INA219 or shunt + scope | ≤ 3.6 A DRV8871 peak |
 | M6 | Plate temperature after 10 min at 1.25 A | TMP117 / NTC log | ≤ 41 °C skin cap |
 | M7 | Pin engagement | Depth gauge / witness marks | ≥ 2.5–3.0 mm |
-| M8 | 2 000 dock/undock cycles | Automated fixture or manual log | cam tip wear ≤ 0.19 µm sim |
+| M8 | 2 000 dock/undock cycles | Automated fixture or manual log | sliding-pin and contact wear logged |
 | M9 | Contact resistance across face bus | Kelvin at 1.25 A | TBD after first measurement |
 
 ## 3. Fixtures

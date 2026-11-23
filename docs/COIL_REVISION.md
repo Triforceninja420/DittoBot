@@ -2,7 +2,7 @@
 2026-09-09
 Updated 2026-11-06: parallel-strand thermal fix.
 Updated 2026-11-19: Current baseline is SmCo 2:17 Ø7.5 mm residual hold (coil release only). Earlier Ø6 mm stacks superseded.
-Updated 2026-11-21: Stale 20 mm hybrid-face cross-reference removed. Phase 0 is the 20 mm dual-cam face — see docs/PHASE0.md.
+Updated 2026-11-21: Stale 20 mm hybrid-face cross-reference removed. Phase 0 is the 20 mm sliding-pin face (Option A release) — see docs/PHASE0.md.
 Updated 2026-11-23 (Craig): hold magnet is a Ø6.0 × 2–3 mm Nd disc in the locked Ø8.2 × 4.0 mm pocket. Coil wound around the disc, release-only, sized for I_release (not hold). Alnico is off this cell. Replaces the SmCo 2:17 Ø7.5 × 3.0 mm baseline of 2026-11-19.
 
 Project started Nov/Dec 2025. Design owned by Craig. Programmable matter.

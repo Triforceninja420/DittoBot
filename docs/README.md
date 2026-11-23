@@ -30,7 +30,7 @@ Design owned by Craig. Programmable matter voxel lattice. 25 mm cell is the main
 
 ## Separate stack
 
-- [PHASE0.md](PHASE0.md) — Locked 20 mm dual-cam face (do not mix with 25 mm; face size committed 2026-11-23, was 30 mm)
+- [PHASE0.md](PHASE0.md) — Locked 20 mm sliding-pin face, Option A release, cams deferred (do not mix with 25 mm; face size committed 2026-11-23, was 30 mm)
 
 ## Re-runnable sims
 
