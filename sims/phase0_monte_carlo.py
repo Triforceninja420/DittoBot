@@ -37,7 +37,17 @@ def run_trial(rng):
 
 def main():
     rng = random.Random(SEED)
-    counts = [0 0 1 2 3 4]/N_TRIALS*100:.2f}%")
+    counts = [0]*5
+    all_pass = 0
+    for _ in range(N_TRIALS):
+        results = run_trial(rng)
+        for i, r in enumerate(results):
+            if r:
+                counts[i] += 1
+        if all(results):
+            all_pass += 1
+    for i, c in enumerate(counts):
+        print(f"T{i+1} pass:     {c/N_TRIALS*100:.2f}%")
     print(f"ALL-PASS:      {all_pass/N_TRIALS*100:.2f}%")
 
 if __name__ == "__main__":
