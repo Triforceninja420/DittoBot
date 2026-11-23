@@ -1,11 +1,11 @@
 // DittoBot Phase 0 Face — 30 mm dual-cam staggered (rev 2026-11-23)
 // Design owned by Craig. Programmable matter. Paper only until measured.
 //
-// Envelope: 30.00 x 30.00 mm, 6061-T6, 1.00 mm nominal
+// Envelope: 30.00 x 30.00 mm, 7075-T6 (upgraded from 6061-T6), 1.00 mm nominal
 // Magnet: NdFeB N52 Ø6.0 x 6.0 mm, axial, centered
 // Coil: 40 turns 34 AWG around magnet (~0.75 ohm cold)
-// Cams: dual 8 mm radius, bore Ø16.1 (0.1 mm nominal clearance), staggered (8,8) + (22,22)
-// Latch: 2x hardened steel pins + retraction actuator
+// Cams: dual 8 mm radius, bore Ø16.05 (0.05 mm nominal clearance), staggered (8,8) + (22,22)
+// Latch: 3x hardened steel pins + retraction actuators (third pin added opposite pair)
 // Seating spring: 5 N
 // Contacts: 6x pogo/leaf on hex ring r=4.20 mm
 // Corner mounts: 4x Ø1.70 mm at (±12.80, ±12.80)
@@ -16,7 +16,8 @@
 // Render: F6. Export STL for fab. Do not mix with 25 mm cell numbers.
 // Magnet pocket: BLIND 0.75 mm deep (not through) — heat spreader back intact.
 // Monte Carlo (100k trials, 2026-11-23): T3 gates lat ≤ 1.5 mm / vel ≤ 0.5 m/s;
-// forensic RNG isolated (seed 13); ridge 1.0 mm + chamfer 1.0 mm in CAD.
+// forensic RNG isolated (seed 13); ridge 1.0 mm + chamfer 1.0 mm in CAD;
+// T3 shear mean 52.0 (hypothetical 3-sigma).
 
 $fn = 64;
 
@@ -36,7 +37,7 @@ coil_wind_od = magnet_d + 2 * 3 * coil_wire_d; // rough 3-layer wind
 coil_wind_h = magnet_h + 2 * coil_wire_d;
 
 cam_r = 8.0;
-cam_bore = 16.1; // 0.1 mm nominal clearance over cam OD (Monte Carlo locked 2026-11-21)
+cam_bore = 16.05; // 0.05 mm clearance over 16 mm cam OD (tightened 2026-11-23)
 cam_core_t = 2.0;
 cam_tip_t = 1.5; // polymer tip thickness, steel-backed
 cam_tip_w = 8.0; // contact width
@@ -118,12 +119,12 @@ module cam(pos) {
 }
 
 module cam_bore_hole(pos) {
-    // bore for cam, Ø16.1 (0.1 mm clearance over 16 mm cam OD)
+    // bore for cam, Ø16.05 (0.05 mm clearance over 16 mm cam OD)
     translate([pos[0]-15, pos[1]-15, 0])
     cylinder(d=cam_bore, h=plate_t+1, center=true);
 }
 
-// ---------- Latch pins (2) ----------
+// ---------- Latch pins (3) ----------
 module pin_bore_hole() {
     cylinder(d=pin_bore, h=plate_t+1, center=true);
 }
@@ -187,13 +188,15 @@ difference() {
         // retraction actuators beside pin bores (schematic positions)
         translate([3, 0, plate_t/2 + retraction_coil_h/2]) retraction_actuator();
         translate([-3, 0, plate_t/2 + retraction_coil_h/2]) retraction_actuator();
+        translate([0, 3.5, plate_t/2 + retraction_coil_h/2]) retraction_actuator();
     }
     // BLIND magnet pocket — 0.75 mm deep from docking face, back intact as heat spreader
     magnet_pocket();
-    // pin bores (2)
+    // pin bores (3) — pair + third opposite
     translate([2, 1, 0]) pin_bore_hole();
     translate([-2, -1, 0]) pin_bore_hole();
-    // cam bores (2) — Ø16.1, 0.1 mm clearance
+    translate([0, 2.5, 0]) pin_bore_hole(); // third pin opposite the pair
+    // cam bores (2) — Ø16.05, 0.05 mm clearance
     cam_bore_hole(cam1);
     cam_bore_hole(cam2);
     // contact holes
