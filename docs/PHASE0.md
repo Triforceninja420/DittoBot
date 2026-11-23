@@ -22,7 +22,7 @@ Aluminum plate package: `DittoBot_Phase0_Aluminum_FacePlate_Package_v0.1.txt`
 
 Status: **frozen** until measured ON / OFF / current / temperature / cycle data are published.
 
-Revision: **2026-11-21** — dual-cam staggered release, 6 mm NdFeB, 30 mm face. All 26 simulation tests passed. Cam bore locked at 16.1 mm (0.1 mm nominal clearance). Monte Carlo 100k trials: all-pass 96.79% after flatness loosened 0.05→0.10 mm. First-article metrology + tip-bond pull test added as recommended checks. **Cycle spec locked at 2 000; 3 000 listed as epoxy-dependent stretch goal.**
+Revision: **2026-11-21** — dual-cam staggered release, 6 mm NdFeB, 30 mm face. All 26 simulation tests passed. Cam bore locked at 16.1 mm (0.1 mm nominal clearance). Monte Carlo 100k trials: all-pass 96.47% after flatness loosened 0.05→0.10 mm (re-run 2026-11-23). First-article metrology + tip-bond pull test added as recommended checks. **Cycle spec locked at 2 000; 3 000 listed as epoxy-dependent stretch goal.**
 
 ---
 
@@ -74,7 +74,7 @@ Fixes applied in combination:
 5. **8 mm tip contact width** (up from 5 mm). Cuts Hertzian stress ~20%, conservative margin 1.75×, steel-backed 3×+.
 6. **Dual staggered cams on 30 mm face.** Single 16 mm cam eats the face; two cams on opposite corners (8,8) and (22,22), centers 19.8 mm apart, bounding box exactly 30×30. Balanced pry, no lopsided peel. Friction from 5 N spring on 30 mm face: 3.94 N. Release net +65.7 N.
 7. **Cam bore 16.1 mm.** Original 16.0 mm bore gave zero nominal clearance — Monte Carlo showed 50% cam interference. Bumping bore to 16.1 gives 0.1 mm clearance; all-pass rose from 44.5% to 78.0%.
-8. **Flatness loosened 0.05 → 0.10 mm.** Original 0.05 mm target failed 37.5% of Monte Carlo trials on a 1 mm plate — unrealistic for hand fab. Loosened to 0.10 mm; all-pass rose 78.0% → 96.79%. Soft-dock capture still holds at the looser flatness.
+8. **Flatness loosened 0.05 → 0.10 mm.** Original 0.05 mm target failed 37.5% of Monte Carlo trials on a 1 mm plate — unrealistic for hand fab. Loosened to 0.10 mm; all-pass rose 78.0% → 96.47% (re-run 2026-11-23). Soft-dock capture still holds at the looser flatness.
 
 All 26 tests passed on final build.
 
@@ -90,20 +90,20 @@ Wear itself is negligible at both counts: cam loses 0.0002–0.0003 mm, pin a te
 
 ---
 
-## Monte Carlo tolerance analysis (100,000 trials, 2026-11-21)
+## Monte Carlo tolerance analysis (100,000 trials, 2026-11-23 re-run)
 
 Uniform distributions within stated tolerances. Failure = interference or out-of-spec dimension. Re-run after flatness loosened to 0.10 mm.
 
 | Check | Fail rate |
 | :--- | :-------- |
-| All-pass (zero failures) | 96.79% |
+| All-pass (zero failures) | 96.47% |
 | Cam bore / cam OD interference | 0.00% |
 | Pin bore / pin OD interference | 0.00% |
 | Magnet / pocket interference | 0.00% |
-| Pocket deeper than plate (< 0.05 mm remaining) | 3.21% |
+| Pocket deeper than plate (< 0.05 mm remaining) | 3.53% |
 | Face flatness > 0.10 mm | 0.00% |
 
-Rework categories: none 96.79%, one fix 3.21%, two-plus 0.00%.
+Rework categories: none 96.47%, one fix 3.53%, two-plus 0.00%.
 
 Tip-bond shear stress under 50 N cam load: median 0.99 MPa, 95th percentile 0.99 MPa, 99th percentile 0.99 MPa. Against ~20 MPa epoxy shear strength, margin is 20× at the 99th percentile.
 
@@ -145,7 +145,7 @@ Origin at face center. Z out of the docking face.
 **Latch pins (2)**
 - Hardened steel, engagement ≥ 3.00 mm into mating receptacle
 - Combined shear ~5 028 N simulated (126× the 40 N target)
-- Retraction: small solenoid actuator ~1/3 g pulls both pins on release sequence
+- Retraction: small solenoid actuator ~1/3 g pulls both pins on release
 
 **Cams (2, staggered)**
 - 8 mm radius each, 16 mm across
@@ -231,7 +231,7 @@ Energy budget: 17 mJ to break the gap, 33 mJ supplied after friction losses.
 
 One failure caught and fixed before lock: T19 cam contact stress at 5 mm tip width (50 MPa, 1.4×). Resolved by widening to 8 mm.
 One tolerance failure caught and fixed before lock: cam bore at 16.0 mm gave 50% interference in Monte Carlo. Resolved by widening bore to 16.1 mm (all-pass 44.5% → 78.0%).
-One fab-realism fix: flatness target loosened 0.05 → 0.10 mm (Monte Carlo failure 37.5% → 0.0%; all-pass 78.0% → 96.79%).
+One fab-realism fix: flatness target loosened 0.05 → 0.10 mm (Monte Carlo failure 37.5% → 0.0%; all-pass 78.0% → 96.47%, re-run 2026-11-23).
 
 ---
 
@@ -307,7 +307,7 @@ These are not locked requirements — they are recommended inspection points bef
 1. **Cam radius and lobe profile** — height gauge or optical comparator. Target 8.00 mm radius, lobe edge square to face within 0.05 mm. Check bore at Ø16.1 ±0.05.
 2. **Pin-bore true position** — CMM if available; otherwise a dowel pin of bore diameter plus a digital caliper. Catch a 0.5 mm offset before assembly.
 3. **Blind pocket depth** — depth micrometer through the magnet opening, before any press. Log the number.
-4. **Plate flatness** — surface plate and indicator, ≤ 0.10 mm target (loosened from 0.05 mm on 2026-11-21 after Monte Carlo showed 37.5% failure rate at the tighter number on a 1 mm plate). A warped plate still kills soft-dock capture, but 0.10 is what a real shop can hit.
+4. **Plate flatness** — surface plate and indicator, ≤ 0.10 mm target (loosened from 0.05 mm on 2026-11-21 after Monte Carlo showed 37.5% failure rate at the tighter number on 1 mm plate). A warped plate still kills soft-dock capture, but 0.10 is what a real shop can hit.
 5. **Contact wipe** — 0.30–0.50 mm of travel on each pogo pair. Too little and you get intermittent; too much and you bend pins.
 
 **Tip-bond pull test (before full stack-up)**
@@ -353,14 +353,4 @@ From `docs/LOCKS.md`. These do not edit pockets, winding, cams, or the seven tes
 
 ---
 
-## Build order
-
-1. Cut the 6061 plate from the SCAD / SVG / dimension table.
-2. Press NdFeB Ø6 × 6 mm magnet, wind 40-turn coil around it. Log R.
-3. Machine dual cams (stainless or hardened + black oxide), bond steel-backed polymer tips, 8 mm contact width. **Run the tip-bond pull test on a dummy before bonding the real cams.**
-4. Seat 2 latch pins + retraction actuator. Seat 5 N seating spring. Drill cam bores at Ø16.1.
-5. **Run the metrology sequence** (cam radius, bore true position at 16.1, pocket depth, flatness at 0.10, contact wipe) before assembly.
-6. Pulse on the bench fixture. Record peak I, snap N, release N, cam function.
-7. Wire the Pico protoboard to the netlist.
-8. Soak 1.25 A / 10 min, log temperature.
-9. Run 2 000 dock/undock cycles. Log cam tip wear.
+[+781 bytes at .content[1].resource.text]
