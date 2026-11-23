@@ -13,6 +13,8 @@ Two stacks stay unmixed.
 
 Do not paste 25 mm coil / driver / magnet / hold numbers into Phase 0. Do not paste Phase 0 numbers into the 25 mm files.
 
+**Exception (Craig's brief, 2026-11-23):** `docs/HARDWARE_MAPPING.md` is allowed to map Phase 0 sim parameters and gates onto the 25 mm cell hardware. That file is the only exception; every other file keeps the two stacks unmixed.
+
 **Current 25 mm baseline (2026-11-19, magnet updated 2026-11-23):** Nd disc Ø6.0 mm × 2–3 mm hold in the Ø8.2 × 4.0 pocket (coil around the disc, release-only, sized for I_release; Alnico off this cell), axial pin hard-lock, full cavity potting, PTFE lip + coatings, pulse-only drive with thermal governor, 36 V nominal pulse bank into DRV8871 (stay under 45 V abs). Pocket locked Ø8.2 × 4.0 mm.
 
 **Current Phase 0 baseline (2026-11-21, face size updated 2026-11-23):** 20 mm face (was 30 mm; CAD re-dimension pending), NdFeB N52 Ø6 × 6 mm magnet, 40-turn 34 AWG coil (~0.75 Ω), dual staggered 8 mm cams with steel-backed polymer tips, 2-pin latch + retraction actuator, 5 N seating spring. Simulated 26/26 pass. Shear 5 028 N. Snap 34.6 N. Release net +65.7 N. Thermal < 1.5 K. Mass 9.2 g.
@@ -36,7 +38,7 @@ Earlier 20 mm 4×EPM face and the Ø6 mm Nd/Alnico flip-stack 25 mm descriptions
 5. **Phase 0 test 5** — Release net +65.7 N via dual-cam + retraction actuator sequence.
 6. **Phase 0 test 6** — 1.25 A through the contact bus ≥ 10 min. Log plate temp. 41 °C skin cap.
 7. **Phase 0 test 7** — 2 000 dock / undock cycles on pins + cams + contacts. Cam tip wear 0.19 µm simulated.
-8. **Two stacks unmixed.** Phase 0 (20 mm dual-cam, NdFeB Ø6×6, IRLZ44N cap-dump) is not the 25 mm cell (Nd disc Ø6.0 × 2–3 hold, DRV8871 pulse, axial pin, potting). Do not mix numbers.
+8. **Two stacks unmixed.** Phase 0 (20 mm dual-cam, NdFeB Ø6×6, IRLZ44N cap-dump) is not the 25 mm cell (Nd disc Ø6.0 × 2–3 hold, DRV8871 pulse, axial pin, potting). Do not mix numbers. Exception: `docs/HARDWARE_MAPPING.md` (Craig's brief, 2026-11-23).
 9. **Drive discipline.** Hold current after switch is **zero**. Pulse-duty only. Coil sized for release, not hold. Thermal governor required on the 25 mm cell. Pulse bank voltage stays under the driver absolute maximum.
 
 Phase 0 drive remains capacitor dump, IRLZ44N class, 220 µF charged 30–36 V, 34 AWG, 40 turns. Those numbers live only in `docs/PHASE0.md`.

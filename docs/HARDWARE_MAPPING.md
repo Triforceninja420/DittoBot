@@ -39,22 +39,22 @@ shear_eff = (shear − 2.0·vel − 0.6·max(0, lat − ridge_benefit − chamfe
 T3 pass  ⇔  lat ≤ 1.5 mm  AND  vel ≤ 0.5 m/s  AND  shear_eff ≥ 40 N
 ```
 
-## 0.1 Scope note: source conflicts (read first)
+## 0.1 Scope note: source conflicts — all four resolved (2026-11-23)
 
-This mapping follows Craig's 2026-11-23 brief. Several items in that brief differ from older repo docs. Those docs are **not** edited here. Reconciliation is Craig's call.
+When this file was first committed (aae92a7), Craig's 2026-11-23 brief clashed with older repo docs in four places. Craig confirmed the brief as the source of truth, and all four clashes are now resolved in the docs:
 
-| Brief (2026-11-23), used here | Existing repo text | Where |
-| :--- | :--- | :--- |
-| 25 mm cell hold = **Nd disc Ø6.0 × 2–3 mm**; coil around the disc, release-only; Alnico off this cell | 25 mm baseline = SmCo 2:17 Ø7.5 × 3.0 mm. "Ø6 mm NdFeB + Alnico stacks superseded." | `docs/BUILD.md`, `docs/DESIGN.md`, `docs/COIL_REVISION.md`, `docs/MIN_PARTS.md` |
-| "Phase 0 **20 mm** face unchanged" (the sim docstring also says "same 20 mm face article") | Phase 0 face = 30 × 30 mm dual-cam. LOCKS gate 9: "30 mm face is committed." | `docs/PHASE0.md`, `docs/LOCKS.md`, `cad/voxel_cell_phase0_30mm_dualcam.scad` |
-| 3 latch pins, 7075-T6, cam bore Ø16.05 (sim and CAD rev 2026-11-23) | 2 pins, 6061-T6, bore Ø16.1 | `docs/PHASE0.md` body (older rev) |
-| Mapping Phase 0 sim gates onto the 25 mm cell | "Do not paste Phase 0 numbers into the 25 mm files." | `docs/LOCKS.md` frozen rule 8 |
+| # | Clash | Resolution | Commit |
+| :- | :--- | :--- | :--- |
+| 1 | 25 mm cell magnet: brief says Nd disc Ø6.0 × 2–3 mm; docs said SmCo 2:17 Ø7.5 × 3.0 and called Ø6 Nd superseded | Docs now state the Nd disc Ø6.0 × 2–3 mm hold in the Ø8.2 × 4.0 pocket, coil around the disc release-only (sized for I_release), Alnico off this cell. Updated BUILD, DESIGN, COIL_REVISION, MIN_PARTS, MEASUREMENT_CARD (25 mm card), BASELINE_UPGRADES, PAPER_STATUS, README, LOCKS. | [a627841](https://github.com/Triforceninja420/DittoBot/commit/a6278416cf573302c0a77d1feb345b52abc08cef) |
+| 2 | Phase 0 face size: brief and sim say 20 mm; PHASE0/LOCKS said "30 mm committed" | PHASE0 and LOCKS now commit the face at 20 mm. **Geometry not changed:** the CAD, fab drawing, and PHASE0 geometry tables still dimension 30 × 30 mm (file `cad/voxel_cell_phase0_30mm_dualcam.scad`, cams at (8,8)/(22,22)). Re-dimensioning is pending Craig. | [33c0670](https://github.com/Triforceninja420/DittoBot/commit/33c0670266f02a4cbd441127a4637f07df95420f) |
+| 3 | Pins/material: PHASE0 body said 2 pins and 6061-T6; sim and CAD use 3 pins and 7075-T6 | PHASE0 body now says 3 pins and 7075-T6. The 5 028 N figure is labelled as the earlier 2-pin simulation. | [433b9c0](https://github.com/Triforceninja420/DittoBot/commit/433b9c070b2d5e8d339c54d5791ec8c0e523fd12) |
+| 4 | LOCKS rule against Phase 0 numbers in 25 mm files | LOCKS now carries an explicit exception for this file (Craig's brief, 2026-11-23). | The commit that adds this table |
 
-How this file handles each conflict:
+How this file uses the sources:
 
-- The Phase 0 docking-face protocol (contacts, pins, ridge/chamfer, spring, gates) is called "the face" below. Face geometry is taken unchanged from `cad/voxel_cell_phase0_30mm_dualcam.scad` (rev 2026-11-23). Nothing here re-dimensions it.
+- The Phase 0 docking-face protocol (contacts, pins, ridge/chamfer, spring, gates) is called "the face" below. Face dimensions are read from `cad/voxel_cell_phase0_30mm_dualcam.scad` (rev 2026-11-23) as they stand. Nothing here re-dimensions the face, so any figure tied to 30 × 30 geometry (for example, corner mounts at ±12.80) must be re-checked when the CAD moves to 20 mm.
 - The 25 mm cell core supplies the magnet pocket (Ø8.2 × 4.0, locked), the Nd disc hold, the release coil, and the DRV8871.
-- This is a **mapping** document. It does not change the numbers in the 25 mm cell files, and it does not copy them across.
+- This is a **mapping** document, allowed under the LOCKS exception. It does not change the numbers in the 25 mm cell files.
 
 ---
 
