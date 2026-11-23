@@ -43,7 +43,7 @@ These changes fold into the normal build. No separate variant required.
 - External envelope: 25.0 mm cube unchanged
 - Latching core bore: Ø8.2 mm × 4.0 mm depth unchanged
 - Face interconnect and data pads unchanged
-- CAD update required only for pin/receptacle features and magnet OD (`cad/voxel_cell.scad` note still says SmCo Ø7.5; comment-only update pending)
+- CAD header and notes synced to Nd disc Ø6.0×2–3 mm in the 2026-11-23 sweep; full 20 mm face redesign is a separate commit
 
 ## Measurement card additions
 - Record ON/OFF force and I_release with the Ø6.0 × 2–3 mm Nd disc

@@ -7,8 +7,8 @@ Author: Craig Edward Ralls (2026)
 License: MIT
 
 This prints PAPER force from assumed B, not a measured latch.
-Current baseline (2026-11-19): SmCo 2:17 Ø7.5 mm residual hold, coil release only.
-Older Nd disc / Alnico flip numbers are superseded.
+Current baseline (2026-11-23): Nd disc Ø6.0×2–3 mm residual hold, coil release only.
+Older SmCo Ø7.5 and Alnico flip numbers are superseded.
 Measure real ON/OFF force and I_release. Do not use this sweep as spec.
 28.8 N is retired.
 """
@@ -16,8 +16,8 @@ Measure real ON/OFF force and I_release. Do not use this sweep as spec.
 import numpy as np
 
 MU_0 = 4.0 * np.pi * 1e-7
-BR_SMCO = 1.05  # typical SmCo 2:17
-CORE_RADIUS_M = 0.00375  # Ø7.5 mm current baseline
+BR_ND = 1.22  # typical NdFeB N52
+CORE_RADIUS_M = 0.003  # Ø6.0 mm current baseline
 CORE_AREA_M2 = np.pi * (CORE_RADIUS_M ** 2)
 PATH_LEN_M = 0.004
 
@@ -26,7 +26,7 @@ def calculate_magnetic_force(air_gap_mm: float, residual: bool = True) -> float:
     air_gap_m = air_gap_mm * 1e-3
     reluctance_decay = np.exp(-air_gap_m / 0.001)
 
-    b_effective = BR_SMCO * reluctance_decay if residual else 0.1 * reluctance_decay
+    b_effective = BR_ND * reluctance_decay if residual else 0.1 * reluctance_decay
     force_newtons = (b_effective ** 2 * CORE_AREA_M2) / (2.0 * MU_0)
     return round(force_newtons, 3)
 
@@ -34,7 +34,7 @@ def run_verification_sweep():
     print("=" * 64)
     print("DittoBot / Voxel Box: PAPER residual-hold force sweep (25 mm cell)")
     print("Not a measured force. Not Phase 0.")
-    print("Current baseline 2026-11-19: SmCo 2:17 Ø7.5 mm residual hold, coil release only.")
+    print("Current baseline 2026-11-23: Nd disc Ø6.0×2–3 mm residual hold, coil release only.")
     print("Measure real ON N (coil off) / OFF N (after pulse) / I_release on a fixture.")
     print(f"Paper core diameter: {CORE_RADIUS_M * 2000:.1f} mm | Static hold power: 0.00 W")
     print("=" * 64)

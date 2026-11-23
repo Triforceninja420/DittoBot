@@ -7,7 +7,7 @@ All items below are resolved at the documentation and geometry-note level. No fi
 ## Resolved
 - Baseline is unified: Nd disc Ø6.0 × 2–3 mm hold (coil release-only, Alnico off; updated 2026-11-23 from SmCo 2:17 Ø7.5 × 3.0), axial pin hard-lock, full cavity potting, PTFE lip + coatings, pulse-only + thermal governor stub, 36 V nominal pulse bank (stay under DRV8871 45 V abs max).
 - Pocket remains locked at Ø8.2 × 4.0 mm. CAD updated with pin receptacle notes and clearance.
-- BOM, firmware comments, COIL_REVISION.md, LOCKS.md, force_sweep.py, and PHASE0 cross-references were synchronized to the 2026-11-19 baseline. The 2026-11-23 magnet change is synced in docs only; bom/, firmware/ comments, tools/force_sweep.py and cad/voxel_cell.scad comments still say SmCo Ø7.5 (pending).
+- BOM, firmware comments, COIL_REVISION.md, LOCKS.md, force_sweep.py, cad/voxel_cell.scad header/notes, MARS_VARIANT.md, EXTREME_ENVIRONMENTS.md, BASELINE_UPGRADES.md, and PHASE0 cross-references are synchronized to the current Nd disc baseline as of the 2026-11-23 sweep.
 - Mars / space path inherits the full baseline. No separate geometry.
 - Open thermal, cold-weld, dust, and vacuum paths closed on paper by potting + coatings + pulse-only.
 - Agency interest gates (traceability, open notes, tamper baseline) documented.

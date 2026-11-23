@@ -3,11 +3,11 @@
 // Component: Release-coil pulse driver
 // Target: Seeed Studio XIAO RP2040 (Dual ARM Cortex-M0+)
 // Driver IC: TI DRV8871 (VM 6.5–45 V abs max; prefer ≤42 V from pulse bank)
-// Variant: 25 mm cubic cell — SmCo 2:17 Ø7.5 mm residual hold, coil is RELEASE only
-//           NOT Phase 0 30 mm dual-cam face (rev 2026-11-21)
+// Variant: 25 mm cubic cell — Nd disc Ø6.0×2–3 mm residual hold, coil is RELEASE only
+//           NOT Phase 0 20 mm face (rev 2026-11-21)
 // Author: Craig Edward Ralls (2026)
 // License: MIT
-// Baseline: 2026-11-19 (pulse-only + thermal governor stub)
+// Baseline: 2026-11-19 (pulse-only + thermal governor stub); magnet synced 2026-11-23
 // ====================================================================
 
 #include <Arduino.h>
@@ -17,7 +17,7 @@ const uint8_t PIN_EPM_IN1 = 0; // GPIO 0 -> H-Bridge IN1
 const uint8_t PIN_EPM_IN2 = 1; // GPIO 1 -> H-Bridge IN2
 
 // Start in the 50–200 ms band. Set from measured time-to-peak on the real coil.
-// This pulse only has to buck the residual field of the SmCo disc.
+// This pulse only has to buck the residual field of the Nd disc.
 const uint32_t SWITCH_PULSE_MS = 100;
 
 // Thermal governor stub — replace with real plate-temperature sensor (NTC / TMP117 / etc.).
@@ -29,7 +29,7 @@ bool thermal_ok() {
 }
 
 /**
- * Pulses the coil around the SmCo disc.
+ * Pulses the coil around the Nd disc.
  * Hold is the residual of the disc. This pulse only releases.
  * Immediately de-asserts driver inputs so static coil current is 0.
  *
@@ -53,7 +53,7 @@ void pulse_epm_latch(bool engage) {
 
     delay(SWITCH_PULSE_MS);
 
-    // Quench — no continuous heating. Hold is the SmCo residual.
+    // Quench — no continuous heating. Hold is the Nd residual.
     digitalWrite(PIN_EPM_IN1, LOW);
     digitalWrite(PIN_EPM_IN2, LOW);
 }

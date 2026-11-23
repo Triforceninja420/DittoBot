@@ -3,7 +3,7 @@
 // Component: Modular Unit Cell Parametric Geometry
 // Author: Craig Edward Ralls (2026)
 // License: MIT
-// Baseline: 2026-11-19 (SmCo Ø7.5 mm, axial pin hard-lock, potting)
+// Baseline: 2026-11-23 (Nd disc Ø6.0×2–3 mm, axial pin hard-lock, potting)
 // Pocket geometry locked: Ø8.2 × 4.0 mm. Do not change without new lock.
 // ====================================================================
 
@@ -69,7 +69,8 @@ difference() {
 }
 
 // Notes:
-// - Magnet stack is SmCo 2:17 Ø7.5 × 3.0 mm (fits pocket with reduced winding window)
+// - Magnet stack is Nd disc Ø6.0×2–3 mm (fits pocket with 1.10 mm radial winding annulus)
 // - Cavity is fully potted in the physical build
 // - PTFE lip + coating applied to faces post-print/machining
 // - This SCAD adds the pin receptacle; pin itself is a separate inserted part
+// - Full 20 mm face redesign (3 latch pins, springs, DRV8871) is a separate commit

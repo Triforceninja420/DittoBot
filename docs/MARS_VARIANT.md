@@ -7,7 +7,7 @@ Status: paper only, no hardware. Open questions from earlier sims are closed at 
 The Mars variant is the natural space-hardened path. It inherits the full current baseline so the same cell handles Mars surface and pure space without a third variant.
 
 ## Inherited baseline (now standard)
-- SmCo 2:17 Ø7.5 mm × 3.0 mm
+- Nd disc Ø6.0×2–3 mm
 - Axial pin + receptacle hard-lock
 - Full cavity potting
 - PTFE lip + conformal coating
