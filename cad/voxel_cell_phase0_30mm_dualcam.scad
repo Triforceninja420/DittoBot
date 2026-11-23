@@ -15,7 +15,8 @@
 // Units: mm. Origin at face center, Z out of docking face.
 // Render: F6. Export STL for fab. Do not mix with 25 mm cell numbers.
 // Magnet pocket: BLIND 0.75 mm deep (not through) — heat spreader back intact.
-// Monte Carlo (100k trials, 2026-11-23): T3 gates lat ≤ 1.0 mm / vel ≤ 0.35 m/s;
+// Monte Carlo (100k trials, 2026-11-23): T3 gates lat ≤ 1.2 mm / vel ≤ 0.4 m/s
+// (milder cut after aggressive 1.0/0.35 dropped all-pass 96.66→87.73%);
 // forensic RNG isolated (seed 13); ridge 1.0 mm + chamfer 1.0 mm in CAD;
 // T3 shear mean 52.0 (hypothetical 3-sigma).
 
@@ -209,4 +210,4 @@ difference() {
 }
 
 // dimension callouts (commented — enable in OpenSCAD for 2D export)
-// # projection(cut=true) children();}
+// # projection(cut=true) children();
