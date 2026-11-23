@@ -41,7 +41,7 @@ No simulation numbers changed: all-pass 98.04 %, T3 99.30 %, 702 T3 fails, LAT_O
 6. **firmware: Phase 0 header, 41 °C trip / 36 °C clear, NTC divide-by-zero guard, watchdog armed after setup** — `firmware/pulse_driver.cpp`
    - An open, shorted or missing NTC reads as 999 °C, so the governor refuses pulses (fail-safe).
    - The TMP117/INA219 flags are unchanged.
-   - Syntax was checked with g++ against stub Arduino headers only; it has not been compiled for the RP2040.
+   - Syntax was checked with g++ against stub Arduino headers only; it has since compiled cleanly for the RP2040.
 7. **docs: root README becomes a pointer with root-relative links; index the new docs** — `README.md`, `docs/README.md`, plus `git rm -r CAD/`
 
 ## Clearance table (`python3 tools/phase0_layout_check.py`, CLEAR = 0.5 mm, Ø shown as O)
@@ -125,7 +125,7 @@ The new plan covers gates 1–7 with HARDWARE_MAPPING §5 fixtures, including re
 - The header said 25 mm. The thermal trip was 60 °C against the 41 °C skin cap.
 - The NTC divided by zero, or took log(0), when the sensor was absent.
 - The watchdog tripped after setup's 3 s USB wait.
-All four are fixed. Still needs an RP2040 build and bench test.
+All four are fixed. RP2040 build compiles clean; bench test still pending.
 
 ### Issue 7 — Root README duplicated docs/README.md (broken links); stale CAD/ duplicates
 The root README is now a pointer with root-relative links. The CAD/ duplicates still need deleting.
