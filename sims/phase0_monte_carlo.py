@@ -9,8 +9,9 @@ Thresholds set 1-2 sigma past means. Soft-dock and hard-lock tightened 2026-11-2
 T3 failure forensics added 2026-11-23: log misses, rank by relative velocity,
 lateral offset, capture-spring rate.
 T3 acceptance window reverted 2026-11-23 to original: lat ≤ 1.5 mm, vel ≤ 0.5 m/s.
-CAD ridge widened 0.60→1.0 mm, chamfer 0.50→1.0 mm (geometry only, sim unchanged).
+CAD ridge widened 0.60→1.0 mm wide, 0.50→1.0 mm high; chamfer 0.50→1.0 mm.
 Forensic draws isolated to separate RNG (seed 13) 2026-11-23 to kill trial-stream drift.
+Sim geometry params synced to CAD rev 2026-11-23: ridge 1.0x1.0, chamfer 1.0.
 """
 import random, math
 
@@ -35,6 +36,11 @@ SPRING_SIGMA_N = 0.4            # capture spring rate variation
 T3_LAT_LIMIT_MM = 1.5
 T3_VEL_LIMIT_MS = 0.5
 
+# Geometry (matches CAD rev 2026-11-23)
+RIDGE_W_MM = 1.0
+RIDGE_H_MM = 1.0
+CHAMFER_MM = 1.0
+
 def run_trial(rng, frng):
     # T1 soft-dock
     off = abs(rng.gauss(0, T1_OFFSET_SIGMA_MM))
@@ -48,7 +54,10 @@ def run_trial(rng, frng):
     spr = frng.gauss(5.0, SPRING_SIGMA_N)
     shear = rng.gauss(T3_SHEAR_MU, T3_SHEAR_SIGMA)
     # shear degrades with velocity and offset; spring helps seating
-    shear_eff = shear - 2.5*vel - 0.8*lat + 0.15*spr
+    # ridge width/height and chamfer reduce effective offset
+    ridge_benefit = min(lat, RIDGE_W_MM) * 0.3 + min(lat, RIDGE_H_MM) * 0.15
+    chamfer_benefit = min(lat, CHAMFER_MM) * 0.2
+    shear_eff = shear - 2.5*vel - 0.8*max(0.0, lat - ridge_benefit - chamfer_benefit) + 0.15*spr
     t3 = (lat <= T3_LAT_LIMIT_MM and
           vel <= T3_VEL_LIMIT_MS and
           shear_eff >= 40.0)
