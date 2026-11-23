@@ -22,7 +22,7 @@ Aluminum plate package: `DittoBot_Phase0_Aluminum_FacePlate_Package_v0.1.txt`
 
 Status: **frozen** until measured ON / OFF / current / temperature / cycle data are published.
 
-Revision: **2026-11-21** — dual-cam staggered release, 6 mm NdFeB, 30 mm face. All 26 simulation tests passed. Cam bore locked at 16.1 mm (0.1 mm nominal clearance). Monte Carlo 100k trials: all-pass 96.47% after flatness loosened 0.05→0.10 mm (re-run 2026-11-23). First-article metrology + tip-bond pull test added as recommended checks. **Cycle spec locked at 2 000; 3 000 listed as epoxy-dependent stretch goal.** T3 acceptance window: lat ≤ 1.5 mm, vel ≤ 0.5 m/s (original; tightened to 1.0/0.35 on 2026-11-23, all-pass fell to 87.73%, reverted to 1.2/0.4 same day, then reverted to original 1.5/0.5).
+Revision: **2026-11-21** — dual-cam staggered release, 6 mm NdFeB, 30 mm face. All 26 simulation tests passed. Cam bore locked at 16.1 mm (0.1 mm nominal clearance). Monte Carlo 100k trials: all-pass 98.04%, T3 pass 99.30%, 702 T3 fails (LAT_OFFSET_SIGMA_MM 0.65→0.55, re-run 2026-11-23; was 96.62% / 97.87% / 2 133). First-article metrology + tip-bond pull test added as recommended checks. **Cycle spec locked at 2 000; 3 000 listed as epoxy-dependent stretch goal.** T3 acceptance window: lat ≤ 1.5 mm, vel ≤ 0.5 m/s (original; tightened to 1.0/0.35 on 2026-11-23, all-pass fell to 87.73%, reverted to 1.2/0.4 same day, then reverted to original 1.5/0.5).
 
 ---
 

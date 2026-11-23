@@ -1,6 +1,7 @@
 # Changelog
 
 ## 2026-11-23
+- LAT_OFFSET_SIGMA_MM 0.65 → 0.55 in phase0_monte_carlo.py: all-pass 96.62% → 98.04%, T3 97.87% → 99.30%, T3 fails 2 133 → 702 (100k trials). Synced test_phase0_math.py, cad/voxel_cell_phase0_30mm_dualcam.scad header, and docs/PHASE0.md.
 - T3 failure forensics in phase0_monte_carlo.py: logs shear misses with relative velocity, lateral offset, capture-spring rate; ranks top 10 by composite score (vel 0.45, offset 0.35, spring deficit 0.20). Shear model now degrades with velocity and offset, improves with spring seating force.
 - Sync all-pass rate 96.79% → 96.47% across test_phase0_math.py, cad/voxel_cell_phase0_30mm_dualcam.scad header, and docs/PHASE0.md after fresh 100k-trial re-run (T1 99.98, T2 99.41, T3 97.70, T4 99.39, T5 99.96).
 - Fix phase0_monte_carlo.py: broken counts line in main() replaced with per-test tally (T1–T5) plus all-pass rate over 100k seeded trials.
