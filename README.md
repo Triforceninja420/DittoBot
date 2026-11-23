@@ -18,6 +18,7 @@ Phase 0 is the separate 30 mm dual-cam staggered face (rev 2026-11-21) — see [
 | [docs/BUILD.md](docs/BUILD.md) | Fab handoff |
 | [docs/EXTREME_ENVIRONMENTS.md](docs/EXTREME_ENVIRONMENTS.md) | Inheritance path for ocean, space, cryo, flight/exoskeleton, etc. |
 | [docs/MARS_VARIANT.md](docs/MARS_VARIANT.md) | Mars / space hardened path (inherits baseline) |
+| [docs/mars/](docs/mars/) | Speculative Mars extensions: seed bots, O₂ converters, **engineered bacteria swarm** |
 | [docs/MEASUREMENT_CARD.md](docs/MEASUREMENT_CARD.md) | Blank card — fill with real data |
 
 Full index: [docs/README.md](docs/README.md)
@@ -32,7 +33,10 @@ firmware/             Pulse driver with thermal governor stub (XIAO RP2040)
 tools/                Paper estimates (force_sweep.py, phase0_estimate.py)
 bom/                  Netlist (synced to 2026-11-19 baseline)
 docs/                 All current specifications and notes
+  mars/               Speculative Mars seed / converter / bacteria path
 Voxel_Render.jpg      Example render (assets/ folder not yet used)
 ```
 
 License: MIT
+
+Funky fresh. Still DittoBot.
