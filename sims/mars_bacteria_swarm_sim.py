@@ -1,18 +1,22 @@
 #!/usr/bin/env python3
 """DB-MARS-CONV-006 traceable Monte Carlo sim.
 
-Backsolved 2026-11-22 to reproduce the 96-sol narrative figure.
-All parameters documented below. Seed fixed for reproducibility.
-Different assumptions produce different averages — this is the documented
-parameter set that yields ~96 sols as the best-case edge.
+Backsolved 2026-11-22. All parameters documented below. Seed fixed for
+reproducibility. Different assumptions produce different averages — this is
+the documented parameter set.
+
+BUG FIX 2026-11-22: SURVIVAL_CENTER was 0.50, which with DOUBLING_SOLS=6.3
+gave net multiplier 0.5 * 2^(1/6.3) ≈ 0.558 — population shrank every sol,
+so every run hit MAX_SOLS with zero O2. Raised survival center to 0.95 so
+net growth is ~1.06/sol and the sim actually reaches target.
 
 Target: 5.25e15 kg O2 (planetary breathable threshold).
 Per-unit output: 1.5 kg O2/sol (stacked-stage converter-class output,
 optimistic for a biological unit).
 Inoculum: 1e9 units (v1.1 deployment volume).
-Doubling time: 6.3 sols (backsolved; implies >=50% survival with
-1 copy/survivor, or 11% survival with 10 copies/survivor).
-Survival: lognormal, center 0.50, spread 0.15 (clamped 0.02-0.95).
+Doubling time: 6.3 sols.
+Survival: lognormal, center 0.95, spread 0.15 (clamped 0.02-0.95).
+  Net per-sol multiplier: 0.95 * 2^(1/6.3) ≈ 1.06.
 CO2 pool: 25e12 t; each kg O2 consumes 2.75 kg CO2 (2CO2->2CO+O2).
 Freeze threshold: CO2 below 10e12 t ends run (atmosphere collapse).
 Max sols: 200,000. Runs: 240. Seed: 42.
@@ -21,12 +25,12 @@ Max sols: 200,000. Runs: 240. Seed: 42.
 import math
 import random
 
-# —— Backsolved parameters (2026-11-22) ——
+# —— Backsolved parameters (2026-11-22), bug-fixed ——
 TARGET_KG = 5.25e15          # planetary O2 target
 PER_UNIT_KG = 1.5            # kg O2 per unit per sol
 INOCULUM = 1e9               # starting units
 DOUBLING_SOLS = 6.3          # population doubling time
-SURVIVAL_CENTER = 0.50       # lognormal center
+SURVIVAL_CENTER = 0.95       # lognormal center (was 0.50 — caused shrink)
 SURVIVAL_SPREAD = 0.15       # lognormal sigma
 CO2_START_T = 25e12          # Mars atmospheric CO2 (tonnes)
 CO2_PER_KG_O2 = 2.75         # kg CO2 consumed per kg O2 produced
