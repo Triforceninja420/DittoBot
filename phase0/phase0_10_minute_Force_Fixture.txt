@@ -1,7 +1,0 @@
-# MOVED
-
-This file has moved to retired/phase0_10_minute_Force_Fixture.txt.
-
-It was the retired 20 mm 4×EPM ten-minute force fixture measurement sequence.
-The current Phase 0 baseline is the 20 mm face — see
-`cad/voxel_cell_phase0_20mm.scad` and `docs/PHASE0.md`.
