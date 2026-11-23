@@ -16,10 +16,10 @@ Every value below is **proposed** unless it is quoted from an existing locked so
 ## 1. Inputs inherited unchanged
 
 | Source | What Phase 1 inherits |
-| :--- | :--- |
+| :---- | :---- |
 | `sims/phase0_monte_carlo.py` (DB-P0-FACE-TP-001 Rev A, commit 74ded02) | **Gates T1–T5 and every constant, unchanged.** <br>• T1: ≤ 2.5 mm / ≤ 7° (σ 0.65 mm / 1.6°) <br>• T2: ≥ 95 % (p 0.994) <br>• T3: ≥ 40 N with lat ≤ 1.5 mm, vel ≤ 0.5 m/s (σ_lat 0.55 mm, σ_vel 0.10 m/s, spring 5.00 ± 0.25 N, shear 72.8 ± 4.0 N, 7075-T6, 3 pins) <br>• T4: 1.25 A × 10 min <br>• T5: 2 000 cycles <br>Results: all-pass 98.04 %, T3 99.30 %, 702 T3 fails / 100k |
 | `docs/HARDWARE_MAPPING.md` | Tolerance stack (lat RSS 0.514 ≤ 0.55 mm), approach profile (creep 0.05 m/s over last 3 mm, abort at 0.25 m/s), spring spec, 40 N shear requirement (SF 1.82 mean), I_release note, lab fixtures |
-| `cad/voxel_cell_phase0_20mm.scad` (rev 2026-11-23, 20 mm redesign) | Face geometry: 6 contacts on hex ring r = 4.20 mm at 30/90/150/210/270/330°, 3 pins Ø1.80 in Ø1.85 bores, ridge 1.0 × 1.0, chamfer 1.0 |
+| `cad/voxel_cell_phase0_20mm.scad` (rev 2026-11-23, 20 mm redesign) | Face geometry: 6 contacts on hex ring r = 6.25 mm at 50/110/170/230/290/350°, 3 pins Ø1.80 in Ø1.85 bores at r 7.45 (73° / 155° / 328°), ridge 1.0 × 1.0, chamfer 1.0 |
 | `docs/PHASE0.md` electrical section | Contact assignment (pogo 1, 2 = +12 V; 3, 4 = GND; 5 = 12 V sense; 6 = spare / AGND sense); 1.5 A bus fuse; INA219 shunt; TMP117 + NTC |
 | `docs/LOCKS.md` | Hold current after switch = 0; 40 N structural vs 35 N human-contact interrupt; 41 °C skin cap; 12 V bus and pulse bank stay fixture-side until contacts are covered or isolated; one coil at a time |
 
@@ -34,14 +34,14 @@ Every value below is **proposed** unless it is quoted from an existing locked so
   - A carries the extending latch pins and is the **power source**. It is fed from the fixture supply, per the LOCKS rule that the 12 V bus stays fixture-side.
   - B carries the receptacles and is the **power sink**.
   - Role swap and genderless faces are out of scope.
-- **Orientation keying.** The 3-pin pattern (2, 1), (−2, −1), (0, 2.5) is not rotationally symmetric, so pins seat in only one orientation. Hard-lock (T2) therefore also proves correct contact clocking. Electrical polarity is still checked before enable (§4.4).
+- **Orientation keying.** The 3-pin pattern at r 7.45 (73° / 155° / 328°) is not rotationally symmetric, so pins seat in only one orientation. Hard-lock (T2) therefore also proves correct contact clocking. Electrical polarity is still checked before enable (§4.4).
 
 ---
 
 ## 3. Docking sequence (proposed)
 
 | State | Entry condition | Action | Exit / abort |
-| :--- | :--- | :--- | :--- |
+| :---- | :---- | :---- | :---- |
 | S0 IDLE | Undocked | Face contacts unpowered on both sides. Data line idle (pulled up). Coil off. | Dock command |
 | S1 ALIGN | Dock command | Coarse align to ≤ 2.5 mm / ≤ 7° (T1 window). Target the §1.2 allocation in HARDWARE_MAPPING: approach σ ≤ 0.42 mm. | Aligned → S2; timeout TBD → S0 |
 | S2 CREEP | Range ≤ 3.0 mm | Commanded 0.05 m/s. A's coil shorted via DRV8871 brake (IN1 = IN2 = 1) for eddy damping. Velocity estimated from Hall dB/dt. | Contact → S3; v > 0.25 m/s → back off, retry (max 3), then S0 + fault |
@@ -58,7 +58,7 @@ Every value below is **proposed** unless it is quoted from an existing locked so
 2. **U2** — B sheds load; A turns its power switch off. Confirm pogo 1/2 voltage < 1.0 V at A's sense.
 3. **U3** — Link goes quiet (`BYE`).
 4. **U4** — A retracts pins; seat sensors read 3/3 open.
-5. **U5** — Release coil pulse at I_release (≤ 2.4 A, pulse-only, thermal governor gated). Spring and cams separate the faces.
+5. **U5** — Release coil pulse at I_release (≤ 2.4 A, pulse-only, thermal governor gated). Spring and the release mechanism separate the faces (Phase 0: Option A Ø2.0 sliding release pin; cams deferred to Option A / 25 mm, rev 2026-11-23b).
 6. **U6** — Hall confirms separation; S0.
 
 **Power is always off before any pin moves.** No undock happens on link loss alone. Link loss removes power but keeps the mechanical lock, because the hold is zero-power.
@@ -70,7 +70,7 @@ Every value below is **proposed** unless it is quoted from an existing locked so
 ### 4.1 Contacts
 
 | Pogo | Phase 0 assignment | Phase 1 use (proposed) |
-| :- | :--- | :--- |
+| :---- | :---- | :---- |
 | 1, 2 | +12 V | +12 V power, redundant pair. **Each contact path rated ≥ 1.25 A alone** (T4 survives one bad contact). |
 | 3, 4 | GND | Power return, redundant pair, same rating |
 | 5 | 12 V sense | Presence / polarity sense probe (S5), then Kelvin sense of V_B during transfer |
@@ -82,7 +82,7 @@ Every value below is **proposed** unless it is quoted from an existing locked so
 ### 4.2 Voltage and current limits
 
 | Item | Limit (proposed) |
-| :--- | :--- |
+| :---- | :---- |
 | Nominal bus | 12 V (PHASE0 / 25 mm cell bus) |
 | Operating window at B | 10.8–13.2 V (±10 %) |
 | Under-voltage lockout at B | < 10.0 V → B load off |
@@ -110,7 +110,7 @@ Every value below is **proposed** unless it is quoted from an existing locked so
 ### 4.5 Fault isolation
 
 | Fault | Detection | Response (proposed) |
-| :--- | :--- | :--- |
+| :---- | :---- | :---- |
 | F-OC over-current / short at B | A's eFuse trip > 1.5 A | A cuts this face's power ≤ 1 ms. Retry after 1 s, max 3, then latch off until operator clear. A's other faces and A's own logic stay up. |
 | F-UV / F-OV | B window comparator | B drops its load; reports over data if the link is up |
 | F-POL | S5 probe | Never enable; stay locked; report |
@@ -174,7 +174,7 @@ Types: `HELLO`, `HELLO_ACK`, `ID`, `ID_ACK`, `HB` (heartbeat), `STATUS`, `PWR_RE
 ### 6.1 Inherited gates (unchanged)
 
 | ID | Gate (from DB-P0-FACE-TP-001) | Applied to |
-| :--- | :--- | :--- |
+| :---- | :---- | :---- |
 | P0-T1 | Soft-dock ≥ 90 % at ≤ 2.5 mm / ≤ 7° | Each face; then A↔B |
 | P0-T2 | Hard-lock ≥ 95 %, all 3 pins seated | Each face; then A↔B |
 | P0-T3 | Shear ≥ 40 N with lat ≤ 1.5 mm, vel ≤ 0.5 m/s | Each face; then A↔B |
@@ -184,7 +184,7 @@ Types: `HELLO`, `HELLO_ACK`, `ID`, `ID_ACK`, `HB` (heartbeat), `STATUS`, `PWR_RE
 ### 6.2 New Phase 1 tests
 
 | ID | Test | Method | Pass criteria (proposed) |
-| :--- | :--- | :--- | :--- |
+| :---- | :---- | :---- | :---- |
 | P1-T1 | Module-to-module capture | A approaches B on the rail at the §3 profile, corners at 2.5 mm / 7° | ≥ 90 % capture: **29/29** at the corner; natural σ ≤ 0.65 mm / 1.6° over ≥ 30 docks |
 | P1-T2 | Module-to-module hard-lock | Full S0→S4 | **59/59** with 3/3 pins seated |
 | P1-T3 | Contact conditions at latch | Laser/high-speed video + offset log over ≥ 30 docks | Velocity σ ≤ 0.10 m/s, max < 0.5 m/s; lat σ ≤ 0.55 mm, max ≤ 1.5 mm |
