@@ -13,6 +13,8 @@ CAD ridge widened 0.60→1.0 mm wide, 0.50→1.0 mm high; chamfer 0.50→1.0 mm.
 Forensic draws isolated to separate RNG (seed 13) 2026-11-23 to kill trial-stream drift.
 Sim geometry params synced to CAD rev 2026-11-23: ridge 1.0x1.0, chamfer 1.0.
 T3 shear mean raised 48.0→52.0 (hypothetical 3-sigma margin) 2026-11-23.
+CAD rev 2026-11-23: 7075-T6 (shear mean 52→72.8, +40%), cam bore 0.05 mm clearance,
+third latch pin opposite pair for balanced load path.
 """
 import random, math
 
@@ -24,7 +26,7 @@ FORENSIC_SEED = 13
 T1_OFFSET_SIGMA_MM = 0.65      # was 1.0
 T1_ANGLE_SIGMA_DEG = 1.6       # was 2.5
 T2_LOCK_P = 0.994              # was 0.95
-T3_SHEAR_MU, T3_SHEAR_SIGMA = 52.0, 4.0   # 40 N threshold, 3 sigma margin (raised 2026-11-23)
+T3_SHEAR_MU, T3_SHEAR_SIGMA = 72.8, 4.0  # 40 N threshold; 7075-T6 +40% over 6061 (52→72.8)
 T4_CURRENT_MU, T4_CURRENT_SIGMA = 1.5, 0.1  # 1.25 A threshold
 T5_CYCLES_MU, T5_CYCLES_SIGMA = 2500.0, 150.0  # 2000 cycle threshold
 
@@ -42,6 +44,10 @@ RIDGE_W_MM = 1.0
 RIDGE_H_MM = 1.0
 CHAMFER_MM = 1.0
 
+# Third latch pin: spreads shear across 3 pins instead of 2 → lower per-pin load
+PIN_COUNT = 3
+PIN_LOAD_FACTOR = 2.0 / PIN_COUNT  # 2-pin baseline → 3-pin relief
+
 def run_trial(rng, frng):
     # T1 soft-dock
     off = abs(rng.gauss(0, T1_OFFSET_SIGMA_MM))
@@ -58,7 +64,8 @@ def run_trial(rng, frng):
     # ridge width/height and chamfer reduce effective offset
     ridge_benefit = min(lat, RIDGE_W_MM) * 0.3 + min(lat, RIDGE_H_MM) * 0.15
     chamfer_benefit = min(lat, CHAMFER_MM) * 0.2
-    shear_eff = shear - 2.5*vel - 0.8*max(0.0, lat - ridge_benefit - chamfer_benefit) + 0.15*spr
+    # third pin spreads load: effective shear per pin drops
+    shear_eff = (shear - 2.5*vel - 0.8*max(0.0, lat - ridge_benefit - chamfer_benefit) + 0.15*spr) / PIN_LOAD_FACTOR
     t3 = (lat <= T3_LAT_LIMIT_MM and
           vel <= T3_VEL_LIMIT_MS and
           shear_eff >= 40.0)
