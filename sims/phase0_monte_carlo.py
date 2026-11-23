@@ -11,6 +11,7 @@ lateral offset, capture-spring rate.
 T3 acceptance window reverted 2026-11-23 to original: lat ≤ 1.5 mm, vel ≤ 0.5 m/s.
 T3 acceptance window tightened 2026-11-23 (aggressive): lat 1.5→1.0 mm, vel 0.5→0.35 m/s.
 T3 acceptance window reverted 2026-11-23 to milder cut: lat 1.2 mm, vel 0.4 m/s.
+T3 acceptance window reverted 2026-11-23 to ORIGINAL: lat 1.5 mm, vel 0.5 m/s (96.66% baseline).
 CAD ridge widened 0.60→1.0 mm wide, 0.50→1.0 mm high; chamfer 0.50→1.0 mm.
 Forensic draws isolated to separate RNG (seed 13) 2026-11-23 to kill trial-stream drift.
 Sim geometry params synced to CAD rev 2026-11-23: ridge 1.0x1.0, chamfer 1.0.
@@ -44,9 +45,9 @@ VEL_SIGMA_M_S = 0.10            # was 0.15 — thinned fast-approach tail
 LAT_OFFSET_SIGMA_MM = 0.65     # lateral offset at contact
 SPRING_SIGMA_N = 0.25          # was 0.40 — fewer soft-spring fails
 
-# T3 acceptance window (milder cut 2026-11-23: after aggressive 1.0/0.35 dropped all-pass to 87.73%)
-T3_LAT_LIMIT_MM = 1.2          # was 1.5, tried 1.0
-T3_VEL_LIMIT_MS = 0.4           # was 0.5, tried 0.35
+# T3 acceptance window (ORIGINAL 2026-11-23: reverted from 1.2/0.4 and 1.0/0.35 after 87.73%)
+T3_LAT_LIMIT_MM = 1.5
+T3_VEL_LIMIT_MS = 0.5
 
 # Geometry (matches CAD rev 2026-11-23)
 RIDGE_W_MM = 1.0
