@@ -3,14 +3,17 @@
 ## Executive Summary
 
 - **Problem:** Prove one docking face works in hardware before committing to the 25 mm lattice.
-- **Approach:** 30 mm 6061-T6 plate, NdFeB N52 magnet, dual staggered 8 mm cams, two hardened steel latch pins, 5 N seating spring, six pogo contacts.
+- **Approach:** 20 mm face (size committed 2026-11-23), 6061-T6 plate, NdFeB N52 magnet, dual staggered 8 mm cams, two hardened steel latch pins, 5 N seating spring, six pogo contacts.
 - **Key numbers:** Snap 34.6 N. Soft-dock ≥90% at ≤2.5 mm. Shear 5 028 N simulated (40 N target). Release net +65.7 N. Thermal <1.5 K at 0.44 W. Mass 9.2 g. Cycles locked at 2 000 (3 000 stretch goal).
 - **Open risks:** Epoxy is the only aging component. First-article metrology and tip-bond pull test are recommended before full stack-up. Native STEP/IGES and KiCad exports are honest gaps.
 - **Status:** Frozen until measured ON/OFF/current/temperature/cycle data are published. Revision 2026-11-21.
 
 Design owned by Craig. Started Nov/Dec 2025. Programmable matter.
 
-**This file is the locked 30 mm dual-cam face.**
+**This file is the locked 20 mm dual-cam face** (face size committed at 20 mm on 2026-11-23; was 30 mm).
+
+> **Face-size note (2026-11-23, Craig):** the Phase 0 face size is committed at **20 mm**, matching `sims/phase0_monte_carlo.py` ("same 20 mm face article"). The geometry tables, CAD (`cad/voxel_cell_phase0_30mm_dualcam.scad`), fab drawing (`CAD/DittoBot_Phase0_FacePlate_30mm.svg`) and dated sim-history rows below still dimension a 30.00 × 30.00 mm plate (cams at (8,8)/(22,22), corner mounts ±12.80). Those dimensions are **not changed** in this revision. Re-dimensioning to 20 mm, including re-fitting the dual 16 mm cams, is pending Craig.
+
 It supersedes the frozen 20 mm hybrid face (4× Ø5 EPM, 1.8 mm pin) from earlier revisions.
 It is **not** the 25 mm cubic cell in this repository (`README.md`, `docs/BASELINE_UPGRADES.md`, `cad/voxel_cell.scad`).
 Do not paste 25 mm coil, driver, magnet, or hold numbers into this document.
@@ -31,7 +34,7 @@ Revision: **2026-11-21** — dual-cam staggered release, 6 mm NdFeB, 30 mm face.
 One docking face. Prove snap-in capture, dual-cam release, pin latch, contacts, and thermal on hardware.
 Not a cube. Not a swarm. Not the GitHub 25 mm cell.
 
-Design philosophy: prove the mechanism at a hand-assemblable scale, then shrink the lattice. 30 mm is the reference article; density is a later problem.
+Design philosophy: prove the mechanism at a hand-assemblable scale, then shrink the lattice. 20 mm is the committed face size (2026-11-23); the 30 mm plate was the earlier reference article. Density is a later problem.
 
 | Item | Locked value |
 | :--- | :-------- |
@@ -331,7 +334,7 @@ These are not locked requirements — they are recommended inspection points bef
 - Companion / V2.0 language
 - 3 000-cycle requirement (stretch goal only — see cycle-life note)
 
-Those live elsewhere. This face stays a 30 mm aluminum demonstrator until the seven tests above have numbers next to them.
+Those live elsewhere. This face stays a 20 mm aluminum demonstrator until the seven tests above have numbers next to them.
 
 ---
 
@@ -347,5 +350,5 @@ From `docs/LOCKS.md`. These do not edit pockets, winding, cams, or the seven tes
 - No companion claim on this face until ON / OFF / current / temperature / cycle data are published.
 - Community Enhancement Suites stay optional and zero-impact on every row in the locked-value table.
 - Cam polymer tips are sacrificial wear items. Swap, don't redesign.
-- 30 mm face size is committed. Going back to 20 mm kills the dual-cam layout.
+- 20 mm face size is committed (Craig, 2026-11-23). Replaces the earlier "30 mm committed" lock. The dual-cam layout must be re-fitted to 20 mm; current CAD is still 30 × 30.
 - Coil is sized for release, not hold.
