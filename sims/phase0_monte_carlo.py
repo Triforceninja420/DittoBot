@@ -42,7 +42,7 @@ T5_CYCLES_MU, T5_CYCLES_SIGMA = 2500.0, 150.0  # 2000 cycle threshold
 
 # T3 forensic parameters (drawn per trial)
 VEL_SIGMA_M_S = 0.10            # was 0.15 — thinned fast-approach tail
-LAT_OFFSET_SIGMA_MM = 0.65     # lateral offset at contact
+LAT_OFFSET_SIGMA_MM = 0.55     # was 0.65 — tighter contact alignment (2026-11-23)
 SPRING_SIGMA_N = 0.25          # was 0.40 — fewer soft-spring fails
 
 # T3 acceptance window (ORIGINAL 2026-11-23: reverted from 1.2/0.4 and 1.0/0.35 after 87.73%)
