@@ -59,7 +59,7 @@ Do not skip ahead. Each step gates the next.
    prices included; re-verify on DigiKey/Mouser before PO — prices as of
    2026-11-23).
 2. **Fab the plate** from `cad/voxel_cell_phase0_20mm.scad` (Phase 0) or
-   `cad/voxel_cell.scad` (25 mm). Use the fab drawings in `CAD/`.
+   `cad/voxel_cell.scad` (25 mm). Use the fab drawings in `cad/`.
 3. **Metrology before assembly** — see §3. Log every number.
 4. **Tip-bond pull test** (Phase 0) — bond a dummy polymer tip to a steel
    coupon with the same epoxy and cure schedule; pull at 50 N. Learn on a
@@ -180,10 +180,5 @@ plate package.
 - **Credit follows the card. Not the sim.**
 
 ---
-
-## Minor note
-
-Root still has both `CAD/` and `cad/` directories. Consolidate to one when
-convenient — layout otherwise matches.
 
 **End of first-article article.**
