@@ -8,6 +8,7 @@ T5 2,000 cycles on same 20 mm face article
 Thresholds set 1-2 sigma past means. Soft-dock and hard-lock tightened 2026-11-22.
 T3 failure forensics added 2026-11-23: log misses, rank by relative velocity,
 lateral offset, capture-spring rate.
+T3 acceptance window tightened 2026-11-23: lat ≤ 1.0 mm and vel ≤ 0.25 m/s.
 """
 import random, math
 
@@ -27,6 +28,10 @@ VEL_SIGMA_M_S = 0.15            # relative docking velocity
 LAT_OFFSET_SIGMA_MM = 0.65     # lateral offset at contact
 SPRING_SIGMA_N = 0.4            # capture spring rate variation
 
+# Tightened T3 acceptance window (2026-11-23)
+T3_LAT_LIMIT_MM = 1.0
+T3_VEL_LIMIT_MS = 0.25
+
 def run_trial(rng):
     # T1 soft-dock
     off = abs(rng.gauss(0, T1_OFFSET_SIGMA_MM))
@@ -34,14 +39,16 @@ def run_trial(rng):
     t1 = off <= 2.5 and ang <= 7.0
     # T2 hard-lock
     t2 = rng.random() < T2_LOCK_P
-    # T3 shear — forensic draws
+    # T3 shear — forensic draws + tightened window
     vel = abs(rng.gauss(0, VEL_SIGMA_M_S))
     lat = abs(rng.gauss(0, LAT_OFFSET_SIGMA_MM))
     spr = rng.gauss(5.0, SPRING_SIGMA_N)
     shear = rng.gauss(T3_SHEAR_MU, T3_SHEAR_SIGMA)
     # shear degrades with velocity and offset; spring helps seating
     shear_eff = shear - 2.5*vel - 0.8*lat + 0.15*spr
-    t3 = shear_eff >= 40.0
+    t3 = (lat <= T3_LAT_LIMIT_MM and
+          vel <= T3_VEL_LIMIT_MS and
+          shear_eff >= 40.0)
     t3_fail = {
         "vel": vel, "lat": lat, "spr": spr,
         "shear_raw": shear, "shear_eff": shear_eff,
