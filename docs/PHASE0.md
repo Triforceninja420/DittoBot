@@ -3,7 +3,7 @@
 ## Executive Summary
 
 - **Problem:** Prove one docking face works in hardware before committing to the 25 mm lattice.
-- **Approach:** 20 mm face (size committed 2026-11-23), 6061-T6 plate, NdFeB N52 magnet, dual staggered 8 mm cams, two hardened steel latch pins, 5 N seating spring, six pogo contacts.
+- **Approach:** 20 mm face (size committed 2026-11-23), 7075-T6 plate, NdFeB N52 magnet, dual staggered 8 mm cams, three hardened steel latch pins, 5 N seating spring, six pogo contacts.
 - **Key numbers:** Snap 34.6 N. Soft-dock ≥90% at ≤2.5 mm. Shear 5 028 N simulated (40 N target). Release net +65.7 N. Thermal <1.5 K at 0.44 W. Mass 9.2 g. Cycles locked at 2 000 (3 000 stretch goal).
 - **Open risks:** Epoxy is the only aging component. First-article metrology and tip-bond pull test are recommended before full stack-up. Native STEP/IGES and KiCad exports are honest gaps.
 - **Status:** Frozen until measured ON/OFF/current/temperature/cycle data are published. Revision 2026-11-21.
@@ -39,12 +39,12 @@ Design philosophy: prove the mechanism at a hand-assemblable scale, then shrink 
 | Item | Locked value |
 | :--- | :-------- |
 | Envelope | 30.00 × 30.00 mm square face |
-| Plate | 6061-T6, 1.00 mm nominal (accept 0.80–1.20) |
+| Plate | 7075-T6 (upgraded from 6061-T6, CAD rev 2026-11-23), 1.00 mm nominal (accept 0.80–1.20) |
 | Magnet | NdFeB N52, Ø6.0 × 6.0 mm, axial, centered |
 | Coil | 40 turns, 34 AWG, ~0.75 Ω cold, sized for release not hold |
 | Snap (axial pull) | 34.6 N simulated at 0.5 mm gap |
 | Seating spring | 5 N, keeps faces seated during mating only |
-| Latch | 2× steel pins, shear capacity ~5 028 N simulated |
+| Latch | 3× hardened steel pins (third pin opposite the pair, CAD rev 2026-11-23); shear capacity ~5 028 N simulated on the earlier 2-pin build |
 | Retraction actuator | small solenoid coil ~1/3 g, pulls pins back on release |
 | Cam release | dual 8 mm radius cams, bore Ø16.1 (0.1 mm nominal clearance), staggered corners (8,8) and (22,22), steel-backed polymer tips |
 | Cam tip | polymer-on-steel, 8 mm contact width, Hertzian 35.4 MPa, margin 1.98× |
@@ -146,10 +146,11 @@ Origin at face center. Z out of the docking face.
 - Purpose: keep faces seated square during mating
 - Not the shear structure. Shear is pins.
 
-**Latch pins (2)**
+**Latch pins (3)**
 - Hardened steel, engagement ≥ 3.00 mm into mating receptacle
-- Combined shear ~5 028 N simulated (126× the 40 N target)
-- Retraction: small solenoid actuator ~1/3 g pulls both pins on release
+- Third pin added opposite the pair (CAD rev 2026-11-23) to balance the load path; the sim treats this as load distribution (factor 2/3), not added strength
+- Combined shear ~5 028 N simulated on the earlier 2-pin build (126× the 40 N target)
+- Retraction: small solenoid actuator ~1/3 g pulls all three pins on release
 
 **Cams (2, staggered)**
 - 8 mm radius each, 16 mm across
@@ -193,7 +194,7 @@ Files in the fab package:
 ## Release sequence
 
 1. Coil fires — magnet field neutralized (partial; coil is 0.7% of coercivity but enough to weaken bond)
-2. Retraction actuator pulls both latch pins back
+2. Retraction actuator pulls all three latch pins back
 3. Cams rotate — lobe edges pry opposite corners apart with 25–30× mechanical advantage
 4. First corner gaps 0.5 mm — 5 N spring + cone angle separate the rest of the face
 5. Faces free. Net release force +65.7 N.
@@ -289,7 +290,7 @@ Full netlist: `schematic/DittoBot_Phase0_Face_Schematic.txt` (not yet generated 
 
 1. **Snap** 34.6 N axial at 0.5 mm gap on mild steel. Off-axis and hot still holds.
 2. **Soft-dock** ≥ 90 % at ≤ 2.5 mm offset, insertion ≤ 5 N.
-3. **Hard-lock** ≥ 95 % with both pins seated.
+3. **Hard-lock** ≥ 95 % with all three pins seated.
 4. **Shear** ≥ 40 N without plate yield. Simulated 5 028 N.
 5. **Release** net +65.7 N. Cam tips intact after 2 000 cycles.
 6. **1.25 A** through the contact bus for ≥ 10 minutes. No thermal throttle. Log plate temp.
