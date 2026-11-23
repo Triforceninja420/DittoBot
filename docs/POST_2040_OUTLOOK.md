@@ -36,7 +36,7 @@ Release selected faces → modules translate or unfold outward along planned axe
 
 ## 3. Hierarchical Nesting
 
-Future modules can accept or become sub-voxels. A single outer cell envelope holds a denser sub-lattice, giving multi-level volume change.
+Future modules can accept or become sub- voxels. A single outer cell envelope holds a denser sub-lattice, giving multi-level volume change.
 
 **Intent**  
 Deeper shrink and finer expand without changing the outer 20 mm or 25 mm nominal. Enables extreme density packing and high-resolution surface detail from the same base cell.
@@ -94,10 +94,10 @@ Until those exist, these remain outlooks.
 
 All near-term work stays on the locked baselines:
 - 25 mm cell: fill `MEASUREMENT_CARD.md` (turns, R, peak I, ON/OFF).
-- Phase 0: 20 mm dual-cam plate, NdFeB Ø6×6, 40-turn coil, dual cams, pins + retraction actuator, force and soak data.
+- Phase 0: 20 mm dual-cam plate, NdFeB Ø6×2–3 disc, DRV8871 release coil, 3-pin latch, 4-spring seating, force and soak data.
 
 These scale-change modes are additive future capability for a mature programmable-matter lattice. They do not reopen any lock.
 
 ---
 
-*Updated 2026-11-21. Outlook only. Five modes: inward shrink, outward expansion, hierarchical nesting, variable-density zones, split/merge swarm scaling. Matching optional suites mapped in COMMUNITY_ENHANCEMENT_SUITES.md. Stale 20 mm references swept.*
+*Updated 2026-11-23. Outlook only. Five modes: inward shrink, outward expansion, hierarchical nesting, variable-density zones, split/merge swarm scaling. Matching optional suites mapped in COMMUNITY_ENHANCEMENT_SUITES.md. 30 mm → 20 mm sync.*

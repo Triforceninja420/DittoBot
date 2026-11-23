@@ -3,5 +3,5 @@
 This file has moved to [phase0/retired/Update_Recap_V1.3.20.txt](retired/Update_Recap_V1.3.20.txt).
 
 It was the retired November 5, 2026 update recap covering the 20 mm hybrid face.
-The current Phase 0 baseline is the 20 mm dual-cam staggered face (rev 2026-11-21; face size committed 2026-11-23) —
-see `cad/voxel_cell_phase0_20mm.scad` and `docs/PHASE0.md`.
+The current Phase 0 baseline is the 20 mm dual-cam face (rev 2026-11-23, CAD
+redesign landed) — see `cad/voxel_cell_phase0_20mm.scad` and `docs/PHASE0.md`.

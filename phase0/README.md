@@ -2,7 +2,7 @@
 
 Everything in this folder describes the **superseded 20 mm 4×EPM Alnico/NdFeB
 hybrid face**. The locked Phase 0 baseline is now the **20 mm dual-cam
-staggered face** (rev 2026-11-21; face size committed at 20 mm 2026-11-23): see `cad/voxel_cell_phase0_20mm.scad`
+face** (rev 2026-11-23, CAD redesign landed): see `cad/voxel_cell_phase0_20mm.scad`
 and `docs/PHASE0.md`.
 
 Do not wind coils or build fixtures from anything here. These files are kept

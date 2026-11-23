@@ -7,9 +7,8 @@ NOT a substitute for the locked measured gates in docs/PHASE0.md.
 
 Design owned by Craig. 2026-11-06.
 Updated 2026-11-21: stale Ø5 mm Alnico/NdFeB hybrid example replaced with
-current 30 mm dual-cam Phase 0 numbers (NdFeB N52 Ø6×6, 40 turns 34 AWG).
-Updated 2026-11-23: Phase 0 face size committed at 20 mm (was 30 mm). Estimate
-inputs and outputs unchanged.
+current 20 mm dual-cam Phase 0 numbers (NdFeB N52 Ø6×2–3 disc, DRV8871).
+Updated 2026-11-23: 30 mm → 20 mm sync.
 """
 
 import math
@@ -43,7 +42,7 @@ def main():
     print("(Phase 0 locked snap gate is 34.6 N simulated; 40 N shear is pin structure.)")
 
     print()
-    # Thermal example: 1.25 A, 0.75 Ω coil (40 turns 34 AWG), 10 min, ~7.4 g module
+    # Thermal example: 1.25 A, 0.75 Ω coil, 10 min, ~7.4 g module
     rise = thermal_rise_c(1.25, 0.75, 10.0)
     print(f"Crude adiabatic rise estimate (1.25 A, 0.75 Ω, 10 min, ~7.4 g): {rise:.0f} °C")
     print("(Pulse-duty is the default; this continuous-duty case is the stress test.)")
