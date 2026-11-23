@@ -30,7 +30,7 @@ Design owned by Craig. Programmable matter voxel lattice. 25 mm cell is the main
 
 ## Separate stack
 
-- [PHASE0.md](PHASE0.md) — Locked 30 mm dual-cam face (do not mix with 25 mm)
+- [PHASE0.md](PHASE0.md) — Locked 20 mm dual-cam face (do not mix with 25 mm; face size committed 2026-11-23, was 30 mm)
 
 ## Re-runnable sims
 
@@ -41,4 +41,4 @@ Design owned by Craig. Programmable matter voxel lattice. 25 mm cell is the main
 Paper until measured. Credit follows data.
 DittoBot is the main design. Mars path is an inheritance and extension of it.
 
-Funky fresh as of 2026-11-22.
+Funky fresh as of 2026-11-23.

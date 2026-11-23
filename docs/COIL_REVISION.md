@@ -2,7 +2,7 @@
 2026-09-09
 Updated 2026-11-06: parallel-strand thermal fix.
 Updated 2026-11-19: Current baseline is SmCo 2:17 Ø7.5 mm residual hold (coil release only). Earlier Ø6 mm stacks superseded.
-Updated 2026-11-21: Stale 20 mm hybrid-face cross-reference removed. Phase 0 is the 30 mm dual-cam face — see docs/PHASE0.md.
+Updated 2026-11-21: Stale 20 mm hybrid-face cross-reference removed. Phase 0 is the 20 mm dual-cam face — see docs/PHASE0.md.
 Updated 2026-11-23 (Craig): hold magnet is a Ø6.0 × 2–3 mm Nd disc in the locked Ø8.2 × 4.0 mm pocket. Coil wound around the disc, release-only, sized for I_release (not hold). Alnico is off this cell. Replaces the SmCo 2:17 Ø7.5 × 3.0 mm baseline of 2026-11-19.
 
 Project started Nov/Dec 2025. Design owned by Craig. Programmable matter.
@@ -34,7 +34,7 @@ Alnico is off this cell (no Nd+Alnico flip stack). The SmCo 2:17 Ø7.5 × 3.0 mm
 * Logic: 3.3 V XIAO RP2040. Never put coil voltage on the MCU.
 * Hold current after pulse = 0. The Nd disc provides zero-power hold.
 * Coil is release-only and sized for I_release, not hold. See `docs/HARDWARE_MAPPING.md` §4b for the I_release method against DRV8871 ILIM.
-* Firmware thermal governor required (see `firmware/pulse_driver.cpp` stub).
+* Firmware thermal governor required (see `firmware/pulse_driver.cpp`).
 
 Parallel strands remain preferred for any pulse train so that a single fine wire does not overheat.
 
@@ -56,6 +56,6 @@ Paper estimates do not move the baseline. Fill `docs/MEASUREMENT_CARD.md`.
 
 ## What this file does not do
 
-* Does not unfreeze Phase 0 (20 mm face, rev 2026-11-21).
+* Does not unfreeze Phase 0 (20 mm face, rev 2026-11-23).
 * Does not change the locked Ø8.2 × 4.0 mm pocket.
 * Does not mint V2.0 or a companion.
