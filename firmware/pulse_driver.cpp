@@ -3,13 +3,15 @@
 // Component: Release-coil pulse driver
 // Target: Seeed Studio XIAO RP2040 (Dual ARM Cortex-M0+)
 // Driver IC: TI DRV8871 (VM 6.5-45 V abs max; prefer <=42 V from pulse bank)
-// Variant: 25 mm cubic cell - Nd disc Ø6.0x2-3 mm residual hold, coil is RELEASE only
-//           NOT Phase 0 20 mm face (rev 2026-11-21)
+// Variant: Phase 0 20 mm face (rev 2026-11-23b) - Nd disc Ø6.0x2-3 mm
+//           residual hold, coil is RELEASE only. NOT 25 mm cubic cell.
 // Author: Craig Edward Ralls (2026)
 // License: MIT
 // Baseline: 2026-11-19 (pulse-only + thermal governor stub); magnet synced 2026-11-23
 // Updated 2026-11-23: thermal governor implemented (NTC + optional TMP117),
 //   pulse trains, INA219 sensing, contact detection, state machine, error flags
+// Updated 2026-11-23: thermal trip corrected 60 -> 41 C to match PHASE0 rev-b;
+//   NTC fail-safe added (open/short forces 999 C, pulse refused)
 // ====================================================================
 
 #include <Arduino.h>
@@ -28,8 +30,8 @@ const uint8_t PIN_NTC = A0;
 const float NTC_BETA = 3950.0;
 const float NTC_R25 = 10000.0;
 const float NTC_PULLUP = 10000.0;
-const float THERMAL_THRESHOLD_C = 60.0;
-const float THERMAL_HYSTERESIS_C = 5.0;
+const float THERMAL_THRESHOLD_C = 41.0;   // Phase 0 skin cap (rev 2026-11-23b)
+const float THERMAL_HYSTERESIS_C = 5.0;  // clears at 36 C
 const uint8_t THERMAL_PULSE_LIMIT = 20;   // consecutive pulses before forced cooldown
 const uint32_t THERMAL_COOLDOWN_MS = 5000;
 
@@ -46,7 +48,7 @@ const uint8_t INA219_ADDR = 0x40;
 // ------------------------------------------------------------------
 // Face contact detection (six pogos, active low when mated)
 // ------------------------------------------------------------------
-const uint8_t PIN_CONTACT[6] = {2, 3, 4, 5, 6, 7};
+const uint8_t PIN_CONTACT[6] = {2, 3, 4, 5, 6, 7);
 
 // ------------------------------------------------------------------
 // Pulse parameters - start in 50-200 ms band, tune from measured
@@ -64,7 +66,7 @@ enum FaceState {
     FACE_HARD_LOCK,
     FACE_POWERED,
     FACE_ERROR
-};
+);
 FaceState face_state = FACE_IDLE;
 
 // ------------------------------------------------------------------
@@ -76,8 +78,8 @@ const uint8_t ERR_CURRENT   = 0x02;
 const uint8_t ERR_CONTACT   = 0x04;
 const uint8_t ERR_WATCHDOG  = 0x08;
 
-uint8_t pulse_count = 0;
-uint32_t last_pulse_ms = 0;
+uvint8_t pulse_count = 0;
+uvint32_t last_pulse_ms = 0;
 bool thermal_latched = false; // latched hot until cooldown clears
 
 // ------------------------------------------------------------------
@@ -85,8 +87,12 @@ bool thermal_latched = false; // latched hot until cooldown clears
 // ------------------------------------------------------------------
 float read_ntc_temp_c() {
     int raw = analogRead(PIN_NTC);
+    // Fail-safe: open or shorted NTC -> forced 999 C, pulse refused
+    if (raw <= 0 || raw >= 1023) return 999.0;
     float v = raw * (3.3 / 1023.0);
+    if (v <= 0.0 || v >= 3.3) return 999.0;
     float r = NTC_PULLUP * (3.3 / v - 1.0);
+    if (r <= 0.0 || isnan(r) || isinf(r)) return 999.0;
     float inv_t = (1.0 / 298.15) + (1.0 / NTC_BETA) * log(r / NTC_R25);
     return (1.0 / inv_t) - 273.15;
 }
@@ -147,7 +153,7 @@ float read_ina219_ma() {
 // ------------------------------------------------------------------
 // Contact detection - returns mask of seated contacts (bit i = contact i)
 // ------------------------------------------------------------------
-uint8_t read_contacts() {
+uvint8_t read_contacts() {
     uint8_t mask = 0;
     for (uint8_t i = 0; i < 6; i++) {
         if (digitalRead(PIN_CONTACT[i]) == LOW) mask |= (1 << i);
