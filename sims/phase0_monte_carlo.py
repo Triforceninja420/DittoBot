@@ -10,11 +10,13 @@ T3 failure forensics added 2026-11-23: log misses, rank by relative velocity,
 lateral offset, capture-spring rate.
 T3 acceptance window reverted 2026-11-23 to original: lat ≤ 1.5 mm, vel ≤ 0.5 m/s.
 CAD ridge widened 0.60→1.0 mm, chamfer 0.50→1.0 mm (geometry only, sim unchanged).
+Forensic draws isolated to separate RNG (seed 13) 2026-11-23 to kill trial-stream drift.
 """
 import random, math
 
 N_TRIALS = 100_000
 SEED = 7
+FORENSIC_SEED = 13
 
 # --- Tolerances (sigma) ---
 T1_OFFSET_SIGMA_MM = 0.65      # was 1.0
@@ -33,17 +35,17 @@ SPRING_SIGMA_N = 0.4            # capture spring rate variation
 T3_LAT_LIMIT_MM = 1.5
 T3_VEL_LIMIT_MS = 0.5
 
-def run_trial(rng):
+def run_trial(rng, frng):
     # T1 soft-dock
     off = abs(rng.gauss(0, T1_OFFSET_SIGMA_MM))
     ang = abs(rng.gauss(0, T1_ANGLE_SIGMA_DEG))
     t1 = off <= 2.5 and ang <= 7.0
     # T2 hard-lock
     t2 = rng.random() < T2_LOCK_P
-    # T3 shear — forensic draws + original window
-    vel = abs(rng.gauss(0, VEL_SIGMA_M_S))
-    lat = abs(rng.gauss(0, LAT_OFFSET_SIGMA_MM))
-    spr = rng.gauss(5.0, SPRING_SIGMA_N)
+    # T3 shear — forensic draws from isolated RNG
+    vel = abs(frng.gauss(0, VEL_SIGMA_M_S))
+    lat = abs(frng.gauss(0, LAT_OFFSET_SIGMA_MM))
+    spr = frng.gauss(5.0, SPRING_SIGMA_N)
     shear = rng.gauss(T3_SHEAR_MU, T3_SHEAR_SIGMA)
     # shear degrades with velocity and offset; spring helps seating
     shear_eff = shear - 2.5*vel - 0.8*lat + 0.15*spr
@@ -62,11 +64,12 @@ def run_trial(rng):
 
 def main():
     rng = random.Random(SEED)
+    frng = random.Random(FORENSIC_SEED)
     counts = [0]*5
     all_pass = 0
     t3_fails = []
     for _ in range(N_TRIALS):
-        results = run_trial(rng)
+        results = run_trial(rng, frng)
         for i, r in enumerate(results[:5]):
             if r:
                 counts[i] += 1
@@ -92,7 +95,7 @@ def main():
         ls = [f["lat"] for f in t3_fails]
         ss = [f["spr"] for f in t3_fails]
         print(f"\nT3-fail means: vel {sum(vs)/len(vs):.3f} m/s, lat {sum(ls)/len(ls):.3f} mm, spring {sum(ss)/len(ss):.2f} N")
-        print(f"T3-fail medians: vel {sorted(vs)[len(vs)//2]:.3f} m/s, lat {sorted(ls)[len(ls)//2]:.3f} mm, spring {sorted(ss)[len(ls)//2]:.2f} N")
+        print(f"T3-fail medians: vel {sorted(vs)[len(vs)//2]:.3f} m/s, lat {sorted(ls)[len(ls)//2]:.3f} mm, spring {sorted(ss)[len(ss)//2]:.2f} N")
 
 if __name__ == "__main__":
     main()
