@@ -16,15 +16,15 @@ How the programmable-matter lattice scales to Mars surface ops and long-term gre
 | DB-MARS-CONV-004 | [mars-co2-o2-converter-spec-v4.md](mars-co2-o2-converter-spec-v4.md) | Distributed matrix pivot. 50×10⁹ units, 1 PW, 0.3% surface. | ~260 sols base w/ governors |
 | DB-MARS-CONV-005 | [mars-conv-005-dual-path-strategy.md](mars-conv-005-dual-path-strategy.md) | Water-splitting primary + Phobos carbon import. | 12 TW → ~100 Earth yr |
 | DB-MARS-GOV-001 | [mars-swarm-governors-spec-v1.md](mars-swarm-governors-spec-v1.md) | Density + power governors. | 15 runs, worst 309 sols |
-| **DB-MARS-CONV-006** | **[mars-bacteria-swarm-spec-v1.md](mars-bacteria-swarm-spec-v1.md)** | **Engineered cyanobacteria (6 edits). Zero power.** | **v1.3: 240/240 runs, 100% clear, mean 238 sols** |
+| **DB-MARS-CONV-006** | **[mars-bacteria-swarm-spec-v1.md](mars-bacteria-swarm-spec-v1.md)** | **Engineered cyanobacteria (6 edits). Zero power.** | **v1.1: 20/20 runs, ~96 sols avg** |
 
 ## Role vs main DittoBot
 
 - Seed bots/lattice modules share docking/face philosophy with 25 mm cell.
 - Bacteria swarm = complementary biological path for planetary O₂ once infrastructure exists.
-- Habitat O₂ from converters in months; full greening (water/soil/UV-for-plants) = under one Earth year per sim.
+- Habitat O₂ from converters in months; full greening (water/soil/UV-for-plants) = multi-decade to ~200 yr.
 - All numbers = simulation bounds. Earth-simulant prototypes + measured data required.
 
 See [../MARS_VARIANT.md](../MARS_VARIANT.md) for hardened 25 mm inheritance path.
 
-Funky fresh as of 2026-11-23. Still DittoBot.
+Funky fresh as of 2026-11-22. Still DittoBot.

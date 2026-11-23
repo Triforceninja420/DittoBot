@@ -44,25 +44,24 @@ See BUILD.md and BASELINE_UPGRADES.md for the full current build.
 
 ---
 
-# Phase 0 face — measurement card (rev 2026-11-23, 20 mm redesign)
+# Phase 0 face — measurement card (rev 2026-11-21)
 
-Design owned by Craig. 20 mm dual-cam face. NdFeB N52 Ø6.0 × 2–3 mm Nd disc (coil release-only, Alnico off). 3-pin latch (7075-T6 plate) + retraction actuator. 4× non-magnetic phosphor-bronze/BeCu springs, 1.0 N/mm combined, 5 mm preload (5.00 N seated). DRV8871 driver. Approach placement 0.42 mm at 1-sigma.
+Design owned by Craig. 20 mm dual-cam staggered face (face size committed 2026-11-23; was 30 mm). NdFeB N52 Ø6 × 6 mm. Steel-backed polymer-tip cams. Two-pin latch + retraction actuator. 5 N seating spring.
 
-Status: **blank until measured.** Simulation (98.04% all-pass) passed; hardware numbers go here.
+Status: **blank until measured.** Simulation (26 tests) passed; hardware numbers go here.
 
 ## Geometry under test
-- Face: 20.00 × 20.00 mm, 7075-T6 1.00 mm
-- Magnet: NdFeB N52 Ø6.0 × 2–3 mm disc in Ø8.2 × 4.0 pocket (coil around disc, release-only)
-- Coil: DRV8871 driver, sized for I_release, pulse-only, zero hold current
-- Cams: dual staggered, Ø16.05 bore (0.05 mm clearance), steel-backed polymer tips — positions per cad/voxel_cell_phase0_20mm.scad
-- Latch: 3× hardened steel pins Ø1.80 in Ø1.85 bores, 7075-T6 plate
-- Seating spring: 5.00 N total (4 springs)
-- Contacts: 6× pogo/leaf on hex ring r = 4.20 mm at 30/90/150/210/270/330°
+- Face: 30.00 × 30.00 mm, 6061-T6 1.00 mm
+- Magnet: NdFeB N52 Ø6.0 × 6.0 mm, axial, centered
+- Coil: 40 turns 34 AWG, ~0.75 Ω, pulse-duty
+- Cams: dual 8 mm radius, staggered (8,8) + (22,22), steel-backed polymer tips, 8 mm contact width
+- Latch: 2× hardened steel pins + ~1/3 g retraction actuator
+- Seating spring: 5 N
+- Contacts: 6× pogo/leaf on hex ring
 - Bus: 12 V nominal, 1.25 A continuous ≥ 10 min
-- Driver: DRV8871, pulse bank
-- MCU: XIAO RP2040
-- Cycles: 2 000 locked spec
-- Gates: T3 lat 1.5 mm, vel 0.5 m/s, spring 5.00 N, shear bar 40 N, all-pass 98.04%
+- Driver: IRLZ44N class H-bridge, 220 µF / 30–36 V pulse bank
+- MCU: Raspberry Pi Pico RP2040
+- Cycles: **2 000 locked spec**; 3 000 is a stretch goal (epoxy swap or mechanical tip backup required — see PHASE0.md cycle-life note)
 
 ## Card (fill what you actually measured)
 
@@ -70,25 +69,25 @@ Status: **blank until measured.** Simulation (98.04% all-pass) passed; hardware 
 | :--- | :---- | :-------- |
 | Builder | | |
 | Date | | |
-| Magnet grade / size | | NdFeB N52 Ø6.0 × 2–3 mm (record thickness) |
-| Coil turns / wire | | / |
+| Magnet grade / size | | NdFeB N52 Ø6 × 6 |
+| Coil turns / wire | | 40 / 34 AWG |
 | Cold R | | Ω |
-| Pulse bank V | | V |
+| Pulse bank V | | 30–36 V |
 | Peak I | | A |
 | Pulse width | | µs–ms |
 | Snap force (centered, 0.5 mm) | | N (sim: 34.6) |
 | Snap off-axis 1.5 mm | | N (sim: 26) |
 | Snap at 60 °C | | N (sim: ~32) |
 | Release net | | N (sim: +65.7) |
-| Cam tip wear after N cycles | | µm |
-| Shear | | N (sim: 5 028, earlier 2-pin build) |
+| Cam tip wear after N cycles | | µm (sim: 0.19 / 2 000) |
+| Shear | | N (sim: 5 028) |
 | Soft-dock capture rate | | % at ≤ 2.5 mm |
 | Insertion force | | N (sim: 5) |
 | Bus temp after 10 min @ 1.25 A | | °C |
 | Plate temp near contact | | °C |
 | Plate temp near magnet | | °C |
-| Pin engagement (3/3) | | mm or confirmed |
-| Cycles completed | | / 2 000 |
+| Pin engagement | | mm or confirmed |
+| Cycles completed | | / 2 000 (3 000 stretch) |
 | Notes | | cam material, tip swap, oxide |
 
 One row per test. Credit follows the measurement. Simulation numbers in parentheses are not credit — they are the bar to beat.
