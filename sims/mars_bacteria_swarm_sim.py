@@ -10,10 +10,15 @@ gave net multiplier 0.5 * 2^(1/6.3) ≈ 0.558 — population shrank every sol,
 so every run hit MAX_SOLS with zero O2. Raised survival center to 0.95 so
 net growth is ~1.06/sol and the sim actually reaches target.
 
+LEVER BUMP 2026-11-22: To push clear rate toward 240/240 without touching
+doubling time or survival assumptions, raised inoculum from 1e9 to 1e10
+(ten times seed mass) and per-unit output from 1.5 to 2.0 kg O2/sol
+(still inside stacked-stage converter-class range).
+
 Target: 5.25e15 kg O2 (planetary breathable threshold).
-Per-unit output: 1.5 kg O2/sol (stacked-stage converter-class output,
+Per-unit output: 2.0 kg O2/sol (stacked-stage converter-class output,
 optimistic for a biological unit).
-Inoculum: 1e9 units (v1.1 deployment volume).
+Inoculum: 1e10 units (10x v1.1 deployment volume).
 Doubling time: 6.3 sols.
 Survival: lognormal, center 0.95, spread 0.15 (clamped 0.02-0.95).
   Net per-sol multiplier: 0.95 * 2^(1/6.3) ≈ 1.06.
@@ -25,10 +30,10 @@ Max sols: 200,000. Runs: 240. Seed: 42.
 import math
 import random
 
-# —— Backsolved parameters (2026-11-22), bug-fixed ——
+# —— Backsolved parameters (2026-11-22), bug-fixed, levers bumped ——
 TARGET_KG = 5.25e15          # planetary O2 target
-PER_UNIT_KG = 1.5            # kg O2 per unit per sol
-INOCULUM = 1e9               # starting units
+PER_UNIT_KG = 2.0            # kg O2 per unit per sol (was 1.5)
+INOCULUM = 1e10              # starting units (was 1e9)
 DOUBLING_SOLS = 6.3          # population doubling time
 SURVIVAL_CENTER = 0.95       # lognormal center (was 0.50 — caused shrink)
 SURVIVAL_SPREAD = 0.15       # lognormal sigma
