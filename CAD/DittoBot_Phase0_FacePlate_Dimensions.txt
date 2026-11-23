@@ -1,55 +1,46 @@
-DittoBot Phase 0 Face — Dimension Table (rev 2026-11-21)
-30 mm dual-cam staggered face. All dimensions mm unless noted.
+DittoBot Phase 0 Face — Dimension Table (rev 2026-11-23, 20 mm redesign)
+20 mm face. All dimensions mm unless noted.
 Origin: face center, Z out of docking face. Export STL from SCAD for fab.
-Monte Carlo (100k trials, flatness loosened to 0.10): all-pass 96.79%, rework-free 96.79%.
+Monte Carlo (100k trials): all-pass 98.04%, T3 99.30%, 702 T3 fails (LAT_OFFSET_SIGMA 0.55).
+Full geometry follows cad/voxel_cell_phase0_20mm.scad — this table tracks the
+locked spec numbers; cam positions and corner-mount centers were re-derived
+for the 20 mm envelope in the CAD redesign and are authoritative in the SCAD.
 
 PLATE
-  Envelope:             30.00 x 30.00
+  Envelope:             20.00 x 20.00
   Thickness:            1.00 (accept 0.80-1.20)
-  Material:             6061-T6 aluminum
+  Material:             7075-T6 aluminum
   Edge break:           0.25 (range 0.20-0.30)
-  Flatness target:      <= 0.10 (loosened from 0.05 on 2026-11-21; MC showed 37.5% fail at 0.05)
-  Optional:             304 SS (worse thermal)
+  Flatness target:      <= 0.10
 
 MAGNET + COIL (centered, axial)
-  Magnet:               NdFeB N52, Ø6.0 x 6.0
-  Pocket:               Ø6.10 x 0.75 BLIND (back intact, heat spreader)
+  Magnet:               NdFeB N52, Ø6.0 x 2-3 mm disc (coil release-only; Alnico off this cell)
+  Pocket:               Ø8.2 x 4.0 (blind back intact as heat spreader)
   Pocket tolerance:     +0.10 on diameter
-  Coil:                 40 turns, 34 AWG (Ø0.16 wire)
-  Coil wind OD:         ~6.96
-  Coil wind height:     ~6.32
-  Cold R:               ~0.75 ohm
-  Snap (sim):           34.6 N at 0.5 mm gap
+  Coil:                 DRV8871 driver, sized for I_release, pulse-only, zero hold current
+  Cold R:               ~0.74 ohm (estimate, 2x AWG 36 parallel)
 
-CAMS (2, staggered)
+CAMS (2, staggered) — re-derived for 20 mm envelope in CAD redesign
   Radius:               8 each (Ø16 across)
-  Bore:                 Ø16.1 (0.1 mm nominal clearance — Monte Carlo locked 2026-11-21)
+  Bore:                 Ø16.05 (0.05 mm nominal clearance)
   Bore tolerance:       ±0.05
-  Position 1:           (8, 8) corner
-  Position 2:           (22, 22) corner
-  Center spacing:       19.8 (just clear of 16 mm no-overlap)
-  Bounding box:         exactly 30 x 30
-  Core:                 steel/stainless, 2.0 thick
-  Tip:                  polymer, steel-backed, 1.5 thick, 8 contact width
-  Hertzian (conservative): 35.4 MPa, margin 1.98x
-  Wear (sim):           0.19 um over 2000 cycles
+  Positions:            per cad/voxel_cell_phase0_20mm.scad (re-derived; do not
+                        use the old 30 mm (8,8)/(22,22) layout)
+  Core:                 steel/stainless
+  Tip:                  polymer, steel-backed
 
-LATCH PINS (2)
+LATCH PINS (3)
   Pin OD:               1.80
   Bore OD:              1.85
   Engagement:           >= 3.00 into mating receptacle
-  Positions:            (2, 1) and (-2, -1)
-  Combined shear (sim): ~5028 N
-
-RETRACTION ACTUATORS (2)
-  Coil OD x H:          4.0 x 6.0
-  Mass:                 ~1/3 g each
-  Positions:            (3, 0) and (-3, 0)
+  Positions:            per cad/voxel_cell_phase0_20mm.scad
+  Combined shear:       pins carry 100% of the 40 N bar; 5 028 N was the
+                        earlier 2-pin simulation
 
 SEATING SPRING
-  Force:                5 N
-  Ring radius:          14.5
-  Segments:             8 x Ø0.8 x 2.0
+  Force:                5.00 N total (4x non-magnetic phosphor-bronze or BeCu
+                        springs, 1.0 N/mm combined rate, 5 mm preload)
+  Material:             non-magnetic only
 
 CONTACTS (6)
   Ring radius:          4.20
@@ -60,7 +51,8 @@ CONTACTS (6)
 
 CORNER MOUNTS (4)
   OD:                   1.70 (M1.4/M1.6 clearance)
-  Centers:              (+/-12.80, +/-12.80)
+  Centers:              per cad/voxel_cell_phase0_20mm.scad (re-derived for
+                        20 mm envelope; old ±12.80 was 30 mm)
 
 CAPTURE
   Lateral:              +/- 2.50
@@ -69,6 +61,10 @@ CAPTURE
   Side ridges:          0.50 high x 0.60 wide
   Insertion force:      5 N
 
-MASS: 9.2 g module total. Thermal < 1.5 K at 0.44 W pulse-duty.
-Cycles: 2000 dock/undock. Environmental: black oxide or nitride on cam cores.
-MONTE CARLO: all-pass 96.79% | cam interference 0.00% | pin interference 0.00% | magnet interference 0.00% | pocket 3.21% | flatness 0.00% | rework-free 96.79% | bond margin 20x at 99th pct
+APPROACH PLACEMENT:   0.42 mm at 1-sigma (HARDWARE_MAPPING §1.2, contributor A)
+GATES:                T3 lat 1.5 mm, vel 0.5 m/s, spring 5.00 N, shear bar 40 N,
+                      all-pass 98.04%
+
+MASS: TBD on 20 mm article (9.2 g was the 30 mm module). Thermal < 1.5 K at
+0.44 W pulse-duty. Cycles: 2000 dock/undock. Environmental: black oxide or
+nitride on cam cores.
