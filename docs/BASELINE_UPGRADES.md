@@ -7,10 +7,10 @@ Status: Paper baseline update. Pocket geometry unchanged.
 These changes fold into the normal build. No separate variant required.
 
 ## 1. Magnet stack
-- Standard: SmCo 2:17 Ø7.5 mm × 3.0 mm (NiCuNi or equivalent)
-- Replaces previous Ø6 mm stack
-- Residual hold paper range: ~15–48 N (area-scaled from prior Ø6 estimates)
-- Still fits Ø8.2 mm pocket; winding window reduced accordingly
+- Standard (updated 2026-11-23): Nd disc Ø6.0 mm × 2–3 mm hold magnet. Replaces the SmCo 2:17 Ø7.5 × 3.0 mm standard set on 2026-11-19.
+- Coil wound around the disc, release-only, sized for I_release (not hold). Alnico off this cell.
+- Hold force: TBD, measure (no paper range claimed for this disc)
+- Fits Ø8.2 × 4.0 mm pocket with a 1.10 mm radial winding annulus
 - Pulse bank: 36–48 V polypropylene film capacitors (existing Mars pulse notes now standard)
 
 ## 2. Mechanical hard-lock (tighter docking)
@@ -43,10 +43,10 @@ These changes fold into the normal build. No separate variant required.
 - External envelope: 25.0 mm cube unchanged
 - Latching core bore: Ø8.2 mm × 4.0 mm depth unchanged
 - Face interconnect and data pads unchanged
-- CAD update required only for pin/receptacle features and magnet OD
+- CAD update required only for pin/receptacle features and magnet OD (`cad/voxel_cell.scad` note still says SmCo Ø7.5; comment-only update pending)
 
 ## Measurement card additions
-- Record ON/OFF force with new Ø7.5 mm SmCo
+- Record ON/OFF force and I_release with the Ø6.0 × 2–3 mm Nd disc
 - Record pin engagement force and cycle wear
 - Confirm potting integrity (no moisture path)
 - Thermal: pulse train temperature rise in still air and vacuum chamber if available

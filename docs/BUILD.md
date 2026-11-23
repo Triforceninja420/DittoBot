@@ -2,24 +2,26 @@
 
 Handoff page for the 2026-11-19 baseline.  
 Design owner: Craig.  
-Status: SmCo Ø7.5 mm, axial pin hard-lock, cavity potting, pulse-only, face coatings. Pocket locked Ø8.2 × 4.0 mm.
+Status: Nd disc Ø6.0 × 2–3 mm hold, axial pin hard-lock, cavity potting, pulse-only, face coatings. Pocket locked Ø8.2 × 4.0 mm.
+
+Updated 2026-11-23 (Craig): hold magnet is a Ø6.0 × 2–3 mm Nd disc in the locked Ø8.2 × 4.0 mm pocket. Coil wound around the disc, release-only, sized for I_release (not hold). Alnico is off this cell. Replaces the SmCo 2:17 Ø7.5 × 3.0 mm baseline of 2026-11-19.
 
 ## What you're building
 
 One 25 mm cube.  
-Hold is SmCo 2:17 Ø7.5 mm × 3.0 mm.  
-Coil is release pulse only.  
+Hold is an Nd disc Ø6.0 mm × 2–3 mm.  
+Coil is wound around the disc, release pulse only, sized for I_release (not hold).  
 Short axial pin engages after magnetic soft-dock and carries external load.  
 Cavity is fully potted. Faces have PTFE lip + conformal coating.  
 Driver: DRV8871 on 12 V. Logic: XIAO RP2040 at 3.3 V.  
 Pulse bank: 36–48 V polypropylene film capacitors.
 
-Do not build earlier NdFeB / Alnico or Ø6 mm stacks.
+Alnico is off this cell. Do not build Alnico or Nd+Alnico flip stacks, and do not build the retired SmCo Ø7.5 × 3.0 mm stack.
 
 ## 1. Magnet
-- SmCo 2:17 Ø7.5 mm × 3.0 mm, axial, NiCuNi or equivalent
-- Fits the locked Ø8.2 mm pocket with reduced winding window
-- Paper residual hold range ~16–47 N (area-scaled)
+- Nd disc Ø6.0 mm × 2–3 mm, axial (grade TBD, record on the card)
+- Sits in the locked Ø8.2 × 4.0 mm pocket; 1.10 mm radial annulus per side for the coil bobbin — the bobbin centers the disc
+- Hold force: TBD, measure ON force (no paper range claimed for this disc)
 
 ## 2. Mechanical hard-lock
 - Short axial pin + receptacle (Ø1.5–2.0 mm × 2.5–3.0 mm engagement)
@@ -39,7 +41,7 @@ Do not build earlier NdFeB / Alnico or Ø6 mm stacks.
 - 36–48 V PP film pulse bank (100 V rating recommended)
 
 ## 5. Parts list (current baseline)
-- Magnet: SmCo 2:17 Ø7.5 × 3.0 mm
+- Magnet: Nd disc Ø6.0 × 2–3 mm (hold)
 - Wire: AWG 36, 2–4 parallel strands
 - Pulse bank: PP film, 36–48 V, 100 V rating, potted
 - Driver: DRV8871

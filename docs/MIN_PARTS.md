@@ -1,20 +1,20 @@
 # 25 mm cell — minimum parts for one counted coil (current baseline)
 
 Design owned by Craig.  
-Baseline: 2026-11-19 — SmCo Ø7.5 mm, axial pin, potting, pulse-only.
+Baseline: 2026-11-19 — axial pin, potting, pulse-only. Magnet updated 2026-11-23: Nd disc Ø6.0 × 2–3 mm hold, coil release-only, Alnico off this cell.
 
 This list is for the public 25 mm cell. Fill MEASUREMENT_CARD.md with whatever this kit measures. No latch claim until the card is filled.
 
 ## Geometry (locked)
 - Envelope: 25 mm cube
 - Pocket: Ø8.2 mm × 4.0 mm (do not enlarge)
-- Magnet: SmCo 2:17 Ø7.5 mm × 3.0 mm
+- Magnet: Nd disc Ø6.0 mm × 2–3 mm (hold)
 - Axial pin receptacle added in CAD
 
 ## Buy or borrow
 | # | Item | Spec | Notes |
 | :--- | :--- | :--- | :--- |
-| 1 | Magnet | SmCo 2:17 Ø7.5 × 3.0 mm | Current baseline. Do not order Ø6 or NdFeB for shippable builds |
+| 1 | Magnet | Nd disc Ø6.0 × 2–3 mm | Current hold magnet (2026-11-23). Do not order Alnico or SmCo Ø7.5 for this cell |
 | 2 | Magnet wire | 2–4× AWG 36 parallel | Pulse-only default |
 | 3 | Driver | DRV8871 | 12 V VM |
 | 4 | Logic | XIAO RP2040 | 3.3 V only |
