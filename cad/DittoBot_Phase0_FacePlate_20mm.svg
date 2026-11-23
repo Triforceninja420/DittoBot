@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="380" height="380" viewBox="0 0 380 380">
 <rect width="100%" height="100%" fill="#fafafa"/>
-<text x="190" y="30" text-anchor="middle" font-family="monospace" font-size="14">DittoBot Phase 0 Face — 20 mm (rev 2026-11-23)</text>
+<text x="190" y="30" text-anchor="middle" font-family="monospace" font-size="14">DittoBot Phase 0 Face — 20 mm (rev 2026-11-23b)</text>
 <rect x="67.5" y="67.5" width="245" height="245" rx="2.5" ry="2.5" fill="none" stroke="#333" stroke-width="2"/>
 <circle cx="190" cy="190" r="20.5" fill="none" stroke="#666" stroke-width="1.5" stroke-dasharray="4 3"/>
 <circle cx="190" cy="190" r="20" fill="none" stroke="#333" stroke-width="1.5"/>
@@ -41,5 +41,5 @@
 <line x1="312.5" y1="307.5" x2="312.5" y2="317.5" stroke="#000" stroke-width="1"/>
 <text x="190" y="342" text-anchor="middle" font-size="11" font-weight="bold">20.00 mm</text>
 <text x="20" y="360" font-family="monospace" font-size="10">Legend: gray=spring, blue=coil OD, brown=pocket, red=pin bore, yellow=contact, blue ring=mount, orange=ridge/chamfer</text>
-<text x="20" y="374" font-family="monospace" font-size="10">Blind magnet pocket Ø8.2 x 4.0 mm deep — back face intact as heat spreader. 3 pins, 4 BeCu springs 5.00 N. All dims mm.</text>
+<text x="20" y="374" font-family="monospace" font-size="10">Blind magnet pocket Ø8.2 x 4.0 mm deep — back face intact as heat spreader. 3 pins, 4 BeCu springs 5.00 N. Option A sliding-pin release. All dims mm.</text>
 </svg>
