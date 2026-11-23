@@ -1,30 +1,30 @@
 # Mars Path — Speculative Extensions of the DittoBot Baseline
 
-Design owned by Craig.  
-Started from the main DittoBot 25 mm cell (2026-11-19 baseline).  
-**Paper / simulation only.** Credit follows measured data when hardware arrives.  
-Two stacks stay unmixed — Phase 0 (30 mm dual-cam) is separate. This folder does not reopen any locked geometry.
+Design owned by Craig. Started from the main DittoBot 25 mm cell (2026-11-19 baseline). Paper/simulation only — credit follows measured data when hardware arrives. Two stacks stay unmixed (Phase 0 30 mm dual-cam is separate). This folder does not reopen locked geometry.
 
-These documents explore how the core programmable-matter lattice (residual-hold faces, self-replicating modules, local-material fabrication) can scale to Mars surface operations and long-term greening. The main design remains the Earth/lab 25 mm cell. Everything here inherits that baseline.
+How the programmable-matter lattice scales to Mars surface ops and long-term greening. Main design remains the Earth/lab 25 mm cell; everything here inherits that baseline.
 
 ## Index (DB-MARS series)
 
-| ID | File | What it is |
-| :--- | :--- | :--- |
-| DB-MARS-SEED-001 | [mars-seed-bot-spec-v1.md](mars-seed-bot-spec-v1.md) | 1 kg seed bot: Fresnel lens + magnetic rake + toaster kiln. Self-replicates from regolith. |
-| DB-MARS-ICE-001 | [mars-ice-mining-spec-v1.md](mars-ice-mining-spec-v1.md) | Orbital scouting + scoop/hopper ice mining. |
-| DB-MARS-CONV-001..004 | converter specs | Progressive CO₂→O₂ solid-oxide and catalytic-matrix designs. |
-| DB-MARS-CONV-005 | [mars-conv-005-dual-path-strategy.md](mars-conv-005-dual-path-strategy.md) | Water-splitting primary + Phobos carbon import backstop. |
-| DB-MARS-GOV-001 | [mars-swarm-governors-spec-v1.md](mars-swarm-governors-spec-v1.md) | Density + power governors so the swarm does not eat the planet. |
-| **DB-MARS-CONV-006** | **[mars-bacteria-swarm-spec-v1.md](mars-bacteria-swarm-spec-v1.md)** | **Engineered cyanobacteria swarm (Deinococcus repair + antifreeze + UV sunscreen + sporulation + metabolic flexibility). Zero-power, self-replicating. Sim average ~96 sols to atmospheric O₂ under v1.1.** |
+| ID | File | What it is | Key number |
+| :-- | :-- | :-- | :-- |
+| DB-MARS-SEED-001 | [mars-seed-bot-spec-v1.md](mars-seed-bot-spec-v1.md) | 1 kg seed: Fresnel lens + magnetic rake + toaster kiln. Self-replicates from regolith. | 10–14 sols/copy (conservative) |
+| DB-MARS-ICE-001 | [mars-ice-mining-spec-v1.md](mars-ice-mining-spec-v1.md) | Orbital scouting (HiRISE/SHARAD) + scoop/hopper mining. | 3,500 t water/sol @ 1,000 bots |
+| DB-MARS-CONV-001 | [mars-co2-o2-converter-spec-v1.md](mars-co2-o2-converter-spec-v1.md) | SOEC @ 800 °C baseline. 50 kW, 2.5 kg O₂/sol. | 26×10⁶-fold shortfall → drives v2 |
+| DB-MARS-CONV-002 | [mars-high-output-converter-spec-v1.md](mars-high-output-converter-spec-v1.md) | Vertical towers @ 1,100 °C. ~2,700 towers. | 112-yr claim retracted (37,000 Earth yr real) |
+| DB-MARS-CONV-003 | [mars-co2-o2-converter-spec-v3.md](mars-co2-o2-converter-spec-v3.md) | 50× @ 1,400 °C. 1,760 towers, 74 GW. | Habitat-scale O₂ only |
+| DB-MARS-CONV-004 | [mars-co2-o2-converter-spec-v4.md](mars-co2-o2-converter-spec-v4.md) | Distributed matrix pivot. 50×10⁹ units, 1 PW, 0.3% surface. | ~260 sols base w/ governors |
+| DB-MARS-CONV-005 | [mars-conv-005-dual-path-strategy.md](mars-conv-005-dual-path-strategy.md) | Water-splitting primary + Phobos carbon import. | 12 TW → ~100 Earth yr |
+| DB-MARS-GOV-001 | [mars-swarm-governors-spec-v1.md](mars-swarm-governors-spec-v1.md) | Density + power governors. | 15 runs, worst 309 sols |
+| **DB-MARS-CONV-006** | **[mars-bacteria-swarm-spec-v1.md](mars-bacteria-swarm-spec-v1.md)** | **Engineered cyanobacteria (6 edits). Zero power.** | **v1.1: 20/20 runs, ~96 sols avg** |
 
-## Role relative to main DittoBot
+## Role vs main DittoBot
 
-- Seed bots and lattice modules use the same docking/face philosophy as the 25 mm cell.  
-- Bacteria swarm is a complementary biological path for planetary-scale O₂ once infrastructure exists.  
-- Habitat-scale oxygen can come from the converter chain in months; full greening (stable water, soil chemistry, UV protection for plants) remains a multi-decade to ~200-year process.  
-- All numbers are simulation bounds. Earth-simulant prototypes and measured data are still required.
+- Seed bots/lattice modules share docking/face philosophy with 25 mm cell.
+- Bacteria swarm = complementary biological path for planetary O₂ once infrastructure exists.
+- Habitat O₂ from converters in months; full greening (water/soil/UV-for-plants) = multi-decade to ~200 yr.
+- All numbers = simulation bounds. Earth-simulant prototypes + measured data required.
 
-See also the higher-level [../MARS_VARIANT.md](../MARS_VARIANT.md) for the hardened 25 mm inheritance path.
+See [../MARS_VARIANT.md](../MARS_VARIANT.md) for hardened 25 mm inheritance path.
 
-Funky fresh as of 2026-11-22. Still the same DittoBot.
+Funky fresh as of 2026-11-22. Still DittoBot.

@@ -1,52 +1,64 @@
-# DB-MARS-SEED-001: Mars Seed Bot Spec v1.0
+# DB-MARS-SEED-001: Mars Seed Bot Spec v1.1
 
-## Overview
-Seed bot for Mars surface deployment. One kilo, solar-powered, no battery beyond small capacitor bank. Carries: 1-meter Fresnel lens, magnetic rake for iron extraction, kiln size of a toaster. No arms, no legs, no fancy joints.
+**Executive Summary:** One-kilogram solar-powered seed bot that self-replicates from Martian regolith. Carries a 1 m Fresnel lens (sintering, not melting), magnetic rake (iron as magnetite, no reduction), and toaster-sized kiln. Three seeds land, build a kiln ring, cast a chassis, and Bot 1 (5 kg) begins exponential copying. Conservative doubling: 10–14 sols per copy; optimistic: 5–7 sols. Energy: 2–4 kWh per tile, 30–50 kWh per full replication.
 
-## Phase Zero
-Three seeds land, each with a 1-meter Fresnel lens, magnetic rake, and shoebox kiln. They print sintered regolith tiles (~dinner-plate size) and stack them in a spiral ring around the lens to shade it and block dust. Once stable, the lens focuses tighter and the kiln runs hotter, casting tubes, plates, and brackets. Those bolt into a frame for a bigger kiln. Bigger kiln means denser sinter and a cast chassis — bot number four, built from dirt and sunlight.
+**Design Owner:** Craig. Paper/simulation only. Credit follows measured data.
 
-## Bot 1
-Five kilos, real print head, starts making copies of itself from tiles and brackets already in the dirt. From there exponential: one seed, one ring, one chassis, one factory.
+---
 
-## Replication Logic
-- Conservative doubling: 10-14 days per copy
-- Optimistic doubling: 5-7 days per copy
-- Energy per tile: 2-4 kWh
-- Energy per full bot replication: 30-50 kWh
-- At 10-day doubling: 1 trillion units in ~11 years (theoretical ceiling before physical limits)
+## 1. Overview
 
-## Materials Table (from local regolith/ice)
-- Silicon: compute and structure
-- Iron: magnetic structures (already present as magnetite, no reduction needed)
-- Aluminum: oxidized for structure
-- Oxygen: atmospheric byproduct
-- Magnesium, Calcium: alloy components
+Seed bot for Mars surface deployment. Mass: 1 kg. Power: solar only (small capacitor bank, no battery). Payload: 1 m Fresnel lens, magnetic rake, toaster-sized kiln. No arms, legs, or joints — sits on surface, bakes, stacks.
 
-## Energy Budget
-- Sintering instead of full melting: 800-1200 C instead of 1500+ C
-- Solar concentrators with Fresnel lenses hit that with fraction of power
-- Magnetic separator before sintering for iron
-- Seed bot: 1 kg with small lens array, magnetic rake, basic print head
-- Staged growth: slightly bigger kiln builds slightly bigger bot
+## 2. Phase Zero Deployment
 
-## Mars-Specific Safety
-- RTG hybrid: Earth-made plutonium heart, Mars-made housing/thermocouple/radiator fins
-- One cargo drop per RTG heart, bots build the rest around it
-- Keeps Earth supply chain to one small high-value item
+Three seeds land. Each prints sintered regolith tiles (~0.3 m diameter) in a spiral ring around its lens for shading and dust blocking. Ring complete → tighter focus → hotter kiln → cast tubes, plates, brackets → bolt into frame for larger kiln → cast Bot 1 chassis (5 kg, real print head) from dirt and sunlight.
 
-## Open Questions
-- Exact doubling time depends on replication logic and materials table validation
-- Energy-per-copy numbers need Earth-simulant prototype lock
-- Thermal cycling durability of sintered regolith in Mars environment
+## 3. Bot 1 and Replication
 
-## Next Steps
-- Earth prototype test on Mars simulant to verify energy numbers
-- Cross-link to Phase 0 docking protocol (DB-P0-FACE-TP-001) and Master Notebook
-- Credit split: designer (Craig) name locked, builder TBD
+Bot 1 makes copies from existing tiles and brackets. Exponential growth: one seed → one ring → one chassis → one factory.
 
-## Cross-References
-- DB-MARS-CONV-001 through DB-MARS-CONV-006 (converter chain)
+| Parameter | Value | Unit |
+| :-------- | :---- | :--- |
+| Conservative doubling time | 10–14 | sols/copy |
+| Optimistic doubling time | 5–7 | sols/copy |
+| Energy per tile | 2–4 | kWh |
+| Energy per full replication | 30–50 | kWh |
+| Theoretical ceiling @ 10-day doubling | ~1×10¹² | units in ~11 yr (before physical limits) |
+
+## 4. Materials (from local regolith/ice)
+
+| Element | Use | Source note |
+| :------ | :-- | :---------- |
+| Silicon | Compute, structure | Regolith |
+| Iron | Magnetic structures | Magnetite in regolith — no reduction needed |
+| Aluminum | Oxidized structure | Regolith |
+| Oxygen | Atmospheric byproduct | Released during sintering |
+| Magnesium, Calcium | Alloy components | Regolith |
+
+## 5. Energy Strategy
+
+Sintering (800–1,200 °C) instead of full melting (1,500+ °C). Fresnel concentrators reach sintering temps at a fraction of melt power. Magnetic separator extracts iron before sintering. Staged growth: each kiln builds a slightly larger bot.
+
+## 6. Mars-Specific Safety: RTG Hybrid
+
+Earth-made plutonium core (cannot be synthesized from regolith); Mars-made housing, thermocouple legs, radiator fins (cast from regolith metals). One cargo drop per RTG heart.
+
+## 7. Open Questions
+
+- Doubling time validation needs Earth-simulant prototype
+- Thermal cycling durability of sintered regolith on Mars
+- RTG heart supply chain logistics
+
+## 8. Next Steps
+
+- Earth prototype on Mars simulant to lock energy numbers
+- Cross-link Phase 0 docking protocol (DB-P0-FACE-TP-001)
+- Credit: designer Craig (locked), builder TBD
+
+## 9. Cross-References
+
+- DB-MARS-CONV-001..006 (converter chain)
 - DB-MARS-ICE-001 (ice mining)
 - DB-MARS-GOV-001 (governors)
-- Phase 0: DB-P0-FACE-TP-001 Rev A
+- DB-P0-FACE-TP-001 Rev A (Phase 0)

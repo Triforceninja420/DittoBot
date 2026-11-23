@@ -1,54 +1,64 @@
-# DB-MARS-CONV-006: Bacteria Swarm Spec v1.1
+# DB-MARS-CONV-006: Bacteria Swarm Spec v1.2
 
-## Overview
-Engineered cyanobacteria swarm for planetary-scale O2 production. Zero power draw, self-replicating, grows on sunlight Mars already has. Trades speed for autonomy.
+**Executive Summary:** Engineered cyanobacteria swarm for planetary-scale O₂. Zero power draw, self-replicating, grows on Martian sunlight. Trades speed for autonomy. Six genetic edits: Deinococcus radiodurans DNA repair, Arctic fish antifreeze proteins, mycosporine-like amino acid UV sunscreen, plus v1.1 survival fixes (1×10⁹-unit deployment, Bacillus subtilis sporulation, metabolic flexibility switching to H₂ chemosynthesis). v1.1 sims: 20/20 runs cleared, average 96 sols (~1/3 Mars year), 11% average survival. Converters (DB-MARS-CONV-005) handle habitat O₂ in months; bacteria handle planetary scale over decades–century. CO₂ held at 10–11×10¹² t in every cleared run.
 
-## Genetic Engineering (3 Stacked Traits + 3 Survival Fixes)
+**Design Owner:** Craig. Paper/simulation only. Open questions: genetic stability, HGT risk, containment, ecosystem effects.
 
-### Core Traits
-1. **Radiation resistance**: DNA repair suite from Deinococcus radiodurans spliced in. Shrugs off radiation doses that shred normal cells.
-2. **Cold tolerance**: Antifreeze proteins from Arctic fish. Cell membranes stay fluid below freezing instead of cracking.
-3. **UV shielding**: Engineered to produce thick layer of mycosporine-like amino acids (natural sunscreens). Blocks UV that would fry anything on Martian surface.
+---
+
+## 1. Overview
+
+Biological O₂ path. No electrical middleman — photosynthesis directly. [Cyanobacteria O₂ production: ~standard biochemistry]
+
+## 2. Genetic Engineering
+
+### Core Traits (v1.0)
+1. **Radiation resistance:** Deinococcus radiodurans DNA repair suite [source: D. radiodurans genome, 3.28 Mb, extreme radioresistance literature]
+2. **Cold tolerance:** Arctic fish antifreeze proteins [source: type III AFPs, fluid-membrane literature]
+3. **UV shielding:** mycosporine-like amino acids (MAAs) [source: cyanobacterial MAA sunscreen pathway]
 
 ### Survival Fixes (v1.1)
-1. **Deployment volume**: Land 1 billion units instead of 1 million. Even at 8% survival, 80 million survivors restart exponential growth.
-2. **Sporulation**: Bacillus subtilis endospores survive vacuum, radiation, centuries of dormancy. Wake up when conditions improve. Dim-sun years become waiting rooms, not death sentences.
-3. **Metabolic flexibility**: Switch from sunlight to hydrogen when sun's too weak.
+1. **Deployment volume:** 1×10⁹ units (vs 1×10⁶). At 8% survival → 80×10⁶ survivors.
+2. **Sporulation:** Bacillus subtilis endospores [source: B. subtilis sporulation cascade] — survive vacuum, radiation, centuries dormant.
+3. **Metabolic flexibility:** switch photosynthesis → H₂ chemosynthesis when sun too weak.
 
-## Simulation Results
+## 3. Simulation Results
 
 ### v1.0 (20 runs)
-- 7 of 8 scenarios cleared
-- Base case: 669 sols (1 Mars year), 79% survival, hit 1-quintillion-unit cap
-- High radiation: ~6,500 sols (~18 Earth years)
-- Deep cold: ~6,500 sols
-- UV spike: 35,000 sols (~97 Earth years), 32% survival
-- Low inoculum: <1,200 sols (replication compounds fast)
-- Dust-storm years: 914 sols
-- Best case: 330 sols (half a Mars year)
-- Worst case FAILED: radiation 50%, cold 50%, UV 40%, tiny inoculum, dim sun. 8% survival, never recovered. 200,000 sols, 548 Earth years, 7,000 kg O2.
-- CO2 held 10-11 trillion tonnes in every cleared run (from 25T pool)
+- 7/8 scenarios cleared
+- Base: 669 sols, 79% survival, hit 1×10¹⁸-unit cap
+- High radiation / deep cold: ~6,500 sols each (~18 Earth yr)
+- UV spike: 35,000 sols (~97 Earth yr), 32% survival
+- Low inoculum: <1,200 sols
+- Dust storms: 914 sols
+- Best: 330 sols
+- Worst case FAILED: 8% survival, 200,000 sols, 548 Earth yr, 7,000 kg O₂
+- CO₂ held 10–11×10¹² t every cleared run
 
-### v1.1 Improved (20 runs)
-- ALL 20 runs cleared
-- Best, worst, average: 96 sols (~1/3 Mars year)
+### v1.1 (20 runs)
+- 20/20 cleared
+- Best/worst/average: 96 sols
 - Average survival: 11% (up from 8%)
-- Sporulation + metabolic flexibility doing heavy lifting in worst case
-- Billion-unit deployment gives seed mass to compound from
 
-## Role in Green Mars Stack
-- Converters (DB-MARS-CONV-005) handle habitat-scale O2 in months
-- Bacteria handle planetary scale over decades to a century
-- Bacteria burn CO2 slower than converters — the whole point
-- Zero power draw, self-replicating
+### v1.2 (no-pants Craig included — 15 runs)
+- All cleared, base 7,315 sols; worst ~16,600 sols (46 Earth yr), 2% survival still compounding; dim sun 12,000 sols. Pants variable: zero effect.
 
-## Open Questions
+## 4. Role in Green Mars Stack
+
+- Converters: habitat O₂ in months
+- Bacteria: planetary scale, decades–century
+- Bacteria burn CO₂ slower — intentional trade
+- Zero power, self-replicating
+
+## 5. Open Questions
+
 - Genetic stability across Martian generations
 - Horizontal gene transfer risks
 - Containment if traits escape to Earth-origin microbes
-- Long-term ecosystem effects of engineered organisms
+- Long-term ecosystem effects
 
-## Cross-References
-- DB-MARS-CONV-005 (dual-path, bacteria as long game)
+## 6. Cross-References
+
+- DB-MARS-CONV-005 (dual-path; bacteria = long game)
 - DB-MARS-SEED-001 (deployment via seed bots)
-- DB-MARS-GOV-001 (density governor applies to bot swarm, not bacteria)
+- DB-MARS-GOV-001 (density governor: bots only, not bacteria)
