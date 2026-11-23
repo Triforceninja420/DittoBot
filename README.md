@@ -1,55 +1,44 @@
-# DittoBot / Voxel Box
+# DittoBot Documentation Index
 
-Programmable matter voxel lattice. 25 mm cubic cell.
-Design owned by Craig. Started November/December 2025.
+All current design sources live here.
+Design owned by Craig. Programmable matter voxel lattice. 25 mm cell is the main design.
 
-**Current baseline (2026-11-19, magnet updated 2026-11-23):** Nd disc Ø6.0 × 2–3 mm hold (coil release-only, Alnico off), mechanical pin hard-lock, cavity potting, pulse-only drive with thermal governor, face coatings. Pocket and envelope unchanged. Paper only — credit follows measured data.
+## Current baseline (25 mm cell) — main design
 
-Phase 0 is the separate 30 mm dual-cam staggered face (rev 2026-11-21) — see [docs/PHASE0.md](docs/PHASE0.md). Two stacks stay unmixed.
+| Doc | What it is |
+| :-- | :-- |
+| [BASELINE_UPGRADES.md](BASELINE_UPGRADES.md) | 2026-11-19 upgrades now standard |
+| [DESIGN.md](DESIGN.md) | Architecture, version ladder, lock philosophy |
+| [BUILD.md](BUILD.md) | Fab handoff |
+| [CONTROL_APP.md](CONTROL_APP.md) | Mobile + PC control system outline |
+| [PAPER_STATUS.md](PAPER_STATUS.md) | What is fixed without measurements |
+| [COIL_REVISION.md](COIL_REVISION.md) | Coil and thermal history |
+| [LOCKS.md](LOCKS.md) | Process locks (18 total, 9+9) |
+| [MEASUREMENT_CARD.md](MEASUREMENT_CARD.md) | Fill with measured data |
+| [MIN_PARTS.md](MIN_PARTS.md) | Minimum kit |
+| [SIM_NOTES.md](SIM_NOTES.md) | Paper vs measured context |
+
+## Environment and future paths
+
+| Doc | What it is |
+| :-- | :-- |
+| [MARS_VARIANT.md](MARS_VARIANT.md) | Mars / space hardened 25 mm path (inherits baseline) |
+| [mars/](mars/) | Speculative Mars extensions — seed bots, converters, bacteria swarm (DB-MARS-CONV-006), governors. Paper/sim only. |
+| [EXTREME_ENVIRONMENTS.md](EXTREME_ENVIRONMENTS.md) | Ocean, cryo, heat, rad, flight/exoskeleton, agency gates |
+| [POST_2040_OUTLOOK.md](POST_2040_OUTLOOK.md) | Scale-change modes (speculative) |
+| [COMMUNITY_ENHANCEMENT_SUITES.md](COMMUNITY_ENHANCEMENT_SUITES.md) | Optional zero-impact suites |
+
+## Separate stack
+
+- [PHASE0.md](PHASE0.md) — Locked 20 mm dual-cam face (do not mix with 25 mm; face size committed 2026-11-23, was 30 mm)
+
+## Re-runnable sims
+
+- [sims/mars_bacteria_swarm_sim.py](../sims/mars_bacteria_swarm_sim.py) — Traceable Monte Carlo for DB-MARS-CONV-006. Seeded RNG, documented backsolved parameters, 240 runs.
 
 ---
 
-## Start here
+Paper until measured. Credit follows data.
+DittoBot is the main design. Mars path is an inheritance and extension of it.
 
-| Document | What it is |
-| :--- | :-------- |
-| [docs/BASELINE_UPGRADES.md](docs/BASELINE_UPGRADES.md) | 2026-11-19 standard (magnet, pin, potting, pulse-only) |
-| [docs/DESIGN.md](docs/DESIGN.md) | Current 25 mm architecture and version ladder |
-| [docs/BUILD.md](docs/BUILD.md) | Fab handoff |
-| [docs/EXTREME_ENVIRONMENTS.md](docs/EXTREME_ENVIRONMENTS.md) | Inheritance path for ocean, space, cryo, flight/exoskeleton |
-| [docs/MARS_VARIANT.md](docs/MARS_VARIANT.md) | Mars / space hardened path (inherits baseline) |
-| [docs/mars/](docs/mars/) | Speculative Mars extensions: seed bots, O₂ converters, engineered bacteria swarm |
-| [docs/MEASUREMENT_CARD.md](docs/MEASUREMENT_CARD.md) | Blank card — fill with real data |
-| [sims/mars_bacteria_swarm_sim.py](sims/mars_bacteria_swarm_sim.py) | Traceable Monte Carlo sim for DB-MARS-CONV-006 (seeded, re-runnable) |
-| [sims/phase0_monte_carlo.py](sims/phase0_monte_carlo.py) | Phase 0 face protocol Monte Carlo (DB-P0-FACE-TP-001, seeded, re-runnable) |
-
-Full index: [docs/README.md](docs/README.md)
-
----
-
-## Repository layout
-
-```
-cad/                  OpenSCAD (voxel_cell.scad + Phase 0 30 mm dual-cam)
-phase0/               Phase 0 force fixture and coil geometry
-firmware/             Pulse driver with thermal governor stub (XIAO RP2040)
-tools/                Paper estimates (force_sweep.py, phase0_estimate.py)
-tests/                CI test suite (Phase 0 math)
-sims/                 Re-runnable Monte Carlo sims (Phase 0 + bacteria swarm)
-bom/                  Netlist (synced to 2026-11-19 baseline)
-docs/                 All current specifications and notes
-  mars/               Speculative Mars seed / converter / bacteria path
-.github/              CI workflow + issue templates
-Voxel_Render.jpg      Example render
-```
-
-## Status
-
-- **CI:** pytest + flake8 on every push and PR (Phase 0 math)
-- **Tests:** 5 passing on main (Phase 0 docking tolerances)
-- **Issue templates:** bug report + feature request, docs-first routing
-- **Paper status:** all specs are simulation bounds pending Earth-simulant prototypes
-
-License: MIT
-
-Funky fresh. Still DittoBot. 2026-11-23.
+Funky fresh as of 2026-11-23.

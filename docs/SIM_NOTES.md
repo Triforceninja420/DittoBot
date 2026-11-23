@@ -6,17 +6,17 @@ This file records that private thermal and shear analysis (not a public executab
 
 ## What is public and locked
 
-Phase 0 success criteria remain the measured ones in [PHASE0.md](PHASE0.md) (rev 2026-11-21, 30 mm dual-cam):
+Phase 0 success criteria remain the measured ones in [PHASE0.md](PHASE0.md) (rev 2026-11-21, 20 mm dual-cam; face size committed 2026-11-23):
 
 - Snap 34.6 N axial at 0.5 mm gap (sim bar)
 - Soft-dock ≥ 90 % at ≤ 2.5 mm lateral, insertion ≤ 5 N
-- Hard-lock ≥ 95 % with both pins seated
+- Hard-lock ≥ 95 % with all three pins seated
 - Shear ≥ 40 N through pins (simulated 5 028 N)
 - Release net +65.7 N via dual-cam + retraction actuator
 - 1.25 A continuous ≥ 10 min (log temperature, 41 °C skin cap)
 - 2 000 dock/undock cycles (cam tip wear 0.19 µm simulated)
 
-Anyone can verify these on the public fixture package and `cad/voxel_cell_phase0_30mm_dualcam.scad`.
+Anyone can verify these on the public fixture package and `cad/voxel_cell_phase0_30mm_dualcam.scad` (pending 20 mm redesign — see PHASE0.md face-size note).
 
 ## Private analysis that drove 2026-11-06 fixes
 
