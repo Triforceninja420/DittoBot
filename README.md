@@ -1,6 +1,6 @@
 # DittoBot / Voxel Box
 
-Programmable matter voxel lattice. 25 mm cubic cell.  
+Programmable matter voxel lattice. 25 mm cubic cell.
 Design owned by Craig. Started November/December 2025.
 
 **Current baseline (2026-11-19):** SmCo Ø7.5 mm residual hold, mechanical pin hard-lock, cavity potting, pulse-only drive with thermal governor, face coatings. Pocket and envelope unchanged. Paper only — credit follows measured data.
@@ -16,10 +16,11 @@ Phase 0 is the separate 30 mm dual-cam staggered face (rev 2026-11-21) — see [
 | [docs/BASELINE_UPGRADES.md](docs/BASELINE_UPGRADES.md) | 2026-11-19 standard (magnet, pin, potting, pulse-only) |
 | [docs/DESIGN.md](docs/DESIGN.md) | Current 25 mm architecture and version ladder |
 | [docs/BUILD.md](docs/BUILD.md) | Fab handoff |
-| [docs/EXTREME_ENVIRONMENTS.md](docs/EXTREME_ENVIRONMENTS.md) | Inheritance path for ocean, space, cryo, flight/exoskeleton, etc. |
+| [docs/EXTREME_ENVIRONMENTS.md](docs/EXTREME_ENVIRONMENTS.md) | Inheritance path for ocean, space, cryo, flight/exoskeleton |
 | [docs/MARS_VARIANT.md](docs/MARS_VARIANT.md) | Mars / space hardened path (inherits baseline) |
-| [docs/mars/](docs/mars/) | Speculative Mars extensions: seed bots, O₂ converters, **engineered bacteria swarm** |
+| [docs/mars/](docs/mars/) | Speculative Mars extensions: seed bots, O₂ converters, engineered bacteria swarm |
 | [docs/MEASUREMENT_CARD.md](docs/MEASUREMENT_CARD.md) | Blank card — fill with real data |
+| [sims/mars_bacteria_swarm_sim.py](sims/mars_bacteria_swarm_sim.py) | Traceable Monte Carlo sim for DB-MARS-CONV-006 (seeded, re-runnable) |
 
 Full index: [docs/README.md](docs/README.md)
 
@@ -29,14 +30,25 @@ Full index: [docs/README.md](docs/README.md)
 
 ```
 cad/                  OpenSCAD (voxel_cell.scad + Phase 0 30 mm dual-cam)
+phase0/               Phase 0 force fixture and coil geometry
 firmware/             Pulse driver with thermal governor stub (XIAO RP2040)
 tools/                Paper estimates (force_sweep.py, phase0_estimate.py)
+tests/                CI test suite (Phase 0 math)
+sims/                 Re-runnable Monte Carlo sims (bacteria swarm)
 bom/                  Netlist (synced to 2026-11-19 baseline)
 docs/                 All current specifications and notes
   mars/               Speculative Mars seed / converter / bacteria path
-Voxel_Render.jpg      Example render (assets/ folder not yet used)
+.github/              CI workflow + issue templates
+Voxel_Render.jpg      Example render
 ```
+
+## Status
+
+- **CI:** pytest + flake8 on every push and PR (Phase 0 math, IK symmetry, servo checksums)
+- **Tests:** 16 passing on main (Unit-1 IK symmetry included)
+- **Issue templates:** bug report + feature request, docs-first routing
+- **Paper status:** all specs are simulation bounds pending Earth-simulant prototypes
 
 License: MIT
 
-Funky fresh. Still DittoBot.
+Funky fresh. Still DittoBot. 2026-11-22.
