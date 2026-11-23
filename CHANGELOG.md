@@ -1,5 +1,15 @@
 # Changelog
 
+## 2026-11-23
+- Repo polish: root README cleaned (layout section, CI/tests/sims status lines, traceable sim link). docs/README.md converted to tables for scanability. Mars bacteria spec synced to v1.3 with backsolved parameters. mars_bacteria_swarm_sim.py pushed to sims/ — seeded, re-runnable, 240 runs, 73% clear rate, mean 311 sols.
+- Unit-1 CI: fixed IK mirror-symmetry bug (copysign beta flip), patched Python test to match. 16/16 tests passing on main.
+- DittoBot CI: pytest + flake8 on every push/PR. Phase 0 math tests + issue templates added.
+
+## 2026-11-22
+- Mars path tightened: executive summaries, units on every number, cited constants across all nine DB-MARS specs. Index gained key-number column.
+- Bacteria swarm spec v1.3: backsolved parameters documented (1.5 kg/unit/sol, 6.3-sol doubling, 50% survival center, billion-unit inoculum, seed 42). 96-sol figure now traceable as ~2.6 percentile optimistic edge, not average.
+- Consistency flush: Mars folder indexed, root + docs READMEs cross-link, DittoBot stated as main design throughout.
+
 ## 2026-11-21
 - Phase 0 revision: 30 mm dual-cam staggered face (supersedes frozen 20 mm 4×EPM hybrid).
 - NdFeB N52 Ø6.0 × 6.0 mm magnet, 40-turn 34 AWG coil (~0.75 Ω), sized for release not hold.
