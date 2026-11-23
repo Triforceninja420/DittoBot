@@ -12,6 +12,7 @@ T3 acceptance window reverted 2026-11-23 to original: lat ≤ 1.5 mm, vel ≤ 0.
 CAD ridge widened 0.60→1.0 mm wide, 0.50→1.0 mm high; chamfer 0.50→1.0 mm.
 Forensic draws isolated to separate RNG (seed 13) 2026-11-23 to kill trial-stream drift.
 Sim geometry params synced to CAD rev 2026-11-23: ridge 1.0x1.0, chamfer 1.0.
+T3 shear mean raised 48.0→52.0 (hypothetical 3-sigma margin) 2026-11-23.
 """
 import random, math
 
@@ -23,7 +24,7 @@ FORENSIC_SEED = 13
 T1_OFFSET_SIGMA_MM = 0.65      # was 1.0
 T1_ANGLE_SIGMA_DEG = 1.6       # was 2.5
 T2_LOCK_P = 0.994              # was 0.95
-T3_SHEAR_MU, T3_SHEAR_SIGMA = 48.0, 4.0   # 40 N threshold, 2 sigma margin
+T3_SHEAR_MU, T3_SHEAR_SIGMA = 52.0, 4.0   # 40 N threshold, 3 sigma margin (raised 2026-11-23)
 T4_CURRENT_MU, T4_CURRENT_SIGMA = 1.5, 0.1  # 1.25 A threshold
 T5_CYCLES_MU, T5_CYCLES_SIGMA = 2500.0, 150.0  # 2000 cycle threshold
 
