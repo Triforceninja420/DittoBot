@@ -1,6 +1,8 @@
 # Changelog
 
 ## 2026-11-23
+- Fix phase0_monte_carlo.py: broken counts line in main() replaced with per-test tally (T1–T5) plus all-pass rate over 100k seeded trials.
+- Correct README: test count was 16, actual is 5 Phase 0 math tests — updated status line, CI description, and added phase0 sim to start-here table and layout.
 - Repo polish: root README cleaned (layout section, CI/tests/sims status lines, traceable sim link). docs/README.md converted to tables for scanability. Mars bacteria spec synced to v1.3 with backsolved parameters. mars_bacteria_swarm_sim.py pushed to sims/ — seeded, re-runnable, 240 runs, 73% clear rate, mean 311 sols.
 - Unit-1 CI: fixed IK mirror-symmetry bug (copysign beta flip), patched Python test to match. 16/16 tests passing on main.
 - DittoBot CI: pytest + flake8 on every push/PR. Phase 0 math tests + issue templates added.
