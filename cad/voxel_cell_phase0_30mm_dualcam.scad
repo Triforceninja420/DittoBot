@@ -10,13 +10,13 @@
 // Contacts: 6x pogo/leaf on hex ring r=4.20 mm
 // Corner mounts: 4x Ø1.70 mm at (±12.80, ±12.80)
 // Capture: ±2.50 mm lateral, ±6-7 deg, chamfer + side ridges
-// Ridge widened 0.60→1.0 mm, chamfer 0.50→1.0 mm for better off-center capture.
+// Ridge widened 0.60→1.0 mm wide, 0.50→1.0 mm high; chamfer 0.50→1.0 mm.
 //
 // Units: mm. Origin at face center, Z out of docking face.
 // Render: F6. Export STL for fab. Do not mix with 25 mm cell numbers.
 // Magnet pocket: BLIND 0.75 mm deep (not through) — heat spreader back intact.
-// Monte Carlo (100k trials, 2026-11-23): T3 gates reverted to lat ≤ 1.5 mm / vel ≤ 0.5 m/s;
-// ridge 1.0 mm + chamfer 1.0 mm geometry benefit modeled in shear degradation.
+// Monte Carlo (100k trials, 2026-11-23): T3 gates lat ≤ 1.5 mm / vel ≤ 0.5 m/s;
+// forensic RNG isolated (seed 13); ridge 1.0 mm + chamfer 1.0 mm in CAD.
 
 $fn = 64;
 
@@ -59,7 +59,7 @@ mount_d = 1.70;
 mount_pos = 12.80;
 
 chamfer = 1.00;   // was 0.50 — widened for tilted approaches
-ridge_h = 0.50;
+ridge_h = 1.00;   // was 0.50 — taller for tilted capture
 ridge_w = 1.00;   // was 0.60 — widened for off-center capture
 
 // ---------- Plate ----------
@@ -165,7 +165,7 @@ module capture_features() {
         translate([0, 0, -chamfer/2])
         cube([plate_x - 2*chamfer, plate_y - 2*chamfer, chamfer+0.1], center=true);
     }
-    // side ridges 0.50 mm high, 1.0 mm wide (widened from 0.60)
+    // side ridges 1.0 mm high, 1.0 mm wide (widened from 0.50/0.60)
     for (s = [-1, 1]) {
         translate([s*(plate_x/2 - ridge_w/2), 0, plate_t/2 + ridge_h/2])
         cube([ridge_w, plate_y - 2*chamfer, ridge_h], center=true);
