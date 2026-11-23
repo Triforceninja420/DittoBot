@@ -1,7 +1,0 @@
-# MOVED
-
-This file has moved to retired/Phase_0_exact_coil_geometry.txt.
-
-It described the retired 20 mm 4×EPM Alnico/NdFeB hybrid face coil geometry.
-The current Phase 0 baseline is the 20 mm face — see
-`cad/voxel_cell_phase0_20mm.scad` and `docs/PHASE0.md`.
