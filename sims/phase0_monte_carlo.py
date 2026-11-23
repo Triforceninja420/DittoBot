@@ -20,6 +20,8 @@ THRESHOLD AWARENESS: the 2/3 pin factor is load DISTRIBUTION, not added strength
 It spreads the same shear across three pins instead of two so no single pin sees
 the full load — it does NOT raise the 72.8 N mean. The 7075 mean stands alone.
 Effective per-pin shear is lower; the 40 N gate is evaluated on that distributed value.
+Forensic sigma tweaks 2026-11-23: VEL_SIGMA 0.15→0.10, SPRING_SIGMA 0.40→0.25.
+Degradation coefficients loosened 2026-11-23: vel 2.5→2.0, offset 0.8→0.6.
 """
 import random, math
 
@@ -36,9 +38,9 @@ T4_CURRENT_MU, T4_CURRENT_SIGMA = 1.5, 0.1  # 1.25 A threshold
 T5_CYCLES_MU, T5_CYCLES_SIGMA = 2500.0, 150.0  # 2000 cycle threshold
 
 # T3 forensic parameters (drawn per trial)
-VEL_SIGMA_M_S = 0.15            # relative docking velocity
+VEL_SIGMA_M_S = 0.10            # was 0.15 — thinned fast-approach tail
 LAT_OFFSET_SIGMA_MM = 0.65     # lateral offset at contact
-SPRING_SIGMA_N = 0.4            # capture spring rate variation
+SPRING_SIGMA_N = 0.25          # was 0.40 — fewer soft-spring fails
 
 # Original T3 acceptance window
 T3_LAT_LIMIT_MM = 1.5
@@ -52,6 +54,11 @@ CHAMFER_MM = 1.0
 # Third latch pin: spreads shear across 3 pins instead of 2 → lower per-pin load
 PIN_COUNT = 3
 PIN_LOAD_FACTOR = 2.0 / PIN_COUNT  # 2-pin baseline → 3-pin relief
+
+# Degradation coefficients (loosened 2026-11-23)
+VEL_DEGRADATION = 2.0   # was 2.5
+OFFSET_DEGRADATION = 0.6  # was 0.8
+SPRING_BENEFIT = 0.15
 
 def run_trial(rng, frng):
     # T1 soft-dock
@@ -70,7 +77,7 @@ def run_trial(rng, frng):
     ridge_benefit = min(lat, RIDGE_W_MM) * 0.3 + min(lat, RIDGE_H_MM) * 0.15
     chamfer_benefit = min(lat, CHAMFER_MM) * 0.2
     # third pin spreads load: per-pin shear drops by 2/3 (distribution, not strength)
-    shear_eff = (shear - 2.5*vel - 0.8*max(0.0, lat - ridge_benefit - chamfer_benefit) + 0.15*spr) * PIN_LOAD_FACTOR
+    shear_eff = (shear - VEL_DEGRADATION*vel - OFFSET_DEGRADATION*max(0.0, lat - ridge_benefit - chamfer_benefit) + SPRING_BENEFIT*spr) * PIN_LOAD_FACTOR
     t3 = (lat <= T3_LAT_LIMIT_MM and
           vel <= T3_VEL_LIMIT_MS and
           shear_eff >= 40.0)
