@@ -1,4 +1,4 @@
-// DittoBot Phase 0 Face — 30 mm dual-cam staggered (rev 2026-11-21)
+// DittoBot Phase 0 Face — 30 mm dual-cam staggered (rev 2026-11-23)
 // Design owned by Craig. Programmable matter. Paper only until measured.
 //
 // Envelope: 30.00 x 30.00 mm, 6061-T6, 1.00 mm nominal
@@ -10,12 +10,13 @@
 // Contacts: 6x pogo/leaf on hex ring r=4.20 mm
 // Corner mounts: 4x Ø1.70 mm at (±12.80, ±12.80)
 // Capture: ±2.50 mm lateral, ±6-7 deg, chamfer + side ridges
+// Ridge widened 0.60→1.0 mm, chamfer 0.50→1.0 mm for better off-center capture.
 //
 // Units: mm. Origin at face center, Z out of docking face.
 // Render: F6. Export STL for fab. Do not mix with 25 mm cell numbers.
 // Magnet pocket: BLIND 0.75 mm deep (not through) — heat spreader back intact.
-// Monte Carlo (100k trials, 2026-11-23 re-run): all-pass 96.47% (after flatness loosened 0.05→0.10 mm),
-// cam interference 0.00%, rework-free 96.47%, one-fix 3.53%, two+ 0.00%. Bond margin 20x at 99th pct.
+// Monte Carlo (100k trials, 2026-11-23): T3 gates reverted to lat ≤ 1.5 mm / vel ≤ 0.5 m/s;
+// ridge 1.0 mm + chamfer 1.0 mm geometry benefit modeled in shear degradation.
 
 $fn = 64;
 
@@ -57,9 +58,9 @@ contact_angles = [30, 90, 150, 210, 270, 330];
 mount_d = 1.70;
 mount_pos = 12.80;
 
-chamfer = 0.50;
+chamfer = 1.00;   // was 0.50 — widened for tilted approaches
 ridge_h = 0.50;
-ridge_w = 0.60;
+ridge_w = 1.00;   // was 0.60 — widened for off-center capture
 
 // ---------- Plate ----------
 module plate() {
@@ -157,14 +158,14 @@ module mount_hole(x, y) {
 
 // ---------- Capture chamfer + side ridges ----------
 module capture_features() {
-    // chamfer on top face edge
+    // chamfer on top face edge (1.0 mm — widened from 0.50)
     color("Orange")
     difference() {
         cube([plate_x, plate_y, chamfer], center=true);
         translate([0, 0, -chamfer/2])
         cube([plate_x - 2*chamfer, plate_y - 2*chamfer, chamfer+0.1], center=true);
     }
-    // side ridges 0.50 mm high, 0.60 mm wide
+    // side ridges 0.50 mm high, 1.0 mm wide (widened from 0.60)
     for (s = [-1, 1]) {
         translate([s*(plate_x/2 - ridge_w/2), 0, plate_t/2 + ridge_h/2])
         cube([ridge_w, plate_y - 2*chamfer, ridge_h], center=true);
