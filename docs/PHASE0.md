@@ -19,6 +19,8 @@ It is **not** the 25 mm cubic cell in this repository (`README.md`, `docs/BASELI
 Do not paste 25 mm coil, driver, magnet, or hold numbers into this document.
 Do not paste these Phase 0 numbers into the 25 mm files.
 
+> **Option A note (2026-11-23, Craig):** Phase 0 release is now the sliding-pin architecture defined in `docs/OPTION_A.md` — magnet-pull retention (≥ 1.8 N), single Ø2.0 mm sliding pin, no cams on the face. Cams are deferred to Option A / the 25 mm cell and documented as superseded in `docs/GATE5_SUPERSEDED.md`. This PHASE0.md file retains cam-era history; the rev-b plan in `docs/PROTOTYPE_PLAN.md` is the current build sequence.
+
 Public parent: `DittoBot_Phase0_Face_Public_Spec.docx`  
 CAD / SOP / BOM / sims: `Phase0_Independent_Fab_Package/` (v0.2, 2026-09-08)  
 Aluminum plate package: `DittoBot_Phase0_Aluminum_FacePlate_Package_v0.1.txt`
@@ -105,7 +107,7 @@ Fixes applied in this revision:
 ### Latch pins (3)
 
 - Pin OD 1.80 mm, bore OD 1.85 mm
-- Engagement ≥ 3.00 mm into mating receptacle
+- Engagement ≥ 3.00 mm into mating receptacle; receptacle depth ≥ 2.5 mm (Craig, 2026-11-23 — plate is 1.0 mm, pin travels 3.0 mm, so 2.5 mm gives margin on both faces)
 - Positions per `cad/voxel_cell_phase0_20mm.scad`
 - Combined shear ~5 028 N simulated on the earlier 2-pin build (126× the 40 N target)
 
