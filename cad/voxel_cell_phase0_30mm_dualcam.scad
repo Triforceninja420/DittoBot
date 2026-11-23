@@ -14,8 +14,8 @@
 // Units: mm. Origin at face center, Z out of docking face.
 // Render: F6. Export STL for fab. Do not mix with 25 mm cell numbers.
 // Magnet pocket: BLIND 0.75 mm deep (not through) — heat spreader back intact.
-// Monte Carlo (100k trials, 2026-11-21): all-pass 78.04%, cam interference 12.5%,
-// rework-free 78.04%, one-fix 20.30%, two+ 1.65%. Bond margin 4.5x at 99th pct.
+// Monte Carlo (100k trials, 2026-11-21): all-pass 96.79% (after flatness loosened 0.05→0.10 mm),
+// cam interference 0.00%, rework-free 96.79%, one-fix 3.21%, two+ 0.00%. Bond margin 20x at 99th pct.
 
 $fn = 64;
 

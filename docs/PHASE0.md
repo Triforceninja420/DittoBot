@@ -1,5 +1,13 @@
 # DittoBot / Voxel Box — Phase 0 Single-Face Demonstrator
 
+## Executive Summary
+
+- **Problem:** Prove one docking face works in hardware before committing to the 25 mm lattice.
+- **Approach:** 30 mm 6061-T6 plate, NdFeB N52 magnet, dual staggered 8 mm cams, two hardened steel latch pins, 5 N seating spring, six pogo contacts.
+- **Key numbers:** Snap 34.6 N. Soft-dock ≥90% at ≤2.5 mm. Shear 5 028 N simulated (40 N target). Release net +65.7 N. Thermal <1.5 K at 0.44 W. Mass 9.2 g. Cycles locked at 2 000 (3 000 stretch goal).
+- **Open risks:** Epoxy is the only aging component. First-article metrology and tip-bond pull test are recommended before full stack-up. Native STEP/IGES and KiCad exports are honest gaps.
+- **Status:** Frozen until measured ON/OFF/current/temperature/cycle data are published. Revision 2026-11-21.
+
 Design owned by Craig. Started Nov/Dec 2025. Programmable matter.
 
 **This file is the locked 30 mm dual-cam face.**
@@ -355,5 +363,4 @@ From `docs/LOCKS.md`. These do not edit pockets, winding, cams, or the seven tes
 6. Pulse on the bench fixture. Record peak I, snap N, release N, cam function.
 7. Wire the Pico protoboard to the netlist.
 8. Soak 1.25 A / 10 min, log temperature.
-9. Run 2 000 dock/undock cycles. Log cam tip wear. 3 000 is optional if epoxy or tip backup is upgraded.
-10. Publish measurements. Then talk about shrinking the lattice.
+9. Run 2 000 dock/undock cycles. Log cam tip wear.
