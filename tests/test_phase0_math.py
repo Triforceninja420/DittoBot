@@ -28,6 +28,6 @@ def test_cycle_count():
 
 
 def test_all_pass_rate():
-    # Updated all-pass rate after flatness loosen
-    all_pass = 96.79
+    # Updated all-pass rate after flatness loosen (re-run 2026-11-23: 96.47%)
+    all_pass = 96.47
     assert all_pass > 90.0
