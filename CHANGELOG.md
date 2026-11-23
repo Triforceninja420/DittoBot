@@ -1,6 +1,7 @@
 # Changelog
 
 ## 2026-11-23
+- Sync all-pass rate 96.79% → 96.47% across test_phase0_math.py, cad/voxel_cell_phase0_30mm_dualcam.scad header, and docs/PHASE0.md after fresh 100k-trial re-run (T1 99.98, T2 99.41, T3 97.70, T4 99.39, T5 99.96).
 - Fix phase0_monte_carlo.py: broken counts line in main() replaced with per-test tally (T1–T5) plus all-pass rate over 100k seeded trials.
 - Correct README: test count was 16, actual is 5 Phase 0 math tests — updated status line, CI description, and added phase0 sim to start-here table and layout.
 - Repo polish: root README cleaned (layout section, CI/tests/sims status lines, traceable sim link). docs/README.md converted to tables for scanability. Mars bacteria spec synced to v1.3 with backsolved parameters. mars_bacteria_swarm_sim.py pushed to sims/ — seeded, re-runnable, 240 runs, 73% clear rate, mean 311 sols.
