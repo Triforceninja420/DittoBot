@@ -1,1 +1,0 @@
-open('/home/workdir/attachments/BRANCH_NAME.txt').read()
