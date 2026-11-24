@@ -10,9 +10,9 @@ The parallel UNSCORED package is `sims-local/branch_A_t66u_fit/` (`sens/v2.10-ox
 
 ## Fitting basis
 
-ISS detection-floor bound. A three-year ISS exposure of ~715 mGy showed no measurable survival effect. Mars surface background is 76–96 mGy/year. Over a 200-sol run (≈ 0.563 Earth years) that is ~43–54 mGy, about 13–17× (≥~13×) below the ISS anchor, so the override is 1.0 (no oxidative/radiation survival penalty) in every cell.
+ISS detection-floor reference. A three-year ISS exposure of ~715 mGy showed no measurable survival effect. Mars surface background is 76–96 mGy/year. Over the 200-sol doubling-time calibration horizon (≈ 0.563 Earth years), that is ~43–54 mGy, about 13–17× below the ISS anchor. This is not the ensemble run duration: the reported slowest-cell median is 1,162 sols, and runs can continue up to 200,000 sols.
 
-The model has no per-tier or per-perch mGy dose rates in this frame — only that single surface-background band. Under it, every cell is below the 715 mGy anchor, so every entry is 1.0. This is a uniform bound, not a true per-cell fit. The retired v2.2 0.1–1.0 Gy/sol stack is a different, much higher assumed dose (20–200 Gy over 200 sols, ~28–280× above the anchor) and is not used here; if it were, the detection-floor rule would not grant 1.0.
+The model has no per-tier or per-perch mGy dose rates in this frame — only that single surface-background band. Holding every override at 1.0 throughout longer runs is an additional UNSCORED no-penalty sensitivity assumption, not a demonstrated below-anchor bound or a true per-cell fit. The retired v2.2 0.1–1.0 Gy/sol stack is a different, much higher assumed dose (20–200 Gy over 200 sols, ~28–280× above the anchor) and is not used here; if it were, the detection-floor rule would not grant 1.0.
 
 Hard-set override dict:
 
@@ -33,7 +33,7 @@ slowest-cell median 1,162 sols (moderate 1.50%)
 no failing runs
 ```
 
-Vs scored A (clears 240 240 240 240 231 231 231 240 240 240 240 230): 37 of 2,880 runs differ, exactly the 37 scored-A failures, all rescued.
+Vs scored A (clears 240 240 240 240 231 231 231 240 240 240 240 230): 37 of 2,880 runs change pass/fail outcome, exactly the 37 scored-A failures, all rescued. Clearance times and other outputs can also change in runs that clear under both configurations.
 
 At inoculum 2.5e13 (the knee; earlier UNSCORED wrapper on the same override values):
 
