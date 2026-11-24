@@ -14,16 +14,28 @@ v2.10 updates (2026-11-23, t65u) - two USER-CHOSEN levers on v2.9:
 1. SCAV_KG_P_PER_KG_DRY_PER_SOL 1e-3 -> 5e-3 (above the 2e-3 "top of
    Mars-plausible" bound set in v2.5). DOUBLING_SOLS re-solved at 5e-3 by
    the v2.5 200-sol criterion (baseline-driven).
-2. Per-cell oxidative override: moderate 1.50% only, 0.97 -> 0.99808
-   (OX_PERCELL_OVERRIDE, toggled by OX_PERCELL_OVERRIDE_ENABLED), data-fitted
-   (extrapolated) from D. radiodurans chronic-irradiation survival at 23 C;
-   range 0.99617-0.99986. See constants block for sources and mapping.
-   Other moderate cells stay 0.97; severe 0.99 unchanged.
+2. Per-cell oxidative override: all 12 (tier, perch) cells
+   (OX_PERCELL_OVERRIDE, toggled by OX_PERCELL_OVERRIDE_ENABLED).
+   UNSCORED sensitivity — not the canonical scored run (scored A = ox10).
+   This package hard-sets option (B), the ISS 3-year ~715 mGy
+   detection-floor bound, as 1.0 in every cell. That is a uniform bound,
+   not a true per-cell fit: the model has only the single Mars
+   surface-background dose band. A parallel UNSCORED package, option (A)
+   t66u slope fit, lives in sims-local/branch_A_t66u_fit/. This file
+   does not replace the scored ox10 defaults. See the constants-block
+   footnote.
 Hard 60% reductase floor locked. Everything else as v2.9. Setting scav 1e-3,
 D 8.82 and override off reproduces v2.9 bit-exactly.
 Provenance note on 0.97: introduced v1.6 as the "Radiation/UV oxidative load
 factor on survival (tier-scaled)" {1.0, 0.97, 0.93}; v2.0 lifted severe to
 0.99 as a tuning lever and left moderate at 0.97; never traced to data.
+v2.10 (2026-11-24): scored moderate 1.50% override moved 0.99808 -> 1.0
+and the t66u data-fitted (extrapolated) slope language was replaced by
+the ISS detection-floor framing (ox10 scored copy). Other v2.10 constants
+unchanged.
+v2.10 (2026-11-24, branch_B_iss_floor, UNSCORED): OX_PERCELL_OVERRIDE
+expanded to all 12 cells at the ISS detection-floor value 1.0 and
+hard-set as the active dict. Not the canonical scored run.
 
 v2.9 updates (2026-11-23) — thermal habitat model on v2.8:
 1. HABITAT_ENABLED with HABITAT_MODE per tier:
@@ -349,40 +361,89 @@ HABITAT_INTERIOR_C = 25.0
 HABITAT_RESTORES_PROTEOME = True
 DRAW_HIST_BINS = 1000
 OXIDATIVE_FACTOR = {"baseline": 1.0, "moderate": 0.97, "severe": 0.99}
-# --- v2.10 lever 2 (t66u): per-cell oxidative override, DATA-FITTED
-# (extrapolated) from published D. radiodurans chronic-irradiation survival
-# at 23 C. Applied to moderate 1.50% ONLY; every other cell keeps
-# OXIDATIVE_FACTOR[tier]. Supersedes the user-chosen 0.99 of t65u.
-# Sources: Venkateswaran et al. 2000, Appl Environ Microbiol 66:2620
-#   (https://pmc.ncbi.nlm.nih.gov/articles/PMC110589/): minimal medium,
-#   chronic 6,000 rad/h (60 Gy/h) at 23 C; "a dose of 0.3 Mrad was lethal
-#   to cells"; "all of the cells were dead by 96 h (576,000 rads)".
-#   Daly 2011 review, MMBR 75:133 (https://journals.asm.org/doi/full/
-#   10.1128/mmbr.00015-10): "a total delivered dose of 3 kGy (50 h at
-#   60 Gy/h) being lethal"; rich medium grows at 60 Gy/h "with no effect on
-#   its growth rate"; survives 5 kGy acute without lethality; D10 ~8 kGy.
-# Mapping ASSUMPTIONS: moderate tier = 0.5 Gy/sol (spec v2.2: >0.3 Gy/sol
-#   in a 0.1-1.0 Gy/sol stack); "lethal" = 5 log10 kill over 3 kGy, i.e.
-#   1.667e-3 log10/Gy, dose-proportional (no dose-rate sparing, no shoulder);
-#   radiation-driven ROS is the stressor the factor names. NO published curve
-#   was measured at moderate-tier dose rates (~3,000x below 60 Gy/h): this is
-#   an extrapolation, not a clean fit. Not fitted to sim outputs.
+# --- v2.10 lever 2 (2026-11-24, branch_B_iss_floor, UNSCORED):
+# per-cell oxidative override for ALL 12 (tier, perch) cells.
+# UNSCORED sensitivity — not the canonical scored run (scored A = ox10).
+# This package hard-sets option (B), the ISS 3-year ~715 mGy
+# detection-floor bound, as 1.0 in every cell. There is no mode flag.
+# A missing (tier, perch) key raises; no cell silently falls back to
+# OXIDATIVE_FACTOR[tier] while the override is enabled. The scored
+# ox10 file is unchanged. Option (A) is a parallel UNSCORED package
+# (sims-local/branch_A_t66u_fit/), not a flag in this file.
+#
+# Fitting basis (option B):
+#   ISS detection-floor bound: a three-year ISS exposure of ~715 mGy
+#   showed no measurable survival effect.
+#   Mars surface background radiation: 76-96 mGy/year.
+#   200 sols = 200 * 88775.244 s / 86400 s/day = 205.498 Earth days
+#   ≈ 205.5 d ≈ 0.5626 Earth years (sols per Earth year =
+#   365.25 * 86400 / 88775.244 ≈ 355.48), cited as ≈ 0.563 yr.
+#   Surface-background dose over a 200-sol run:
+#   76 mGy/yr * 0.563 yr ≈ 43 mGy, 96 mGy/yr * 0.563 yr ≈ 54 mGy
+#   (~43-54 mGy).
+#   That dose sits ~13-17x below the ISS anchor (715/54 ≈ 13.2,
+#   715/43 ≈ 16.6; ≥~13x), so the override is 1.0 (no oxidative/
+#   radiation survival penalty).
+#   The model has NO per-tier or per-perch mGy dose rates in this
+#   frame — only the single surface-background band above, which
+#   the ox10 footnote applied to "moderate-tier dose rates." Under
+#   that band every cell is below the 715 mGy anchor, so every
+#   entry is 1.0. This is a uniform bound, not a true per-cell fit.
+#   The retired v2.2 0.1-1.0 Gy/sol stack is a different, much
+#   higher assumed dose (20-200 Gy over 200 sols, ~28-280x above
+#   the ISS anchor) and is NOT used here; if it were, the
+#   detection-floor rule would not grant 1.0.
+#
+# Retired t66u fit constants are kept so the A-low / A-high
+# range-end ablations in main() still run. Those ablations still
+# retune only moderate 1.50% and keep the other 11 option-(B) keys
+# at 1.0.
 OX_FIT_DOSE_GY_PER_SOL = 0.5
 OX_FIT_SLOPE_LOG10_PER_GY = 5.0 / 3000.0
 OX_FIT_ACUTE_SLOPE_LOG10_PER_GY = 1.0 / 8000.0
 OX_MODERATE_FITTED = round(10.0 ** (-OX_FIT_DOSE_GY_PER_SOL * OX_FIT_SLOPE_LOG10_PER_GY), 5)
 OX_MODERATE_RANGE_LOW = round(10.0 ** (-1.0 * OX_FIT_SLOPE_LOG10_PER_GY), 5)          # 1.0 Gy/sol
 OX_MODERATE_RANGE_HIGH = round(10.0 ** (-0.5 * OX_FIT_ACUTE_SLOPE_LOG10_PER_GY), 5)   # acute D10
+
+
+def ox_all_cell_keys():
+    return [(tier, round(p, 2)) for tier in STRESS_TIERS for p in PERCH_LEVELS]
+
+
+# Hard-set option (B) as the active 12-entry dict. No mode flag.
+# Uniform 1.0 in every cell; not a true per-cell fit.
 OX_PERCELL_OVERRIDE_ENABLED = True
-OX_PERCELL_OVERRIDE = {("moderate", 1.50): OX_MODERATE_FITTED}
+OX_PERCELL_OVERRIDE = {
+    ("baseline", 0.50): 1.0,
+    ("baseline", 0.75): 1.0,
+    ("baseline", 1.00): 1.0,
+    ("baseline", 1.50): 1.0,
+    ("moderate", 0.50): 1.0,
+    ("moderate", 0.75): 1.0,
+    ("moderate", 1.00): 1.0,
+    ("moderate", 1.50): 1.0,
+    ("severe", 0.50): 1.0,
+    ("severe", 0.75): 1.0,
+    ("severe", 1.00): 1.0,
+    ("severe", 1.50): 1.0,
+}
+if any(v != 1.0 for v in OX_PERCELL_OVERRIDE.values()) or set(OX_PERCELL_OVERRIDE) != set(ox_all_cell_keys()):
+    raise RuntimeError("option B dict must be 1.0 for all 12 (tier, perch) keys")
 
 
 def ox_factor(tier, perch):
-    if OX_PERCELL_OVERRIDE_ENABLED:
-        v = OX_PERCELL_OVERRIDE.get((tier, round(perch, 2)))
-        if v is not None:
-            return v
-    return OXIDATIVE_FACTOR[tier]
+    if not OX_PERCELL_OVERRIDE_ENABLED:
+        return OXIDATIVE_FACTOR[tier]
+    key = (tier, round(perch, 2))
+    try:
+        return OX_PERCELL_OVERRIDE[key]
+    except KeyError as e:
+        raise KeyError(
+            f"OX_PERCELL_OVERRIDE missing {key}; all 12 (tier, perch) keys "
+            f"are required while the override is enabled "
+            f"(need {ox_all_cell_keys()}, have {sorted(OX_PERCELL_OVERRIDE)})"
+        ) from e
+
 
 # --- Nutrient inventory (ASSUMPTIONS, not measured) ---
 # Default volume is a 1000 km x 1000 km x 1 m regional rind (unchanged).
@@ -1436,6 +1497,7 @@ def _reasons(c):
 
 def print_gate_grid(title, cells):
     print(title)
+    print("  UNSCORED sensitivity — not the canonical scored run (scored A = ox10)")
     hdr = f"  {'tier':9s} {'gate':>5s}" + "".join(
         f"  {('%.2f%%' % p) + (' *' if p not in BRIEF_PERCH_LEVELS else ''):>16s}"
         for p in PERCH_LEVELS)
@@ -3358,11 +3420,17 @@ def _load_v29_reference():
 
 
 def main():
-    print("DB-MARS-CONV-006 v2.10 ensemble (t66u: scav 5e-3 + moderate 1.50% ox data-fitted)")
+    print("DB-MARS-CONV-006 v2.10 ensemble (UNSCORED sensitivity — not the canonical scored run (scored A = ox10); option B ISS detection-floor, uniform 1.0)")
     print(f"Runs/cell {N_RUNS}, seed {SEED}; habitat {HABITAT_ENABLED} {HABITAT_MODE}; "
           f"adaptive center {ADAPTIVE_SURVIVAL} [{ADAPTIVE_CENTER_MIN}, {ADAPTIVE_CENTER_MAX}]")
-    print(f"Override {OX_PERCELL_OVERRIDE} (DATA-FITTED, extrapolated; range {OX_MODERATE_RANGE_LOW}-{OX_MODERATE_RANGE_HIGH}); "
+    print(f"OX_PERCELL_OVERRIDE {OX_PERCELL_OVERRIDE} "
+          f"(hard-set option B: ISS detection-floor, 1.0 in every cell, not a true per-cell fit); "
           f"OXIDATIVE_FACTOR {OXIDATIVE_FACTOR}")
+    print("  per-cell ox_factor (option B, hard-set):")
+    for _tier in STRESS_TIERS:
+        for _p in PERCH_LEVELS:
+            print(f"    {_tier:8s} {_p:4.2f}%: {ox_factor(_tier, _p):.5f}  "
+                  f"(tier default {OXIDATIVE_FACTOR[_tier]})")
     print(f"N import {N_IMPORT_KG_PER_SOL:.4e}, recycle {RECYCLE_FRACTION:.0%}, P import "
           f"fallback {P_IMPORT_REALISTIC_MAX_KG_PER_SOL:.4e}; floor {HARD_REDUCTASE_FLOOR:.0%} "
           f"locked; gate {FREEZE_HARD_GATE} '{FREEZE_CONTROL_MODE}'")
@@ -3377,10 +3445,18 @@ def main():
               f"{chk['growth_end']} ({chk['reason']}), geo O2 target sol {chk['o2_target_sol']}")
     print(f"  DOUBLING_SOLS constant = {DOUBLING_SOLS}")
     print()
-    D5 = solved[5.0e-3]
-    assert abs(D5 - DOUBLING_SOLS) < 1e-9, (D5, DOUBLING_SOLS)
+    D5_resolved = solved[5.0e-3]
+    # The v2.5 baseline-driven re-solve can move if baseline ox leaves
+    # 1.0. Scored A doubling is HELD at DOUBLING_SOLS 8.72 so ensembles
+    # stay comparable to ox10.
+    print(f"  Re-solve at current ox_factor(baseline, 0.50)="
+          f"{ox_factor('baseline', 0.50):.5f} gives D={D5_resolved:.2f}; "
+          f"scored DOUBLING_SOLS={DOUBLING_SOLS} is HELD.")
+    if abs(D5_resolved - DOUBLING_SOLS) >= 1e-9:
+        print("  NOTE: not updating DOUBLING_SOLS; run_config uses 8.72.")
+    D5 = DOUBLING_SOLS
     D1 = 8.82
-    A = run_config("A COMBINED (scored)", 5.0e-3, D5, True)
+    A = run_config("A COMBINED (UNSCORED)", 5.0e-3, D5, True)
     print("A survival draw distribution:")
     draw_rows(A)
     print()
@@ -3388,7 +3464,9 @@ def main():
     C = run_config("C ablation: ox 0.97, scav 5e-3 kept", 5.0e-3, D5, False)
     R = run_config("REF v2.9 (neither lever)", 1.0e-3, D1, False)
     for lab, v in (("A-low", OX_MODERATE_RANGE_LOW), ("A-high", OX_MODERATE_RANGE_HIGH)):
-        with with_globals(OX_PERCELL_OVERRIDE={("moderate", 1.50): v}):
+        ov = dict(OX_PERCELL_OVERRIDE)
+        ov[("moderate", 1.50)] = v
+        with with_globals(OX_PERCELL_OVERRIDE=ov):
             run_config(f"{lab} range end ox {v}, scav 5e-3", 5.0e-3, D5, True)
     v29 = _load_v29_reference()
     ref = v29.run_ensemble("v29")
@@ -3422,7 +3500,7 @@ def main():
         r, a, m, tot, c = proteome_levels(STRESS_FACTOR[tier], tier_prot_cold(tier))
         print(f"  {tier:9s} reductase {r:.2f} total_het {tot:.4f}")
     allp = all(c["passed"] for c in A.values()) and sum(c["freeze_cross"] for c in A.values()) == 0
-    print(f"ALL GATES (A SCORED): {'PASS' if allp else 'FAIL'}")
+    print(f"ALL GATES (A COMBINED, UNSCORED sensitivity — not the canonical scored run (scored A = ox10); option B ISS floor): {'PASS' if allp else 'FAIL'}")
     print()
     run_lattice_horizon()
 
