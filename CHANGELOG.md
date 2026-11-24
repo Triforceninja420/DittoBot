@@ -1,5 +1,11 @@
 # Changelog
 
+## 2026-11-24
+- DB-MARS-CONV-006 v2.10 standalone sim pushed: scavenging 5e-3 (above 2e-3 plausible ceiling), D re-solved to 8.72 sols; per-cell oxidative override on moderate 1.50% only, 0.97 -> 0.99808, data-fitted extrapolated from D. radiodurans chronic-irradiation survival (Venkateswaran 2000; Daly 2011). 12/12 cells ALL GATES PASS, 0 freeze crossings, 0 chlorite hits across 2,880 runs (seed 42). Ablations: scav 1e-3 + fitted ox 12/12; ox 0.97 + scav 5e-3 12/12; REF v2.9 bit-exact reproduction (0/2,880 differing runs). Old sims (base, v2.1) moved to retired/. File: sims/mars_bacteria_swarm_sim_v2_10.py. README sim link corrected from v210 to v2_10.
+- Phase 0 face rev 2026-11-24: dust-shield groove (OD 2.60, depth 0.30), proud lip (OD 3.00, height 0.40), BeCu wiper blade (0.15 thick, 2.20 wide, 0.50 proud), interlock barb (0.25 undercut at 1.5 mm, 0.40 axial height). Dock model: wiper alone clears 12 yrs (tear 20.99); stacked wiper+interlock 22.06 yrs at 8-yr tau. Dimensions and CAD headers synced.
+- Option A release spec added at docs/OPTION_A_RELEASE_SPEC.md; short stub removed. 25 mm M4/M8 bars reframed off retired cam numbers.
+- docs/README.md duplicate removed (byte-identical to root README).
+
 ## 2026-11-23
 - LAT_OFFSET_SIGMA_MM 0.65 → 0.55 in phase0_monte_carlo.py: all-pass 96.62% → 98.04%, T3 97.87% → 99.30%, T3 fails 2 133 → 702 (100k trials). Synced test_phase0_math.py, cad/voxel_cell_phase0_30mm_dualcam.scad header, and docs/PHASE0.md.
 - T3 failure forensics in phase0_monte_carlo.py: logs shear misses with relative velocity, lateral offset, capture-spring rate; ranks top 10 by composite score (vel 0.45, offset 0.35, spring deficit 0.20). Shear model now degrades with velocity and offset, improves with spring seating force.
