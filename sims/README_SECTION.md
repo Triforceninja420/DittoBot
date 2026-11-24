@@ -33,7 +33,7 @@ slowest-cell median 1,162 sols (moderate 1.50%)
 no failing runs
 ```
 
-Vs scored A (clears 240 240 240 240 231 231 231 240 240 240 240 230): 37 of 2,880 runs differ, exactly the 37 scored-A failures, all rescued.
+Vs scored A (clears 240 240 240 240 231 231 231 240 240 240 240 230): 37 of 2,880 runs change pass/fail outcome, exactly the 37 scored-A failures, all rescued. Clearance times and other outputs can also change in runs that clear under both configurations.
 
 At inoculum 2.5e13 (the knee; earlier UNSCORED wrapper on the same override values):
 
