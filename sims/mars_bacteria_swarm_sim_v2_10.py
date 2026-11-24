@@ -1,1 +1,1 @@
-$(cat /workspace/attachments/mars_bacteria_swarm_sim_v2_10.py)
+PLACEHOLDER_TO_REPLACE
