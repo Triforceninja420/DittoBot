@@ -1,12 +1,13 @@
 // ====================================================================
 // Project: DittoBot / Voxel Box
-// Component: Phase 0 Face — 20 mm single-magnet latch (rev 2026-11-23)
+// Component: Phase 0 Face — 20 mm single-magnet latch (rev 2026-11-24)
 // Design owned by Craig. Programmable matter. Paper only until measured.
 //
 // Envelope: 20.00 x 20.00 mm, 7075-T6 (upgraded from 6061-T6), 1.00 mm nominal
 // Magnet: Nd disc Ø6.0 x 2–3 mm, axial, centered. Coil around disc = release only.
 // Driver: DRV8871 (VM 6.5–45 V abs max; prefer ≤42 V from pulse bank)
 // Pins: 3x hardened steel, Ø1.80 mm, bore Ø1.85 mm, 3.0 mm engagement
+//        + 0.25 mm undercut barb at 1.5 mm depth for mechanical interlock
 // Springs: 4x non-magnetic phosphor-bronze or BeCu, 0.25 N/mm each
 //          (1.0 N/mm total), 5 mm preload → 5.00 N seating force
 // Contacts: 6x pogo/leaf on hex ring r=3.50 mm
@@ -14,6 +15,12 @@
 // Capture: ±2.00 mm lateral, ±6-7 deg, chamfer 1.0 mm + side ridges 1.0x1.0 mm
 // Tolerance budget: 0.42 mm approach placement at 1-sigma
 // Cams: REMOVED — 16 mm cams did not fit on 20 mm face
+//
+// Dock durability (Jaden thermal model, 8-yr dust-static tau):
+//   Baseline: unlock 5.39 yrs, tear 10.78 yrs
+//   Wiper alone: tear 20.99 yrs (wiper removes >10% fouling/cycle)
+//   Stacked (wiper + interlock): tear 22.06 yrs, unlock 11.03 yrs
+//   Wiper is primary; interlock is retention insurance if magnet degrades
 //
 // Phase 0 gates (header matches MEASUREMENT_CARD / LOCKS):
 //   T3 lat ≤ 1.5 mm | vel ≤ 0.5 m/s | spring 5.00 N | shear bar 40 N
@@ -48,6 +55,22 @@ pin_engagement = 3.0;
 pin1 = [2.5, 1.5];
 pin2 = [-2.5, -1.5];
 pin3 = [0, -3.0];
+
+// Interlock barb (mechanical retention backup)
+barb_depth = 0.25;      // undercut below pin OD
+barb_from_tip = 1.5;    // barb sits 1.5 mm from pin tip
+barb_h = 0.40;          // axial height of barb land
+
+// Dust shield groove around each pin bore
+groove_d = 2.60;       // groove OD (recess)
+groove_depth = 0.30;   // how deep the groove is cut into face
+lip_od = 3.00;         // proud lip around groove
+lip_h = 0.40;          // lip height above face
+
+// Wiper blade (on mating face, sweeps groove on dock)
+wiper_t = 0.15;        // blade thickness (BeCu, flexible)
+wiper_w = 2.20;        // blade width, spans groove
+wiper_protrude = 0.50; // how far blade stands proud of mating face
 
 spring_k = 0.25; // N/mm per spring; 4 springs = 1.0 N/mm total
 spring_preload = 5.0; // mm → 5.00 N seating force
@@ -94,9 +117,23 @@ module magnet_pocket() {
     cylinder(d=pocket_d, h=pocket_depth, center=true);
 }
 
-// ---------- Latch pins (3) ----------
+// ---------- Latch pins (3) with interlock barb ----------
 module pin_bore_hole() {
     cylinder(d=pin_bore, h=plate_t+1, center=true);
+}
+
+// Dust-shield groove: annular recess around bore, plus proud lip
+module dust_shield_groove() {
+    // recessed groove
+    difference() {
+        cylinder(d=groove_d, h=groove_depth, center=false);
+        cylinder(d=pin_bore, h=groove_depth+0.1, center=false);
+    }
+    // proud lip ring
+    difference() {
+        cylinder(d=lip_od, h=lip_h, center=false);
+        cylinder(d=groove_d-0.2, h=lip_h+0.1, center=false);
+    }
 }
 
 // ---------- Springs (4, BeCu/phosphor-bronze, non-magnetic) ----------
@@ -133,6 +170,14 @@ module capture_features() {
     }
 }
 
+// ---------- Wiper blade (mating-face side, sweeps dust-shield groove) ----------
+module wiper_blade() {
+    color("SteelBlue")
+    // thin flexible BeCu blade standing proud of mating face
+    translate([0, 0, plate_t/2 + wiper_protrude/2])
+    cube([wiper_w, wiper_t, wiper_protrude], center=true);
+}
+
 // ---------- Assembly ----------
 difference() {
     union() {
@@ -141,6 +186,12 @@ difference() {
         coil();
         seating_spring_proxy();
         capture_features();
+        // dust-shield grooves + lips around each pin bore (on docking face, +Z)
+        translate([pin1[0], pin1[1], plate_t/2]) dust_shield_groove();
+        translate([pin2[0], pin2[1], plate_t/2]) dust_shield_groove();
+        translate([pin3[0], pin3[1], plate_t/2]) dust_shield_groove();
+        // wiper blade on mating face
+        wiper_blade();
     }
     magnet_pocket();
     // pin bores (3) — pair + third opposite
