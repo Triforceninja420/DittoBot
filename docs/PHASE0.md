@@ -19,7 +19,7 @@ It is **not** the 25 mm cubic cell in this repository (`README.md`, `docs/BASELI
 Do not paste 25 mm coil, driver, magnet, or hold numbers into this document.
 Do not paste these Phase 0 numbers into the 25 mm files.
 
-> **Option A note (2026-11-23, Craig):** Phase 0 release is the sliding-pin architecture defined in `docs/OPTION_A.md` — magnet-pull retention (≥ 1.8 N), single Ø2.0 mm sliding pin, no cams on the face. Cams are deferred to Option A / the 25 mm cell and documented as superseded in `docs/GATE5_SUPERSEDED.md`.
+> **Option A note (2026-11-23, Craig):** Phase 0 release is the sliding-pin architecture defined in `docs/OPTION_A_RELEASE_SPEC.md` — magnet-pull retention (≥ 1.8 N), single Ø2.0 mm sliding pin, no cams on the face. Cams are deferred to Option A / the 25 mm cell and documented as superseded in `docs/GATE5_SUPERSEDED.md`.
 
 Public parent: `DittoBot_Phase0_Face_Public_Spec.docx`  
 CAD / SOP / BOM / sims: `Phase0_Independent_Fab_Package/` (v0.2, 2026-09-08)  
