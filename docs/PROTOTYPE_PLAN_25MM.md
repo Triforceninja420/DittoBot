@@ -6,6 +6,8 @@ Credit follows measured data. Sim numbers are the bar, not the credit.
 This file covers the **first 25 mm article only**. Phase 0 20 mm face metrology
 is the current plan: see `docs/PROTOTYPE_PLAN.md` (Phase 0, rev 2026-11-23b). This file moved from `docs/PROTOTYPE_PLAN.md` on 2026-11-23.
 
+Release architecture: see `docs/OPTION_A_RELEASE_SPEC.md` (sliding-pin, magnet-pull retention, no cams).
+
 ---
 
 ## 1. What to build
@@ -14,7 +16,7 @@ One 25 mm cubic cell per `cad/voxel_cell.scad` and `bom/bom_netlist.txt`:
 
 - Nd disc Ø6.0 × 2–3 mm in the locked Ø8.2 × 4.0 pocket (coil around disc, release-only)
 - Parallel 2–4× AWG 36 coil, counted turns, pulse-only via DRV8871
-- Axial pin Ø1.5–2.0 mm hard-lock
+- Axial pin Ø1.5–2.0 mm hard-lock (Option A sliding release)
 - Full cavity potting, PTFE lip + coatings
 - XIAO RP2040 + thermal governor firmware (`firmware/pulse_driver.cpp`)
 - 36 V nominal pulse bank (polypropylene film, ≤ 42 V into driver)
@@ -26,11 +28,11 @@ One 25 mm cubic cell per `cad/voxel_cell.scad` and `bom/bom_netlist.txt`:
 | M1 | Magnet axial field at pocket face | Gaussmeter at 0.5 mm gap on mild steel | ≥ snap target |
 | M2 | Coil DC resistance | 4-wire at room temp | ~0.74 Ω (2× AWG 36 parallel est.) |
 | M3 | ON force (snap) | Force gauge, axial, 0.5 mm gap | 34.6 N sim bar |
-| M4 | OFF force (release) | Same fixture, pulse at I_release | net +65.7 N sim bar |
+| M4 | OFF force (release) | Same fixture, pulse at I_release | Per `OPTION_A_RELEASE_SPEC.md` — magnet-pull retention, not cam torque |
 | M5 | Peak pulse current | INA219 or shunt + scope | ≤ 3.6 A DRV8871 peak |
 | M6 | Plate temperature after 10 min at 1.25 A | TMP117 / NTC log | ≤ 41 °C skin cap |
 | M7 | Pin engagement | Depth gauge / witness marks | ≥ 2.5–3.0 mm |
-| M8 | 2 000 dock/undock cycles | Automated fixture or manual log | cam tip wear ≤ 0.19 µm sim |
+| M8 | 2 000 dock/undock cycles | Automated fixture or manual log | Pin wear TBD after first article (cam-tip bar retired) |
 | M9 | Contact resistance across face bus | Kelvin at 1.25 A | TBD after first measurement |
 
 ## 3. Fixtures
@@ -47,6 +49,7 @@ One 25 mm cubic cell per `cad/voxel_cell.scad` and `bom/bom_netlist.txt`:
 - No Alnico on this cell. Nd disc only.
 - No enlarging the Ø8.2 pocket.
 - No mixing Phase 0 20 mm numbers into this build.
+- No cam-torque bars. Option A is sliding-pin only.
 
 ## 5. Exit criteria
 
