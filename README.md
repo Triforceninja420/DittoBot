@@ -34,11 +34,11 @@ Design owned by Craig. Programmable matter voxel lattice. 25 mm cell is the main
 
 ## Re-runnable sims
 
-- [sims/mars_bacteria_swarm_sim_v210.py](../sims/mars_bacteria_swarm_sim_v210.py) — Standalone traceable Monte Carlo for DB-MARS-CONV-006. Seeded RNG, documented backsolved parameters, 240 runs. v2.10: 12/12 cells, ALL GATES PASS under insulated/heated shells with grounded Deinococcus cold data and oxidative refit from published survival curves. Five cells controller-dependent; scavenging at 5e-3 empties soil P pool — flagged, not hidden. Published imperfect, tweakable.
+- [sims/mars_bacteria_swarm_sim_v2_10.py](../sims/mars_bacteria_swarm_sim_v2_10.py) — Standalone traceable Monte Carlo for DB-MARS-CONV-006. Seeded RNG, documented backsolved parameters, 240 runs. v2.10: 12/12 cells, ALL GATES PASS under insulated/heated shells with grounded Deinococcus cold data and oxidative refit from published survival curves. Five cells controller-dependent; scavenging at 5e-3 empties soil P pool — flagged, not hidden. Published imperfect, tweakable. Also sims/phase0_monte_carlo.py for the DittoBot Phase 0 docking confirmation Monte Carlo.
 
 ---
 
 Paper until measured. Credit follows data.
 DittoBot is the main design. Mars path is an inheritance and extension of it.
 
-Funky fresh as of 2026-11-23.
+Funky fresh as of 2026-11-24.
