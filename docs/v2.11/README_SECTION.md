@@ -1,1 +1,0 @@
-open('/home/workdir/attachments/README_SECTION.md').read()

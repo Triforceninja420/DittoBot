@@ -1,1 +1,0 @@
-open('/home/workdir/attachments/COMMIT_MSG_m050_0979.txt').read()
