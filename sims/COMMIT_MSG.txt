@@ -1,0 +1,7 @@
+v2.10 UNSCORED sensitivity (not the canonical scored run; scored A = ox10): expand OX_PERCELL_OVERRIDE to all 12 (tier, perch) cells using the retired t66u extrapolated-slope fit and hard-set it as the active dict.
+
+ox = round(10**(-dose(tier)*(5/3000)), 5) with dose baseline 0.1, moderate 0.5, severe 1.0 Gy/sol (perch unused). Yields 0.99962 / 0.99808 / 0.99617. Missing keys raise; no silent fallback. DOUBLING_SOLS held at 8.72. Parallel UNSCORED branch: sens/v2.10-ox-iss-floor (ISS detection-floor, uniform 1.0).
+
+At 1e12, seed 42, 240 runs/cell, scav 5e-3, D 8.72: 12/12 pass, freeze 0/2880, ALL GATES PASS, clears 240 240 240 240 240 240 240 228 240 240 240 229 (23 extinctions). CONTROL still reproduces v2.9 (0/2880). Rescues moderate 0.50/0.75/1.00 vs scored A but leaves moderate 1.50 at 228 and severe 1.50 at 229. At the 2.5e13 knee: 12x240, margin only.
+
+Inoculum/seed checks (scored-A config, not re-run on this override): the eight unaided cells stay 240 down to 1e6; the four binding cells pass at 1e9 (154/240) and fail the moderate 60% gate at 1e8 and below. At 1e12, seeds 42/1/7/123/2024 all pass gates on those four cells (225-233/240); failures are a shared 7-16-index bad-draw set, not r55-only.
