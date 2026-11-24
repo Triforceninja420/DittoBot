@@ -11,12 +11,12 @@ How the programmable-matter lattice scales to Mars surface ops and long-term gre
 | DB-MARS-SEED-001 | [mars-seed-bot-spec-v1.md](mars-seed-bot-spec-v1.md) | 1 kg seed: Fresnel lens + magnetic rake + toaster kiln. Self-replicates from regolith. | 10–14 sols/copy (conservative) |
 | DB-MARS-ICE-001 | [mars-ice-mining-spec-v1.md](mars-ice-mining-spec-v1.md) | Orbital scouting (HiRISE/SHARAD) + scoop/hopper mining. | 3,500 t water/sol @ 1,000 bots |
 | DB-MARS-CONV-001 | [mars-co2-o2-converter-spec-v1.md](mars-co2-o2-converter-spec-v1.md) | SOEC @ 800 °C baseline. 50 kW, 2.5 kg O₂/sol. | 26×10⁶-fold shortfall → drives v2 |
-| DB-MARS-CONV-002 | [mars-high-output-converter-spec-v1.md](mars-high-output-converter-spec-v1.md) | Vertical towers @ 1,100 °C. ~2,700 towers. | 112-yr claim retracted (37,000 Earth yr real) |
+| DB-MARS-CONV-002 | [mars-high-output-converter-spec-v2.md](mars-high-output-converter-spec-v2.md) | Vertical towers @ 1,100 °C. ~2,700 towers. | 112-yr claim retracted (37,000 Earth yr real) |
 | DB-MARS-CONV-003 | [mars-co2-o2-converter-spec-v3.md](mars-co2-o2-converter-spec-v3.md) | 50× @ 1,400 °C. 1,760 towers, 74 GW. | Habitat-scale O₂ only |
 | DB-MARS-CONV-004 | [mars-co2-o2-converter-spec-v4.md](mars-co2-o2-converter-spec-v4.md) | Distributed matrix pivot. 50×10⁹ units, 1 PW, 0.3% surface. | ~260 sols base w/ governors |
 | DB-MARS-CONV-005 | [mars-conv-005-dual-path-strategy.md](mars-conv-005-dual-path-strategy.md) | Water-splitting primary + Phobos carbon import. | 12 TW → ~100 Earth yr |
 | DB-MARS-GOV-001 | [mars-swarm-governors-spec-v1.md](mars-swarm-governors-spec-v1.md) | Density + power governors. | 15 runs, worst 309 sols |
-| **DB-MARS-CONV-006** | **[mars-bacteria-swarm-spec-v1.md](mars-bacteria-swarm-spec-v1.md)** | **Engineered cyanobacteria (6 edits). Zero power.** | **v1.3: 240/240 runs, 100% clear, mean 238 sols** |
+| **DB-MARS-CONV-006** | **[mars-bacteria-swarm-spec-v1.md](mars-bacteria-swarm-spec-v1.md)** | **Engineered cyanobacteria (6 edits). Zero power.** | **v2.1: 9/9 cells, 240/240, ALL GATES PASS. Severe 1.0% mean 132 sols.** |
 
 ## Role vs main DittoBot
 

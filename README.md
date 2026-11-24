@@ -34,7 +34,7 @@ Design owned by Craig. Programmable matter voxel lattice. 25 mm cell is the main
 
 ## Re-runnable sims
 
-- [sims/mars_bacteria_swarm_sim.py](../sims/mars_bacteria_swarm_sim.py) — Traceable Monte Carlo for DB-MARS-CONV-006. Seeded RNG, documented backsolved parameters, 240 runs.
+- [sims/mars_bacteria_swarm_sim_v21.py](../sims/mars_bacteria_swarm_sim_v21.py) — Traceable Monte Carlo for DB-MARS-CONV-006. Seeded RNG, documented backsolved parameters, 240 runs. v2.1: 9/9 cells, 240/240, ALL GATES PASS.
 
 ---
 
