@@ -1,0 +1,1 @@
+open('/home/workdir/attachments/mars_bacteria_swarm_sim_v2_11_m050_0979.py').read()
