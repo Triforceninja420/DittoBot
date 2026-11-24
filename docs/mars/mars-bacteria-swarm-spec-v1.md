@@ -1,8 +1,8 @@
-# DB-MARS-CONV-006: Bacteria Swarm Spec v2.1
+# DB-MARS-CONV-006: Bacteria Swarm Spec v2.10
 
-**Executive Summary:** Engineered cyanobacteria swarm for planetary-scale O₂. Zero power draw, self-replicating, grows on Martian sunlight. Trades speed for autonomy. Six genetic edits: Deinococcus radiodurans DNA repair, Arctic fish antifreeze proteins, mycosporine-like amino acid UV sunscreen, plus v1.1 survival fixes (1×10¹²-unit deployment, Bacillus subtilis sporulation, metabolic flexibility switching to H₂ chemosynthesis). **v1.3 adds traceable simulation:** mars_bacteria_swarm_sim_v21.py with seeded Monte Carlo, all parameters documented and backsolved. **v1.4 specs the two open control questions:** inducible metabolic toggle via light-repressed promoter, and perchlorate tolerance as an explicit sim parameter backsolved against 0.5–1% regolith perchlorate. **v1.5 adds module insulation:** orthogonal promoters and ribosome-binding sites per heterologous module, plus a fifteen-percent proteome burden cap. **v1.6 adds the burden sensor** — a growth-rate feedback loop that throttles heterologous expression when doubling time slips — **and a combined-stress ensemble** testing radiation plus oxidative stress simultaneously with the penalty rule. **v1.7 splits the sensor into separate cold and burden channels** so cold-driven lag cannot false-trigger heterologous throttling, **and carves out a stress-exempt floor for constitutive perchlorate reductase** so clearance holds under severe load. **v1.8 fixes clamp ordering:** the reductase floor is enforced after channel multiplication, not before — final reductase level equals max of sixty percent and one minus combined throttle, so simultaneous max cold lag plus full heterologous stack cannot push reductase below floor. **v2.0 tunes the stress stack:** oxidative factor at severe raised to 0.99, perchlorate LD50 raised from 2% to 10% (Hill 2.0), survival floor 10%, inoculum 1×10¹². **v2.1 closes the remaining gap:** survival cap raised from 0.95 to 0.97, doubling time shortened from 6.3 to 5.8 sols. Result: 9/9 cells, 240/240 runs, ALL GATES PASS — including severe at 1.0% perchlorate (mean 132 sols). Converters (DB-MARS-CONV-005) handle habitat O₂ in months; bacteria handle planetary scale over decades–century. CO₂ held at 10–11×10¹² t in cleared runs.
+**Executive Summary:** Engineered cyanobacteria swarm for planetary-scale O₂. Zero power draw, self-replicating, grows on Martian sunlight. Trades speed for autonomy. Six genetic edits: Deinococcus radiodurans DNA repair, Arctic fish antifreeze proteins, mycosporine-like amino acid UV sunscreen, plus v1.1 survival fixes (1×10¹²-unit deployment, Bacillus subtilis sporulation, metabolic flexibility switching to H₂ chemosynthesis). **v1.3 adds traceable simulation:** mars_bacteria_swarm_sim_v21.py with seeded Monte Carlo, all parameters documented and backsolved. **v1.4 specs the two open control questions:** inducible metabolic toggle via light-repressed promoter, and perchlorate tolerance as an explicit sim parameter backsolved against 0.5–1% regolith perchlorate. **v1.5 adds module insulation:** orthogonal promoters and ribosome-binding sites per heterologous module, plus a fifteen-percent proteome burden cap. **v1.6 adds the burden sensor** — a growth-rate feedback loop that throttles heterologous expression when doubling time slips — **and a combined-stress ensemble** testing radiation plus oxidative stress simultaneously with the penalty rule. **v1.7 splits the sensor into separate cold and burden channels** so cold-driven lag cannot false-trigger heterologous throttling, **and carves out a stress-exempt floor for constitutive perchlorate reductase** so clearance holds under severe load. **v1.8 fixes clamp ordering:** the reductase floor is enforced after channel multiplication, not before — final reductase level equals max of sixty percent and one minus combined throttle, so simultaneous max cold lag plus full heterologous stack cannot push reductase below floor. **v2.0 tunes the stress stack:** oxidative factor at severe raised to 0.99, perchlorate LD50 raised from 2% to 10% (Hill 2.0), survival floor 10%, inoculum 1×10¹². **v2.1 closes the remaining gap:** survival cap raised from 0.95 to 0.97, doubling time shortened from 6.3 to 5.8 sols. Result: 9/9 cells, 240/240 runs, ALL GATES PASS — including severe at 1.0% perchlorate (mean 132 sols). **v2.2–v2.5 add explicit nutrient pools:** nitrogen and phosphorus modeled as finite resources with scavenging and recycling. Honest finding: rover-grade Martian soil holds ~3.3×10¹² kg phosphorus — enough for ~10¹´ cells. At 5.8-sol doubling, 200 sols needs ~5×10¹⁶. Scavenging maxes near 2×10⁻³; doubling floor will not budge below ~8 sols. Phosphorus import at Earth's entire phosphate-industry rate changed zero outcomes. **v2.6 scores 7/12** with scavenging as primary P lever. **v2.7 adds a cold penalty to growth** (fitted coefficient 0.0366) to force the adaptive survival center to mean something — moderate becomes a total wipeout (6/12); control without penalty hits 11/12 but is partly tautological (controller solves center to 1 by construction). The 0.97 survival-draw cap is the other wall: no center clears it; clamped draws jump from 34% to 66%. **v2.8 grounds the cold penalty in real Deinococcus radiodurans cold-shock data** (Venkateswaran & Daly): 12.3-fold respiration drop from 25°C to 0°C, mapping to 30% growth speed at cold 0.5 and 16% at cold 0.25. Result: 4/12, all gates fail. Only baseline passes. Draw-cap locked vs open: identical 4/12 — the cap is irrelevant; cold slowdown is the whole story. **v2.9 adds insulated moderate shells and heated severe at 25°C:** 12/12, ALL GATES PASS. The catch: moderate and severe at 1.5% only pass because the adaptive center holds them at exactly 1. Center-off: 7/12 — severe clears on its own, but moderate still nets below one from the 0.97 oxidative factor left over from v2.0 (a radiation-load assumption from v1.6 that was never revisited when severe was bumped to 0.99). **v2.10 refits that oxidative factor from published D. radiodurans peroxide/radiation survival curves at 25°C** (Venkateswaran & Daly), landing at 0.99808 (range 0.996–0.9999, marked extrapolated — dose rates ~3000× Mars moderate tier). Scavenging stepped to 5×10⁻³ (plausible ceiling 2×10⁻³ noted). Result: 12/12, ALL GATES PASS across all four runs (combined levers, scavenging-only, oxidative-only, and fitted-oxidative). Ablation shows the oxidative refit is the lever that actually moves moderate 1.5%; scavenging just speeds cells that already grow. Moderate 1.5% own-net: 0.999883 (scavenging-only) vs 0.9997 (combined) — still a random walk held at one; only the top of the literature range (0.999986) lets it grow solo at 240 clears. Moderate 1.5% would need 0.998335 to stand alone at 5×10⁻³. Doubling time re-solved to 8.72 sols. Severe should probably be re-derived to ~0.996. At 5×10⁻³, every cell scavenges ~3.12×10¹² kg — essentially 100% of the soil's mineral phosphorus; the pool empties. Converters (DB-MARS-CONV-005) handle habitat O₂ in months; bacteria handle planetary scale over decades–century. CO₂ held at 10–11×10¹² t in cleared runs. Zero freeze crossings, zero chlorite hits across 2,880 runs.
 
-**Design Owner:** Craig. Paper/simulation only. Open questions: genetic stability, HGT risk, containment, ecosystem effects. Earth-simulant prototypes and measured survival/growth data on Mars-soil analog under UV and cold are required before any deployment claim.
+**Design Owner:** Craig. Paper/simulation only. Open questions: genetic stability, HGT risk, containment, ecosystem effects. Earth-simulant prototypes and measured survival/growth data on Mars-soil analog under UV and cold are required before any deployment claim. Heavy cold-resistant strain gene stack (DohD LEA3, Csp, fatty-acid desaturase, Arg-to-Lys codon shift) designed and shelved — hardware heating solved what the genome was meant to; retained as dormant fallback for dust storms and power outages.
 
 ---
 
@@ -127,6 +127,49 @@ Biological O₂ path. No electrical middleman — photosynthesis directly. [Cyan
 - ALL GATES PASS
 - Code: mars_bacteria_swarm_sim_v21.py — seeded, re-executable, parameters cited at top of file
 
+### v2.2–v2.5 (nutrient pools — 12 cells, 240 runs each, seed 42)
+- Explicit N and P pools with scavenging and recycling; N import at 7.25×10¹³ kg/sol carried the nutrient story
+- Phosphorus is the hard wall: rover-grade soil ~3.28×10¹² kg, enough for ~10¹⁴ cells; 200 sols at 5.8 doubling needs ~5.4×10¹⁶
+- Scavenging max ~2×10⁻³; doubling floor ~8 sols; P import at Earth phosphate-industry rate changed 0/2,880 outcomes
+- v2.5: 5/12 (all gates fail); chlorite never fires under normal params; N/P recycling loop added
+
+### v2.6 (scavenging primary — 12 cells, 240 runs, seed 42)
+- Scavenging cranked as main P source, doubling solved toward 5.8, per-tier survival override for severe 1.0% starting 0.96, CO2 hard gate + vent kept, reductase floor + chlorite spike kept, N import held at 7.25×10¹³ kg/sol, 80% recycle
+- 7/12: baseline all four clean; moderate total wipeout; severe 0.5% and 0.75% squeak by (~2,800 sols median); severe 1.0% 42 clears (under 50% gate); severe 1.5% dead
+- Sensitivity: threshold 0.951 (coin flip, 73/240 died); 0.955 gives clean 240 clears
+- Code: mars_bacteria_swarm_sim_v26.py
+
+### v2.7 (cold penalty + adaptive center — 12 cells, 240 runs, seed 42)
+- Cold penalty on growth (fitted 0.036636), adaptive survival center per-sol, 0.97 draw cap, scavenging default 2×10⁻³ (not 1×10⁻³)
+- 6/12: baseline 4/4 clean; moderate 0/4; severe 0.5% and 0.75% at 233–234/240 clears but ~2,800 sols median; severe 1.0% and 1.5% dead
+- Control (controller on, no cold penalty): 11/12 — only moderate 1.5% fails; partly tautological
+- 0.97 cap: ~2/3 of draws slam into it at 0.99 center; raising center 0.95→0.99 lifts avg draw 0.939→0.959, clamped 34%→66%
+- Code: mars_bacteria_swarm_sim_v27.py
+
+### v2.8 (grounded cold — 12 cells, 240 runs, seed 42)
+- Cold penalty from real D. radiodurans data: 12.3× respiration drop 25→0°C → 30% speed at cold 0.5, 16% at cold 0.25
+- 4/12, all gates fail; only baseline passes; moderate 30%, severe 16% speed
+- Cap locked 0.97 vs fully open: identical 4/12 — cap irrelevant
+- Trajectories: soil-only peaks 5.51×10¹³ cells @ sol 205; volume×10: 5.18×10¹⁴ @ 317; continuous P: 7.91×10¹⁶ @ 581 (N-limited); severe 0.5 never grows in any case
+- Code: mars_bacteria_swarm_sim_v28.py
+
+### v2.9 (insulation + heated severe — 12 cells, 240 runs, seed 42)
+- Insulated moderate shells, heated severe at 25°C; dormant cold-gene toggle off; heavy cold strain queued
+- 12/12, ALL GATES PASS; moderate/severe 1.5% pass only because adaptive center holds at exactly 1
+- Center-off: 7/12 — severe clears solo; moderate still below one from 0.97 oxidative (v2.0 stale pick)
+- Code: mars_bacteria_swarm_sim_v29.py
+
+### v2.10 (oxidative refit + scavenging step — 12 cells, 240 runs, seed 42)
+- Oxidative refit from Venkateswaran & Daly 25°C peroxide/radiation curves: 0.99808 (extrapolated, dose ~3000× Mars moderate); scavenging 5×10⁻³ (ceiling 2×10⁻³ noted)
+- 12/12, ALL GATES PASS across combined, scavenging-only, oxidative-only runs
+- Ablation: oxidative refit is the lever that moves moderate 1.5%; scavenging speeds cells that already grow
+- Moderate 1.5% own-net 0.999883 (scavenging-only) — still controller-dependent; needs 0.998335 to stand alone
+- Doubling re-solved 8.72 sols; severe should re-derive to ~0.996
+- At 5×10⁻³ every cell scavenges ~3.12×10¹² kg — 100% of soil mineral P; pool empties
+- Zero freeze crossings, zero chlorite hits, 2,880 runs
+- Code: mars_bacteria_swarm_sim_v210.py (standalone, inlines v2.9 dependencies)
+- **This is the published version — imperfect, honest, tweakable. Next: ablation isolation, volume expansion vs continuous P Pareto, severe re-derivation.**
+
 ## 4. Role in Green Mars Stack
 
 - Converters: habitat O₂ in months
@@ -148,10 +191,14 @@ Biological O₂ path. No electrical middleman — photosynthesis directly. [Cyan
 - Split-channel cold/burden discrimination accuracy under simultaneous cold + high burden (lab validation needed)
 - Reductase floor sufficiency at 1.0% perchlorate under severe radiation (needs dose-response chamber data)
 - Post-multiplication clamp behavior under non-linear channel interactions (analytical verification pending)
+- Moderate 1.5% oxidative factor: fitted value is extrapolated 3,000× from lab dose rates; chamber validation at Mars-realistic dose urgently needed
+- Severe oxidative re-derivation to ~0.996 (pending)
+- Phosphorus supply: volume expansion vs continuous feedstock Pareto (pending)
+- Heavy cold-resistant strain: DohD/Csp/desaturase/Arg-Lys stack shelved pending hardware-heating validation failure
 
 ## 6. Cross-References
 
 - DB-MARS-CONV-005 (dual-path; bacteria = long game)
 - DB-MARS-SEED-001 (deployment via seed bots)
 - DB-MARS-GOV-001 (density governor: bots only, not bacteria)
-- mars_bacteria_swarm_sim_v21.py (traceable Monte Carlo, this folder's parent sims/ dir)
+- mars_bacteria_swarm_sim_v210.py (standalone traceable Monte Carlo, this folder's parent sims/ dir)
