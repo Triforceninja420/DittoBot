@@ -1,6 +1,6 @@
-# DB-MARS-CONV-006: Bacteria Swarm Spec v1.4
+# DB-MARS-CONV-006: Bacteria Swarm Spec v1.5
 
-**Executive Summary:** Engineered cyanobacteria swarm for planetary-scale O₂. Zero power draw, self-replicating, grows on Martian sunlight. Trades speed for autonomy. Six genetic edits: Deinococcus radiodurans DNA repair, Arctic fish antifreeze proteins, mycosporine-like amino acid UV sunscreen, plus v1.1 survival fixes (1×10⁹-unit deployment, Bacillus subtilis sporulation, metabolic flexibility switching to H₂ chemosynthesis). **v1.3 adds traceable simulation:** mars_bacteria_swarm_sim.py with seeded Monte Carlo, all parameters documented and backsolved. **v1.4 specs the two open control questions:** inducible metabolic toggle via light-repressed promoter, and perchlorate tolerance as an explicit sim parameter backsolved against 0.5–1% regolith perchlorate. The 96-sol figure is the best-case edge of a wide distribution (mean ~311 sols across 240 runs), not a typical outcome. Converters (DB-MARS-CONV-005) handle habitat O₂ in months; bacteria handle planetary scale over decades–century. CO₂ held at 10–11×10¹² t in cleared runs.
+**Executive Summary:** Engineered cyanobacteria swarm for planetary-scale O₂. Zero power draw, self-replicating, grows on Martian sunlight. Trades speed for autonomy. Six genetic edits: Deinococcus radiodurans DNA repair, Arctic fish antifreeze proteins, mycosporine-like amino acid UV sunscreen, plus v1.1 survival fixes (1×10⁹-unit deployment, Bacillus subtilis sporulation, metabolic flexibility switching to H₂ chemosynthesis). **v1.3 adds traceable simulation:** mars_bacteria_swarm_sim.py with seeded Monte Carlo, all parameters documented and backsolved. **v1.4 specs the two open control questions:** inducible metabolic toggle via light-repressed promoter, and perchlorate tolerance as an explicit sim parameter backsolved against 0.5–1% regolith perchlorate. **v1.5 adds module insulation:** orthogonal promoters and ribosome-binding sites per heterologous module, plus a fifteen-percent proteome burden cap, so AFP, MAA, sporulation, and perchlorate modules cannot crosstalk or collapse fitness under stacked stress. The 96-sol figure is the best-case edge of a wide distribution (mean ~311 sols across 240 runs), not a typical outcome. Converters (DB-MARS-CONV-005) handle habitat O₂ in months; bacteria handle planetary scale over decades–century. CO₂ held at 10–11×10¹² t in cleared runs.
 
 **Design Owner:** Craig. Paper/simulation only. Open questions: genetic stability, HGT risk, containment, ecosystem effects. Earth-simulant prototypes and measured survival/growth data on Mars-soil analog under UV and cold are required before any deployment claim.
 
@@ -25,6 +25,11 @@ Biological O₂ path. No electrical middleman — photosynthesis directly. [Cyan
 ### Control Architecture (v1.4)
 1. **Metabolic toggle:** inducible, not constitutive. Photosynthesis is the default state. The H₂ chemosynthesis switch is gated by a **light-repressed promoter** (phr system analog) — when ambient PAR drops below ~50 μmol·m⁻²·s⁻¹ (Martian twilight / dust-storm floor), the promoter derepresses and the cell flips to H₂ oxidation. No ATP spent maintaining the toggle in daylight. Fail-safe direction: if the promoter itself is damaged, the cell stays photosynthetic rather than starving on a broken switch.
 2. **Perchlorate tolerance:** explicit sim parameter, not backsolved. Martian regolith perchlorate runs 0.5–1.0% by mass (Phoenix lander measurements). Tolerance module: perchlorate reductase + chlorite dismutase expression under a constitutive low-level promoter, sized so expression burden stays under 5% of total protein. Sim input: perchlorate_concentration_pct (default 0.75), perchlorate_survival_factor derived from dose-response curve (LD50 at 2% perchlorate, Hill coefficient 2). Survival multiplies by this factor per sol of regolith contact. Validated by re-running the v1.3 seed-42 ensemble at 0.5%, 0.75%, and 1.0% perchlorate — clearance rate must hold above 60% across all three or the parameter set is rejected.
+
+### Module Insulation (v1.5)
+1. **Orthogonal promoters:** each heterologous module gets its own promoter family with no shared transcription-factor binding sites — AFP under a cold-inducible promoter (cspA analog), MAA under a UV-inducible promoter, sporulation cascade under its native sigma-factor control, perchlorate reductase under the constitutive low-level promoter from v1.4. No promoter is reused across modules, eliminating transcriptional crosstalk.
+2. **Orthogonal ribosome-binding sites:** each module's RBS is drawn from a characterized orthogonal RBS library (different spacer lengths and Shine-Dalgarno sequences) so translation initiation rates don't compete for the same ribosome pool. AFP and MAA RBSs tuned for moderate expression; sporulation RBSs left at native strength since the cascade is transient.
+3. **Proteome burden cap:** total heterologous protein across all modules held under **15% of proteome**. Per-module budgets: perchlorate tolerance ≤5%, AFP ≤4%, MAA ≤4%, sporulation proteins ≤2% (transient, only during sporulation induction). Burden monitored in sim as a fitness multiplier — if any run's cumulative heterologous load exceeds 15%, that run's survival rate is penalized 20% per sol above the cap. This is the binding constraint on stacking further modules.
 
 ## 3. Simulation Results
 
@@ -63,6 +68,11 @@ Biological O₂ path. No electrical middleman — photosynthesis directly. [Cyan
 - Acceptance gate: clearance rate ≥60% at every level
 - Toggle architecture assumed active: light-repressed promoter, 50 μmol·m⁻²·s⁻¹ threshold
 
+### v1.5 (insulation ensemble — pending run)
+- Same seed 42, 240 runs, burden cap active at 15% proteome
+- Acceptance gate: clearance rate ≥60% AND mean burden ≤15% across all perchlorate levels
+- If cap is breached, survival penalty of 20% per sol above threshold applies
+
 ## 4. Role in Green Mars Stack
 
 - Converters: habitat O₂ in months
@@ -78,6 +88,7 @@ Biological O₂ path. No electrical middleman — photosynthesis directly. [Cyan
 - Long-term ecosystem effects
 - **Measured survival and growth rates on Mars-soil analog under UV/cold/perchlorate — required to replace backsolved parameters with real data**
 - Inducible toggle promoter kinetics under actual Martian PAR spectrum (lab validation needed)
+- Orthogonal RBS library characterization in the target cyanobacterial chassis (lab validation needed)
 
 ## 6. Cross-References
 
