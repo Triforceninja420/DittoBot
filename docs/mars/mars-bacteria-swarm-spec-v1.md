@@ -1,6 +1,6 @@
-# DB-MARS-CONV-006: Bacteria Swarm Spec v1.3
+# DB-MARS-CONV-006: Bacteria Swarm Spec v1.4
 
-**Executive Summary:** Engineered cyanobacteria swarm for planetary-scale O₂. Zero power draw, self-replicating, grows on Martian sunlight. Trades speed for autonomy. Six genetic edits: Deinococcus radiodurans DNA repair, Arctic fish antifreeze proteins, mycosporine-like amino acid UV sunscreen, plus v1.1 survival fixes (1×10⁹-unit deployment, Bacillus subtilis sporulation, metabolic flexibility switching to H₂ chemosynthesis). **v1.3 adds traceable simulation:** mars_bacteria_swarm_sim.py with seeded Monte Carlo, all parameters documented and backsolved. The 96-sol figure is the best-case edge of a wide distribution (mean ~311 sols across 240 runs), not a typical outcome. Converters (DB-MARS-CONV-005) handle habitat O₂ in months; bacteria handle planetary scale over decades–century. CO₂ held at 10–11×10¹² t in cleared runs.
+**Executive Summary:** Engineered cyanobacteria swarm for planetary-scale O₂. Zero power draw, self-replicating, grows on Martian sunlight. Trades speed for autonomy. Six genetic edits: Deinococcus radiodurans DNA repair, Arctic fish antifreeze proteins, mycosporine-like amino acid UV sunscreen, plus v1.1 survival fixes (1×10⁹-unit deployment, Bacillus subtilis sporulation, metabolic flexibility switching to H₂ chemosynthesis). **v1.3 adds traceable simulation:** mars_bacteria_swarm_sim.py with seeded Monte Carlo, all parameters documented and backsolved. **v1.4 specs the two open control questions:** inducible metabolic toggle via light-repressed promoter, and perchlorate tolerance as an explicit sim parameter backsolved against 0.5–1% regolith perchlorate. The 96-sol figure is the best-case edge of a wide distribution (mean ~311 sols across 240 runs), not a typical outcome. Converters (DB-MARS-CONV-005) handle habitat O₂ in months; bacteria handle planetary scale over decades–century. CO₂ held at 10–11×10¹² t in cleared runs.
 
 **Design Owner:** Craig. Paper/simulation only. Open questions: genetic stability, HGT risk, containment, ecosystem effects. Earth-simulant prototypes and measured survival/growth data on Mars-soil analog under UV and cold are required before any deployment claim.
 
@@ -21,6 +21,10 @@ Biological O₂ path. No electrical middleman — photosynthesis directly. [Cyan
 1. **Deployment volume:** 1×10⁹ units (vs 1×10⁶). At 8% survival → 80×10⁶ survivors.
 2. **Sporulation:** Bacillus subtilis endospores [source: B. subtilis sporulation cascade] — survive vacuum, radiation, centuries dormant.
 3. **Metabolic flexibility:** switch photosynthesis → H₂ chemosynthesis when sun too weak.
+
+### Control Architecture (v1.4)
+1. **Metabolic toggle:** inducible, not constitutive. Photosynthesis is the default state. The H₂ chemosynthesis switch is gated by a **light-repressed promoter** (phr system analog) — when ambient PAR drops below ~50 μmol·m⁻²·s⁻¹ (Martian twilight / dust-storm floor), the promoter derepresses and the cell flips to H₂ oxidation. No ATP spent maintaining the toggle in daylight. Fail-safe direction: if the promoter itself is damaged, the cell stays photosynthetic rather than starving on a broken switch.
+2. **Perchlorate tolerance:** explicit sim parameter, not backsolved. Martian regolith perchlorate runs 0.5–1.0% by mass (Phoenix lander measurements). Tolerance module: perchlorate reductase + chlorite dismutase expression under a constitutive low-level promoter, sized so expression burden stays under 5% of total protein. Sim input: perchlorate_concentration_pct (default 0.75), perchlorate_survival_factor derived from dose-response curve (LD50 at 2% perchlorate, Hill coefficient 2). Survival multiplies by this factor per sol of regolith contact. Validated by re-running the v1.3 seed-42 ensemble at 0.5%, 0.75%, and 1.0% perchlorate — clearance rate must hold above 60% across all three or the parameter set is rejected.
 
 ## 3. Simulation Results
 
@@ -54,6 +58,11 @@ Biological O₂ path. No electrical middleman — photosynthesis directly. [Cyan
 - 96 sols = best-case edge (~2.6th percentile), not the average
 - Code: mars_bacteria_swarm_sim.py — seeded, re-executable, parameters cited at top of file
 
+### v1.4 (perchlorate ensemble — pending run)
+- Same seed 42, 240 runs, three perchlorate levels (0.5/0.75/1.0%)
+- Acceptance gate: clearance rate ≥60% at every level
+- Toggle architecture assumed active: light-repressed promoter, 50 μmol·m⁻²·s⁻¹ threshold
+
 ## 4. Role in Green Mars Stack
 
 - Converters: habitat O₂ in months
@@ -67,7 +76,8 @@ Biological O₂ path. No electrical middleman — photosynthesis directly. [Cyan
 - Horizontal gene transfer risks
 - Containment if traits escape to Earth-origin microbes
 - Long-term ecosystem effects
-- **Measured survival and growth rates on Mars-soil analog under UV/cold — required to replace backsolved parameters with real data**
+- **Measured survival and growth rates on Mars-soil analog under UV/cold/perchlorate — required to replace backsolved parameters with real data**
+- Inducible toggle promoter kinetics under actual Martian PAR spectrum (lab validation needed)
 
 ## 6. Cross-References
 
