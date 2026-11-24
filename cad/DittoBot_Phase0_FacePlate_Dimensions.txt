@@ -6,7 +6,7 @@ Full geometry follows cad/voxel_cell_phase0_20mm.scad — this table tracks the
 locked spec numbers; corner-mount centers were re-derived for the 20 mm
 envelope in the CAD redesign and are authoritative in the SCAD.
 Cams deferred to Option A / 25 mm cell (rev 2026-11-23b); Phase 0 release
-is the Option A sliding-pin architecture per docs/OPTION_A.md.
+is the Option A sliding-pin architecture per docs/OPTION_A_RELEASE_SPEC.md.
 
 PLATE
   Envelope:             20.00 x 20.00
