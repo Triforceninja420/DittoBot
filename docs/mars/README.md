@@ -16,7 +16,7 @@ How the programmable-matter lattice scales to Mars surface ops and long-term gre
 | DB-MARS-CONV-004 | [mars-co2-o2-converter-spec-v4.md](mars-co2-o2-converter-spec-v4.md) | Distributed matrix pivot. 50×10⁹ units, 1 PW, 0.3% surface. | ~260 sols base w/ governors |
 | DB-MARS-CONV-005 | [mars-conv-005-dual-path-strategy.md](mars-conv-005-dual-path-strategy.md) | Water-splitting primary + Phobos carbon import. | 12 TW → ~100 Earth yr |
 | DB-MARS-GOV-001 | [mars-swarm-governors-spec-v1.md](mars-swarm-governors-spec-v1.md) | Density + power governors. | 15 runs, worst 309 sols |
-| **DB-MARS-CONV-006** | **[mars-bacteria-swarm-spec-v1.md](mars-bacteria-swarm-spec-v1.md)** | **Engineered cyanobacteria (6 edits). Zero power.** | **v2.10: 12/12 cells, ALL GATES PASS. Grounded cold data (12.3× drop), oxidative refit 0.99808, scavenging 5e-3. 5 cells controller-dependent; P pool empties at max scavenging. Published imperfect.** |
+| **DB-MARS-CONV-006** | **[mars-bacteria-swarm-spec-v1.md](mars-bacteria-swarm-spec-v1.md)** | **Engineered cyanobacteria (6 edits). Zero power.** | **v2.11: 12/12 cells, ALL GATES PASS. Grounded cold data (12.3× drop), oxidative refit 0.99808, scavenging 5e-3. 5 cells controller-dependent; P pool empties at max scavenging. Published imperfect.** |
 
 ## Role vs main DittoBot
 
