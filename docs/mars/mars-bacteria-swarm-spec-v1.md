@@ -1,6 +1,6 @@
-# DB-MARS-CONV-006: Bacteria Swarm Spec v1.6
+# DB-MARS-CONV-006: Bacteria Swarm Spec v1.7
 
-**Executive Summary:** Engineered cyanobacteria swarm for planetary-scale O₂. Zero power draw, self-replicating, grows on Martian sunlight. Trades speed for autonomy. Six genetic edits: Deinococcus radiodurans DNA repair, Arctic fish antifreeze proteins, mycosporine-like amino acid UV sunscreen, plus v1.1 survival fixes (1×10⁹-unit deployment, Bacillus subtilis sporulation, metabolic flexibility switching to H₂ chemosynthesis). **v1.3 adds traceable simulation:** mars_bacteria_swarm_sim.py with seeded Monte Carlo, all parameters documented and backsolved. **v1.4 specs the two open control questions:** inducible metabolic toggle via light-repressed promoter, and perchlorate tolerance as an explicit sim parameter backsolved against 0.5–1% regolith perchlorate. **v1.5 adds module insulation:** orthogonal promoters and ribosome-binding sites per heterologous module, plus a fifteen-percent proteome burden cap. **v1.6 adds the burden sensor** — a growth-rate feedback loop that throttles heterologous expression when doubling time slips — **and a combined-stress ensemble** testing radiation plus oxidative stress simultaneously with the penalty rule. The 96-sol figure is the best-case edge of a wide distribution (mean ~311 sols across 240 runs), not a typical outcome. Converters (DB-MARS-CONV-005) handle habitat O₂ in months; bacteria handle planetary scale over decades–century. CO₂ held at 10–11×10¹² t in cleared runs.
+**Executive Summary:** Engineered cyanobacteria swarm for planetary-scale O₂. Zero power draw, self-replicating, grows on Martian sunlight. Trades speed for autonomy. Six genetic edits: Deinococcus radiodurans DNA repair, Arctic fish antifreeze proteins, mycosporine-like amino acid UV sunscreen, plus v1.1 survival fixes (1×10⁹-unit deployment, Bacillus subtilis sporulation, metabolic flexibility switching to H₂ chemosynthesis). **v1.3 adds traceable simulation:** mars_bacteria_swarm_sim.py with seeded Monte Carlo, all parameters documented and backsolved. **v1.4 specs the two open control questions:** inducible metabolic toggle via light-repressed promoter, and perchlorate tolerance as an explicit sim parameter backsolved against 0.5–1% regolith perchlorate. **v1.5 adds module insulation:** orthogonal promoters and ribosome-binding sites per heterologous module, plus a fifteen-percent proteome burden cap. **v1.6 adds the burden sensor** — a growth-rate feedback loop that throttles heterologous expression when doubling time slips — **and a combined-stress ensemble** testing radiation plus oxidative stress simultaneously with the penalty rule. **v1.7 splits the sensor into separate cold and burden channels** so cold-driven lag cannot false-trigger heterologous throttling, **and carves out a stress-exempt floor for constitutive perchlorate reductase** so clearance holds under severe load. The 96-sol figure is the best-case edge of a wide distribution (mean ~311 sols across 240 runs), not a typical outcome. Converters (DB-MARS-CONV-005) handle habitat O₂ in months; bacteria handle planetary scale over decades–century. CO₂ held at 10–11×10¹² t in cleared runs.
 
 **Design Owner:** Craig. Paper/simulation only. Open questions: genetic stability, HGT risk, containment, ecosystem effects. Earth-simulant prototypes and measured survival/growth data on Mars-soil analog under UV and cold are required before any deployment claim.
 
@@ -31,12 +31,20 @@ Biological O₂ path. No electrical middleman — photosynthesis directly. [Cyan
 2. **Orthogonal ribosome-binding sites:** each module's RBS is drawn from a characterized orthogonal RBS library (different spacer lengths and Shine-Dalgarno sequences) so translation initiation rates don't compete for the same ribosome pool. AFP and MAA RBSs tuned for moderate expression; sporulation RBSs left at native strength since the cascade is transient.
 3. **Proteome burden cap:** total heterologous protein across all modules held under **15% of proteome**. Per-module budgets: perchlorate tolerance ≤5%, AFP ≤4%, MAA ≤4%, sporulation proteins ≤2% (transient, only during sporulation induction). Burden monitored in sim as a fitness multiplier — if any run's cumulative heterologous load exceeds 15%, that run's survival rate is penalized 20% per sol above the cap. This is the binding constraint on stacking further modules.
 
-### Burden Sensor (v1.6)
-1. **Mechanism:** growth-rate feedback loop. The cell monitors its own doubling time via a constitutively expressed fluorescent reporter (GFP analog) under a growth-rate-dependent promoter — higher growth = higher expression, slower growth = lower expression. When doubling time exceeds 1.5× the baseline (6.3 sols → ~9.5 sols), the sensor triggers **expression throttling**: heterologous module promoters are down-regulated proportionally to the slippage, starting at 10% reduction and scaling to 50% at 2× baseline doubling time. Throttling hits the largest modules first (perchlorate reductase, then AFP, then MAA) to protect core metabolism.
-2. **Fail-safe:** if the sensor itself fails, the cell defaults to full expression — the burden cap penalty in sim still applies, so a broken sensor is survivable but costly. No scenario where a failed sensor causes runaway expression beyond the 15% cap, because the cap is enforced at the sim level regardless of sensor state.
-3. **Sim implementation:** burden_sensor_active flag (default True). When active, each sol's doubling time feeds the throttle function; throttled expression reduces per-unit O₂ output by the same proportion (a cell making less protein makes less oxygen). This creates a natural equilibrium: cells that over-express get slower, which triggers throttling, which restores growth.
+### Burden Sensor (v1.6, revised v1.7)
+1. **Split-channel architecture:** the sensor no longer reads total doubling time. It splits into two independent channels — a **cold channel** and a **burden channel** — so cold-driven lag cannot false-trigger heterologous throttling.
+2. **Cold channel:** measures membrane fluidity via a constitutively expressed reporter under a cspA-family promoter (same family as the AFP promoter but with a distinct RBS so it's not part of the AFP module). Rising cold expression indicates environmental cold, not expression burden. Cold-channel signal suppresses the burden channel's throttle authority: when cold expression is elevated, the burden throttle is scaled down proportionally (cold_factor from 0 to 1), so a cell fighting cold is not also punished for its AFP expression.
+3. **Burden channel:** measures heterologous protein load directly via a translational fusion reporter on the perchlorate reductase transcript (the largest single heterologous load). When burden-channel signal exceeds the 15% proteome threshold AND cold_factor is low, throttling engages: 10% reduction at threshold, scaling to 50% at 2× threshold. Throttle order unchanged — perchlorate reductase first, then AFP, then MAA. Sporulation proteins are exempt from throttling entirely (transient cascade, native control).
+4. **Fail-safe:** if either channel's reporter fails, that channel defaults to zero signal — cold channel zero means full throttle authority (conservative), burden channel zero means no throttling (the sim-side cap penalty still applies). No failed-sensor state allows expression beyond the 15% cap.
+5. **Sim implementation:** burden_sensor_split flag (default True in v1.7). Each sol computes cold_factor and burden_signal independently; throttle = f(burden_signal, cold_factor). Throttled expression reduces per-unit O₂ output by the same proportion.
 
-### Combined-Stress Ensemble (v1.6)
+### Perchlorate Reductase Stress-Exempt Floor (v1.7)
+1. **Rationale:** perchlorate reductase is constitutive and is the primary defense against the most deployment-critical toxin. Under severe combined stress, throttling it would directly degrade clearance — the exact failure mode the 50% severe gate exists to prevent.
+2. **Exempt floor:** perchlorate reductase expression is never throttled below **60% of its nominal level**, regardless of burden-channel signal or stress tier. The remaining 40% of its budget is throttleable under extreme burden, but the floor holds.
+3. **Sim implementation:** reductase_floor_pct = 60 (default). Throttle function clamps reductase reduction at 1 − reductase_floor_pct. All other modules remain fully throttleable per v1.6 rules. This means under severe stress the cell can shed AFP and MAA expression but cannot shed below 60% of its perchlorate defense.
+4. **Interaction with burden cap:** the 15% proteome cap still applies to total heterologous load including the reductase floor. If the floor alone (3% of a 5% budget) plus other modules would breach 15%, AFP and MAA budgets are the first to compress — never the reductase floor.
+
+### Combined-Stress Ensemble (v1.6, revised v1.7)
 1. **Stress stack:** radiation (0.1–1.0 Gy/sol), oxidative stress from perchlorate (0.5–1.0%), cold (−60 to −20°C), and UV (up to 10 W/m²) applied simultaneously rather than as isolated scenarios. The v1.0–v1.3 ensembles tested stresses one at a time; real Mars stacks them.
 2. **Penalty interaction term:** the 20%-per-sol burden penalty is now stress-dependent. Under combined stress, the penalty multiplier is 1 + (burden_excess × stress_factor), where stress_factor = 1.0 at baseline, 1.5 under moderate combined stress (radiation >0.3 Gy/sol AND perchlorate >0.75%), and 2.0 under severe combined stress (radiation >0.5 Gy/sol AND perchlorate >1.0% AND UV >5 W/m²). This models the reality that a cell already fighting radiation and oxidizers has less slack for expression burden.
 3. **Acceptance gate:** clearance rate ≥50% under severe combined stress (relaxed from 60% because the stress stack is harsher), ≥60% under moderate, ≥70% under baseline. Mean burden must stay ≤15% proteome across all stress levels. If any gate fails, the parameter set is rejected and the module budgets get re-tuned.
@@ -90,6 +98,14 @@ Biological O₂ path. No electrical middleman — photosynthesis directly. [Cyan
 - Acceptance gates: ≥70% baseline, ≥60% moderate, ≥50% severe; mean burden ≤15% all tiers
 - Code: mars_bacteria_swarm_sim.py — v1.6 flag set, same seed
 
+### v1.7 (split-channel sensor + reductase floor — pending run)
+- Same seed 42, 240 runs per stress tier
+- Split sensor: cold_factor suppresses burden throttle; burden channel reads perchlorate-reductase translational fusion
+- Reductase floor: 60% nominal minimum under all throttle conditions
+- Combined-stress penalty unchanged: 20% per sol × stress factor (1.0/1.5/2.0)
+- Acceptance gates: ≥70% baseline, ≥60% moderate, ≥50% severe; mean burden ≤15% all tiers; reductase expression ≥60% nominal in all severe-stress clears
+- Code: mars_bacteria_swarm_sim.py — v1.7 flag set, same seed
+
 ## 4. Role in Green Mars Stack
 
 - Converters: habitat O₂ in months
@@ -108,6 +124,8 @@ Biological O₂ path. No electrical middleman — photosynthesis directly. [Cyan
 - Orthogonal RBS library characterization in the target cyanobacterial chassis (lab validation needed)
 - Burden sensor promoter response curve in the target chassis (lab validation needed)
 - Combined-stress interaction terms need Earth-analog chamber data before flight claims
+- Split-channel cold/burden discrimination accuracy under simultaneous cold + high burden (lab validation needed)
+- Reductase floor sufficiency at 1.0% perchlorate under severe radiation (needs dose-response chamber data)
 
 ## 6. Cross-References
 
