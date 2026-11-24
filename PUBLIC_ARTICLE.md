@@ -9,7 +9,7 @@ Everything below is either a locked design value or a simulation result. Simulat
 The Phase 0 article is a 20.00 × 20.00 mm face plate, 1.0 mm thick, machined from 7075-T6 aluminium. Here's what's on it:
 
 | Item | Phase 0 value |
-| :--- | :--- |
+| :--- | ---------- |
 | Face | 20.00 × 20.00 mm, 7075-T6, 1.00 mm (accept 0.80–1.20) |
 | Magnet | NdFeB N52 disc, Ø6.0 × 2–3 mm, axial, centered |
 | Magnet pocket | Ø8.2 through-hole, closed by a separate backing disc with a 2.0 mm solid back face |
@@ -38,7 +38,7 @@ Each part on the face has one job.
 
 **Retention: the magnet.** An N52 disc sits in an Ø8.2 through-hole. You can't keep a 4 mm-deep blind pocket in a 1 mm plate, so the hole goes all the way through. A separate backing disc closes it from behind with a 2.0 mm solid back face, and that disc doubles as the heat spreader. The magnet holds the joint at zero power. Gate 5 sets the retention requirement from first principles. Take the 9.2 g module, assume 10 g of acceleration, and add a safety factor of 2. That gives 0.0092 × 10 × 9.81 × 2 = 1.805 N, so **F_hold must be at least 1.8 N**. It's a modest number next to the 34.6 N simulated snap pull, and gate 5 exists to prove that on a gauge rather than in a spreadsheet.
 
-**Release: Option A.** Release doesn't fight the magnet with brute force. A single Ø2.0 mm pin slides 3.0 mm in a Ø2.05 bore and breaks contact, and the coil pulse bucks the magnet's residual field while it does. The pin only breaks contact: it carries no torque and has no linkage. There are no cams. On the first article you push the pin by hand, with a finger or a flat tool. Solenoid or actuator drive is deferred to later work (see [docs/OPTION_A.md](docs/OPTION_A.md)).
+**Release: Option A.** Release doesn't fight the magnet with brute force. A single Ø2.0 mm pin slides 3.0 mm in a Ø2.05 bore and breaks contact, and the coil pulse bucks the magnet's residual field while it does. The pin only breaks contact: it carries no torque and has no linkage. There are no cams. On the first article you push the pin by hand, with a finger or a flat tool. Solenoid or actuator drive is deferred to later work (see [docs/OPTION_A_RELEASE_SPEC.md](docs/OPTION_A_RELEASE_SPEC.md)).
 
 **Structure: three pins.** Shear load goes through three hardened Ø1.80 mm pins in Ø1.85 bores on a 7.45 mm radius. The angles are **73°, 155° and 328°**, deliberately not 120° apart. A symmetric layout left only 0.52 mm worst-case clearance against the 0.5 mm rule, which is too close to call it margin. The asymmetric layout comes with a bonus: the pattern isn't rotationally symmetric, so the face can only seat one way. The pins do the contact clocking for free. Pin engagement is 3.00 mm by design and at least 2.5 mm for acceptance, and the mating receptacle must be at least 2.5 mm deep. The shear bar is ≥ 40 N in four directions.
 
@@ -107,7 +107,7 @@ Every number goes into [docs/MEASUREMENT_CARD.md](docs/MEASUREMENT_CARD.md), raw
 The dock runs through a nine-state table, **S0–S8**:
 
 | State | What happens |
-| :--- | :--- |
+| :---- | :----------- |
 | S0 | Idle |
 | S1 | Align |
 | S2 | Creep at 0.05 m/s over the last 3 mm |
