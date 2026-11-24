@@ -1,4 +1,4 @@
-DittoBot Phase 0 Face — Dimension Table (rev 2026-11-23b, 20 mm redesign)
+DittoBot Phase 0 Face — Dimension Table (rev 2026-11-24, 20 mm redesign)
 20 mm face. All dimensions mm unless noted.
 Origin: face center, Z out of docking face. Export STL from SCAD for fab.
 Monte Carlo (100k trials): all-pass 98.04%, T3 99.30%, 702 T3 fails (LAT_OFFSET_SIGMA 0.55).
@@ -7,6 +7,12 @@ locked spec numbers; corner-mount centers were re-derived for the 20 mm
 envelope in the CAD redesign and are authoritative in the SCAD.
 Cams deferred to Option A / 25 mm cell (rev 2026-11-23b); Phase 0 release
 is the Option A sliding-pin architecture per docs/OPTION_A_RELEASE_SPEC.md.
+
+Dock durability (Jaden thermal model, 8-yr dust-static tau):
+  Baseline:        unlock 5.39 yrs, tear 10.78 yrs
+  Wiper alone:     tear 20.99 yrs (wiper removes >10% fouling per cycle)
+  Stacked:         tear 22.06 yrs, unlock 11.03 yrs
+  Wiper is primary; interlock is retention insurance if magnet degrades.
 
 PLATE
   Envelope:             20.00 x 20.00
@@ -34,6 +40,23 @@ LATCH PINS (3)
   Positions:            per cad/voxel_cell_phase0_20mm.scad (r 7.45 at 73/155/328 deg)
   Combined shear:       pins carry 100% of the 40 N bar; 5 028 N was the
                         earlier 2-pin simulation
+  Interlock barb:       0.25 mm undercut below pin OD, at 1.5 mm from pin tip,
+                        0.40 mm axial height of barb land; engages receptacle lip
+
+DUST SHIELD (rev 2026-11-24)
+  Groove OD:            2.60 (annular recess around each pin bore)
+  Groove depth:         0.30 (cut into docking face)
+  Proud lip OD:         3.00
+  Lip height:           0.40 above face
+  Purpose:              keeps magnet-pocket-adjacent contact zone clear of
+                        regolith between dock cycles
+
+WIPER BLADE (mating face, rev 2026-11-24)
+  Material:             BeCu, flexible
+  Thickness:            0.15
+  Width:                2.20 (spans groove)
+  Protrusion:           0.50 proud of mating face
+  Action:               sweeps dust-shield groove on every dock/undock cycle
 
 SEATING SPRING
   Force:                5.00 N total (4x non-magnetic phosphor-bronze or BeCu
