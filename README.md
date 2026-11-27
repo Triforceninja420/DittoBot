@@ -31,7 +31,6 @@ Design owned by Craig. Paper until measured. Credit follows data. Mars path is a
 ├── retired/             # Archived older designs & early sims
 ├── sims/                # Re-runnable, seeded Monte Carlos
 ├── tests/               # pytest Phase 0 math checks
-├── tools/               # force_sweep, phase0_estimate
 ├── Voxel_Render.jpg     # Hero render
 └── ...
 ```
