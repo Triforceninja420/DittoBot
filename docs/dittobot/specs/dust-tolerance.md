@@ -2,8 +2,10 @@
 
 Design owner: Craig.
 Date: 2026-11-27.
-Version: v0.1
+Version: v0.2
 Status: **conceptual**
+Phase: unassigned, would require new assumptions: (1) a defined mechanism and test plan (the parent is a name-only listing), and (2) an explicit assignment to Phase 0 or another numbered phase. The parent groups this under “Near-term optional (bench / early lattice)” as optional and zero-impact on locked Phase 0 criteria, and says no suite is required for a measured latch. Near-term / bench is not the same as Phase 0 ready.
+Phase basis: [COMMUNITY_ENHANCEMENT_SUITES.md — Near-term optional (bench / early lattice)](../../COMMUNITY_ENHANCEMENT_SUITES.md#near-term-optional-bench--early-lattice); [Explicit non-goals](../../COMMUNITY_ENHANCEMENT_SUITES.md#explicit-non-goals).
 
 Optional Community Enhancement Suite, listed in the parent as **optional and zero-impact** on locked Phase 0 criteria, 25 mm option A geometry, process locks in `LOCKS.md`, force targets, or measurement cards. Suites do not mint V2.0. Two stacks stay unmixed.
 

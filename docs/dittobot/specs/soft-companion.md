@@ -2,8 +2,10 @@
 
 Design owner: Craig.
 Date: 2026-11-27.
-Version: v0.1
+Version: v0.2
 Status: **paper spec**
+Phase: unassigned, would require new assumptions: a numbered phase after Phase 1. The parent places this as a v5+ speculative inheritance roadmap; v5+ is a version-ladder label ([DESIGN.md](../../DESIGN.md) §3, current baseline is v4), not a defined phase. The repo defines only Phase 0 (one face) and Phase 1 (two-module dock + scheduled Marble).
+Phase basis: [MODES.md](../../MODES.md) status line (“speculative inheritance roadmap for v5+”) and [Soft Companion / Clothing Mode](../../MODES.md#3-soft-companion--clothing-mode); inheritance rule at [Inheritance rule (all modes)](../../MODES.md#inheritance-rule-all-modes). No Phase 2+ document exists.
 
 Sparse, low-force lattice that drapes or wraps instead of forming a rigid shell. Aimed at continuous wear, light sensing, or gentle assistance.
 

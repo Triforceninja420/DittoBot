@@ -2,8 +2,10 @@
 
 Design owner: Craig.
 Date: 2026-11-27.
-Version: v0.1
+Version: v0.2
 Status: **paper spec**
+Phase: unassigned, would require new assumptions: a numbered phase after Phase 1. The parent places this as a v5+ speculative inheritance roadmap; v5+ is a version-ladder label ([DESIGN.md](../../DESIGN.md) §3, current baseline is v4), not a defined phase. The repo defines only Phase 0 (one face) and Phase 1 (two-module dock + scheduled Marble).
+Phase basis: [MODES.md](../../MODES.md) status line and [Flight Suit Mode (v5+)](../../MODES.md#flight-suit-mode-v5); also [EXTREME_ENVIRONMENTS.md — Exoskeleton / Flight](../../EXTREME_ENVIRONMENTS.md#exoskeleton--flight-iron-man-suit-mode) (“inheritance target for v5+ once propulsion faces exist”). No Phase 2+ document exists.
 
 v5+ wearable inheritance. The lattice forms a wearable full-body shell around a human payload (torso, limbs, helmet volume). Variable density: denser at joints, shoulders, hips, and primary load paths; lighter panels elsewhere. Axial pin + detent carry the suit's own weight and acceleration loads. Soft inner clearance or optional compliant layer protects the wearer. Can collapse back into a dense transport brick using the existing inward-compaction path. See [inward-compaction.md](inward-compaction.md).
 

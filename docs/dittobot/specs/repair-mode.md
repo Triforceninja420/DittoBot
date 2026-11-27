@@ -2,8 +2,10 @@
 
 Design owner: Craig.
 Date: 2026-11-27.
-Version: v0.1
+Version: v0.2
 Status: **conceptual**
+Phase: unassigned, would require new assumptions: a numbered phase after Phase 1 that includes swarm salvage and rebuild. Phase 1 explicitly lists Repair Mode as out of scope, and no later numbered phase exists in the repo.
+Phase basis: [PHASE1.md](../../PHASE1.md) scope boundary (“Still out of scope: … Repair Mode”); [dittobot/MODES.md §2](../MODES.md#2-repair-mode) (conceptual until tested, no later phase named).
 
 Damaged or dead voxels get cannibalized — the swarm consumes its own broken parts as raw material to rebuild functional ones.
 

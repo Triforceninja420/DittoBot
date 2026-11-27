@@ -2,8 +2,10 @@
 
 Design owner: Craig.
 Date: 2026-11-27.
-Version: v0.1
+Version: v0.2
 Status: **conceptual**
+Phase: unassigned, would require new assumptions: a numbered post-Phase-1 / post-2040 phase, plus a defined radio (frequency, power, range, and protocol are not in the parent). The parent lists this only as a Post-2040 enabler under split / merge, which is not a numbered phase.
+Phase basis: [COMMUNITY_ENHANCEMENT_SUITES.md — Post-2040 enablers (scale-change modes)](../../COMMUNITY_ENHANCEMENT_SUITES.md#post-2040-enablers-scale-change-modes).
 
 Optional Community Enhancement Suite, listed in the parent as **optional and zero-impact** on locked Phase 0 criteria, 25 mm option A geometry, process locks in `LOCKS.md`, force targets, or measurement cards. Suites do not mint V2.0. Two stacks stay unmixed.
 

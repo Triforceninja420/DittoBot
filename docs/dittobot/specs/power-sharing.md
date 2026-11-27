@@ -2,8 +2,10 @@
 
 Design owner: Craig.
 Date: 2026-11-27.
-Version: v0.1
+Version: v0.2
 Status: **conceptual**
+Phase: unassigned, would require new assumptions: a numbered phase after early-lattice / two-module work, plus a defined mechanism. The parent groups this under “Mid-term lattice support (small assemblies).” Mid-term is not a defined Phase N. The repo has no Phase 2 document. PHASE1.md covers two-module power and data handoff but does not include this suite.
+Phase basis: [COMMUNITY_ENHANCEMENT_SUITES.md — Mid-term lattice support (small assemblies)](../../COMMUNITY_ENHANCEMENT_SUITES.md#mid-term-lattice-support-small-assemblies).
 
 Optional Community Enhancement Suite, listed in the parent as **optional and zero-impact** on locked Phase 0 criteria, 25 mm option A geometry, process locks in `LOCKS.md`, force targets, or measurement cards. Suites do not mint V2.0. Two stacks stay unmixed.
 

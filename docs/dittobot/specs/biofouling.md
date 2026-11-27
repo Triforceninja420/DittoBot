@@ -2,8 +2,10 @@
 
 Design owner: Craig.
 Date: 2026-11-27.
-Version: v0.1
+Version: v0.2
 Status: **paper spec**
+Phase: unassigned, would require new assumptions: a numbered phase after Phase 1. The parent lists this as a later-version inheritance target under a v5+ inheritance rule; v5+ is a version-ladder label, not a defined phase. The repo defines only Phase 0 and Phase 1. No Phase 2+ document exists.
+Phase basis: [EXTREME_ENVIRONMENTS.md — Biofouling / biological](../../EXTREME_ENVIRONMENTS.md#biofouling--biological) under [Later-version inheritance targets](../../EXTREME_ENVIRONMENTS.md#later-version-inheritance-targets); [Inheritance rule](../../EXTREME_ENVIRONMENTS.md#inheritance-rule).
 
 Later-version inheritance target for biofouling / biological exposure.
 

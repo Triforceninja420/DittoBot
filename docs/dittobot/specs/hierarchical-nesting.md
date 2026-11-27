@@ -2,8 +2,10 @@
 
 Design owner: Craig.
 Date: 2026-11-27.
-Version: v0.1
+Version: v0.2
 Status: **conceptual**
+Phase: unassigned, would require new assumptions: a numbered phase for post-2040 scale-change work. The parent is a post-2040 speculative outlook and says these remain outlooks until later requirements exist. Post-2040 is a time horizon, not a defined Phase N. The repo defines only Phase 0 and Phase 1.
+Phase basis: [POST_2040_OUTLOOK.md §3](../../POST_2040_OUTLOOK.md#3-hierarchical-nesting); opening (“post-2040 speculative outlook”); [What is required later (not now)](../../POST_2040_OUTLOOK.md#what-is-required-later-not-now).
 
 Post-2040 speculative outlook. Future modules can accept or become sub-voxels. A single outer cell envelope holds a denser sub-lattice, giving multi-level volume change.
 

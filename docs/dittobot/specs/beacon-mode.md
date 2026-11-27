@@ -2,8 +2,10 @@
 
 Design owner: Craig.
 Date: 2026-11-27.
-Version: v0.1
+Version: v0.2
 Status: **conceptual**
+Phase: unassigned, would require new assumptions: a numbered phase after Phase 1 that includes swarm navigation. Phase 1 explicitly lists Beacon Mode as out of scope. The parent’s “later software-and-sensor demo once Phase 0 / Phase 1 docking is measured” is a dependency, not a Phase 1 placement. A related RF discovery beacon is listed only as a post-2040 enabler, which is not a numbered phase.
+Phase basis: [PHASE1.md](../../PHASE1.md) scope boundary (“Still out of scope: … Beacon Mode”); [dittobot/MODES.md §3](../MODES.md#3-beacon-mode); [COMMUNITY_ENHANCEMENT_SUITES.md — Post-2040 enablers](../../COMMUNITY_ENHANCEMENT_SUITES.md#post-2040-enablers-scale-change-modes).
 
 One voxel stays fixed and emits a ping; the rest of the swarm navigates toward it. Literal search-and-rescue application: distress-signal convergence. The parent calls this the closest of Marble, Repair, and Beacon to real-world use, because it needs a fixed emitter, a receiver on mobile nodes, and a walk-uphill rule — not collapsing cells or a salvage fab. It is still conceptual. Do not claim SAR certification or real-world readiness.
 
