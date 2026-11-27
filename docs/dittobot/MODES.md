@@ -14,6 +14,8 @@ Do not confuse this file with:
 
 Any packing ratios, ranges, or cycle counts below are **illustrative / TBD**, not measured. No test results are claimed.
 
+Per-mode paper specs for these and the other roadmap capabilities: [specs/README.md](specs/README.md).
+
 ---
 
 ## 1. Marble Mode
