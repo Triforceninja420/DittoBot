@@ -1,15 +1,25 @@
-# Phase 1 — two-module docking on the Phase 0 face protocol (START ONLY)
+# Phase 1 — two-module docking on the Phase 0 face protocol (START ONLY), plus scheduled Marble Mode
 
 Design owned by Craig. Started 2026-11-23. Status: **proposed / paper only**. Credit follows measured data.
 
-> **Scope boundary.** This document is the **start of Phase 1 and stops there**. It covers only:
+> **Scope boundary.** This document is the start of Phase 1. It covers:
 > - docking two modules face-to-face on the unchanged Phase 0 face protocol,
 > - the inter-module power and data handoff across that one joint,
-> - test plan DB-P1-DOCK-TP-001.
+> - test plan DB-P1-DOCK-TP-001 (inherited gates and P1-T1…T14 in §6 — **unchanged**),
+> - Marble Mode as a **scheduled Phase 1 deliverable**: design and validate a collapsing joint between modules (§ Deliverables and §6.4). That work depends on the Phase 0 rigid 20 mm face proof-of-concept (`DB-P0-FACE-TP-001`) landing first. It does not change any locked Phase 0 number, lock, or CAD file, or any existing Phase 1 docking test criterion in §6.
 >
-> It contains nothing beyond Phase 1: no chains of three or more modules, no lattice or swarm behaviour, no genderless face redesign, no companion or V2.0 claims. It does not change any Phase 0 sim number, lock, CAD file, or existing doc.
+> Still out of scope: chains of three or more modules, lattice or swarm behaviour, genderless face redesign, companion or V2.0 claims, Repair Mode, and Beacon Mode.
 
 Every value below is **proposed** unless it is quoted from an existing locked source. **TBD** means a number must be chosen or measured before Phase 1 test start.
+
+## Deliverables
+
+Two workstreams, not one:
+
+1. **Two-module docking** (the original Phase 1 start) — face-to-face dock, power and data handoff, test plan `DB-P1-DOCK-TP-001`. Exit criteria remain §6.3. Nothing in this item is relaxed or rewritten by item 2.
+2. **Marble Mode collapsing joint** — a scheduled Phase 1 item to design and validate the collapsing joint between modules (hinged, scissor, or tensegrity member with a latch). See [dittobot/MODES.md](dittobot/MODES.md#1-marble-mode) and §6.4 below. **Depends on** the Phase 0 rigid 20 mm face proof-of-concept (`DB-P0-FACE-TP-001`) landing first. The current Phase 0 face is rigid and cannot collapse. Mechanism choice, packing fraction, loads, and cycle counts are illustrative / TBD. No pass criteria are claimed as measured.
+
+Item 2 is additive. It is not an exit criterion for Phase 1 start in §6.3.
 
 ---
 
@@ -207,6 +217,23 @@ Types: `HELLO`, `HELLO_ACK`, `ID`, `ID_ACK`, `HB` (heartbeat), `STATUS`, `PWR_RE
 - Results go into a Phase 1 section of a measurement card, with one row per test. Creating that card is a separate commit; it is not part of this file.
 - Sim numbers are the bar. Measured numbers are the credit.
 
+### 6.4 Marble Mode collapsing joint (proposed / TBD)
+
+Scheduled Phase 1 deliverable. **Not** part of the §6.3 exit criteria. **Does not** change P0-T1…T5 or P1-T1…T14.
+
+**Depends on:** the Phase 0 rigid 20 mm face proof-of-concept (`DB-P0-FACE-TP-001`) landing first. Phase 1 docking work in §6.1–6.3 still uses whatever face that test plan is run on, unchanged. The key mechanism to validate *between modules* for this deliverable is the collapsing joint: a hinged, scissor, or tensegrity member with a latch (mechanism choice TBD). Concept and intent are in [dittobot/MODES.md](dittobot/MODES.md#1-marble-mode).
+
+The current locked 20 mm sliding-pin face cannot collapse. This item is a later joint to design and validate, not a change to the Phase 0 article.
+
+Proposed test items. Every threshold below is **illustrative / TBD**. None is a measured pass bar. Numbers must be chosen or measured before this item's test start.
+
+| ID | Intent | Method (proposed / TBD) | Pass bar |
+| :---- | :---- | :---- | :---- |
+| P1-M1 | Fold and unfold one collapsing joint | Collapse to the packed state, latch, then re-expand and re-lock. Repeat a cycle count TBD. | TBD — do not treat any count here as a gate |
+| P1-M2 | Latch hold while packed | Packed joint stays latched under handling loads (load TBD) | TBD |
+| P1-M3 | Alignment after re-expansion | After unfold, the face can attempt a dock on the Phase 0 protocol | TBD. Inherited T1–T5 remain the face gates once a re-expanded face is presented; this row does not rewrite them |
+| P1-M4 | Joint between two modules | Exercise the collapsing joint on a two-module setup after the docking work in §6.2 | TBD. This is later than, and not a substitute for, P1-T1…T14 |
+
 ---
 
 ## 7. Open items (TBD before test start)
@@ -217,4 +244,4 @@ Types: `HELLO`, `HELLO_ACK`, `ID`, `ID_ACK`, `HB` (heartbeat), `STATUS`, `PWR_RE
 - Pogo stagger implementation for mate-first GND.
 - Contact drop limit after first measurement.
 
-**End of Phase 1 start. Nothing beyond Phase 1 is specified here.**
+**End of this Phase 1 document.** §6.1–6.3 remain the Phase 1 start (two-module docking). §6.4 is the proposed / TBD Marble joint item only. Nothing beyond these Phase 1 items is specified here.

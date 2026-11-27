@@ -102,7 +102,7 @@ Every number goes into [docs/MEASUREMENT_CARD.md](MEASUREMENT_CARD.md), raw. If 
 
 ## The Phase 1 boundary
 
-[docs/PHASE1.md](PHASE1.md) is deliberately short on ambition. It covers **two modules, face to face, one joint**, and handing power and data across that single joint. It doesn't cover chains of three or more, lattice behaviour, or genderless faces. It is paper-only and proposed until Phase 0 has measured data.
+[docs/PHASE1.md](PHASE1.md) is deliberately short on ambition. The original Phase 1 start still covers **two modules, face to face, one joint**, and handing power and data across that single joint. It also now schedules [Marble Mode](dittobot/MODES.md#1-marble-mode) as a Phase 1 deliverable — design and validate a collapsing joint — which depends on the Phase 0 rigid 20 mm face proof-of-concept landing first (see [PHASE1.md — Deliverables](PHASE1.md#deliverables)). It doesn't cover chains of three or more, lattice behaviour, or genderless faces. It is paper-only and proposed until Phase 0 has measured data.
 
 The dock runs through a nine-state table, **S0–S8**:
 

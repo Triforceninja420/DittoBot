@@ -2,9 +2,9 @@
 
 Design owner: Craig.
 Date: 2026-11-27.
-Status: **conceptual roadmap additions**. Not committed Phase 0 or Phase 1 work. Does not change locked Phase 0 face geometry, the Phase 1 docking protocol, 25 mm baseline, process locks, measurement cards, or any sim number.
+Status: Marble Mode is a **scheduled Phase 1 deliverable** (see [PHASE1.md — Deliverables](../PHASE1.md#deliverables) and [§6.4](../PHASE1.md#64-marble-mode-collapsing-joint-proposed--tbd)). Repair Mode and Beacon Mode remain **conceptual roadmap additions**. None of this changes locked Phase 0 face geometry, the existing Phase 1 docking protocol or test criteria (P1-T1…T14), 25 mm baseline, process locks, measurement cards, or any sim number.
 
-These three modes are swarm and lattice behaviors sketched for later, after Phase 0 hardware learnings exist (`DB-P0-FACE-TP-001`) and Phase 1 two-module docking (`DB-P1-DOCK-TP-001`) has been measured. Paper until tested. Credit follows data.
+Repair and Beacon stay sketched for later. Marble Mode is now on the Phase 1 schedule, but it still depends on the Phase 0 rigid 20 mm face proof-of-concept (`DB-P0-FACE-TP-001`) landing first. Paper until tested. Credit follows data.
 
 Do not confuse this file with:
 
@@ -24,14 +24,14 @@ A single voxel collapses into a dense sphere for compact transport and re-expand
 
 **Relation to existing outlook.** [POST_2040_OUTLOOK.md](../POST_2040_OUTLOOK.md) already describes an inward-compaction path in which *many* modules release selected faces, move inward, and lock into a denser packing (car-scale down to roughly basketball-sized). That path keeps each cell envelope at its nominal size (20 mm Phase 0 face or 25 mm baseline). Marble Mode is a different, later idea: *one* voxel changing its own occupied volume. The two should not be mixed.
 
-**Physical concept (conceptual, pending Phase 0 hardware learnings).**
-The locked hardware is a rigid cell: 25 mm cube baseline, or the Phase 0 20 mm sliding-pin face (Nd disc Ø6.0 × 2–3 mm hold, coil release-only, 7075-T6 plate, 3 hardened-steel latch pins). That article cannot collapse today. Marble Mode would need a later collapsible architecture built only after that face is measured.
+**Physical concept (scheduled Phase 1 item, pending the Phase 0 face landing first).**
+The locked hardware is a rigid cell: 25 mm cube baseline, or the Phase 0 20 mm sliding-pin face (Nd disc Ø6.0 × 2–3 mm hold, coil release-only, 7075-T6 plate, 3 hardened-steel latch pins). That article cannot collapse today. Marble Mode needs a later collapsible architecture, scheduled as a Phase 1 deliverable, and that work cannot be validated until the Phase 0 rigid 20 mm face proof-of-concept (`DB-P0-FACE-TP-001`) has landed. See [PHASE1.md](../PHASE1.md#deliverables).
 
 A rough mechanism, not a selected design: hinged, scissor, or tensegrity members fold the faces inward around a dense core (magnet, pins, compute, energy). A latch holds the packed sphere for transport. The reverse sequence re-expands the members, re-locks the faces, and restores a dockable envelope so the cell can soft-dock and hard-lock again. Packing fraction, packed diameter, unfold time, and cycle life are all TBD.
 
 **Open questions that wait on Phase 0.** Whether a collapsing face can still meet soft-dock, hard-lock, shear, and cycle gates after re-expansion. Pin alignment and contact clocking after a fold. Magnet / coil survival through fold cycles. Mass and whether the packed form is actually a sphere or just a rounded brick.
 
-**Status.** Conceptual until tested. No packing-ratio claim, no launch-stow claim, no Phase 0 work.
+**Status.** Scheduled Phase 1 item to design and validate — not yet tested, and not Phase 0 work. The key mechanism to validate between modules is the collapsing joint (hinged, scissor, or tensegrity member with a latch); proposed / TBD test items are in [PHASE1.md §6.4](../PHASE1.md#64-marble-mode-collapsing-joint-proposed--tbd). No packing-ratio claim, no launch-stow claim. Numbers remain illustrative / TBD.
 
 ---
 
@@ -84,7 +84,7 @@ Related to, but not the same as, [SAR_MODES.md](../SAR_MODES.md): Search already
 ## What this does not change
 
 - Phase 0 locked 20 mm sliding-pin face, Nd disc Ø6.0 × 2–3 mm, 3 latch pins, test plan `DB-P0-FACE-TP-001`
-- Phase 1 two-module docking, test plan `DB-P1-DOCK-TP-001`
+- Phase 1 two-module docking protocol and test criteria (P1-T1…T14), test plan `DB-P1-DOCK-TP-001` — unchanged; Marble's proposed joint items live in §6.4 and are separate
 - 25 mm baseline, `LOCKS.md`, measurement cards
 - Mars sim numbers or honesty notes, except the v2.13 recovery parallel cited above
 - The existing content of `MODES.md`, `SAR_MODES.md`, and `POST_2040_OUTLOOK.md`
