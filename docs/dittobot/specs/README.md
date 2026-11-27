@@ -19,6 +19,13 @@ Paper until measured. Credit follows data.
 | BAR-MOD barrier | [BAR_MOD.md](../../BAR_MOD.md) | [MODES.md — Modular components](../../MODES.md#modular-components-phase-0-face-compatible-paper) |
 | SAR package (Search / Rescue / Signal) | [SAR_MODES.md](../../SAR_MODES.md) | [MODES.md — Modular components](../../MODES.md#modular-components-phase-0-face-compatible-paper) |
 
+## Architecture papers (not in this folder)
+
+Conceptual v0.1 papers in [docs/dittobot/](../). They are not per-mode specs in this folder and they do not change any status label below.
+
+- [POWER_ARCHITECTURE.md](../POWER_ARCHITECTURE.md) — how a single cell charges, stores, and shares energy across the lattice.
+- [COMMUNICATION_PROTOCOL.md](../COMMUNICATION_PROTOCOL.md) — how nodes talk.
+
 ## New paper specs in this folder
 
 ### Feature modes (parent: [dittobot/MODES.md](../MODES.md))

@@ -17,6 +17,9 @@ Any packing ratios, ranges, or cycle counts below are **illustrative / TBD**, no
 
 Per-mode paper specs for these and the other roadmap capabilities: [specs/README.md](specs/README.md).
 
+[POWER_ARCHITECTURE.md](POWER_ARCHITECTURE.md) — how a single cell charges, stores, and shares energy across the lattice (conceptual architecture paper).
+[COMMUNICATION_PROTOCOL.md](COMMUNICATION_PROTOCOL.md) — how nodes talk (conceptual architecture paper).
+
 ---
 
 ## 1. Marble Mode
