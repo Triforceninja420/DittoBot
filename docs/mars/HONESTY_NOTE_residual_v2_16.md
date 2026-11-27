@@ -5,6 +5,78 @@
 **Status:** Documented. Not forced. Scored A (both fixes, cost-scaled) is 2880/2880, 12/12 cells PASS; the fixes-OFF reference (= v2.13 scored A) is bit-identical to v2.13.
 **Run:** default `main()`, seed 42, N=240, 12 cells, habitat + adaptive on, throttle mode.
 
+## Summary — v2.16 clears every residual (read this first)
+
+**v2.16, N=240, seed 42: every config clears 2,880/2,880 (12/12 cells), and the
+scored-A fixes-OFF reference also clears 2,880/2,880.** Configs: scored A, C
+(no-override), A-low, A-high, REF, and B. This is the first version with zero gate
+misses across all six configs.
+
+### Lineage (misses out of 2,880, N=240 seed 42)
+
+| Config | v2.13 | v2.14 | v2.15 | **v2.16** |
+|---|---|---|---|---|
+| A scored | 0 | 0 | 0 | **0** |
+| C (no-override) | 19 | 0 | 5 | **0** |
+| A-low | 18 | 9 | 13 | **0** |
+| A-high | 14 | 0 | 5 | **0** |
+| REF | 34 | 0 | 5 | **0** |
+| B (scav 1e-3) | 3 | 110 | 0 | **0** |
+
+### The two fixes, and why each alone was not enough
+
+- **Fix 1 — real-time adaptive reductase.** Cumulative oxidative damage induces an
+  antioxidant (Hill-1), which lowers the per-sol oxidative damage rate on later sols;
+  induction carries a replication-rate cost. **Fix 1 alone broke B**: 131 misses
+  (gate-fail), and with BOTH fixes on, v2.14's B still had **110 extinctions on the
+  severe 1.50% cell**. Cause: B's override makes ox ≈ 0.9989 (damage ≈ 0.0011), so the
+  induction saturates and charges a nearly **always-on ~1.49%/sol growth cost for a
+  ~0.0003 benefit**; in B's marginal scav-1e-3 regime that drag flips net growth below
+  replacement and the cell slowly dies.
+- **Fix 2 — reductase-baseline sub-populations (15% resistant / 70% standard /
+  15% sensitive).** The resistant fraction carries the culture through oxidative
+  spikes at a growth-rate cost. **Fix 2 alone left residuals**: 5 misses on C, REF,
+  and A-high, and 9 on A-low (A-low under Fix-1-only was 8).
+
+### Why v2.16 (NOT a routing hybrid) clears everything
+
+v2.15 used **per-cell routing** (Fix 2 on the severe 1.50% cell, Fix 1 everywhere
+else); that restored scored A and B but still left C/REF/A-high at 5 and A-low at 13.
+
+**v2.16 is not routing.** It runs **BOTH fixes in every cell of every config** and makes
+**Fix 1's growth cost scale with the current oxidative damage**:
+`cost = ADAPT_OX_GROWTH_COST · ind · min(1, (1 - ox_base) / ADAPT_OX_COST_REF)` with
+`ADAPT_OX_COST_REF = 0.03`. Where there is little damage (the ox ≈ 0.9989 override
+cells) the cost is almost fully waived, so Fix 1 no longer self-destructs there, while
+Fix 2's standing variation still protects the oxidative-limited cells. Result: **all
+residuals → 0**.
+
+### Eight modeled constants (all assumptions, none measured)
+
+Craig's draft said "seven" and called v2.16 a routing hybrid — both are inaccurate.
+v2.16 is cost-scaled Fix 1 + sub-populations in every cell, with **eight** modeled
+constants:
+
+Fix 1: (1) `ADAPT_OX_PROTECT_MAX = 0.3`; (2) `ADAPT_OX_HALFSAT = 0.5`;
+(3) `ADAPT_OX_GROWTH_COST = 0.05`; (4) `ADAPT_OX_COST_REF = 0.03`.
+Fix 2: (5) `SUBPOP_FRACTIONS = (0.15, 0.70, 0.15)`;
+(6) `SUBPOP_OX_PROTECT = (0.3, 0.0, -0.3)`;
+(7) `SUBPOP_GROWTH_COST = (0.04, 0.0, -0.01)`; (8) `SUBPOP_PROTECT_MAX = 0.95`.
+All eight are modeled engineering assumptions, not measured biological values.
+
+### Establishment speedup (median clear sol, from the N=240 logs)
+
+- **C, moderate 1.50%: 2922 (v2.13) → 421 (v2.16).**
+- **REF, moderate 1.50%: 3029 (v2.13) → 423 (v2.16).**
+- **Scored A, severe 1.50%: 1906 (v2.13) → 1801 (v2.16).**
+
+### Caveat
+
+Zero gate misses at N=240 seed 42 is **not** a proof of zero extinction probability —
+no cell crossed its pass threshold in these 240 seeds, but rare tail extinctions below
+the gate remain possible. Nothing was tuned to the gate.
+
+
 ## What changed in v2.16
 
 v2.16 replaces v2.15's per-cell ROUTING with a single uniform policy: **both fixes

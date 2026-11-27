@@ -3,6 +3,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Python](https://img.shields.io/badge/python-3.x-blue.svg)](https://www.python.org/)
 [![Docs](https://img.shields.io/badge/docs-living-brightgreen.svg)](docs/)
+[![Mars Sim](https://img.shields.io/badge/mars--sim-v2.16-blue.svg)](sims/)
 
 **Programmable Matter Voxel Lattice Robot** — modular cubes that dock, lock, pass power & data, and form structures. 25 mm cell is the main design.
 
