@@ -25,6 +25,7 @@ Design owned by Craig. Programmable matter voxel lattice. 25 mm cell is the main
 | [MARS_VARIANT.md](docs/MARS_VARIANT.md) | Mars / space hardened 25 mm path (inherits baseline) |
 | [mars/](docs/mars/) | Speculative Mars extensions — seed bots, converters, bacteria swarm (DB-MARS-CONV-006), governors. Paper/sim only. |
 | [EXTREME_ENVIRONMENTS.md](docs/EXTREME_ENVIRONMENTS.md) | Ocean, cryo, heat, rad, flight/exoskeleton, agency gates |
+| [MODES.md](docs/MODES.md) | Application modes: flight suit, pure exoskeleton, armored shell, soft companion, vehicle, habitat (paper inheritance) |
 | [POST_2040_OUTLOOK.md](docs/POST_2040_OUTLOOK.md) | Scale-change modes (speculative) |
 | [COMMUNITY_ENHANCEMENT_SUITES.md](docs/COMMUNITY_ENHANCEMENT_SUITES.md) | Optional zero-impact suites |
 
@@ -41,4 +42,4 @@ Design owned by Craig. Programmable matter voxel lattice. 25 mm cell is the main
 Paper until measured. Credit follows data.
 DittoBot is the main design. Mars path is an inheritance and extension of it.
 
-Funky fresh as of 2026-11-24.
+Funky fresh as of 2026-11-26.
