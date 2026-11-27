@@ -1,7 +1,0 @@
-v2.10 UNSCORED sensitivity (not the canonical scored run; scored A = ox10): expand OX_PERCELL_OVERRIDE to all 12 (tier, perch) cells at the ISS detection-floor bound and hard-set 1.0 in every cell as the active dict.
-
-ISS 3-year ~715 mGy showed no measurable survival effect. Mars surface background 76-96 mGy/year gives ~43-54 mGy over a 200-sol run, ~13-17x below that anchor, so the override is 1.0. The model has no per-tier/per-perch mGy rates, so this is a uniform bound, not a true per-cell fit. Missing keys raise; no silent fallback. DOUBLING_SOLS held at 8.72. Parallel UNSCORED branch: sens/v2.10-ox-percell-t66u (t66u slope fit).
-
-At 1e12, seed 42, 240 runs/cell, scav 5e-3, D 8.72: 12/12 pass, freeze 0/2880, 0 extinctions, ALL GATES PASS, clears 240 in all 12. Diff vs scored A: 37/2880, exactly the 37 scored-A failures, all rescued. At the 2.5e13 knee: 12x240, margin only.
-
-Inoculum/seed checks (scored-A config, not re-run on this override): the eight unaided cells stay 240 down to 1e6; the four binding cells pass at 1e9 (154/240) and fail the moderate 60% gate at 1e8 and below. At 1e12, seeds 42/1/7/123/2024 all pass gates on those four cells (225-233/240); failures are a shared 7-16-index bad-draw set, not r55-only.
