@@ -4,7 +4,7 @@ Design owner: Craig.
 Date: 2026-11-27.
 Status: **proposed / paper only**. Credit follows measured data.
 
-This file indexes the numbered phases and defines Phase 2. It does not change Phase 0 locks, Phase 1 docking criteria (P1-T1…T14), the locked 25 mm cell core, any existing spec status, or [PHASE1.md](../PHASE1.md). Every value below is **proposed** unless it is quoted from an existing locked source. **TBD** means a number must be chosen or measured before Phase 2 test start. No pass bars are invented here.
+This file indexes the numbered phases and defines Phase 2 and Phase 3. It does not change Phase 0 locks, Phase 1 docking criteria (P1-T1…T14), the locked 25 mm cell core, any existing spec status, or [PHASE1.md](../PHASE1.md). Every value below is **proposed** unless it is quoted from an existing locked source. **TBD** means a number must be chosen or measured before the relevant phase's test start. No pass bars are invented here.
 
 Paper until measured. Credit follows data.
 
@@ -15,7 +15,8 @@ Paper until measured. Credit follows data.
 - **Phase 0** — one 20 mm docking face. See [PHASE0.md](../PHASE0.md). Test plan `DB-P0-FACE-TP-001`.
 - **Phase 1** — two-module docking on the unchanged Phase 0 face protocol, plus scheduled Marble Mode joint work. See [PHASE1.md](../PHASE1.md). Test plan `DB-P1-DOCK-TP-001` (P1-T1…T14).
 - **Phase 2** — four-module lattice demos, defined below.
-- **Phase 3+** — not defined yet.
+- **Phase 3** — 60–200 module field trial, defined below.
+- **Phase 4+** — not defined yet.
 
 ---
 
@@ -99,9 +100,71 @@ Every threshold below is **TBD, no pass bar set**. None is a measured gate. Numb
 
 ---
 
-## Phase 3+
+## Phase 3 — 60–200 module field trial
 
-Phase 3 and later numbered phases are **not defined yet**. Nothing in this file implies a Phase 3 scope, schedule, or test plan.
+### Goal
+
+A 60–200 module lattice in the field, still on the locked 25 mm cell and the unchanged Phase 0 face protocol, with:
+
+- real field payloads: an [EX-MOD](../EX_MOD.md) used on an actual fire, and/or a [BAR-MOD](../BAR_MOD.md) blocking a real breach
+- one physical prototype each of a companion mode and a tool mode ([COMPANION_TOOL_MODES.md](COMPANION_TOOL_MODES.md))
+- a first honest field trial, even a backyard SAR drill ([SAR_MODES.md](../SAR_MODES.md))
+
+Craig's brief for this phase calls 60–200 modules the V1.0 industrial range from the original roadmap. **That range and the label “V1.0 industrial range” were not found as existing roadmap language in this repository.** [LOCKS.md](../LOCKS.md) explicitly lists “Node count for a swarm or suit” as not locked. This document therefore adopts 60–200 modules as the Phase 3 range defined here, not as a prior lock.
+
+### Entry criteria
+
+**Phase 2 complete**, as defined by the Phase 2 exit criteria above:
+
+- four modules docked (P2-T1…P2-T3)
+- power shared across that lattice (P2-T4)
+- one payload fired (P2-T6, P2-T7)
+- the Marble joint demonstrated at four-module scale, or explicitly deferred with a reason (P2-T9)
+
+Those IDs and their bars live in the Phase 2 section and are not restated here. A recorded P2-T9 deferral does not rewrite Phase 2; it is carried into Phase 3 as context.
+
+### Exit criteria
+
+All of the following:
+
+1. **60–200 modules operating** as one lattice (or a documented set of jointly operated lattices) on the locked 25 mm cell and the Phase 0 face protocol (P3-T1).
+2. **At least one real payload fired in field conditions** — EX-MOD on an actual fire, or BAR-MOD blocking a real breach (P3-T3 and/or P3-T4).
+3. **One companion-mode prototype and one tool-mode prototype**, each physical, not paper-only (P3-T5, P3-T6).
+4. **One field trial completed** with documented results, even if the trial is a backyard SAR drill (P3-T7, P3-T8).
+
+Results go into a Phase 3 section of a measurement card. Creating that card is a separate commit. Paper and sim numbers are not the credit. Measured numbers are the credit. No fielded-capability claim is made until those results are documented.
+
+### Safety
+
+Live-fire and breach tests run only under supervision and with any required permits. They are proposed field measurements, not a license to improvise. Companion and tool prototypes remain subject to the existing companion gates in [LOCKS.md](../LOCKS.md) (including the 35 N human-contact interrupt and “no companion claim” until a filled measurement card exists). Nothing in this phase certifies a companion robot, a fire-suppression product, or a fielded SAR system.
+
+### Scope and honesty
+
+- The locked 25 mm cell core and the Phase 0 face protocol stay unchanged in Phase 3. This phase is a scale and field step, not a cell redesign.
+- Payload figures in [EX_MOD.md](../EX_MOD.md) and [BAR_MOD.md](../BAR_MOD.md) remain paper. They are not Phase 3 pass bars.
+- [COMPANION_TOOL_MODES.md](COMPANION_TOOL_MODES.md) is a conceptual catalog. Phase 3 asks for one physical companion prototype and one physical tool prototype from that catalog (or from the already-specified EX-MOD / BAR-MOD tool entries). It does not promote the rest of the catalog.
+- [SAR_MODES.md](../SAR_MODES.md) is paper / software + sensor-stub only. A backyard drill with documented results is an honest first trial, not a SAR certification.
+
+### Test plan (proposed / TBD)
+
+Every threshold below is **TBD, no pass bar set**. None is a measured gate. Numbers must be chosen or measured before Phase 3 test start.
+
+| ID | Intent | Proposed measurement | Pass bar |
+| :-- | :-- | :-- | :-- |
+| P3-T1 | 60–200 modules operating | Assemble and operate a lattice of 60–200 modules on the locked 25 mm cell and the Phase 0 face protocol. Record the operating node count, and a joint dock / lock summary. | TBD, no pass bar set |
+| P3-T2 | Continuity at that scale | With that lattice operating, record whether power and the inter-module link still function across the set (source/sink or bus log, and any joint dropouts). Current, duration, and topology remain TBD. Do not retune inherited bus gates. | TBD, no pass bar set |
+| P3-T3 | EX-MOD on an actual fire | Under supervision and with any required permits, use a docked [EX-MOD](../EX_MOD.md) on an actual fire. Record the setting, supervision/permit, activation, and the observed effect. Paper discharge figures in that doc are not Phase 3 bars. | TBD, no pass bar set |
+| P3-T4 | BAR-MOD on a real breach | Under supervision and with any required permits, use a docked [BAR-MOD](../BAR_MOD.md) to block a real breach. Record the setting, supervision/permit, deployment, and the observed effect. Paper panel figures in that doc are not Phase 3 bars. Exit requires at least one of P3-T3 or P3-T4. | TBD, no pass bar set |
+| P3-T5 | Physical companion-mode prototype | Build one physical prototype of a companion mode from [COMPANION_TOOL_MODES.md](COMPANION_TOOL_MODES.md#companion-modes) (the wearable soft-companion paper spec may be the basis, but the prototype itself must be physical). Record which mode, that it is hardware, and any measurement-card / companion-gate notes. | TBD, no pass bar set |
+| P3-T6 | Physical tool-mode prototype | Build one physical prototype of a tool mode from [COMPANION_TOOL_MODES.md](COMPANION_TOOL_MODES.md#tool-modes). Record which mode and that it is hardware. A Phase 2 EX-MOD or BAR-MOD fire demo is not, by itself, this prototype unless the Phase 3 article is itself a physical tool build and is recorded as such. | TBD, no pass bar set |
+| P3-T7 | First honest field trial | Run one field trial with documented results, even a backyard drill using the Search / Rescue / Signal package in [SAR_MODES.md](../SAR_MODES.md). Record the setting, procedure, what was attempted, what happened, and what failed. This is not a SAR certification. | TBD, no pass bar set |
+| P3-T8 | Documented results; no fielded claim | File the Phase 3 results (payload, prototypes, and trial) in the measurement-card section. Record that no fielded-capability claim is made until that documentation exists. | TBD, no pass bar set |
+
+---
+
+## Phase 4+
+
+Phase 4 and later numbered phases are **not defined yet**. Nothing in this file implies a Phase 4 scope, schedule, or test plan.
 
 ---
 
