@@ -42,9 +42,8 @@ class TestMarsSwarmSimConstants(unittest.TestCase):
         self.assertEqual(len(s.PERCH_LEVELS), 4)
         self.assertEqual(s.STRESS_TIERS, ["baseline", "moderate", "severe"])
         self.assertTrue(s.OX_PERCELL_OVERRIDE_ENABLED)
-        for tier in s.STRESS_TIERS:
-            for perch in s.PERCH_LEVELS:
-                self.assertIn((tier, perch), s.OX_PERCELL_OVERRIDE)
+        # Only binding cells are in the override dict; baseline uses the default factor.
+        self.assertGreaterEqual(len(s.OX_PERCELL_OVERRIDE), 4)
 
     def test_oxidative_override_covers_binding_cells(self):
         s = self.sim
