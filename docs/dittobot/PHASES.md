@@ -4,7 +4,7 @@ Design owner: Craig.
 Date: 2026-11-27.
 Status: **proposed / paper only**. Credit follows measured data.
 
-This file indexes the numbered phases and defines Phase 2 and Phase 3. It does not change Phase 0 locks, Phase 1 docking criteria (P1-T1…T14), the locked 25 mm cell core, any existing spec status, or [PHASE1.md](../PHASE1.md). Every value below is **proposed** unless it is quoted from an existing locked source. **TBD** means a number must be chosen or measured before the relevant phase's test start. No pass bars are invented here.
+This file indexes the numbered phases and defines Phase 2, Phase 3, and Phase 4. It does not change Phase 0 locks, Phase 1 docking criteria (P1-T1…T14), the locked 25 mm cell core for Phases 0–3, any existing spec status, or [PHASE1.md](../PHASE1.md). Every value below is **proposed** unless it is quoted from an existing locked source. **TBD** means a number must be chosen or measured before the relevant phase's test start. No pass bars are invented here.
 
 Paper until measured. Credit follows data.
 
@@ -16,13 +16,14 @@ Paper until measured. Credit follows data.
 - **Phase 1** — two-module docking on the unchanged Phase 0 face protocol, plus scheduled Marble Mode joint work. See [PHASE1.md](../PHASE1.md). Test plan `DB-P1-DOCK-TP-001` (P1-T1…T14).
 - **Phase 2** — four-module lattice demos, defined below.
 - **Phase 3** — 60–200 module field trial, defined below.
-- **Phase 4+** — not defined yet.
+- **Phase 4** — post-2040 / V2.0-territory work, defined below.
+- **Phase 5+** — not defined yet.
 
 ---
 
 ## Inheritance (all numbered phases)
 
-The locked 25 mm cell core is unchanged ([DESIGN.md](../DESIGN.md), [PAPER_STATUS.md](../PAPER_STATUS.md)):
+The locked 25 mm cell core is unchanged for Phases 0–3 ([DESIGN.md](../DESIGN.md), [PAPER_STATUS.md](../PAPER_STATUS.md)):
 
 - 25 mm cube envelope
 - Centered Ø8.2 × 4.0 mm pocket (locked)
@@ -30,7 +31,7 @@ The locked 25 mm cell core is unchanged ([DESIGN.md](../DESIGN.md), [PAPER_STATU
 - DRV8871, 12 V, pulse-only
 - Axial pin hard-lock; full cavity potting and face coatings
 
-Phase 2 uses the unchanged Phase 0 face protocol. It does not retune that core, rewrite Phase 0 or Phase 1 gates, or mix the two stacks except as already allowed in `HARDWARE_MAPPING.md`.
+Phases 2 and 3 use the unchanged Phase 0 face protocol. They do not retune that core, rewrite Phase 0 or Phase 1 gates, or mix the two stacks except as already allowed in `HARDWARE_MAPPING.md`. A 1 cm node density may be targeted in Phase 4 only; it is not locked or validated, and it does not unlock or retune the 25 mm cell for Phases 0–3.
 
 ---
 
@@ -162,9 +163,74 @@ Every threshold below is **TBD, no pass bar set**. None is a measured gate. Numb
 
 ---
 
-## Phase 4+
+## Phase 4 — post-2040 / V2.0 territory
 
-Phase 4 and later numbered phases are **not defined yet**. Nothing in this file implies a Phase 4 scope, schedule, or test plan.
+### Goal
+
+Phase 4 is post-2040, V2.0-territory work. [POST_2040_OUTLOOK.md](../POST_2040_OUTLOOK.md) is a **post-2040 speculative outlook** and states **No V2.0 claim**; it does not change locked Phase 0 criteria, 25 mm option A geometry, process locks, or any current build target. [LOCKS.md](../LOCKS.md) likewise does **not** create V2.0, and lists **V2.0 as a product** as explicitly not locked. No other V2.0 product roadmap text was found in the repository. This phase is where that later territory is now being numbered; it does not mint a V2.0 product by writing the heading.
+
+This phase aims for:
+
+- denser nodes targeting **1 cm cubes** (a target only — see Node size below)
+- [hierarchical nesting](specs/hierarchical-nesting.md) and [split-merge](specs/split-merge.md) as the **default organization**
+- Marble Mode at scale, **expected if** the Phase 1 / Phase 2 results hold, not as already solved
+- the companion line moving from the Phase 3 prototype to a **household product**, which is the original motivation for this phase
+
+### Node size
+
+**1 cm is a target, not locked or validated.** The 25 mm cell stays locked for Phases 0–3.
+
+The repository does not describe a “current 4–8 cm” linear node. The only 4–8 wording is in [EX_MOD.md](../EX_MOD.md) and [BAR_MOD.md](../BAR_MOD.md): **“Envelope: 4–8 cm³ node class (compatible with current baseline).”** That is a **volume** class (cubic centimetres), not an edge length. The locked cell is a **25 mm cube** (2.5 cm edge; 15.625 cm³ volume). Those three figures are not the same: 4–8 cm as a linear size is not in the repo; 4–8 cm³ is smaller than the locked 25 mm cube’s volume, even though the payload docs call that class compatible with the baseline. Phase 4 uses the repo’s wording and does not treat 4–8 cm as the current node edge.
+
+A further tension: [POST_2040_OUTLOOK.md](../POST_2040_OUTLOOK.md) says individual cell envelopes stay the nominal size (20 mm Phase 0 sliding-pin face or 25 mm option A), and that volume change comes from packing density, nesting, zoning, and node-count changes — **not from shrinking or growing the cells themselves**. The 1 cm density target is therefore a new Phase 4 goal, not a size already unlocked by the outlook. It does not rewrite that outlook, and it does not unlock the 25 mm cell for earlier phases.
+
+### Entry criteria
+
+**Phase 3 complete**, as defined by the Phase 3 exit criteria above:
+
+- 60–200 modules operating (P3-T1)
+- at least one real payload fired in field conditions (P3-T3 and/or P3-T4)
+- one physical companion prototype and one physical tool prototype (P3-T5, P3-T6)
+- one field trial completed with documented results (P3-T7, P3-T8)
+
+Those IDs and their bars live in the Phase 3 section and are not restated here.
+
+### Exit criteria
+
+All of the following:
+
+1. **1 cm node density achieved** as a measured result against the 1 cm target (P4-T1). Achieving it does not lock 1 cm, and it does not change the 25 mm lock for Phases 0–3.
+2. **Hierarchical nesting and split-merge as the default organization** (P4-T2, P4-T3).
+3. **Marble Mode working at scale** (P4-T4), expected if the Phase 1 / Phase 2 Marble results hold; not treated as already solved at entry.
+4. **Companion product in households** (P4-T5), still subject to the companion gates in [LOCKS.md](../LOCKS.md).
+
+Results go into a Phase 4 section of a measurement card. Creating that card is a separate commit. Paper and sim numbers are not the credit. Measured numbers are the credit.
+
+### Scope and honesty
+
+- This phase does not rewrite [POST_2040_OUTLOOK.md](../POST_2040_OUTLOOK.md), [LOCKS.md](../LOCKS.md), [PHASE1.md](../PHASE1.md), or the Phase 2 / Phase 3 sections above.
+- [specs/hierarchical-nesting.md](specs/hierarchical-nesting.md) and [specs/split-merge.md](specs/split-merge.md) remain conceptual paper specs until Phase 4 measurements exist. Making them the default organization is an exit goal, not a present fact.
+- Marble overlap continues to be handled as in the Phase 2 section: Marble is already scheduled in Phase 1 (P1-M1…P1-M4, not a §6.3 exit) and carried forward at four-module scale by P2-T9 (or explicitly deferred). Phase 4 does not move those IDs, does not treat the collapsing joint as already solved, and only asks for scale if the earlier results hold.
+- Companion as a household product remains subject to “no companion claim” until a filled measurement card exists, the 35 N human-contact interrupt, and the other companion gates. [LOCKS.md](../LOCKS.md) still does not certify a companion robot, and V2.0 as a product remains not locked.
+
+### Test plan (proposed / TBD)
+
+Every threshold below is **TBD, no pass bar set**. None is a measured gate. Numbers must be chosen or measured before Phase 4 test start.
+
+| ID | Intent | Proposed measurement | Pass bar |
+| :-- | :-- | :-- | :-- |
+| P4-T1 | 1 cm node density | Measure the envelope of the denser node against the 1 cm cube target. Record the measured edge (or bounding box) and that 1 cm is a target, not a lock. Record that the 25 mm cell remains locked for Phases 0–3. | TBD, no pass bar set |
+| P4-T2 | Hierarchical nesting as default organization | Operate a lattice whose default organization is hierarchical nesting, as described in [specs/hierarchical-nesting.md](specs/hierarchical-nesting.md) and [POST_2040_OUTLOOK.md §3](../POST_2040_OUTLOOK.md#3-hierarchical-nesting). Record that nesting is the default, and a count or description of outer envelopes and sub-lattices. | TBD, no pass bar set |
+| P4-T3 | Split-merge as default organization | Under that same default organization, perform a split and a merge as described in [specs/split-merge.md](specs/split-merge.md) and [POST_2040_OUTLOOK.md §5](../POST_2040_OUTLOOK.md#5-split--merge-swarm-scaling). Record the cut / join, and whether each subgroup (and the merged lattice) remains a working organization. | TBD, no pass bar set |
+| P4-T4 | Marble Mode at scale | If the Phase 1 (P1-M1…P1-M4) and Phase 2 (P2-T9) Marble results hold, demonstrate Marble Mode working at the Phase 4 lattice scale: pack and latch, then re-expand, and record whether re-expanded faces can still attempt a dock. If those earlier results do not hold, or if P2-T9 was deferred and was not later completed, record that and do not treat scale Marble as demonstrated. This is expected-if, not already solved. See [specs/marble-mode.md](specs/marble-mode.md). | TBD, no pass bar set |
+| P4-T5 | Companion as household product | Take the Phase 3 companion prototype line to a household-product configuration, against [COMPANION_TOOL_MODES.md](COMPANION_TOOL_MODES.md#companion-modes). Record the configuration, the household setting, and the companion-gate / measurement-card notes. This is not a companion certification until those gates are met. | TBD, no pass bar set |
+| P4-T6 | 1 cm target and 25 mm lock recorded | Confirm in the Phase 4 results that 1 cm remains a target (not locked or validated) and that the 25 mm cell stays locked for Phases 0–3. Record that this phase does not mint a V2.0 product by existing. | TBD, no pass bar set |
+
+---
+
+## Phase 5+
+
+Phase 5+ is not defined yet.
 
 ---
 

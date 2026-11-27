@@ -7,7 +7,7 @@ Status: index of paper / conceptual specs. Does not change the locked 25 mm cell
 
 This folder holds one paper spec per mode or capability that did not already have its own dedicated document. Each spec inherits the locked 25 mm cell core unchanged (Ø8.2 × 4.0 mm pocket, Nd disc Ø6.0 × 2–3 mm hold, DRV8871 pulse-only), and links back to its parent. Test gates are cited only where the repo already defines them. Anything else is TBD, no pass bar set. Assumptions are labeled modeled, not measured.
 
-Numbered phases are indexed in [PHASES.md](../PHASES.md): Phase 0 (one face, [PHASE0.md](../../PHASE0.md)), Phase 1 (two-module dock plus scheduled Marble, [PHASE1.md](../../PHASE1.md)), Phase 2 (four-module lattice demos), and Phase 3 (60–200 module field trial). Phase 4+ is not defined yet. The 27 non-Marble specs in this folder remain v0.2 with Status labels unchanged; any reassignment against Phase 2 is a separate decision and is not made here. Marble Mode remains v0.1 / Phase 1 ready (scheduled, not tested).
+Numbered phases are indexed in [PHASES.md](../PHASES.md): Phase 0 (one face, [PHASE0.md](../../PHASE0.md)), Phase 1 (two-module dock plus scheduled Marble, [PHASE1.md](../../PHASE1.md)), Phase 2 (four-module lattice demos), Phase 3 (60–200 module field trial), and Phase 4 (post-2040 / V2.0 territory). Phase 5+ is not defined yet. The 27 non-Marble specs in this folder remain v0.2 with Status labels unchanged; any reassignment against Phase 2 is a separate decision and is not made here. Marble Mode remains v0.1 / Phase 1 ready (scheduled, not tested).
 
 Paper until measured. Credit follows data.
 
