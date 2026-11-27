@@ -25,6 +25,8 @@ Conceptual v0.1 papers in [docs/dittobot/](../). They are not per-mode specs in 
 
 - [POWER_ARCHITECTURE.md](../POWER_ARCHITECTURE.md) — how a single cell charges, stores, and shares energy across the lattice.
 - [COMMUNICATION_PROTOCOL.md](../COMMUNICATION_PROTOCOL.md) — how nodes talk.
+- [BILL_OF_MATERIALS.md](../BILL_OF_MATERIALS.md) — bill of materials for one 25 mm cell, plus a Phase 0 20 mm face-article cost sketch (paper spec, v0.1).
+- [TEST_RIG.md](../TEST_RIG.md) — Phase 0 bench spec, mapped to existing P0-T1…T5 / PHASE0 success tests (paper spec, v0.1).
 
 ## New paper specs in this folder
 
