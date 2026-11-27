@@ -23,7 +23,7 @@ Do not paste these Phase 0 numbers into the 25 mm files.
 
 Public parent: `DittoBot_Phase0_Face_Public_Spec.docx`  
 CAD / SOP / BOM / sims: `Phase0_Independent_Fab_Package/` (v0.2, 2026-09-08)  
-Aluminum plate package: `DittoBot_Phase0_Aluminum_FacePlate_Package_v0.1.txt`
+Aluminum plate package: DittoBot_Phase0_Aluminum_FacePlate_Package_v0.1.txt (offline package, not in this repo)
 
 Status: **frozen** until measured ON / OFF / current / temperature / cycle data are published.
 
@@ -140,7 +140,7 @@ Mass: 9.2 g module. Thermal < 1.5 K at 0.44 W pulse-duty. Cycles: 2 000 dock/und
 - `cad/DittoBot_Phase0_FacePlate_20mm.svg` (top-view fab drawing, generated 2026-11-23 from the 20 mm redesign)
 - `cad/DittoBot_Phase0_FacePlate_Dimensions.txt` (dimension table tracking locked spec numbers)
 - `Phase0_Independent_Fab_Package/` (v0.2, 2026-09-08) — SOP, BOM, sims
-- `DittoBot_Phase0_Aluminum_FacePlate_Package_v0.1.txt` — aluminum plate package
+- DittoBot_Phase0_Aluminum_FacePlate_Package_v0.1.txt — aluminum plate package (offline package, not in this repo)
 - `tools/phase0_estimate.py` — public estimate script (Maxwell-style force paper + basic I²R thermal), updated 2026-11-21 to current Ø6 mm NdFeB numbers; labeled estimate only
 
 ---

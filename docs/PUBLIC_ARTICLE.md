@@ -38,7 +38,7 @@ Each part on the face has one job.
 
 **Retention: the magnet.** An N52 disc sits in an Ø8.2 through-hole. You can't keep a 4 mm-deep blind pocket in a 1 mm plate, so the hole goes all the way through. A separate backing disc closes it from behind with a 2.0 mm solid back face, and that disc doubles as the heat spreader. The magnet holds the joint at zero power. Gate 5 sets the retention requirement from first principles. Take the 9.2 g module, assume 10 g of acceleration, and add a safety factor of 2. That gives 0.0092 × 10 × 9.81 × 2 = 1.805 N, so **F_hold must be at least 1.8 N**. It's a modest number next to the 34.6 N simulated snap pull, and gate 5 exists to prove that on a gauge rather than in a spreadsheet.
 
-**Release: Option A.** Release doesn't fight the magnet with brute force. A single Ø2.0 mm pin slides 3.0 mm in a Ø2.05 bore and breaks contact, and the coil pulse bucks the magnet's residual field while it does. The pin only breaks contact: it carries no torque and has no linkage. There are no cams. On the first article you push the pin by hand, with a finger or a flat tool. Solenoid or actuator drive is deferred to later work (see [docs/OPTION_A_RELEASE_SPEC.md](docs/OPTION_A_RELEASE_SPEC.md)).
+**Release: Option A.** Release doesn't fight the magnet with brute force. A single Ø2.0 mm pin slides 3.0 mm in a Ø2.05 bore and breaks contact, and the coil pulse bucks the magnet's residual field while it does. The pin only breaks contact: it carries no torque and has no linkage. There are no cams. On the first article you push the pin by hand, with a finger or a flat tool. Solenoid or actuator drive is deferred to later work (see [docs/OPTION_A_RELEASE_SPEC.md](OPTION_A_RELEASE_SPEC.md)).
 
 **Structure: three pins.** Shear load goes through three hardened Ø1.80 mm pins in Ø1.85 bores on a 7.45 mm radius. The angles are **73°, 155° and 328°**, deliberately not 120° apart. A symmetric layout left only 0.52 mm worst-case clearance against the 0.5 mm rule, which is too close to call it margin. The asymmetric layout comes with a bonus: the pattern isn't rotationally symmetric, so the face can only seat one way. The pins do the contact clocking for free. Pin engagement is 3.00 mm by design and at least 2.5 mm for acceptance, and the mating receptacle must be at least 2.5 mm deep. The shear bar is ≥ 40 N in four directions.
 
@@ -75,7 +75,7 @@ The current result is **98.04% all-pass**, with T3 at 99.30% (702 T3 failures in
 
 ## Metrology
 
-The bench plan is [docs/PROTOTYPE_PLAN.md](docs/PROTOTYPE_PLAN.md). It starts with eight pre-assembly checks, **A1–A8**:
+The bench plan is [docs/PROTOTYPE_PLAN.md](PROTOTYPE_PLAN.md). It starts with eight pre-assembly checks, **A1–A8**:
 
 - plate thickness and flatness
 - through-hole and backing-disc recess
@@ -98,11 +98,11 @@ Then come seven gates, in order:
 
 (The repo also contains a separate M1–M9 sequence. That one is for the later 25 mm cube cell and doesn't apply to this face.)
 
-Every number goes into [docs/MEASUREMENT_CARD.md](docs/MEASUREMENT_CARD.md), raw. If the hardware misses a bar, the design changes. The bar doesn't come down.
+Every number goes into [docs/MEASUREMENT_CARD.md](MEASUREMENT_CARD.md), raw. If the hardware misses a bar, the design changes. The bar doesn't come down.
 
 ## The Phase 1 boundary
 
-[docs/PHASE1.md](docs/PHASE1.md) is deliberately short on ambition. It covers **two modules, face to face, one joint**, and handing power and data across that single joint. It doesn't cover chains of three or more, lattice behaviour, or genderless faces. It is paper-only and proposed until Phase 0 has measured data.
+[docs/PHASE1.md](PHASE1.md) is deliberately short on ambition. It covers **two modules, face to face, one joint**, and handing power and data across that single joint. It doesn't cover chains of three or more, lattice behaviour, or genderless faces. It is paper-only and proposed until Phase 0 has measured data.
 
 The dock runs through a nine-state table, **S0–S8**:
 
@@ -131,6 +131,6 @@ Everything that can be done on a laptop has been done:
 
 What's missing is the physical **first coupon**: one machined 7075 plate with a magnet, a backing disc, three pins, a sliding pin, four springs, six pogos and a XIAO, taken through A1–A8 and gates 1–7.
 
-If you can machine small aluminium parts, have a force gauge and a load cell, or can fund a short run of plates and a handful of DigiKey parts, that's the help this project needs. The CAD is [cad/voxel_cell_phase0_20mm.scad](cad/voxel_cell_phase0_20mm.scad), the parts list is [bom/bom_netlist.txt](bom/bom_netlist.txt), and the full spec is [docs/PHASE0.md](docs/PHASE0.md). Open an issue on the repo or contact the owner. If you build one, fill in the measurement card, good numbers or bad.
+If you can machine small aluminium parts, have a force gauge and a load cell, or can fund a short run of plates and a handful of DigiKey parts, that's the help this project needs. The CAD is [cad/voxel_cell_phase0_20mm.scad](../cad/voxel_cell_phase0_20mm.scad), the parts list is [bom/bom_netlist.txt](../bom/bom_netlist.txt), and the full spec is [docs/PHASE0.md](PHASE0.md). Open an issue on the repo or contact the owner. If you build one, fill in the measurement card, good numbers or bad.
 
 The design is frozen until it's measured. **Hardware is the only remaining gate.**

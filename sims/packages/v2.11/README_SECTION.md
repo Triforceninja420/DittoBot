@@ -4,7 +4,7 @@
 
 Local package only. Nothing in this directory has been pushed. Suggested branch name: `v2.11-scored-candidate`.
 
-The prior 0.979 file is kept as `mars_bacteria_swarm_sim_v2_11_m050_0979.py` (sha256 `0c1080382d5138180259bf84f675f086d7314560d406f216fb125421365302de`), with matching stdout and docs suffixed `_m050_0979`.
+The prior 0.979 file is kept as `retired/mars_bacteria_swarm_sim_v2_11_m050_0979.py` (sha256 `0c1080382d5138180259bf84f675f086d7314560d406f216fb125421365302de`), with matching stdout and docs suffixed `_m050_0979`.
 
 ## Override dict (hard-set defaults)
 
@@ -44,6 +44,6 @@ main() ablations of note (seed 42): B (scav 1e-3, override kept) is now 240 in m
 ## Files
 
 - `mars_bacteria_swarm_sim_v2_11.py` — current candidate (m0.50 = 0.984)
-- `mars_bacteria_swarm_sim_v2_11_m050_0979.py` — 0.979 backup
+- `retired/mars_bacteria_swarm_sim_v2_11_m050_0979.py` — 0.979 backup
 - `v211_main_seed42.stdout` — full main() at seed 42, including CONTROL
 - `v211_seed_grids.stdout` — 12-cell grids at seeds 42, 1, 7, 123, 2024

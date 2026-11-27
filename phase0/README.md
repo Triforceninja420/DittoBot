@@ -11,9 +11,9 @@ for traceability only.
 
 ## Contents
 
-- `Phase_0_exact_coil_geometry.txt` — retired coil geometry
-- `Phase0_Force_Fixture.scad` — retired force-fixture CAD
-- `phase0_10_minute_Force_Fixture.txt` — retired measurement sequence
-- `Update_Recap_V1.3.20.txt` — retired Nov 5 update recap
+- `retired/Phase_0_exact_coil_geometry.txt` — retired coil geometry
+- `retired/Phase0_Force_Fixture.scad` — retired force-fixture CAD
+- `retired/phase0_10_minute_Force_Fixture.txt` — retired measurement sequence
+- `retired/Update_Recap_V1.3.20.txt` — retired Nov 5 update recap
 
 All four carry supersession notices at the top. The live stack is untouched.
