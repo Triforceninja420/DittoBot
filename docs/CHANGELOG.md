@@ -1,5 +1,8 @@
 # Changelog
 
+## 2026-11-27
+- Paper modules flushed to docs/: EX-MOD (extinguisher, DB-EX-MOD-001), BAR-MOD (barrier, DB-BAR-MOD-001), SAR mode package (Search / Rescue / Signal, DB-SAR-MODE-001). All three Phase 0 face-compatible, inherit locked 20 mm face + Nd disc hold + 40 N shear / 2,000-cycle envelope. Cross-linked from MODES.md, PAPER_STATUS.md, and README index. Performance claims deferred until Phase 0 face article exists and measurement card is filled.
+
 ## 2026-11-26
 - Repo organization: moved CHANGELOG.md, STATUS.md, and PUBLIC_ARTICLE.md into docs/ for a cleaner root. Polished README with badges, directory structure, and quick links. Funky fresh layout.
 
