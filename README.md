@@ -62,6 +62,9 @@ All current design sources live in `docs/`.
 | [mars/](docs/mars/) | Speculative Mars extensions — seed bots, converters, bacteria swarm (DB-MARS-CONV-006), governors. Paper/sim only. |
 | [EXTREME_ENVIRONMENTS.md](docs/EXTREME_ENVIRONMENTS.md) | Ocean, cryo, heat, rad, flight/exoskeleton, agency gates |
 | [MODES.md](docs/MODES.md) | Application modes: flight suit, pure exoskeleton, armored shell, soft companion, vehicle, habitat (paper inheritance) |
+| [EX_MOD.md](docs/EX_MOD.md) | Paper extinguisher module (Phase 0 face compatible) |
+| [BAR_MOD.md](docs/BAR_MOD.md) | Paper barrier module (Phase 0 face compatible) |
+| [SAR_MODES.md](docs/SAR_MODES.md) | Paper Search / Rescue / Signal mode package |
 | [POST_2040_OUTLOOK.md](docs/POST_2040_OUTLOOK.md) | Scale-change modes (speculative) |
 | [COMMUNITY_ENHANCEMENT_SUITES.md](docs/COMMUNITY_ENHANCEMENT_SUITES.md) | Optional zero-impact suites |
 
@@ -76,4 +79,4 @@ All current design sources live in `docs/`.
 
 ---
 
-Funky fresh as of 2026-11-26. Organized for clarity and speed.
+Funky fresh as of 2026-11-27. Organized for clarity and speed.
