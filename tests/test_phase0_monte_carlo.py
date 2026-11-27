@@ -42,13 +42,28 @@ class TestPhase0MonteCarlo(unittest.TestCase):
         import random
         rng = random.Random(7)
         frng = random.Random(13)
-        result = s.run_trial(rng, frng)
-        self.assertIsInstance(result, tuple)
-        self.assertEqual(len(result), 5)
-        for item in result[:5]:
-            self.assertIsInstance(item, bool)
-        # 5th element is T3 failure dict or None
-        self.assertTrue(result[4] is None or isinstance(result[4], dict))
+        saw_pass = saw_fail = False
+        for _ in range(200):
+            result = s.run_trial(rng, frng)
+            self.assertIsInstance(result, tuple)
+            # t1..t5 plus the T3 forensic record
+            self.assertEqual(len(result), 6)
+            for item in result[:5]:
+                self.assertIsInstance(item, bool)
+            # 6th element is T3 failure dict or None (None iff T3 passed)
+            t3_fail = result[5]
+            if result[2]:
+                self.assertIsNone(t3_fail)
+                saw_pass = True
+            else:
+                self.assertIsInstance(t3_fail, dict)
+                for key in ("vel", "lat", "spr", "shear_raw", "shear_eff"):
+                    self.assertIn(key, t3_fail)
+                saw_fail = True
+            if saw_pass and saw_fail:
+                break
+        self.assertTrue(saw_pass)
+        self.assertTrue(saw_fail)
 
 
 if __name__ == "__main__":

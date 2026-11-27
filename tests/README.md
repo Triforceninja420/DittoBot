@@ -27,7 +27,7 @@ python -m unittest discover -s tests -v
   patched to 1.
 - **test_phase0_monte_carlo.py** — loads `sims/phase0_monte_carlo.py`, checks
   N_TRIALS / seeds / sigma constants, and calls `run_trial` once to confirm
-  it returns a 5-tuple of booleans.
+  it returns a 6-tuple: five booleans (T1–T5) plus a T3 forensic dict or None.
 
 ## Note
 
