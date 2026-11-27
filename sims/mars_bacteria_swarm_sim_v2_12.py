@@ -3457,7 +3457,7 @@ def main():
     D5 = solved[5.0e-3]
     assert abs(D5 - DOUBLING_SOLS) < 1e-9, (D5, DOUBLING_SOLS)
     D1 = 8.82
-    A = run_config("A COMBINED (v2.11 CANDIDATE)", 5.0e-3, D5, True)
+    A = run_config("A COMBINED (v2.12 CANDIDATE)", 5.0e-3, D5, True)
     print("A survival draw distribution:")
     draw_rows(A)
     print()
@@ -3476,7 +3476,7 @@ def main():
           f"{'REPRODUCES v2.9' if diff == 0 else 'MISMATCH'}")
     print()
     print("Summary grid lines:")
-    for lab, c in (("A v2.11 CANDIDATE", A), ("B scav 1e-3 + ox", B), ("C scav 5e-3 only", C),
+    for lab, c in (("A v2.12 CANDIDATE", A), ("B scav 1e-3 + ox", B), ("C scav 5e-3 only", C),
                    ("REF v2.9", R)):
         print(grid_line(lab, c))
     print()
@@ -3499,7 +3499,7 @@ def main():
         r, a, m, tot, c = proteome_levels(STRESS_FACTOR[tier], tier_prot_cold(tier))
         print(f"  {tier:9s} reductase {r:.2f} total_het {tot:.4f}")
     allp = all(c["passed"] for c in A.values()) and sum(c["freeze_cross"] for c in A.values()) == 0
-    print(f"ALL GATES (A v2.11 CANDIDATE): {'PASS' if allp else 'FAIL'}")
+    print(f"ALL GATES (A v2.12 CANDIDATE): {'PASS' if allp else 'FAIL'}")
     print()
     run_lattice_horizon()
 
