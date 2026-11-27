@@ -8,6 +8,14 @@ All modes inherit the 25 mm cell (Nd disc Ø6.0 × 2–3 mm hold, coil release-o
 
 See EXTREME_ENVIRONMENTS.md for environmental inheritance and POST_2040_OUTLOOK.md for scale-change mechanisms these modes use.
 
+## Modular components (Phase 0 face compatible, paper)
+These are drop-in modules that mate via the locked Phase 0 20 mm face. Full specs:
+- [EX_MOD.md](EX_MOD.md) — Extinguisher module (suppressant cartridge, heat/smoke stub).
+- [BAR_MOD.md](BAR_MOD.md) — Barrier module (deployable panel for walls / containment).
+- [SAR_MODES.md](SAR_MODES.md) — Search / Rescue / Signal mode package (sensor stubs + lattice behaviors).
+
+All three remain paper until the Phase 0 face article exists and the measurement card is filled. Credit follows measured data.
+
 ## Flight Suit Mode (v5+)
 Lattice forms a wearable full-body shell around a human payload (torso, limbs, helmet volume). Variable density: denser at joints, shoulders, hips, and primary load paths; lighter panels elsewhere. Axial pin + detent carry the suit’s own weight and acceleration loads. Soft inner clearance or optional compliant layer protects the wearer. Can collapse back into a dense transport brick using the existing inward-compaction path.
 
