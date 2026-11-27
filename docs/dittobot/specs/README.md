@@ -74,6 +74,10 @@ These parent entries are mostly one-line listings. The paper specs record the li
 | [thermal-isolation.md](thermal-isolation.md) | conceptual | Local thermal runaway isolation |
 | [rf-discovery-beacon.md](rf-discovery-beacon.md) | conceptual | Low-power RF discovery beacon |
 
+### Companion, tool, and specialty modes (parent: [COMPANION_TOOL_MODES.md](../COMPANION_TOOL_MODES.md))
+
+Conceptual v0.1 catalog — one-to-two-sentence entries, not per-mode paper specs in this folder. EX-MOD and BAR-MOD stay on their existing docs above. Every mode in that file is conceptual: no phase assigned, no pass bars.
+
 ## Locked core (unchanged)
 
 All new specs inherit, and do not retune:

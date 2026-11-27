@@ -11,6 +11,7 @@ Do not confuse this file with:
 - [MODES.md](../MODES.md) — wearable / application inheritance (flight suit, exo, armored shell, companion, vehicle, habitat)
 - [SAR_MODES.md](../SAR_MODES.md) — Search / Rescue / Signal package
 - [POST_2040_OUTLOOK.md](../POST_2040_OUTLOOK.md) — multi-module inward compaction and outward expansion (many rigid voxels packing tighter, not one voxel collapsing)
+- [COMPANION_TOOL_MODES.md](COMPANION_TOOL_MODES.md) — companion, tool, and specialty modes (conceptual catalog)
 
 Any packing ratios, ranges, or cycle counts below are **illustrative / TBD**, not measured. No test results are claimed.
 
