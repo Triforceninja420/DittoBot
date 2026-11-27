@@ -8,6 +8,7 @@ take a few seconds — that's expected.
 import importlib.util
 import math
 import os
+import random
 import sys
 import unittest
 
@@ -65,16 +66,9 @@ class TestMarsSwarmSimRunOnce(unittest.TestCase):
 
     def test_single_run_returns_finite_dict(self):
         s = self.sim
-        # Patch down to one run so this stays fast.
-        old_n = s.N_RUNS
-        old_seed = s.SEED
-        s.N_RUNS = 1
-        s.SEED = 42
-        try:
-            result = s.run_once()
-        finally:
-            s.N_RUNS = old_n
-            s.SEED = old_seed
+        rng = random.Random(42)
+        # run_once(rng, perchlorate_pct, tier, ...)
+        result = s.run_once(rng, 0.50, "baseline")
         self.assertIsInstance(result, dict)
         for key, val in result.items():
             if isinstance(val, (int, float)):
