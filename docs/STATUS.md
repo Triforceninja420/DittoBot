@@ -1,6 +1,6 @@
 # DittoBot Mars Bacteria Swarm Sim — STATUS (v2.11)
 
-DB-MARS-CONV-006. Canonical scored candidate: `sims/mars_bacteria_swarm_sim_v2_11.py` (and the 0.979 backup) on main. Package metadata under `sims/packages/`.
+DB-MARS-CONV-006. Canonical scored candidate: `sims/mars_bacteria_swarm_sim_v2_11.py` on main.
 
 ## Headline
 - Scored candidate (v2.11): 12 of 12 cells pass. ALL GATES PASS (baseline 70%, moderate 60%, severe 50%) across multiple seeds (42, 1, 7, 123, 2024).
@@ -11,9 +11,9 @@ DB-MARS-CONV-006. Canonical scored candidate: `sims/mars_bacteria_swarm_sim_v2_1
 
 ## Current files on main
 - `sims/mars_bacteria_swarm_sim_v2_11.py` — scored candidate (153225 bytes)
-- `sims/mars_bacteria_swarm_sim_v2_11_m050_0979.py` — 0.979 backup
-- `sims/mars_bacteria_swarm_sim_v2_10.py` — prior scored run
 - `sims/phase0_monte_carlo.py` — Phase 0 docking confirmation
+- `retired/mars_bacteria_swarm_sim_v2_10.py` — prior scored run (archived)
+- `retired/mars_bacteria_swarm_sim_v2_11_m050_0979.py` — 0.979 backup (archived)
 - `sims/packages/` — consolidated BRANCH_NAME / COMMIT_MSG / README_SECTION files for the sensitivity packages
 
 ## What changed from v2.10
