@@ -40,4 +40,6 @@ elif mode == SIGNAL:
 - Phase 0 face article exists and has passed T1–T5.
 - Measurement card has at least the spare sense pins populated.
 
+Beacon Mode (swarm convergence on a fixed ping) is sketched separately in [dittobot/MODES.md](dittobot/MODES.md). It is conceptual and is not a SAR certification.
+
 Paper until measured. Credit follows data. See PHASE0.md, MEASUREMENT_CARD.md, and MODES.md.

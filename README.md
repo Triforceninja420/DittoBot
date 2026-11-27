@@ -66,6 +66,7 @@ All current design sources live in `docs/`.
 | [EX_MOD.md](docs/EX_MOD.md) | Paper extinguisher module (Phase 0 face compatible) |
 | [BAR_MOD.md](docs/BAR_MOD.md) | Paper barrier module (Phase 0 face compatible) |
 | [SAR_MODES.md](docs/SAR_MODES.md) | Paper Search / Rescue / Signal mode package |
+| [dittobot/MODES.md](docs/dittobot/MODES.md) | Conceptual swarm feature modes: Marble (collapse/expand), Repair (cannibalize/salvage), Beacon (ping convergence). Not Phase 0 work. |
 | [POST_2040_OUTLOOK.md](docs/POST_2040_OUTLOOK.md) | Scale-change modes (speculative) |
 | [COMMUNITY_ENHANCEMENT_SUITES.md](docs/COMMUNITY_ENHANCEMENT_SUITES.md) | Optional zero-impact suites |
 

@@ -7,6 +7,7 @@ Status: speculative inheritance roadmap for v5+. Does not change current baselin
 All modes inherit the 25 mm cell (Nd disc Ø6.0 × 2–3 mm hold, coil release-only, axial pin hard-lock, full cavity potting, face coatings, pulse-only). They add specialized faces, density behaviors, or power paths on top. Dock compatibility with earlier cells is preserved where possible. Paper until measured. Credit follows the measurement.
 
 See EXTREME_ENVIRONMENTS.md for environmental inheritance and POST_2040_OUTLOOK.md for scale-change mechanisms these modes use.
+See also [dittobot/MODES.md](dittobot/MODES.md) for conceptual swarm feature modes (Marble, Repair, Beacon) — roadmap only, not Phase 0 work.
 
 ## Modular components (Phase 0 face compatible, paper)
 These are drop-in modules that mate via the locked Phase 0 20 mm face. Full specs:
