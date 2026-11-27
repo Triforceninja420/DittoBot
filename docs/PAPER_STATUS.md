@@ -13,10 +13,12 @@ All items below are resolved at the documentation and geometry-note level. No fi
 - Agency interest gates (traceability, open notes, tamper baseline) documented.
 - Extreme-environment and exoskeleton/flight inheritance paths written and cross-linked.
 - Root legacy files removed. All live sources are in docs/ with a clear index. See CHANGELOG.md.
+- EX-MOD, BAR-MOD, and SAR mode package written as Phase 0 face-compatible paper modules (2026-11-27). See docs/EX_MOD.md, docs/BAR_MOD.md, docs/SAR_MODES.md, and the cross-links in docs/MODES.md.
 
 ## Still requires hardware
 - Actual ON/OFF force, release current, cycle life, plate temperature under pulse train.
 - Pin engagement wear and potting moisture/vacuum integrity.
 - Any claim of flight, deep-ocean pressure hull, or rad-hard flight units.
+- Any performance claim for EX-MOD, BAR-MOD, or SAR modes until the Phase 0 face article exists and the measurement card is filled.
 
 Credit follows measured data. This file only confirms the paper design is internally consistent.
