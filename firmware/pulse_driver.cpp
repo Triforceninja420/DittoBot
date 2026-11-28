@@ -12,6 +12,7 @@
 //   pulse trains, INA219 sensing, contact detection, state machine, error flags
 // Updated 2026-11-23: thermal trip corrected 60 -> 41 C to match PHASE0 rev-b;
 //   NTC fail-safe added (open/short forces 999 C, pulse refused)
+// Updated 2026-11-27: fixed uvint8_t/uvint32_t typos -> uint8_t/uint32_t (wouldn't compile)
 // ====================================================================
 
 #include <Arduino.h>

@@ -17,7 +17,7 @@ Design owned by Craig. Paper until measured. Credit follows data. Mars path is a
 - **Current sim status**: [docs/STATUS.md](docs/STATUS.md)
 - **Full changelog**: [docs/CHANGELOG.md](docs/CHANGELOG.md)
 - Run Phase 0 Monte Carlo: `python sims/phase0_monte_carlo.py`
-- Run Mars bacteria swarm: `python sims/mars_bacteria_swarm_sim_v2_11.py`
+- Run Mars bacteria swarm: `python sims/mars_bacteria_swarm_sim_v2_16.py`
 
 ## Directory Structure
 
@@ -76,7 +76,7 @@ All current design sources live in `docs/`.
 
 ## Re-runnable sims
 
-- [sims/mars_bacteria_swarm_sim_v2_11.py](sims/mars_bacteria_swarm_sim_v2_11.py) — Current scored candidate for DB-MARS-CONV-006. 12/12 cells, ALL GATES PASS. See [docs/STATUS.md](docs/STATUS.md).
+- [sims/mars_bacteria_swarm_sim_v2_16.py](sims/mars_bacteria_swarm_sim_v2_16.py) — Current scored candidate for DB-MARS-CONV-006. 12/12 cells, ALL GATES PASS. See [docs/STATUS.md](docs/STATUS.md).
 - [sims/phase0_monte_carlo.py](sims/phase0_monte_carlo.py) — Phase 0 docking confirmation Monte Carlo (~98% all-pass).
 
 ---
