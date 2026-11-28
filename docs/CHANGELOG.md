@@ -1,6 +1,8 @@
 # Changelog
 
 ## 2026-11-27
+- Review fixes: firmware/pulse_driver.cpp compile typos (`uvint8_t`/`uvint32_t` → `uint8_t`/`uint32_t`), README + STATUS.md pointed at v2.16 as scored candidate (v2.12–v2.16 were committed but docs still said v2.11), test_phase0_math.py now imports and exercises the real Monte Carlo module instead of asserting bare constants.
+- Added requirements.txt (pytest, flake8) so CI install step resolves.
 - Paper modules flushed to docs/: EX-MOD (extinguisher, DB-EX-MOD-001), BAR-MOD (barrier, DB-BAR-MOD-001), SAR mode package (Search / Rescue / Signal, DB-SAR-MODE-001). All three Phase 0 face-compatible, inherit locked 20 mm face + Nd disc hold + 40 N shear / 2,000-cycle envelope. Cross-linked from MODES.md, PAPER_STATUS.md, and README index. Performance claims deferred until Phase 0 face article exists and measurement card is filled.
 
 ## 2026-11-26
