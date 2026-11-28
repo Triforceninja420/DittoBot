@@ -15,15 +15,16 @@ Design owned by Craig. Started Nov/Dec 2025. Programmable matter.
 > **Face-size note (2026-11-23, Craig):** the Phase 0 face size is committed at **20 mm**, matching `sims/phase0_monte_carlo.py` ("same 20 mm face article"). Geometry tables dimension 20.00 × 20.00 mm; corner mounts per `cad/voxel_cell_phase0_20mm.scad`.
 
 It supersedes the frozen 20 mm hybrid face (4× Ø5 EPM, 1.8 mm pin) from earlier revisions.
-It is **not** the 25 mm cubic cell in this repository (`README.md`, `docs/BASELINE_UPGRADES.md`, `cad/voxel_cell.scad`).
+It is **not** the 25 mm cubic cell in this repository (`README.md`, `docs/BASELINE_UPGRADES.md`, `cad/voxel_cell.scad`). Phase 0 tests the 20 mm face. The 25 mm cube is the cell body spec.
 Do not paste 25 mm coil, driver, magnet, or hold numbers into this document.
 Do not paste these Phase 0 numbers into the 25 mm files.
 
 > **Option A note (2026-11-23, Craig):** Phase 0 release is the sliding-pin architecture defined in `docs/OPTION_A_RELEASE_SPEC.md` — magnet-pull retention (≥ 1.8 N), single Ø2.0 mm sliding pin, no cams on the face. Cams are deferred to Option A / the 25 mm cell and documented as superseded in `docs/GATE5_SUPERSEDED.md`.
 
 Public parent: `DittoBot_Phase0_Face_Public_Spec.docx`  
-CAD / SOP / BOM / sims: `Phase0_Independent_Fab_Package/` (v0.2, 2026-09-08)  
-Aluminum plate package: DittoBot_Phase0_Aluminum_FacePlate_Package_v0.1.txt (offline package, not in this repo)
+CAD / drawings in this repo: `cad/voxel_cell_phase0_20mm.scad`, `cad/DittoBot_Phase0_FacePlate_20mm.svg`, `cad/DittoBot_Phase0_FacePlate_Dimensions.txt`, and `tools/phase0_estimate.py`.  
+A `Phase0_Independent_Fab_Package/` (v0.2, 2026-09-08) is cited in earlier text; it was never committed to this repository (full git history has no such path) and is not reconstructed here.  
+Aluminum plate package: `DittoBot_Phase0_Aluminum_FacePlate_Package_v0.1.txt` (offline package, not in this repo).
 
 Status: **frozen** until measured ON / OFF / current / temperature / cycle data are published.
 
@@ -136,10 +137,10 @@ Mass: 9.2 g module. Thermal < 1.5 K at 0.44 W pulse-duty. Cycles: 2 000 dock/und
 
 ## Fab package
 
-- `cad/voxel_cell_phase0_20mm.scad` (the real SCAD — blind 0.75 mm pocket, Option A sliding-pin release, 3-pin latch, 20 mm envelope)
+- `cad/voxel_cell_phase0_20mm.scad` (the real SCAD — blind Ø8.2 × 4.0 mm pocket, Option A sliding-pin release, 3-pin latch, 20 mm envelope)
 - `cad/DittoBot_Phase0_FacePlate_20mm.svg` (top-view fab drawing, generated 2026-11-23 from the 20 mm redesign)
 - `cad/DittoBot_Phase0_FacePlate_Dimensions.txt` (dimension table tracking locked spec numbers)
-- `Phase0_Independent_Fab_Package/` (v0.2, 2026-09-08) — SOP, BOM, sims
+- `Phase0_Independent_Fab_Package/` (v0.2, 2026-09-08) was never committed to this repository (full history search; no such path). Face SOP/BOM/sims in-tree are the CAD and estimate script listed above. This file does not fabricate the missing package.
 - DittoBot_Phase0_Aluminum_FacePlate_Package_v0.1.txt — aluminum plate package (offline package, not in this repo)
 - `tools/phase0_estimate.py` — public estimate script (Maxwell-style force paper + basic I²R thermal), updated 2026-11-21 to current Ø6 mm NdFeB numbers; labeled estimate only
 
@@ -162,7 +163,7 @@ Mass: 9.2 g module. Thermal < 1.5 K at 0.44 W pulse-duty. Cycles: 2 000 dock/und
 **Intentional relief (design-side insurance)**
 - Sliding-pin bore: Ø2.0 mm nominal; verify roundness and finish before assembly.
 - Pin bores: drill 0.05 mm oversize with the option to ream to final fit. A slightly loose pin that you bond in place beats a hole you can't clean up.
-- Magnet pocket: blind depth 0.75 mm nominal; verify with depth micrometer through the opening before pressing. A pocket 0.1 mm shallow is a press-fit disaster; 0.1 mm deep just means the magnet sits proud and you sand it flush.
+- Magnet pocket: locked Ø8.2 × 4.0 mm, blind (back intact as heat spreader), as in the geometry section and `cad/voxel_cell_phase0_20mm.scad`. Verify that depth with a depth micrometer through the opening before pressing. The 0.75 mm blind depth was the retired 30 mm face pocket (Ø6.10 × 0.75; see `retired/DittoBot_Phase0_FacePlate_Dimensions.txt`), not a current-article dimension and not a remaining floor thickness.
 
 **Metrology sequence (article one)**
 1. **Pin-bore true position** — CMM if available; otherwise a dowel pin of bore diameter plus a digital caliper. Catch a 0.5 mm offset before assembly.

@@ -25,7 +25,7 @@ The locked 25 mm cell core is unchanged and is **not** the article on this bench
 - Full cavity potting and face coatings
 - XIAO RP2040, 3.3 V; 36–48 V pulse bank
 
-The Phase 0 article itself is the 20 × 20 mm, 7075-T6 face in [PHASE0.md](../PHASE0.md). Two stacks stay unmixed.
+The Phase 0 article itself is the 20 × 20 mm, 7075-T6 face in [PHASE0.md](../PHASE0.md). Two stacks stay unmixed. Phase 0 tests the 20 mm face. The 25 mm cube is the cell body spec.
 
 ---
 

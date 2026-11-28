@@ -151,9 +151,14 @@ Full netlist with supplier links and approx. prices in
 TI offers free DRV8871 samples — order if lead time allows. Magnet grade
 (N52 vs N42) and coating swing the price; verify axial field before ordering.
 
-Phase 0 face parts (plate, sliding pin, pins, springs, pogos) are in the fab
-package under `Phase0_Independent_Fab_Package/` (v0.2) and the aluminum
-plate package.
+Phase 0 face parts (plate, sliding pin, pins, springs, pogos) are specified
+in `docs/PHASE0.md` and the in-repo CAD (`cad/voxel_cell_phase0_20mm.scad`,
+`cad/DittoBot_Phase0_FacePlate_20mm.svg`,
+`cad/DittoBot_Phase0_FacePlate_Dimensions.txt`). A
+`Phase0_Independent_Fab_Package/` (v0.2) is cited in earlier text but was
+never committed to this repository. The aluminum plate package
+(`DittoBot_Phase0_Aluminum_FacePlate_Package_v0.1.txt`) is an offline
+package, not in this repo.
 
 ---
 

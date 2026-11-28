@@ -13,6 +13,8 @@ Two stacks stay unmixed.
 
 Do not paste 25 mm coil / driver / magnet / hold numbers into Phase 0. Do not paste Phase 0 numbers into the 25 mm files.
 
+Phase 0 tests the 20 mm face. The 25 mm cube is the cell body spec. They are not the same article.
+
 **Exception (Craig's brief, 2026-11-23):** `docs/HARDWARE_MAPPING.md` is allowed to map Phase 0 sim parameters and gates onto the 25 mm cell hardware. That file is the only exception; every other file keeps the two stacks unmixed.
 
 **Current 25 mm baseline (2026-11-19, magnet updated 2026-11-23):** Nd disc Ø6.0 mm × 2–3 mm hold in the Ø8.2 × 4.0 pocket (coil around the disc, release-only, sized for I_release; Alnico off this cell), axial pin hard-lock, full cavity potting, PTFE lip + coatings, pulse-only drive with thermal governor, 36 V nominal pulse bank into DRV8871 (stay under 45 V abs). Pocket locked Ø8.2 × 4.0 mm.
@@ -41,7 +43,7 @@ Earlier 20 mm 4×EPM face and the Ø6 mm Nd/Alnico flip-stack 25 mm descriptions
 8. **Two stacks unmixed.** Phase 0 (20 mm, Nd disc Ø6.0×2–3, DRV8871 pulse, 3-pin, Option A sliding pin) is not the 25 mm cell (Nd disc Ø6.0 × 2–3 hold, DRV8871 pulse, axial pin, potting). Do not mix numbers. Exception: `docs/HARDWARE_MAPPING.md` (Craig's brief, 2026-11-23).
 9. **Drive discipline.** Hold current after switch is **zero**. Pulse-duty only. Coil sized for release, not hold. Thermal governor required on the 25 mm cell. Pulse bank voltage stays under the driver absolute maximum.
 
-Phase 0 drive remains capacitor dump, IRLZ44N class, 220 µF charged 30–36 V, 34 AWG, 40 turns. Those numbers live only in `docs/PHASE0.md`.
+Phase 0 drive is a 40-turn 34 AWG coil (~0.75 Ω cold) pulsed by a DRV8871, as in `docs/PHASE0.md`. The earlier capacitor-dump / IRLZ44N class, 220 µF charged 30–36 V drive was superseded (documented in `phase0/retired/`; already absent from `docs/PHASE0.md` when that file first landed in this repo, `7d0fd8f`, 2026-11-27). A 2026-11-23 handoff in `retired/CHANGES.md` already recorded that this LOCKS note should be replaced with DRV8871.
 
 ---
 
